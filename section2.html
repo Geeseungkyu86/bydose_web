@@ -1,0 +1,233 @@
+<div id="master-track" class="master-track">
+
+  <div id="night-stars" class="night-stars"></div>
+
+  <div class="master-sticky" id="masterSticky">
+
+    <div id="day-video" class="day-video-wrapper">
+      <svg style="display: none;">
+        <filter id="film-grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+          <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.1 0" />
+        </filter>
+      </svg>
+
+      <div class="video-container">
+        <iframe src="https://player.vimeo.com/video/1204431686?background=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <div class="video-grain-overlay"></div>
+      </div>
+    </div>
+
+    <div class="gngs-wrap">
+      <div class="gngs-left">
+        <div class="left-content" id="leftNight">
+          <div class="gngs-tag">Good Night = Good Skin</div>
+          <div class="gngs-title">피부는 밤사이<br>회복에 집중합니다.</div>
+        </div>
+        <div class="left-content" id="leftDay">
+          <div class="gngs-tag day-tag">Night Night Cream™</div>
+          <div class="gngs-title">밤에 일하는<br>피부를 위한 설계.</div>
+        </div>
+      </div>
+
+      <div class="gngs-right">
+        <div class="gngs-slot" id="gngsSlot">
+          <div class="gngs-item"><div class="gngs-label">세포 재생</div><div class="gngs-number">성장호르몬<br>70%분비</div><div class="gngs-desc">수면 3-4시간 동안 집중 분비, 세포재생과 회복에 관여합니다.</div><div class="gngs-source-wrap"><a class="gngs-source" href="https://pubmed.ncbi.nlm.nih.gov/7976404/" target="_blank">↗ Van Cauter et al. 2000</a></div></div>
+          <div class="gngs-item"><div class="gngs-label">산소·영양 공급</div><div class="gngs-number">혈류량<br>4배 증가</div><div class="gngs-desc">혈관 이완을 통한 혈류량 증가,<br>⌜산소와 영양 공급량⌟이 증가합니다.</div><div class="gngs-source-wrap"><a class="gngs-source" href="https://pubmed.ncbi.nlm.nih.gov/7976404/" target="_blank">↗ Noll et al. 1994</a></div></div>
+          <div class="gngs-item"><div class="gngs-label">장벽 회복</div><div class="gngs-number">30% 향상</div><div class="gngs-desc">온전한 수면을 취할 때 <br>손상된 피부 장벽의 복구 능력이 30% 향상됩니다.</div><div class="gngs-source-wrap"><a class="gngs-source" href="https://pubmed.ncbi.nlm.nih.gov/24471470/" target="_blank">↗ Oyetakin-White et al. 2015</a></div></div>
+          <div class="gngs-item">
+            <div class="gngs-label">제형과 아로마가 선사하는</div>
+            <div class="gngs-number day-number">¹굿나잇무드</div>
+            <div class="gngs-desc">좋은 잠은 좋은 분위기로부터,<br>제형과 아로마로 만드는 안락함.</div>
+          </div>
+          <div class="gngs-item">
+            <div class="gngs-label">피부 결을 정리합니다</div>
+            <div class="gngs-number day-number">²회복 환경 준비하기</div>
+            <div class="gngs-desc">피부결을 정리해서,<br>피부가 회복할 토대를 마련합니다.</div>
+          </div>
+          <div class="gngs-item">
+            <div class="gngs-label">수분을 채웁니다</div>
+            <div class="gngs-number day-number">³촉촉한 환경 만들기</div>
+            <div class="gngs-desc">피부에 수분을 채우고 순환을 도와,<br>회복하기 좋은 촉촉한 환경을 만듭니다.</div>
+          </div>
+          <div class="gngs-item">
+            <div class="gngs-label">피부 장벽을 보완합니다</div>
+            <div class="gngs-number day-number">⁴회복 환경 보호하기</div>
+            <div class="gngs-desc">장벽을 보완하고 보호막을 더해,<br>피부 회복 환경을 지킵니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .master-track { position: relative !important; width: 100% !important; height: 1500vh !important; background-color: transparent; transition: background-color 1.5s ease; }
+  .master-track.is-dark { background-color: #2A2A29 !important; }
+
+  .night-stars { position: absolute; inset: 0; opacity: 0; z-index: 1; transition: opacity 1.5s ease; pointer-events: none; }
+  .master-track.is-dark .night-stars { opacity: 1; }
+
+  .master-sticky { position: sticky !important; top: 0 !important; width: 100% !important; height: 100dvh !important; z-index: 2; display: flex; align-items: center; overflow: hidden; }
+
+  :root {
+    --video-brightness: 1.1;
+    --video-saturation: 0.8;
+    --video-blur: 2px;
+    --video-grain-opacity: 0.5;
+  }
+
+  .day-video-wrapper {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0; opacity: 0; transition: opacity 1.5s ease;
+    pointer-events: none; overflow: hidden;
+  }
+
+  .video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .video-container iframe {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw; height: 56.25vw; min-height: 100dvh; min-width: 177.77vh;
+    pointer-events: none; border: none;
+    filter: brightness(var(--video-brightness)) saturate(var(--video-saturation)) blur(var(--video-blur));
+  }
+
+  .video-grain-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    filter: url(#film-grain);
+    opacity: var(--video-grain-opacity);
+    mix-blend-mode: overlay;
+  }
+
+  .gngs-wrap { position: relative; z-index: 2; width: 100% !important; margin: 0 !important; display: flex !important; align-items: flex-start !important; padding: 0 !important; }
+
+  .gngs-left { position: relative !important; flex: 0 0 50% !important; height: 180px !important; color: #2A2A29; transition: color 1.5s ease; }
+  .master-track.is-dark .gngs-left { color: #F3F3E9 !important; }
+
+  .left-content { position: absolute !important; top: 0 !important; left: max(24px, calc((100vw - 960px) / 2 + 24px)) !important; right: 24px !important; opacity: 0; transform: translateY(0); }
+
+  .gngs-right { flex: 0 0 50% !important; display: flex !important; justify-content: center !important; padding: 0 24px !important; position: relative !important; color: #2A2A29; transition: color 1.5s ease; }
+  .master-track.is-dark .gngs-right { color: #F3F3E9 !important; }
+
+  .gngs-slot { position: relative !important; width: 100% !important; max-width: 430px !important; height: 380px !important; overflow: hidden !important; }
+  .gngs-item { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; opacity: 0; transform: translateY(40px); pointer-events: none !important; }
+
+  .gngs-tag { font-weight: 500 !important; font-size: 24px !important; letter-spacing: -0.3px !important; margin-bottom: 24px !important; color: inherit; }
+  .master-track:not(.is-dark) .day-tag { color: #D35B40 !important; }
+  .gngs-title { font-weight: 700 !important; font-size: 36px !important; letter-spacing: -0.45px !important; line-height: 1.45 !important; color: inherit; }
+  .gngs-label { font-weight: 500 !important; font-size: 24px !important; letter-spacing: -0.3px !important; margin-bottom: 8px !important; color: inherit; opacity: 0.7; }
+  .gngs-number { font-weight: 700 !important; font-size: 72px !important; letter-spacing: -0.9px !important; line-height: 72px !important; margin-bottom: 8px !important; background-image: linear-gradient(259deg, #D35B40 0%, #9DAABA 100%) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; color: #9DAABA !important; display: inline-block !important; }
+  .day-number { background-image: linear-gradient(260deg, #2A2A29 0%, #9DAABA 100%) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; color: #2A2A29 !important; font-size: 56px !important; line-height: 1.2 !important; display: inline-block !important; }
+  .gngs-desc { font-weight: 500 !important; font-size: 16px !important; letter-spacing: -0.2px !important; line-height: 24px !important; margin-bottom: 10px !important; color: inherit; }
+  .gngs-source { display: inline-flex !important; align-items: center !important; justify-content: center !important; padding: 6px 14px !important; border-radius: 999px !important; font-weight: 500 !important; font-size: 12px !important; text-decoration: none !important; background-color: rgba(42, 42, 41, 0.08) !important; color: rgba(42, 42, 41, 0.6) !important; }
+  .master-track.is-dark .gngs-source { background-color: rgba(255, 255, 255, 0.15) !important; color: rgba(243, 243, 233, 0.6) !important; }
+
+  @media (max-width: 992px) {
+    .gngs-wrap { flex-direction: column !important; padding: 0 !important; }
+    .gngs-left { flex: unset !important; width: 100% !important; margin-bottom: 48px !important; height: auto !important; min-height: 140px !important; }
+    .left-content { left: 24px !important; right: 24px !important; }
+    .gngs-right { flex: unset !important; width: 100% !important; padding: 0 24px !important; justify-content: flex-start !important; }
+    .gngs-slot { max-width: 100% !important; }
+    .gngs-title { font-size: 24px !important; }
+    .gngs-number { font-size: 48px !important; line-height: 56px !important; }
+    .day-number { font-size: 40px !important; }
+  }
+</style>
+
+<script>
+(function() {
+  var starsEl = document.getElementById('night-stars');
+  for (var i = 0; i < 50; i++) {
+    var s = document.createElement('div');
+    var sz = Math.random() < 0.3 ? 3 : 2;
+    s.style.cssText = 'position:absolute;left:' + (Math.random()*100) + '%;top:' + (Math.random()*100) + '%;width:' + sz + 'px;height:' + sz + 'px;background:#fff;border-radius:50%;animation:twinkle ' + (2+Math.random()*4) + 's ' + (Math.random()*3) + 's infinite';
+    starsEl.appendChild(s);
+  }
+
+  var track     = document.getElementById('master-track');
+  var items     = document.querySelectorAll('.gngs-item');
+  var leftNight = document.getElementById('leftNight');
+  var leftDay   = document.getElementById('leftDay');
+  var dayVideo  = document.getElementById('day-video');
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  var ranges = [
+    { s:0.02, e:0.06, os:0.13, oe:0.16 }, // 1. 세포 재생
+    { s:0.15, e:0.19, os:0.26, oe:0.29 }, // 2. 산소·영양
+    { s:0.28, e:0.32, os:0.39, oe:0.42 }, // 3. 장벽 보호
+    { s:0.51, e:0.55, os:0.63, oe:0.66 }, // 4. 굿나잇 무드
+    { s:0.65, e:0.69, os:0.77, oe:0.80 }, // 5. 회복 환경 준비
+    { s:0.79, e:0.83, os:0.91, oe:0.94 }, // 6. 촉촉한 환경
+    { s:0.93, e:0.97, os:1.00, oe:1.00 }  // 7. 환경 지키기
+  ];
+
+  function onScroll() {
+    var rect      = track.getBoundingClientRect();
+    var scrolled  = -rect.top;
+    var maxScroll = track.offsetHeight - window.innerHeight;
+    var ratio     = Math.max(0, Math.min(1, scrolled / maxScroll));
+
+    var isDarkPhase = (scrolled >= 0) && (ratio < 0.45);
+    track.classList.toggle('is-dark', isDarkPhase);
+
+    if (dayVideo) {
+      dayVideo.style.opacity = (ratio >= 0.45) ? 1 : 0;
+    }
+
+    var nightOp = 1, nightY = 0;
+    if (ratio < 0.38) {
+      nightOp = 1; nightY = 0;
+    } else if (ratio < 0.42) {
+      var t = (ratio - 0.38) / 0.04;
+      nightOp = 1 - t; nightY = lerp(0, -20, t);
+    } else {
+      nightOp = 0; nightY = -20;
+    }
+
+    var dayOp = 0, dayY = 20;
+    if (ratio < 0.46) {
+      dayOp = 0; dayY = 20;
+    } else if (ratio < 0.50) {
+      var t = (ratio - 0.46) / 0.04;
+      dayOp = t; dayY = lerp(20, 0, t);
+    } else {
+      dayOp = 1; dayY = 0;
+    }
+
+    leftNight.style.opacity = nightOp;
+    leftNight.style.transform = 'translateY(' + nightY + 'px)';
+    leftDay.style.opacity = dayOp;
+    leftDay.style.transform = 'translateY(' + dayY + 'px)';
+
+    items.forEach(function(item, idx) {
+      var r = ranges[idx];
+      if (!r) return;
+      var op = 0, y = 40;
+      if (ratio >= r.s && ratio < r.e) {
+        var t = (ratio - r.s) / (r.e - r.s);
+        op = t; y = lerp(40, 0, t);
+      } else if (ratio >= r.e && ratio < r.os) {
+        op = 1; y = 0;
+      } else if (ratio >= r.os && ratio <= r.oe) {
+        var t = (ratio - r.os) / (r.oe - r.os);
+        op = 1 - t; y = lerp(0, -40, t);
+      }
+      item.style.opacity = op;
+      item.style.transform = 'translateY(' + y + 'px)';
+      item.style.pointerEvents = op > 0.5 ? 'auto' : 'none';
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>

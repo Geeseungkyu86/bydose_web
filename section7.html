@@ -1,0 +1,194 @@
+<div id="sum-native-master-root" class="sum-native-master">
+
+  <div class="sum-bg-layer">
+    <div class="sum-bg-sticky">
+      <div class="sum-vid-bg">
+        <svg style="display: none;">
+          <filter id="sum-film-grain">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+            <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.1 0" />
+          </filter>
+        </svg>
+        <iframe src="https://player.vimeo.com/video/1204436355?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        <div class="sum-vid-overlay"></div>
+        <div class="sum-vid-grain-overlay"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sum-content-layer">
+    <div class="sum-container">
+
+      <div class="sum-col-left" id="sum-left-content">
+        <div class="sum-sub-title">Night Night Cream™</div>
+        <div class="sum-main-title">Good Night = Good Skin</div>
+        <div class="sum-desc">당신이 잠든 사이<br>피부가 회복에 집중할 환경을 만듭니다.</div>
+      </div>
+
+      <div class="sum-col-right">
+        <div class="sum-items-wrapper">
+
+          <div class="sum-item sum-item-anim">
+            <div class="sum-dash"></div>
+            <div class="sum-item-text">¹ 굿나잇무드</div>
+          </div>
+
+          <div class="sum-item sum-item-anim">
+            <div class="sum-dash"></div>
+            <div class="sum-item-text">² 회복 환경 준비하기</div>
+          </div>
+
+          <div class="sum-item sum-item-anim">
+            <div class="sum-dash"></div>
+            <div class="sum-item-text">³ 촉촉한 환경 만들기</div>
+          </div>
+
+          <div class="sum-item sum-item-anim">
+            <div class="sum-dash"></div>
+            <div class="sum-item-text">⁴ 회복 환경 보호하기</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<style>
+  .sum-native-master {
+    --sum-track-h: 500vh;
+    --video-brightness: 0.7;
+    --video-saturation: 1.2;
+    --video-blur: 1px;
+    --video-grain-opacity: 0.5;
+  }
+
+  .sum-native-master {
+    position: relative !important;
+    width: 100% !important;
+    height: var(--sum-track-h) !important;
+    background-color: #1a1a1a !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: clip !important;
+    overflow-anchor: none !important;
+  }
+
+  .sum-bg-layer { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; z-index: 1 !important; pointer-events: none !important; }
+
+  .sum-bg-sticky {
+    position: sticky !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+    will-change: transform !important;
+  }
+
+  .sum-vid-bg { position: relative !important; width: 100vw !important; height: 100% !important; overflow: hidden !important; }
+  .sum-vid-bg iframe { position: absolute !important; top: 50% !important; left: 50% !important; width: 100vw !important; height: 56.25vw !important; min-height: 100vh !important; min-width: 177.77vh !important; transform: translate(-50%, -50%) !important; pointer-events: none !important; filter: brightness(var(--video-brightness)) saturate(var(--video-saturation)) blur(var(--video-blur)); }
+  .sum-vid-overlay { position: absolute !important; inset: 0 !important; background: rgba(20, 18, 15, 0.4) !important; pointer-events: none !important; }
+  .sum-vid-grain-overlay { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; pointer-events: none !important; z-index: 2 !important; filter: url(#sum-film-grain) !important; opacity: var(--video-grain-opacity) !important; mix-blend-mode: overlay !important; }
+
+  .sum-content-layer { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; z-index: 5 !important; pointer-events: none !important; }
+
+  .sum-container { position: sticky !important; top: 0 !important; display: flex !important; justify-content: space-between !important; align-items: center !important; width: 100% !important; max-width: 1200px !important; height: 100vh !important; margin: 0 auto !important; padding: 0 40px !important; box-sizing: border-box !important; }
+
+  .sum-col-left {
+    flex: 1 !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: flex-start !important;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .sum-col-left.is-visible { opacity: 1; transform: translateY(0); }
+
+  .sum-sub-title { font-weight: 600 !important; font-size: 24px !important; color: #D35B40 !important; letter-spacing: -0.3px !important; margin-bottom: 12px !important; }
+  .sum-main-title { font-weight: 700 !important; font-size: 36px !important; color: #F3F3E9 !important; letter-spacing: -0.5px !important; line-height: 1.2 !important; margin-bottom: 24px !important; }
+  .sum-desc { font-weight: 500 !important; font-size: 21px !important; color: #F3F3E9 !important; letter-spacing: -0.2px !important; line-height: 1.6 !important; word-break: keep-all !important; }
+
+  .sum-col-right { flex: 1 !important; display: flex !important; justify-content: flex-end !important; align-items: center !important; }
+  .sum-items-wrapper { display: flex !important; flex-direction: column !important; gap: 40px !important; }
+
+  .sum-item { display: flex !important; flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+  .sum-dash { width: 16px !important; height: 1px !important; background-color: rgba(243, 243, 233, 0.5) !important; }
+  .sum-item-text { font-weight: 500 !important; font-size: 24px !important; color: #F3F3E9 !important; letter-spacing: -0.3px !important; }
+
+  .sum-item-anim {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .sum-item-anim.is-visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 992px) {
+    .sum-native-master { --sum-track-h: 250vh; }
+
+    .sum-container { flex-direction: column !important; justify-content: center !important; gap: 60px !important; padding: 0 24px !important; }
+
+    .sum-col-left { flex: none !important; width: 100% !important; align-items: center !important; text-align: center !important; }
+    .sum-sub-title { font-size: 16px !important; margin-bottom: 8px !important; }
+    .sum-main-title { font-size: 32px !important; margin-bottom: 16px !important; }
+    .sum-desc { font-size: 15px !important; line-height: 1.5 !important; }
+
+    .sum-col-right { flex: none !important; width: 100% !important; justify-content: center !important; }
+    .sum-items-wrapper { width: 100% !important; max-width: 300px !important; gap: 32px !important; }
+    .sum-item { align-items: center !important; gap: 8px !important; text-align: center !important; }
+    .sum-item-text { font-size: 16px !important; }
+  }
+</style>
+
+<script>
+(function() {
+  var track = document.getElementById('sum-native-master-root');
+  var leftContent = document.getElementById('sum-left-content');
+  var rightItems = document.querySelectorAll('.sum-item-anim');
+
+  var ticking = false;
+
+  var THRESHOLDS = {
+    left:  0.05,
+    items: [0.20, 0.40, 0.60, 0.80]
+  };
+
+  function handleAnimation() {
+    if (!track) return;
+
+    var rect = track.getBoundingClientRect();
+    var scrolled = -rect.top;
+
+    if (scrolled < 0) {
+      leftContent && leftContent.classList.remove('is-visible');
+      rightItems.forEach(function(item) { item.classList.remove('is-visible'); });
+      ticking = false;
+      return;
+    }
+
+    var scrollable = track.offsetHeight - window.innerHeight;
+    var progress = scrollable > 0 ? Math.min(1, scrolled / scrollable) : 1;
+
+    if (leftContent) {
+      if (progress >= THRESHOLDS.left) leftContent.classList.add('is-visible');
+      else leftContent.classList.remove('is-visible');
+    }
+
+    rightItems.forEach(function(item, i) {
+      var threshold = THRESHOLDS.items[i] !== undefined ? THRESHOLDS.items[i] : 1;
+      if (progress >= threshold) item.classList.add('is-visible');
+      else item.classList.remove('is-visible');
+    });
+
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(handleAnimation);
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  setTimeout(handleAnimation, 100);
+})();
+</script>
