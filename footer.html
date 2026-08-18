@@ -1,0 +1,124 @@
+<style>
+  /* 1. 아임웹 기본 푸터의 master 틀은 살려두되, 배경색을 우리 색상으로 강제 동기화 */
+  #footer, .common_footer, footer {
+    background-color: #2A2A29 !important;
+    height: auto !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    padding: 60px 0 !important;
+  }
+
+  /* 2. 아임웹이 자동으로 생성하는 푸터 내부의 기본 텍스트/요소들만 싹 숨김 처리 (시스템 감지 우회 핵심) */
+  #footer > div:not(.custom-rebuilt-footer), 
+  .common_footer > div:not(.custom-rebuilt-footer),
+  footer > div:not(.custom-rebuilt-footer) {
+    display: none !important;
+  }
+
+  /* 3. 복구된 우리 푸터 스타일 및 모바일 반응형 대응 */
+  .custom-rebuilt-footer {
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 24px !important;
+    box-sizing: border-box !important;
+    background-color: #2A2A29 !important;
+    color: #F3F3E9 !important;
+    font-family: '42dot Sans', sans-serif !important;
+    text-align: left !important;
+  }
+
+  @media (max-width: 768px) {
+    .custom-rebuilt-footer {
+      padding: 0 16px !important;
+    }
+    .footer-wrap {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+    }
+    .footer-cols {
+      flex-direction: column !important;
+      gap: 40px !important;
+    }
+    .footer-sns {
+      margin-top: 40px !important;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // 아임웹 푸터 엘리먼트 타겟팅
+  var imwebFooter = document.getElementById('footer') || document.querySelector('.common_footer') || document.querySelector('footer');
+  
+  if (imwebFooter) {
+    // 푸터 HTML 구조 정의
+    var rebuiltFooterHTML = `
+      <div class="custom-rebuilt-footer">
+        <div class="footer-wrap" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; border-bottom:1px solid rgba(243,243,233,0.3); padding-bottom:40px; margin-bottom:40px;">
+
+          <div class="footer-cols" style="display:flex; flex-wrap:wrap; column-gap:120px; row-gap:32px;">
+
+            <div style="flex:0 0 auto; max-width:220px;">
+              <div style="font-size:20px; font-weight:700; margin-bottom:16px;">이야기</div>
+              <div style="font-size:14px; line-height:1.8;"><a href="https://bydose.kr/story" style="color:#F3F3E9; text-decoration:none;">바이도즈 이야기</a></div>
+            </div>
+
+            <div style="flex:0 0 auto; max-width:220px;">
+              <div style="font-size:20px; font-weight:700; margin-bottom:16px;">제품</div>
+              <div style="font-size:14px; line-height:1.8;"><a href="https://bydose.kr/nightnight" style="color:#F3F3E9; text-decoration:none;">나잇나잇크림™</a></div>
+            </div>
+
+            <div style="flex:0 0 auto; max-width:220px;">
+              <div style="font-size:20px; font-weight:700; margin-bottom:16px;">지원</div>
+              <div style="font-size:14px; line-height:1.8;"><a href="https://bydose.channel.io" style="color:#F3F3E9; text-decoration:none;" target="_blank">문의하기</a></div>
+              <div style="font-size:14px; line-height:1.8;"><a href="https://bydose.channel.io" style="color:#F3F3E9; text-decoration:none;" target="_blank">자주 묻는 질문</a></div>
+              <div style="font-size:14px; line-height:1.8;"><a href="https://bydose.kr/shop_mypage/?m2=order" style="color:#F3F3E9; text-decoration:none;">배송 조회</a></div>
+              <div style="font-size:14px; line-height:1.8;"><a href="https://bydose.kr/shop_mypage/?m2=order" style="color:#F3F3E9; text-decoration:none;">주문 현황</a></div>
+            </div>
+
+          </div>
+
+          <div class="footer-sns" style="display:flex; align-items:flex-start; gap:16px; margin-top:8px;">
+            <a href="https://www.instagram.com/bydose_kr/" target="_blank" style="display:inline-block; width:22px; height:22px;"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/f86049a590d25.png" alt="Instagram" style="width:24px; height:24px;"></a>
+          </div>
+        </div>
+
+        <div style="font-size:13px; line-height:1.8; opacity:0.85;">
+          <div>(주)글리컴퍼니 | 대표자: 지승규</div>
+          <div>사업자번호: 132-86-37943 | 통신판매업신고: 2026-서울강동-1047</div>
+          <div>주소: 서울 강동구 명일로 238 도림시티빌 111,112호 | 대표전화: 070-7797-3276</div>
+          <div style="margin-top:24px;">ⓒ 2026 byDose All Rights Reserved</div>
+          <div style="margin-top:8px;">
+            <a href="#" class="custom-terms-modal-btn" data-mode="policy" style="color:#F3F3E9; text-decoration:none; opacity:0.8;">이용약관</a>
+            <span style="margin:0 8px;">·</span>
+            <a href="#" class="custom-terms-modal-btn" data-mode="privacy" style="color:#F3F3E9; text-decoration:none; opacity:0.8;">개인정보처리방침</a>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // 아임웹 기본 푸터 내부에 우리 푸터 코드를 강제로 삽입
+    imwebFooter.insertAdjacentHTML('beforeend', rebuiltFooterHTML);
+
+    // 약관 모달창 강제 우회 호출 스크립트 추가
+    document.addEventListener("click", function(e) {
+      var btn = e.target.closest('.custom-terms-modal-btn');
+      if (btn) {
+        e.preventDefault();
+        var mode = btn.getAttribute('data-mode');
+        
+        // 1순위: 아임웹 기본 푸터에 숨겨진 원래 버튼을 찾아 스크립트로 대신 클릭 (순정 모달 띄우기)
+        var originLink = document.querySelector('a[data-terms-mode="' + mode + '"]:not(.custom-terms-modal-btn)');
+        if (originLink) {
+          originLink.click();
+        } else {
+          // 2순위: 만약 원래 버튼을 찾지 못할 경우 브라우저 팝업창으로 띄움 (고객 화면 이탈 완벽 방지)
+          window.open('/?mode=' + mode, 'termsPopup', 'width=600,height=800,scrollbars=yes');
+        }
+      }
+    });
+  }
+});
+</script>

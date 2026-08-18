@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Night Night Cream</title>
+  <style>
+    .nn-wrap,
+    .nn-wrap * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .nn-wrap {
+      width: 100%;
+      height: 100vh;
+      height: 100dvh; /* mobile: exclude the collapsing browser chrome so the bottom row never clips */
+      position: relative;
+      overflow: hidden;
+      /* margin-top is set at runtime by fitHero() to cancel imweb's header offset — see script. */
+    }
+
+    /* ── Cycling background (crossfade dissolve) ── */
+    .nn-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .nn-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+
+    .nn-bg-a { opacity: 1; }
+
+    /* ── Scattered photo collage ── */
+    .nn-scatter {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .nn-photo {
+      position: absolute;
+      --pw: clamp(90px, 10.2vw, 220px);
+      --ph: calc(var(--pw) * 0.4224); /* source photo aspect ratio ≈ 83:196.5 */
+      width: var(--pw);
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+
+    .nn-photo img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    @keyframes nn-float {
+      0%, 100% { transform: rotate(var(--r, 0deg)) translateY(0); }
+      50%      { transform: rotate(var(--r, 0deg)) translateY(-14px); }
+    }
+
+    /* Same transform, but anchored from its own center — used only by the always-centered photo */
+    @keyframes nn-float-center {
+      0%, 100% { transform: translate(-50%, -50%) rotate(var(--r, 0deg)) translateY(0); }
+      50%      { transform: translate(-50%, -50%) rotate(var(--r, 0deg)) translateY(-14px); }
+    }
+
+    /* Positions match the Sketch "/home" PC artboard (1920×1080); angles are a subtle ±3deg tilt.
+       top/left are capped with min() against the element's own size so nothing clips off-viewport. */
+    .nn-photo-1 { top: min(9.96%, calc(100% - var(--ph) - 8px));  left: min(78.54%, calc(100% - var(--pw) - 8px)); --r: -2deg; animation-name: nn-float; animation-duration: 4.2s; animation-delay: 0s; }
+    .nn-photo-2 { top: min(12.46%, calc(100% - var(--ph) - 8px)); left: min(6.20%, calc(100% - var(--pw) - 8px));  --r: 3deg;  animation-name: nn-float; animation-duration: 3.8s; animation-delay: 0.3s; }
+    .nn-photo-3 { top: min(43.29%, calc(100% - var(--ph) - 8px)); left: min(8.44%, calc(100% - var(--pw) - 8px));  --r: -3deg; animation-name: nn-float; animation-duration: 4.6s; animation-delay: 0.6s; }
+    .nn-photo-4 { top: min(69.87%, calc(100% - var(--ph) - 8px)); left: min(31.30%, calc(100% - var(--pw) - 8px)); --r: 2deg;  animation-name: nn-float; animation-duration: 3.4s; animation-delay: 0.9s; }
+    .nn-photo-5 { top: min(86.25%, calc(100% - var(--ph) - 8px)); left: min(4.53%, calc(100% - var(--pw) - 8px));  --r: -1deg; animation-name: nn-float; animation-duration: 4.0s; animation-delay: 1.2s; }
+    .nn-photo-6 { top: min(21.81%, calc(100% - var(--ph) - 8px)); left: min(34.38%, calc(100% - var(--pw) - 8px)); --r: 3deg;  animation-name: nn-float; animation-duration: 4.4s; animation-delay: 0.2s; }
+    .nn-photo-7 { top: min(82.96%, calc(100% - var(--ph) - 8px)); left: min(77.55%, calc(100% - var(--pw) - 8px)); --r: -2deg; animation-name: nn-float; animation-duration: 3.6s; animation-delay: 0.5s; }
+    .nn-photo-9 { top: min(37.92%, calc(100% - var(--ph) - 8px)); left: min(83.80%, calc(100% - var(--pw) - 8px)); --r: -3deg; animation-name: nn-float; animation-duration: 3.2s; animation-delay: 1.0s; }
+    /* Not from the Sketch artboard — placed by hand into the empty bottom-center-right gap */
+    .nn-photo-10 { top: min(65.50%, calc(100% - var(--ph) - 8px)); left: min(60.20%, calc(100% - var(--pw) - 8px)); --r: -2deg; animation-name: nn-float; animation-duration: 4.1s; animation-delay: 0.7s; }
+
+    /* Always dead-center, on every viewport */
+    .nn-photo-8 { top: 50%; left: 50%; --r: 1deg; animation-name: nn-float-center; animation-duration: 4.8s; animation-delay: 0.8s; }
+
+    /* ── Menu label — floats like the photos, but never touched by the cursor physics ── */
+    @keyframes nn-float-hcenter {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(-14px); }
+    }
+
+    .nn-menu {
+      position: absolute;
+      width: max-content; /* shrink to the text's own width, so centering it centers the text, not an oversized box */
+      font-family: '42dotSans-Medium';
+      font-size: 18px;
+      color: #2A2A29;
+      text-align: left;
+      text-decoration: none;
+      cursor: pointer;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+
+    .nn-menu-arrow {
+      display: block;
+      width: 64px;
+      height: 1px;
+      background: #2A2A29;
+      margin-top: 10px;
+      position: relative;
+    }
+
+    .nn-menu-arrow::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -3px;
+      width: 7px;
+      height: 7px;
+      border-top: 1px solid #2A2A29;
+      border-right: 1px solid #2A2A29;
+      transform: rotate(45deg);
+    }
+
+    /* Horizontally centered on the viewport; top is 300px down on a 1920×1080 reference screen */
+    .nn-menu-1 {
+      top: 27.78%;
+      left: 50%;
+      animation-name: nn-float-hcenter;
+      animation-duration: 4.5s;
+      animation-delay: 0.4s;
+    }
+
+  </style>
+  <!-- 커서를 따라다니는 토끼 마크는 imweb/cursor-bunny.html로 분리되어
+       사이트 전역 스크립트 삽입 영역에서 모든 페이지에 적용됩니다. -->
+</head>
+<body>
+
+  <div class="nn-wrap">
+    <div class="nn-bg">
+      <img class="nn-bg-img nn-bg-a" id="nnBgA" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/e3ee2dd55c2e8.jpg" alt="">
+      <img class="nn-bg-img nn-bg-b" id="nnBgB" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/5c383b9e1e430.jpg" alt="">
+    </div>
+
+    <div class="nn-scatter">
+      <div class="nn-photo nn-photo-1"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/20bb7e2dd59f4.png" alt="Night Night Cream 위에서 잠든 사람"></div>
+      <div class="nn-photo nn-photo-2"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/bec72e8284819.png" alt="Night Night Cream 위에서 잠든 사람"></div>
+      <div class="nn-photo nn-photo-3"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/fa01d80694beb.png" alt="Night Night Cream 위에서 잠든 사람"></div>
+      <div class="nn-photo nn-photo-4"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/1290e096d0e09.png" alt="Night Night Cream 위에서 잠든 사람"></div>
+      <div class="nn-photo nn-photo-5"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/63e65b62ce4e0.png" alt="Night Night Cream 위에서 잠든 사람"></div>
+      <div class="nn-photo nn-photo-6"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/ef8f8ba4d2c51.png" alt="Night Night Cream 위에서 잠든 사람"></div>
+      <div class="nn-photo nn-photo-7"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/bd7afcb89543b.png" alt="Night Night Cream 위에서 잠든 사람"></div>
+      <div class="nn-photo nn-photo-8"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/74cf36b8e381d.png" alt="Night Night Cream 위에서 잠든 사람"></div>
+      <div class="nn-photo nn-photo-9"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/02a2477fe986a.png" alt="Night Night Cream 위에서 잠든 사람"></div>
+      <div class="nn-photo nn-photo-10"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/6d89b3abb07d6.png" alt="Night Night Cream 위에서 잠든 사람"></div>
+
+      <a class="nn-menu nn-menu-1" href="https://bydose.kr/nightnight">NIGHT NIGHT CREAM<span class="nn-menu-arrow"></span></a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      /* ── Cancel imweb's header offset ──
+         imweb renders its header in normal flow, so the first section starts below it
+         (76px on PC, 54px on narrow) — leaving a strip of page background above the hero
+         and pushing the bottom row of photos off-screen. Measure that offset and pull the
+         hero back up, so it fills the viewport edge to edge.
+         Measured rather than hardcoded because the header height changes per breakpoint.
+         The negative margin can partly collapse through imweb's wrappers, so pulling by N moves
+         the hero less than N — iterate on the residual until it lands. Verified on the live site:
+         a single pass leaves it ~8px low there; standalone it converges on the first pass.
+         margin-top is set inline rather than through a CSS variable: changing only the variable
+         did not re-evaluate the stylesheet's calc(), leaving margin-top stuck at 0. */
+      var wrap = document.querySelector('.nn-wrap');
+
+      function fitHero() {
+        wrap.style.marginTop = '0px';                            // reset before measuring
+        var pull = wrap.getBoundingClientRect().top + window.pageYOffset;
+
+        for (var i = 0; i < 5; i++) {
+          wrap.style.marginTop = (-pull) + 'px';
+          var residual = wrap.getBoundingClientRect().top + window.pageYOffset;
+          if (Math.abs(residual) < 0.5) break;
+          pull += residual;
+        }
+      }
+
+      fitHero();
+      window.addEventListener('load', fitHero);                  // re-measure once webfonts/logo settle
+      window.addEventListener('resize', fitHero);
+      window.addEventListener('orientationchange', fitHero);
+
+      /* ── Cycling background (crossfade dissolve) ── */
+      var bgFrames = ['https://cdn.imweb.me/upload/S2024082705e460c86991c/e3ee2dd55c2e8.jpg', 'https://cdn.imweb.me/upload/S2024082705e460c86991c/5c383b9e1e430.jpg', 'https://cdn.imweb.me/upload/S2024082705e460c86991c/dd37a9c27b9e7.jpg', 'https://cdn.imweb.me/upload/S2024082705e460c86991c/4343783cf7ab5.jpg'];
+      var BG_HOLD_MS = 4000; // how long each background stays fully visible
+
+      bgFrames.forEach(function (src) {
+        var pre = new Image();
+        pre.src = src;
+      });
+
+      var bgLayerA = document.getElementById('nnBgA');
+      var bgLayerB = document.getElementById('nnBgB');
+      var bgAIsFront = true;
+      var bgIndex = 1; // layer B already holds frame index 1
+
+      function scheduleNextBg() {
+        setTimeout(function () {
+          bgIndex = (bgIndex + 1) % bgFrames.length;
+
+          var incoming = bgAIsFront ? bgLayerB : bgLayerA;
+          var outgoing = bgAIsFront ? bgLayerA : bgLayerB;
+
+          incoming.src = bgFrames[bgIndex];
+          incoming.style.opacity = 1;
+          outgoing.style.opacity = 0;
+
+          bgAIsFront = !bgAIsFront;
+          scheduleNextBg();
+        }, BG_HOLD_MS);
+      }
+
+      scheduleNextBg();
+
+      // Deferred so viewport/media-feature values and layout are fully settled before we
+      // read them (avoids measuring photo positions against a stale pre-layout state).
+      setTimeout(function () {
+      document.body.offsetHeight; // force a synchronous reflow before measuring anything below
+      // Gate on viewport width too — hover/pointer alone can't tell a real desktop apart
+      // from a mouse-driven "mobile preview" (e.g. imweb editor's mobile toggle, or a
+      // narrowed desktop browser window), which would otherwise still trigger this.
+      var isDesktopPointer =
+        window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+        window.innerWidth >= 900;
+
+      /* ── Zero-gravity cursor physics (desktop only — kept off mobile for performance) ──
+         Photos sit still at their Sketch layout position until the cursor gets close,
+         which nudges them away. They then ease slowly back home on their own. Screen
+         edges still bounce them back inward so nothing drifts off-viewport. */
+      if (isDesktopPointer) {
+        var wrap = document.querySelector('.nn-wrap');
+        var wrapRect = wrap.getBoundingClientRect();
+
+        var bodies = Array.prototype.map.call(document.querySelectorAll('.nn-photo'), function (el) {
+          var cs = getComputedStyle(el);
+          var angle = parseFloat(cs.getPropertyValue('--r')) || 0;
+          var bobDuration = parseFloat(cs.animationDuration) || 4; // seconds — keep each photo's own rhythm
+          var bobDelay = parseFloat(cs.animationDelay) || 0;
+          el.style.animation = 'none'; // hand off from CSS keyframes to the physics loop (bob is re-added in JS below)
+          var r = el.getBoundingClientRect();
+          return {
+            el: el,
+            w: r.width,
+            h: r.height,
+            angle: angle,
+            bobDuration: bobDuration,
+            bobDelay: bobDelay,
+            x0: r.left - wrapRect.left, // CSS anchor point — transform offsets from here
+            y0: r.top - wrapRect.top,
+            x: r.left - wrapRect.left,
+            y: r.top - wrapRect.top,
+            vx: 0, // stays exactly at its Sketch layout position until the cursor actually pushes it
+            vy: 0
+          };
+        });
+
+        var mouse = { x: -9999, y: -9999, active: false };
+        window.addEventListener('mousemove', function (e) {
+          var wr = wrap.getBoundingClientRect();
+          mouse.x = e.clientX - wr.left;
+          mouse.y = e.clientY - wr.top;
+          mouse.active = true;
+        });
+        window.addEventListener('mouseleave', function () {
+          mouse.active = false;
+        });
+
+        var REPEL_RADIUS = 170;
+        var REPEL_STRENGTH = 34;
+        var MAX_SPEED = 1.1;      // px per ~16.7ms frame — deliberately slow
+        var DAMPING = 0.99;       // gentle drag so pushes settle rather than accumulate
+        var RESTITUTION = 0.8;    // wall bounce energy retained
+        var RETURN_RATE = 0.006;  // fraction of the way home eased back each frame — keeps it slow
+
+        var lastTime = performance.now();
+
+        function tick(now) {
+          var dt = Math.min((now - lastTime) / 16.6667, 3);
+          lastTime = now;
+
+          var wr = wrap.getBoundingClientRect();
+          var W = wr.width, H = wr.height;
+
+          bodies.forEach(function (b) {
+            if (mouse.active) {
+              var cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+              var dx = cx - mouse.x, dy = cy - mouse.y;
+              var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+              if (dist < REPEL_RADIUS) {
+                var force = ((REPEL_RADIUS - dist) / REPEL_RADIUS) * REPEL_STRENGTH / dist;
+                b.vx += (dx / dist) * force * dt;
+                b.vy += (dy / dist) * force * dt;
+              }
+            }
+
+            var speed = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
+            if (speed > MAX_SPEED) {
+              b.vx = (b.vx / speed) * MAX_SPEED;
+              b.vy = (b.vy / speed) * MAX_SPEED;
+            }
+
+            b.x += b.vx * dt;
+            b.y += b.vy * dt;
+            b.vx *= DAMPING;
+            b.vy *= DAMPING;
+
+            // slow, smooth ease back toward the original Sketch position — no springy overshoot
+            b.x += (b.x0 - b.x) * RETURN_RATE * dt;
+            b.y += (b.y0 - b.y) * RETURN_RATE * dt;
+
+            if (b.x < 0) { b.x = 0; b.vx = Math.abs(b.vx) * RESTITUTION; }
+            if (b.x + b.w > W) { b.x = W - b.w; b.vx = -Math.abs(b.vx) * RESTITUTION; }
+            if (b.y < 0) { b.y = 0; b.vy = Math.abs(b.vy) * RESTITUTION; }
+            if (b.y + b.h > H) { b.y = H - b.h; b.vy = -Math.abs(b.vy) * RESTITUTION; }
+
+            // gentle up/down bob, same rhythm as the original CSS float animation
+            var t = now / 1000 + b.bobDelay;
+            var phase = ((t % b.bobDuration) / b.bobDuration) * Math.PI * 2;
+            var bobY = -14 * (1 - Math.cos(phase)) / 2;
+
+            b.el.style.transform =
+              'translate(' + (b.x - b.x0) + 'px, ' + (b.y - b.y0 + bobY) + 'px) rotate(' + b.angle + 'deg)';
+          });
+
+          requestAnimationFrame(tick);
+        }
+
+        requestAnimationFrame(tick);
+      }
+      }, 100);
+    })();
+  </script>
+
+</body>
+</html>

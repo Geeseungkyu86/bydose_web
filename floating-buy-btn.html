@@ -1,0 +1,155 @@
+<!--
+  [필수] imweb 또는 페이지 <head>의 meta viewport에 viewport-fit=cover 추가:
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+-->
+
+<style>
+:root {
+    --h-bg: rgba(255, 255, 255, 0.6);
+    --h-blur: blur(10px);
+}
+
+/* [1] PC 버전 */
+.bydose-floating-buy-wrapper {
+    position: fixed;
+    height: 56px;
+    bottom: calc(24px + env(safe-area-inset-bottom));
+
+    left: 50%;
+    transform: translateX(-50%) translateY(12px);
+    width: calc(100% - 208px);
+    max-width: 1280px;
+
+    z-index: 99999;
+    box-sizing: border-box;
+
+    background-color: var(--h-bg) !important;
+    -webkit-backdrop-filter: var(--h-blur) !important;
+    backdrop-filter: var(--h-blur) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.bydose-floating-buy-wrapper.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.bydose-floating-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
+.bydose-floating-product-name {
+    font-family: '42dot Sans', sans-serif;
+    font-size: 16px;
+    color: #2A2A29;
+    font-weight: 500;
+}
+
+.bydose-floating-buy-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 40px;
+    font-family: '42dot Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #2A2A29 !important;
+    color: #FFFFFF !important;
+    text-decoration: none;
+    border-radius: 8px !important;
+    transition: background-color 0.3s ease;
+}
+
+.bydose-floating-buy-btn:hover {
+    background-color: #4A4A48 !important;
+}
+
+/* [2] 모바일 버전 */
+@media (max-width: 991px) {
+    .bydose-floating-buy-wrapper {
+        height: 56px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+
+        left: 12px;
+        transform: translateY(12px);
+        width: calc(100% - 92px);
+        max-width: none;
+    }
+
+    .bydose-floating-buy-wrapper.is-visible {
+        transform: translateY(0);
+    }
+
+    .bydose-floating-content { padding: 0 16px; }
+    .bydose-floating-product-name { font-size: 14px; }
+    .bydose-floating-buy-btn {
+        width: 110px;
+        height: 36px;
+        font-size: 14px;
+        border-radius: 6px !important;
+    }
+}
+</style>
+
+<div class="bydose-floating-buy-wrapper" id="floatingBuyBtn">
+    <div class="bydose-floating-content">
+        <span class="bydose-floating-product-name">"나잇나잇크림"</span>
+        <a href="https://bydose.kr/shop_view?idx=63" class="bydose-floating-buy-btn">지금 구매하기</a>
+    </div>
+</div>
+
+<script>
+(function() {
+    var btn = document.getElementById('floatingBuyBtn');
+
+    var USE_PCT    = true;
+    var SCROLL_PCT = 10;
+    var SCROLL_PX  = 400;
+
+    var ticking = false;
+
+    function updateVisibility() {
+        var scrolled    = window.scrollY || document.documentElement.scrollTop;
+        var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+        var shouldShow;
+        if (USE_PCT) {
+            var pct = totalHeight > 0 ? (scrolled / totalHeight) * 100 : 0;
+            shouldShow = pct >= SCROLL_PCT;
+        } else {
+            shouldShow = scrolled >= SCROLL_PX;
+        }
+
+        if (shouldShow) {
+            btn.classList.add('is-visible');
+        } else {
+            btn.classList.remove('is-visible');
+        }
+
+        ticking = false;
+    }
+
+    function onScroll() {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(updateVisibility);
+        }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    updateVisibility();
+})();
+</script>

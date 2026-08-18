@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>byDose — Links</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+  :root {
+    --cream:  #F3F3E9;
+    --dark:   #2A2A29;
+    --orange: #D35B40;
+    --muted:  #5A5A58;
+  }
+
+  html, body {
+    width: 100%;
+    min-height: 100%;
+    background: var(--cream);
+    font-family: '42dot Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--dark);
+  }
+
+  /* ── Amoeba Blob background (same clip-path/blur/grain technique as the
+       section4~6 card icon generator, blown up to fill the whole viewport) ── */
+  .bd-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: var(--cream);
+  }
+
+  .bd-blob-layer {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Blur lives on the wrap (0×0, animated) and clip-path lives on the shape
+     (its child) — same split used by icon-illustration-generator.html.
+     Combining filter+clip-path on ONE element renders with a hard, unblurred
+     edge on Safari/iOS WebKit (incl. Instagram's in-app browser), so they
+     must stay on separate elements. */
+  .bd-blob-wrap {
+    position: absolute;
+    width: 0;
+    height: 0;
+    will-change: transform;
+    animation-name: bd-blob-move;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+
+  .bd-blob-shape {
+    position: absolute;
+  }
+
+  @keyframes bd-blob-move {
+    0%   { transform: scale(1) translate(0, 0); }
+    50%  { transform: scale(var(--bd-boost, 1.1)) translate(var(--bd-dx, 3vw), var(--bd-dy, 3vh)); }
+    100% { transform: scale(1) translate(0, 0); }
+  }
+
+  .bd-scrim {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 42% at 50% 18%, rgba(243, 243, 233, 0.7), transparent 68%);
+    pointer-events: none;
+  }
+
+  .bd-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    background-repeat: repeat;
+    background-size: 72px 72px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bd-blob-wrap { animation: none !important; }
+  }
+
+  .bd-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    padding: max(64px, 8vh) 24px calc(40px + env(safe-area-inset-bottom));
+  }
+
+  .bd-inner {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── Profile ── */
+  .bd-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: bd-fadein 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+  }
+
+  .bd-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    overflow: hidden;
+
+    background: #F4F3E9;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .bd-avatar img {
+    width: 58%;
+    height: auto;
+    display: block;
+  }
+
+  .bd-tagline {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--muted);
+    line-height: 1.6;
+    word-break: keep-all;
+  }
+
+  /* ── Link list — glassmorphism (same technique as section1.html's .bubble-item) ── */
+  .bd-links {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .bd-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 18px 20px;
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--dark);
+
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow:
+      0 8px 28px rgba(42, 42, 41, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.15),
+      inset 0 0 40px 20px rgba(255, 255, 255, 0.12);
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+
+    opacity: 0;
+    transform: translateY(14px);
+    animation: bd-fadein 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @supports not (backdrop-filter: blur(1px)) {
+    .bd-link { background: rgba(255, 255, 255, 0.88); }
+  }
+
+  .bd-link::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+  }
+
+  .bd-link::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 1px; height: 100%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), transparent, rgba(255, 255, 255, 0.2));
+  }
+
+  .bd-link:nth-child(1) { animation-delay: 0.12s; }
+  .bd-link:nth-child(2) { animation-delay: 0.18s; }
+  .bd-link:nth-child(3) { animation-delay: 0.24s; }
+  .bd-link:nth-child(4) { animation-delay: 0.30s; }
+  .bd-link:nth-child(5) { animation-delay: 0.36s; }
+
+  .bd-link:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.64);
+    box-shadow:
+      0 14px 36px rgba(42, 42, 41, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.18);
+  }
+
+  .bd-link:active { transform: translateY(0); }
+
+  .bd-link-icon {
+    position: relative;
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+  }
+
+  .bd-link-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--dark);
+    fill: none;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .bd-link-icon img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .bd-link-text {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .bd-link-title {
+    font-size: 15.5px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+  }
+
+  .bd-link-sub {
+    font-size: 12.5px;
+    color: var(--muted);
+    letter-spacing: -0.1px;
+  }
+
+  .bd-link-arrow {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    stroke: rgba(42, 42, 41, 0.4);
+    fill: none;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.2s ease;
+  }
+
+  .bd-link:hover .bd-link-arrow { transform: translateX(3px); }
+
+  /* ── Footer ── */
+  .bd-footer {
+    margin-top: 40px;
+    font-size: 12px;
+    color: var(--muted);
+    opacity: 0;
+    text-align: center;
+    letter-spacing: -0.1px;
+    animation: bd-fadein 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+  }
+
+  @keyframes bd-fadein {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bd-profile, .bd-link, .bd-footer { animation: none !important; opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 380px) {
+    .bd-link { padding: 16px 16px; gap: 12px; }
+    .bd-avatar { width: 84px; height: 84px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bd-bg">
+  <div class="bd-blob-layer" id="bdBlobLayer"></div>
+  <div class="bd-scrim"></div>
+  <div class="bd-grain" id="bdGrain"></div>
+</div>
+
+<div class="bd-wrap">
+  <div class="bd-inner">
+
+    <div class="bd-profile">
+      <div class="bd-avatar">
+        <img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/f8c0d74c0c4c1.png" alt="byDose">
+      </div>
+      <p class="bd-tagline">과장을 덜어낸 스킨케어 브랜드<br>바이도즈(byDose)입니다.</p>
+    </div>
+
+    <div class="bd-links">
+
+      <a class="bd-link" href="https://bydose.kr/nnc" target="_blank" rel="noopener">
+        <span class="bd-link-icon">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3.2"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><circle cx="17" cy="8.5" r="2.4"/><path d="M15.3 13.4c2.4.3 4.2 2.2 4.2 4.6"/></svg>
+        </span>
+        <span class="bd-link-text">
+          <span class="bd-link-title">나잇나잇크루 모집중</span>
+          <span class="bd-link-sub">NNC Crew Recruiting</span>
+        </span>
+        <svg class="bd-link-arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+
+      <a class="bd-link" href="https://bydose.kr/" target="_blank" rel="noopener">
+        <span class="bd-link-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9.5h12V10"/><path d="M10 19.5v-6h4v6"/></svg>
+        </span>
+        <span class="bd-link-text">
+          <span class="bd-link-title">공식 홈페이지</span>
+          <span class="bd-link-sub">bydose.kr</span>
+        </span>
+        <svg class="bd-link-arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+
+      <a class="bd-link" href="https://www.instagram.com/bydose_kr/" target="_blank" rel="noopener">
+        <span class="bd-link-icon">
+          <svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.15" cy="6.85" r="0.6" fill="currentColor" stroke="none"/></svg>
+        </span>
+        <span class="bd-link-text">
+          <span class="bd-link-title">인스타그램</span>
+          <span class="bd-link-sub">@bydose_kr</span>
+        </span>
+        <svg class="bd-link-arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+
+      <a class="bd-link" href="https://bydose.kr/nightnight" target="_blank" rel="noopener">
+        <span class="bd-link-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
+        </span>
+        <span class="bd-link-text">
+          <span class="bd-link-title">나잇나잇크림™ 소개</span>
+          <span class="bd-link-sub">Night Night Cream</span>
+        </span>
+        <svg class="bd-link-arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+
+      <a class="bd-link" href="https://bydose.kr/story" target="_blank" rel="noopener">
+        <span class="bd-link-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 5.5c2-1 5-1 8 .5 3-1.5 6-1.5 8-.5v13c-2-1-5-1-8 .5-3-1.5-6-1.5-8-.5z"/><path d="M12 6v13"/></svg>
+        </span>
+        <span class="bd-link-text">
+          <span class="bd-link-title">바이도즈 이야기</span>
+          <span class="bd-link-sub">Brand Story</span>
+        </span>
+        <svg class="bd-link-arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+
+    </div>
+
+    <div class="bd-footer">© 2026 byDose All Rights Reserved</div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  var GRAIN_B64 = "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";
+
+  var grainEl = document.getElementById('bdGrain');
+  grainEl.style.backgroundImage = "url(data:image/png;base64," + GRAIN_B64 + ")";
+
+  /* Amoeba Blob path generator — same Catmull-Rom -> cubic-bezier smoothing as the
+     section4~6 icon generator (icon-illustration-generator.html), scaled up to
+     viewport-filling size instead of a small card icon. */
+  function makeBlobPath(size) {
+    var n = 7 + Math.floor(Math.random() * 4); // 7-10 points
+    var jitter = 0.30 + Math.random() * 0.20;
+    var center = size / 2;
+    var baseR = size * 0.40;
+    var pts = [];
+    for (var i = 0; i < n; i++) {
+      var angle = (2 * Math.PI * i) / n;
+      var r = baseR * (1 + (Math.random() * 2 - 1) * jitter);
+      pts.push([center + r * Math.cos(angle), center + r * Math.sin(angle)]);
+    }
+    function get(i) { return pts[((i % n) + n) % n]; }
+    var d = 'M ' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1) + ' ';
+    for (var j = 0; j < n; j++) {
+      var p0 = get(j - 1), p1 = get(j), p2 = get(j + 1), p3 = get(j + 2);
+      var c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
+      var c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
+      d += 'C ' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ' ' + c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ' ' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1) + ' ';
+    }
+    return d + 'Z';
+  }
+
+  var PALETTE = ['#2A2A29', '#9DAABA', '#989B87', '#D35B40', '#FFFFFF'];
+
+  function shuffled(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function clampPct(v) { return Math.min(100, Math.max(0, v)); }
+
+  // Five spread-out anchor zones (one per palette color) so blobs don't pile up
+  // in the same corner — 3+ different hues stacked at high opacity in one spot
+  // alpha-blends toward a muddy gray, which was washing out the color variety.
+  var ANCHORS = [
+    { x: 8, y: 10 }, { x: 92, y: 8 }, { x: 94, y: 55 }, { x: 10, y: 90 }, { x: 90, y: 92 }
+  ];
+
+  function initBlobs() {
+    var layer = document.getElementById('bdBlobLayer');
+    var vw = window.innerWidth, vh = window.innerHeight;
+    var maxDim = Math.max(vw, vh);
+    var colors = shuffled(PALETTE);
+    var anchors = shuffled(ANCHORS);
+    var frag = document.createDocumentFragment();
+
+    for (var i = 0; i < colors.length; i++) {
+      var anchor = anchors[i];
+      var size = Math.round(maxDim * (0.44 + Math.random() * 0.22)); // big enough to bridge the gaps between anchors, small enough that each shape's own soft edge still lands inside the viewport
+      var path = makeBlobPath(size);
+      var color = colors[i];
+      var isWhite = color === '#FFFFFF';
+      var blur = Math.round(size * 0.09); // clearly hazy edge without dissolving the whole shape
+      var opacity = (isWhite ? 0.34 : 0.42) + Math.random() * 0.14;
+      var dur = Math.round(13000 + Math.random() * 9000);
+      var delay = -Math.round(Math.random() * dur);
+      var dx = (Math.random() * 2 - 1) * 18;
+      var dy = (Math.random() * 2 - 1) * 18;
+      var boost = 1.12 + Math.random() * 0.16;
+
+      // Blur goes on the wrap (0x0, animated); clip-path + fill go on the shape
+      // (its child) — required split, see the comment on .bd-blob-wrap above.
+      var wrap = document.createElement('div');
+      wrap.className = 'bd-blob-wrap';
+      wrap.style.left = clampPct(anchor.x + (Math.random() * 2 - 1) * 10) + 'vw';
+      wrap.style.top = clampPct(anchor.y + (Math.random() * 2 - 1) * 10) + 'vh';
+      wrap.style.filter = 'blur(' + blur + 'px)';
+      wrap.style.opacity = opacity.toFixed(2);
+      wrap.style.animationDuration = dur + 'ms';
+      wrap.style.animationDelay = delay + 'ms';
+      wrap.style.setProperty('--bd-dx', dx.toFixed(2) + 'vw');
+      wrap.style.setProperty('--bd-dy', dy.toFixed(2) + 'vh');
+      wrap.style.setProperty('--bd-boost', boost.toFixed(3));
+
+      var shape = document.createElement('div');
+      shape.className = 'bd-blob-shape';
+      shape.style.width = size + 'px';
+      shape.style.height = size + 'px';
+      shape.style.left = (-size / 2) + 'px';
+      shape.style.top = (-size / 2) + 'px';
+      shape.style.background = color;
+      shape.style.clipPath = "path('" + path + "')";
+      shape.style.webkitClipPath = "path('" + path + "')";
+
+      wrap.appendChild(shape);
+      frag.appendChild(wrap);
+    }
+    layer.appendChild(frag);
+  }
+
+  initBlobs();
+})();
+</script>
+
+</body>
+</html>
