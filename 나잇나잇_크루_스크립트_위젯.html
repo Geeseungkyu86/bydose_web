@@ -1,0 +1,253 @@
+<script>
+(function () {
+  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyyBSqu4bztxSKGHS3rcaS1b9eBbBaJx_nJxxN3iWwTtseo2--89y70Ugpce2Ba-io2/exec';
+
+  var gate = document.getElementById('bydGate');
+  var form = document.getElementById('bydForm');
+  var done = document.getElementById('bydDone');
+  var msg  = document.getElementById('bydMsg');
+  var submitBtn = document.getElementById('bydSubmit');
+
+  var EMAIL_RE = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
+  var PHONE_RE = /0(?:1[016789]|2|[3-6][1-5]|70)[-.\s]?\d{3,4}[-.\s]?\d{4}/;
+
+  /* ---- 1) 로그인 판별 (실사이트 확인: body.loggedin) ---- */
+  function isLoggedIn() {
+    if (document.body.classList.contains('loggedin')) return true;
+    return /(?:^|;\s*)_imweb_login_state=Y/.test(document.cookie);
+  }
+
+  function isMemberEmail(v) {
+    var m = String(v || '').match(EMAIL_RE);
+    return !!m && !/@bydose\.kr$/i.test(m[0]);
+  }
+  function pickEmail(v) {
+    var m = String(v || '').match(EMAIL_RE);
+    return m ? m[0] : '';
+  }
+
+  function findMemberEmail() {
+    var sels = [
+      '#mobile_slide_menu .profile-area .email-info',
+      '.profile-area .member-info .email-info',
+      '.member-info .email-info',
+      '.email-info',
+      '[data-email]'
+    ];
+    for (var i = 0; i < sels.length; i++) {
+      var el;
+      try { el = document.querySelector(sels[i]); } catch (e) { continue; }
+      if (!el) continue;
+      var v = el.getAttribute('data-email') || el.textContent || '';
+      if (isMemberEmail(v)) return pickEmail(v);
+    }
+    // 채널톡 초기화 설정의 memberId
+    var scripts = document.querySelectorAll('script:not([src])');
+    for (var j = 0; j < scripts.length; j++) {
+      var c = scripts[j].textContent || '';
+      if (c.indexOf('memberId') === -1) continue;
+      var mm = c.match(/"memberId"\s*:\s*"([^"]+)"/);
+      if (mm && isMemberEmail(mm[1])) return pickEmail(mm[1]);
+    }
+    return '';
+  }
+
+  function findMemberName() {
+    var el = document.querySelector('#member_profile .profile-info');
+    if (el) {
+      var t = (el.textContent || '').trim().replace(/\s+/g, ' ');
+      if (t && t.length <= 40 && !EMAIL_RE.test(t)) return t;
+    }
+    var info = document.querySelector('.profile-area .member-info');
+    if (info) {
+      var raw = (info.textContent || '').replace(EMAIL_RE, '').trim().replace(/\s+/g, ' ');
+      if (raw && raw.length <= 40) return raw;
+    }
+    return '';
+  }
+
+  /* 전화번호: 채널톡 init의 mobileNumber (실사이트 확인) */
+  function findMemberPhone() {
+    var scripts = document.querySelectorAll('script:not([src])');
+    for (var i = 0; i < scripts.length; i++) {
+      var c = scripts[i].textContent || '';
+      if (c.indexOf('mobileNumber') === -1) continue;
+      var m = c.match(/"mobileNumber"\s*:\s*"([^"]+)"/);
+      if (!m) continue;
+      var raw = String(m[1]).replace(/^\+?82[-\s]?/, '0');
+      var pm = raw.match(PHONE_RE);
+      if (pm) return pm[0];
+    }
+    return '';
+  }
+
+  /* 자동 인식 실패 시 읽기 전용을 풀어 직접 입력받습니다.
+     (인식 실패로 제출이 아예 막히는 상황을 만들지 않기 위함) */
+  function unlock(id, helpId, failMsg) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.readOnly = false;
+    el.classList.remove('nnc-in-lock');
+    var help = helpId ? document.getElementById(helpId) : null;
+    if (help && failMsg) help.textContent = failMsg;
+  }
+
+  var loggedIn = false;
+  try { loggedIn = isLoggedIn(); } catch (e) { loggedIn = false; }
+
+  if (loggedIn) {
+    gate.hidden = true;
+    form.hidden = false;
+
+    /* 회원 정보(프로필 DOM · 채널톡 init)는 이 스크립트보다 늦게 주입되는 경우가
+       있습니다. 한 번만 읽으면 비어 있으므로 5초까지 재시도하고, 그래도 못 찾은
+       칸만 직접 입력으로 풀어줍니다. */
+    var got = { name: false, email: false, phone: false };
+    var tries = 0;
+
+    function tryFill() {
+      tries++;
+      try {
+        if (!got.name) {
+          var n = findMemberName();
+          if (n) { document.getElementById('f-name').value = n; got.name = true; }
+        }
+        if (!got.email) {
+          var m = findMemberEmail();
+          if (m) { document.getElementById('f-email').value = m; got.email = true; }
+        }
+        if (!got.phone) {
+          var p = findMemberPhone();
+          if (p) { document.getElementById('f-phone').value = p; got.phone = true; }
+        }
+      } catch (e) { /* 탐지 실패는 무시하고 다음 시도로 */ }
+
+      refreshSubmit();
+
+      if ((got.name && got.email && got.phone) || tries >= 25) {
+        clearInterval(fillTimer);
+        if (!got.name)  unlock('f-name', 'h-name', '이름을 직접 입력해주세요.');
+        if (!got.email) unlock('f-email', 'h-email', '가입하신 이메일을 직접 입력해주세요.');
+        // 전화번호는 원래부터 직접 입력 칸이라 풀 것이 없습니다.
+      }
+    }
+
+    var fillTimer = setInterval(tryFill, 200);
+    tryFill();
+  }
+
+  /* 로그인 버튼: 로그인을 마치면 이 페이지로 되돌아오게 back_url을 붙입니다.
+     아임웹 로그인 URL 형식이며, back_url은 돌아올 경로를 base64로 넣습니다.
+     (bydose.kr의 기존 로그인 링크에서 확인한 형식) */
+  var loginLink = document.querySelector('.nnc-btn-login');
+  if (loginLink) {
+    try {
+      var back = location.pathname + location.search;
+      loginLink.href = '/login?back_url=' +
+        encodeURIComponent(btoa(unescape(encodeURIComponent(back)))) + '&used_login_btn=Y';
+    } catch (e) {
+      loginLink.href = '/login';   // base64 실패해도 로그인은 되게
+    }
+  }
+
+  /* ---- 2) 주소 검색 (다음 우편번호 · 무료, 키 불필요) ---- */
+  var zipBtn = document.getElementById('bydZipBtn');
+  if (zipBtn) {
+    var SRC = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+    var loading = false;
+
+    function openPostcode() {
+      new window.daum.Postcode({
+        oncomplete: function (data) {
+          document.getElementById('f-zip').value = data.zonecode || '';
+          document.getElementById('f-addr1').value =
+            data.roadAddress || data.jibunAddress || data.address || '';
+          var d = document.getElementById('f-addr2');
+          if (d) d.focus();
+          refreshSubmit();
+        }
+      }).open();
+    }
+
+    zipBtn.addEventListener('click', function () {
+      if (window.daum && window.daum.Postcode) { openPostcode(); return; }
+      if (loading) return;
+      loading = true;
+      zipBtn.textContent = '불러오는 중…';
+      var s = document.createElement('script');
+      s.src = SRC;
+      s.onload = function () {
+        loading = false; zipBtn.textContent = '우편번호 찾기'; openPostcode();
+      };
+      s.onerror = function () {
+        // 스크립트 실패 시 직접 입력으로 전환 (제출이 막히지 않게)
+        loading = false; zipBtn.textContent = '우편번호 찾기';
+        ['f-zip', 'f-addr1'].forEach(function (id) {
+          var el = document.getElementById(id);
+          el.readOnly = false; el.classList.remove('nnc-in-lock');
+        });
+        document.getElementById('f-addr1').focus();
+      };
+      document.head.appendChild(s);
+    });
+  }
+
+  /* ---- 3) 제출 버튼 활성/비활성 (디자인의 btn-deacctiva / btn-acctivated) ---- */
+  function refreshSubmit() {
+    if (!form || !submitBtn) return;
+    submitBtn.disabled = !form.checkValidity();
+  }
+  if (form) {
+    form.addEventListener('input', refreshSubmit);
+    form.addEventListener('change', refreshSubmit);
+    refreshSubmit();
+  }
+
+  /* ---- 4) 제출 ---- */
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { refreshSubmit(); return; }
+
+      var fd = new FormData(form);
+
+      // 허니팟: 봇이 채우면 조용히 중단
+      var hp = form.elements.namedItem('_hp');
+      if (hp && hp.value) return;
+
+      var data = {};
+      fd.forEach(function (v, k) { data[k] = v; });
+      // 체크박스는 체크된 것만 FormData에 담기므로 존재 여부로 판단
+      data.agreeTerms   = fd.has('agreeTerms');
+      data.agreePrivacy = fd.has('agreePrivacy');
+      data.agreeResult  = fd.has('agreeResult');
+
+      submitBtn.disabled = true;
+      msg.removeAttribute('data-state');
+      msg.textContent = '제출 중이에요…';
+
+      /* Content-Type을 text/plain으로 보내면 preflight가 생기지 않고,
+         Apps Script 웹 앱 응답은 CORS를 허용하므로 성공/실패를 실제로 읽을 수 있습니다.
+         (no-cors로 보내면 서버가 거절해도 성공으로 보여 접수 누락을 놓치게 됩니다) */
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(data)
+      }).then(function (r) {
+        return r.json();
+      }).then(function (res) {
+        if (!res || !res.ok) throw new Error((res && res.error) || '제출 실패');
+        form.hidden = true;
+        done.hidden = false;
+        done.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }).catch(function (err) {
+        submitBtn.disabled = false;
+        msg.setAttribute('data-state', 'error');
+        msg.textContent = (err && err.message && err.message !== '제출 실패')
+          ? err.message
+          : '제출에 실패했어요. 잠시 후 다시 시도해주세요.';
+      });
+    });
+  }
+})();
+</script>
