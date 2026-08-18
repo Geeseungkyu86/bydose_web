@@ -139,6 +139,9 @@
       <div class="nnc-meta-row"><span class="nnc-meta-k">선정 인원:</span><span class="nnc-meta-v">20명</span></div>
       <div class="nnc-meta-row"><span class="nnc-meta-k">결과 안내:</span><span class="nnc-meta-v">2026. 09. 07 일괄 안내</span></div>
     </div>
+    <div class="nnc-note nnc-mt-sm">
+      *아쉽게 선정되지 않아도 지원해주신 모든 분께 나잇나잇 크림 30% 할인 쿠폰을 드려요.
+    </div>
   </div>
 </section>
 
@@ -159,6 +162,7 @@
 
     <!-- 로그인 -->
     <form class="nnc-form" id="bydForm" hidden novalidate>
+      <div class="nnc-form-notice" id="bydAutofillNotice" hidden>일부 정보를 자동으로 불러오지 못했어요. 아래 표시된 항목을 직접 입력해주세요.</div>
       <div class="nnc-f">
         <label for="f-name">이름</label>
         <input type="text" id="f-name" name="name" class="nnc-in nnc-in-lock" readonly required>
@@ -190,7 +194,7 @@
 
       <div class="nnc-f">
         <label for="f-instagram">인스타그램 계정</label>
-        <input type="text" id="f-instagram" name="instagram" class="nnc-in" placeholder="/bydose_kr" required>
+        <input type="text" id="f-instagram" name="instagram" class="nnc-in" placeholder="/내_인스타그램_아이디" required>
       </div>
 
       <div class="nnc-f">
@@ -209,15 +213,49 @@
       </div>
 
       <div class="nnc-f">
-        <label for="f-reason">나잇나잇크림에 관심을 갖게 된 이유를 적어주세요</label>
-        <textarea id="f-reason" name="reason" class="nnc-in nnc-ta" required></textarea>
+        <span class="nnc-label">나잇나잇크림에 관심을 갖게 된 계기를 골라주세요</span>
+        <label class="nnc-choice">
+          <input type="radio" name="reasonCategory" value="향이 궁금해서" required>
+          <span class="nnc-radio"></span>
+          향이 궁금해서
+        </label>
+        <label class="nnc-choice">
+          <input type="radio" name="reasonCategory" value="SNS(인스타그램)에서 보고" required>
+          <span class="nnc-radio"></span>
+          SNS(인스타그램)에서 보고
+        </label>
+        <label class="nnc-choice">
+          <input type="radio" name="reasonCategory" value="지인 추천으로" required>
+          <span class="nnc-radio"></span>
+          지인 추천으로
+        </label>
+        <label class="nnc-choice">
+          <input type="radio" name="reasonCategory" value="크루 혜택(무료 체험・포인트)이 좋아서" required>
+          <span class="nnc-radio"></span>
+          크루 혜택(무료 체험・포인트)이 좋아서
+        </label>
+        <label class="nnc-choice">
+          <input type="radio" name="reasonCategory" value="원래 바이도즈 제품을 써봐서" required>
+          <span class="nnc-radio"></span>
+          원래 바이도즈 제품을 써봐서
+        </label>
+        <label class="nnc-choice">
+          <input type="radio" name="reasonCategory" value="기타" required>
+          <span class="nnc-radio"></span>
+          기타
+        </label>
+      </div>
+
+      <div class="nnc-f">
+        <label for="f-reason">조금 더 자세히 들려주세요</label>
+        <textarea id="f-reason" name="reason" class="nnc-in nnc-ta" placeholder="예: 평소 밤 스킨케어 루틴에 관심이 많아서 사용해보고 싶었어요." required></textarea>
       </div>
 
       <div class="nnc-f">
         <span class="nnc-label">활동 확인과 게시물 유지 기간동안 계정을 공개 상태로 유지해주세요.</span>
         <label class="nnc-choice">
-          <input type="radio" name="publicAccount" value="공개 유지 동의" required>
-          <span class="nnc-radio"></span>
+          <input type="checkbox" name="publicAccount" value="공개 유지 동의" required>
+          <span class="nnc-check"></span>
           공개 상태로 유지하겠습니다
         </label>
       </div>
@@ -248,14 +286,14 @@
         </label>
         <div class="nnc-agree-detail">
           발송 채널: SMS 문자, 카카오톡, 이메일<br>
-          발송 시점: 2026. 09. 01 결과 안내<br>
+          발송 시점: 2026. 09. 07 결과 안내<br>
           미선정 혜택: 나잇나잇 크림 30% 할인 쿠폰 안내(카카오톡 발송)
         </div>
       </div>
 
       <input type="text" name="_hp" class="nnc-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-      <button type="submit" class="nnc-btn-submit" id="bydSubmit" disabled>지원서 제출하기</button>
+      <button type="submit" class="nnc-btn-submit" id="bydSubmit">지원서 제출하기</button>
       <div class="nnc-form-msg" id="bydMsg" role="status"></div>
     </form>
 
@@ -263,7 +301,7 @@
     <div class="nnc-done" id="bydDone" hidden>
       <div class="nnc-statement">지원서가 접수되었어요</div>
       <div class="nnc-list-text">
-        결과는 2026. 09. 01에 SMS와 가입 이메일로 안내드려요.<br>
+        결과는 2026. 09. 07에 SMS와 가입 이메일로 안내드려요.<br>
         동일 회차에 여러 번 지원하면 1건으로 처리됩니다.
       </div>
       <div class="nnc-done-benefit">
@@ -484,6 +522,11 @@ a.nnc-btn-login:active {
 }
 
 .nnc-form, .nnc-done { max-width: 690px; margin: 0 auto; }
+.nnc-form-notice {
+  margin: 0 0 24px; padding: 14px 18px; border-radius: 12px;
+  background: rgba(211,91,64,0.1); color: var(--ink);
+  font-family: var(--font); font-size: 14px; line-height: 1.6;
+}
 .nnc-f { margin-bottom: 32px; }
 .nnc-f label:not(.nnc-choice), .nnc-label {
   display: block; margin-bottom: 12px; font-family: var(--font);
@@ -801,13 +844,16 @@ a.nnc-btn-login:active {
         }
       } catch (e) { /* 탐지 실패는 무시하고 다음 시도로 */ }
 
-      refreshSubmit();
-
       if ((got.name && got.email && got.phone) || tries >= 25) {
         clearInterval(fillTimer);
-        if (!got.name)  unlock('f-name', 'h-name', '이름을 직접 입력해주세요.');
-        if (!got.email) unlock('f-email', 'h-email', '가입하신 이메일을 직접 입력해주세요.');
+        var missedAny = false;
+        if (!got.name)  { unlock('f-name', 'h-name', '이름을 직접 입력해주세요.'); missedAny = true; }
+        if (!got.email) { unlock('f-email', 'h-email', '가입하신 이메일을 직접 입력해주세요.'); missedAny = true; }
         // 전화번호는 원래부터 직접 입력 칸이라 풀 것이 없습니다.
+        if (missedAny) {
+          var notice = document.getElementById('bydAutofillNotice');
+          if (notice) notice.hidden = false;
+        }
       }
     }
 
@@ -843,7 +889,6 @@ a.nnc-btn-login:active {
             data.roadAddress || data.jibunAddress || data.address || '';
           var d = document.getElementById('f-addr2');
           if (d) d.focus();
-          refreshSubmit();
         }
       }).open();
     }
@@ -871,22 +916,40 @@ a.nnc-btn-login:active {
     });
   }
 
-  /* ---- 3) 제출 버튼 활성/비활성 (디자인의 btn-deacctiva / btn-acctivated) ---- */
-  function refreshSubmit() {
-    if (!form || !submitBtn) return;
-    submitBtn.disabled = !form.checkValidity();
-  }
-  if (form) {
-    form.addEventListener('input', refreshSubmit);
-    form.addEventListener('change', refreshSubmit);
-    refreshSubmit();
+  var FIELD_LABELS = {
+    'f-name': '이름',
+    'f-email': '가입한 이메일',
+    'f-phone': '전화번호',
+    'f-zip': '주소(우편번호 찾기)',
+    'f-addr1': '주소',
+    'f-instagram': '인스타그램 계정',
+    'f-age': '연령대',
+    'f-reason': '지원 이유(자세히)',
+    'reasonCategory': '나잇나잇크림에 관심을 갖게 된 계기',
+    'publicAccount': '계정 공개 상태 유지 동의',
+    'agreeTerms': '활동 조건 확인 동의',
+    'agreePrivacy': '개인정보 수집・이용 동의',
+    'agreeResult': '결과 안내 수신 동의'
+  };
+  function labelFor(el) {
+    if (el.id && FIELD_LABELS[el.id]) return FIELD_LABELS[el.id];
+    if (el.name && FIELD_LABELS[el.name]) return FIELD_LABELS[el.name];
+    return '입력 항목';
   }
 
-  /* ---- 4) 제출 ---- */
+  /* ---- 3) 제출 ---- */
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (!form.checkValidity()) { refreshSubmit(); return; }
+
+      var invalidEl = form.querySelector(':invalid');
+      if (invalidEl) {
+        invalidEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (typeof invalidEl.focus === 'function') invalidEl.focus({ preventScroll: true });
+        msg.setAttribute('data-state', 'error');
+        msg.textContent = labelFor(invalidEl) + ' 항목을 확인해주세요.';
+        return;
+      }
 
       var fd = new FormData(form);
 
@@ -900,6 +963,14 @@ a.nnc-btn-login:active {
       data.agreeTerms   = fd.has('agreeTerms');
       data.agreePrivacy = fd.has('agreePrivacy');
       data.agreeResult  = fd.has('agreeResult');
+
+      /* 객관식(관심 계기)은 스프레드시트 컬럼 구조를 바꾸지 않기 위해 별도 키로
+         보내지 않고, 기존 'reason' 값 앞에 태그로 합쳐서 보냅니다. Apps Script가
+         이미 다루는 필드 키는 그대로 유지됩니다. */
+      if (data.reasonCategory) {
+        data.reason = '[' + data.reasonCategory + '] ' + (data.reason || '');
+        delete data.reasonCategory;
+      }
 
       submitBtn.disabled = true;
       msg.removeAttribute('data-state');
