@@ -153,6 +153,43 @@
     }
   }
 
+  /* 카카오·네이버 1초 로그인 버튼. bydose.kr/login에 이미 노출된 카카오·네이버
+     로그인 버튼의 진입점(kauth.kakao.com / nid.naver.com authorize)을 그대로
+     사용합니다. client_id·redirect_uri는 그 버튼들에도 이미 공개된 값이라
+     그대로 재사용해도 안전하고, state의 앞부분(base64)만 이 페이지로 돌아오는
+     경로로 바꿔 낍니다. */
+  var KAKAO_CLIENT_ID = 'c06137d73bcd02e25b39ae20548f92b3';
+  var NAVER_CLIENT_ID = 'tt8wZoesEDA62EhiRjcu';
+  var OAUTH_REDIRECT_URI = 'https://bydose.kr/oauth';
+
+  function buildSocialHref(authBase, clientId, provider, extraQuery) {
+    var back = location.pathname + location.search + '#nnc-signup';
+    var state = btoa(back) + '|' + provider + '|Y||';
+    return authBase +
+      '?response_type=code' +
+      '&client_id=' + clientId +
+      '&redirect_uri=' + encodeURIComponent(OAUTH_REDIRECT_URI) +
+      '&state=' + encodeURIComponent(state) +
+      (extraQuery || '');
+  }
+
+  var kakaoLink = document.getElementById('bydKakaoLogin');
+  if (kakaoLink) {
+    try {
+      kakaoLink.href = buildSocialHref('https://kauth.kakao.com/oauth/authorize', KAKAO_CLIENT_ID, 'kakao_sync', '&through_account=true');
+    } catch (e) {
+      kakaoLink.href = '/login';   // 실패해도 로그인은 되게
+    }
+  }
+  var naverLink = document.getElementById('bydNaverLogin');
+  if (naverLink) {
+    try {
+      naverLink.href = buildSocialHref('https://nid.naver.com/oauth2.0/authorize', NAVER_CLIENT_ID, 'naver', '&svctype=0');
+    } catch (e) {
+      naverLink.href = '/login';   // 실패해도 로그인은 되게
+    }
+  }
+
   /* ---- 2) 주소 검색 (다음 우편번호 · 무료, 키 불필요) ---- */
   var zipBtn = document.getElementById('bydZipBtn');
   if (zipBtn) {

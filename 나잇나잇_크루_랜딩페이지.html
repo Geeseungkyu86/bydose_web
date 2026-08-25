@@ -160,6 +160,11 @@
         회원가입은 30초면 충분해요. 가입 후 이 화면으로 자동으로 돌아와 이어서 지원할 수 있어요.<br class="nnc-pc">
         지원만 해주셔도 나잇나잇크림 30% 할인 쿠폰을 드려요.
       </div>
+      <div class="nnc-social-row">
+        <a href="/login" id="bydKakaoLogin" class="nnc-btn-social nnc-btn-kakao">카카오 1초 로그인</a>
+        <a href="/login" id="bydNaverLogin" class="nnc-btn-social nnc-btn-naver">네이버 1초 로그인</a>
+      </div>
+      <div class="nnc-social-divider"><span>또는</span></div>
       <a href="/login" class="nnc-btn-login">로그인 / 회원가입</a>
     </div>
 
@@ -524,6 +529,22 @@ a.nnc-btn-login:active {
   letter-spacing: var(--ls); text-decoration: none !important;
 }
 
+.nnc-social-row { display: flex; gap: 12px; justify-content: center; margin-bottom: 20px; }
+.nnc-btn-social,
+a.nnc-btn-social:link, a.nnc-btn-social:visited, a.nnc-btn-social:hover, a.nnc-btn-social:active {
+  flex: 1 1 0; max-width: 172px; display: inline-flex; align-items: center; justify-content: center;
+  height: 46px; border-radius: 12px;
+  font-family: var(--font); font-size: 15px; font-weight: 700;
+  letter-spacing: var(--ls); text-decoration: none !important;
+}
+.nnc-btn-kakao { background: #FEE500; color: #191919 !important; }
+.nnc-btn-naver { background: #03C75A; color: #fff !important; }
+.nnc-social-divider {
+  display: flex; align-items: center; gap: 12px; margin: 0 auto 20px; max-width: 300px;
+  font-family: var(--font); font-size: 13px; color: var(--help); letter-spacing: var(--ls);
+}
+.nnc-social-divider::before, .nnc-social-divider::after { content: ""; flex: 1 1 auto; height: 1px; background: var(--line); }
+
 .nnc-form, .nnc-done { max-width: 690px; margin: 0 auto; }
 .nnc-form-notice {
   margin: 0 0 24px; padding: 14px 18px; border-radius: 12px;
@@ -723,6 +744,8 @@ a.nnc-btn-login:active {
 
   .nnc-center-pc { text-align: left; }
   .nnc-gate { text-align: left; }
+  .nnc-social-row { justify-content: flex-start; }
+  .nnc-social-divider { margin-left: 0; margin-right: auto; }
 
   .nnc-f label:not(.nnc-choice), .nnc-label { font-size: 17px; line-height: 17px; }
   .nnc-choice { font-size: 17px; line-height: 24px; }
@@ -894,6 +917,43 @@ a.nnc-btn-login:active {
         encodeURIComponent(btoa(unescape(encodeURIComponent(back)))) + '&used_login_btn=Y';
     } catch (e) {
       loginLink.href = '/login';   // base64 실패해도 로그인은 되게
+    }
+  }
+
+  /* 카카오·네이버 1초 로그인 버튼. bydose.kr/login에 이미 노출된 카카오·네이버
+     로그인 버튼의 진입점(kauth.kakao.com / nid.naver.com authorize)을 그대로
+     사용합니다. client_id·redirect_uri는 그 버튼들에도 이미 공개된 값이라
+     그대로 재사용해도 안전하고, state의 앞부분(base64)만 이 페이지로 돌아오는
+     경로로 바꿔 낍니다. */
+  var KAKAO_CLIENT_ID = 'c06137d73bcd02e25b39ae20548f92b3';
+  var NAVER_CLIENT_ID = 'tt8wZoesEDA62EhiRjcu';
+  var OAUTH_REDIRECT_URI = 'https://bydose.kr/oauth';
+
+  function buildSocialHref(authBase, clientId, provider, extraQuery) {
+    var back = location.pathname + location.search + '#nnc-signup';
+    var state = btoa(back) + '|' + provider + '|Y||';
+    return authBase +
+      '?response_type=code' +
+      '&client_id=' + clientId +
+      '&redirect_uri=' + encodeURIComponent(OAUTH_REDIRECT_URI) +
+      '&state=' + encodeURIComponent(state) +
+      (extraQuery || '');
+  }
+
+  var kakaoLink = document.getElementById('bydKakaoLogin');
+  if (kakaoLink) {
+    try {
+      kakaoLink.href = buildSocialHref('https://kauth.kakao.com/oauth/authorize', KAKAO_CLIENT_ID, 'kakao_sync', '&through_account=true');
+    } catch (e) {
+      kakaoLink.href = '/login';   // 실패해도 로그인은 되게
+    }
+  }
+  var naverLink = document.getElementById('bydNaverLogin');
+  if (naverLink) {
+    try {
+      naverLink.href = buildSocialHref('https://nid.naver.com/oauth2.0/authorize', NAVER_CLIENT_ID, 'naver', '&svctype=0');
+    } catch (e) {
+      naverLink.href = '/login';   // 실패해도 로그인은 되게
     }
   }
 
