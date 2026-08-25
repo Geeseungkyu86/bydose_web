@@ -15,6 +15,8 @@
 </head>
 <body>
 
+<a href="#nnc-signup" class="nnc-float-cta" id="nncFloatCta" aria-label="나잇나잇크루 지원하기 폼으로 이동">나잇나잇크루 지원하기</a>
+
 <!-- ===================== [SPLIT] 1. Hero ===================== -->
 <section class="nnc-sec nnc-hero" id="nnc-top">
   <div class="nnc-wrap">
@@ -135,7 +137,7 @@
   <div class="nnc-wrap">
     <div class="nnc-section-title is-two" role="heading" aria-level="2">나잇나잇크루 1기<br>모집 정보</div>
     <div class="nnc-meta">
-      <div class="nnc-meta-row"><span class="nnc-meta-k">모집 기간:</span><span class="nnc-meta-v">2026. 08. 13 - 2026. 09. 06</span></div>
+      <div class="nnc-meta-row"><span class="nnc-meta-k">모집 기간:</span><span class="nnc-meta-v">2026. 08. 13 - 2026. 09. 06 <span class="nnc-dday" id="nncDday"></span></span></div>
       <div class="nnc-meta-row"><span class="nnc-meta-k">선정 인원:</span><span class="nnc-meta-v">20명</span></div>
       <div class="nnc-meta-row"><span class="nnc-meta-k">결과 안내:</span><span class="nnc-meta-v">2026. 09. 07 일괄 안내</span></div>
     </div>
@@ -155,7 +157,8 @@
     <div class="nnc-gate" id="bydGate">
       <div class="nnc-list-text nnc-center-pc">
         나잇나잇크루는 바이도즈 회원을 대상으로 하는 프로그램입니다.<br class="nnc-pc">
-        회원가입/로그인 이후 진행해주세요.
+        회원가입은 30초면 충분해요. 가입 후 이 화면으로 자동으로 돌아와 이어서 지원할 수 있어요.<br class="nnc-pc">
+        지원만 해주셔도 나잇나잇크림 30% 할인 쿠폰을 드려요.
       </div>
       <a href="/login" class="nnc-btn-login">로그인 / 회원가입</a>
     </div>
@@ -655,6 +658,23 @@ a.nnc-btn-login:active {
   letter-spacing: var(--ls); line-height: 30px;
 }
 
+/* ---------- D-day 배지 ---------- */
+.nnc-dday { display: inline-block; margin-left: 4px; font-size: 15px; font-weight: 700; color: var(--accent); }
+
+/* ---------- 플로팅 지원 CTA ---------- */
+.nnc-float-cta {
+  position: fixed; right: 24px; bottom: 24px; z-index: 30;
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 52px; padding: 0 26px; border-radius: 999px;
+  background: var(--accent); color: #fff !important;
+  font-family: var(--font); font-size: 16px; font-weight: 700;
+  letter-spacing: var(--ls); text-decoration: none !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+  opacity: 0; transform: translateY(12px); pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease;
+}
+.nnc-float-cta.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
 /* ============================================================
    모바일 (393 기준) — 디자인 home_mobile 실측
    ============================================================ */
@@ -716,6 +736,8 @@ a.nnc-btn-login:active {
   .nnc-faq summary { font-size: 17px; line-height: 24px; padding: 12px 0; }
   .nnc-faq-mark, .nnc-faq-a .nnc-faq-t { font-size: 17px; line-height: 26px; }
   .nnc-faq-a { padding: 12px; }
+
+  .nnc-float-cta { right: 16px; bottom: 16px; height: 48px; padding: 0 20px; font-size: 15px; }
 }
 </style>
 
@@ -867,7 +889,7 @@ a.nnc-btn-login:active {
   var loginLink = document.querySelector('.nnc-btn-login');
   if (loginLink) {
     try {
-      var back = location.pathname + location.search;
+      var back = location.pathname + location.search + '#nnc-signup';
       loginLink.href = '/login?back_url=' +
         encodeURIComponent(btoa(unescape(encodeURIComponent(back)))) + '&used_login_btn=Y';
     } catch (e) {
@@ -997,6 +1019,46 @@ a.nnc-btn-login:active {
           ? err.message
           : '제출에 실패했어요. 잠시 후 다시 시도해주세요.';
       });
+    });
+  }
+})();
+</script>
+
+<script>
+(function () {
+  var el = document.getElementById('nncDday');
+  if (!el) return;
+  var deadline = new Date(2026, 8, 6); // 2026-09-06 (모집 마감일)
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+  var diffDays = Math.ceil((deadline - today) / 86400000);
+  if (diffDays > 0) el.textContent = '\u00b7 \ub9c8\uac10\uae4c\uc9c0 D-' + diffDays;
+  else if (diffDays === 0) el.textContent = '\u00b7 \uc624\ub298 \ub9c8\uac10';
+  else el.hidden = true;
+})();
+
+(function () {
+  var cta = document.getElementById('nncFloatCta');
+  var hero = document.getElementById('nnc-top');
+  var signup = document.getElementById('nnc-signup');
+  if (!cta || !hero || !signup) return;
+
+  var heroPast = false, inSignup = false;
+  function update() { cta.classList.toggle('is-visible', heroPast && !inSignup); }
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { heroPast = !e.isIntersecting; });
+      update();
+    }).observe(hero);
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { inSignup = e.isIntersecting; });
+      update();
+    }, { threshold: 0.15 }).observe(signup);
+  } else {
+    window.addEventListener('scroll', function () {
+      heroPast = window.scrollY > window.innerHeight * 0.5;
+      update();
     });
   }
 })();

@@ -145,7 +145,7 @@
   var loginLink = document.querySelector('.nnc-btn-login');
   if (loginLink) {
     try {
-      var back = location.pathname + location.search;
+      var back = location.pathname + location.search + '#nnc-signup';
       loginLink.href = '/login?back_url=' +
         encodeURIComponent(btoa(unescape(encodeURIComponent(back)))) + '&used_login_btn=Y';
     } catch (e) {
