@@ -322,9 +322,15 @@ body{
   word-break:keep-all;
   text-wrap:pretty;
 }
-.scentsec__content .body{font-size:18px;line-height:1.389;color:var(--ink)}
+.scentsec__content .body{font-size:18px;line-height:1.389;color:var(--ink);word-break:keep-all;text-wrap:pretty}   /* lede와 같은 이유 — 어절 중간("함께합/니다")에서 끊기지 않게 */
+.body--wellness{margin:24px 0 0}   /* lede→설명 간격. 모바일은 아래 타입 스케일 블록이 12px로 덮는다 */
 
-.scent-more{margin-top:3.1771vw}   /* 61px @1920 — 바디 문단과 버튼 사이 간격 */
+/* 향 설명 — 아로마 웰니스 설명 아래에서 구분선으로 한 단 나눠, 향 묘사가 대등한 2단으로 읽히게 한다.
+   라벨은 위쪽과 같은 .sec__label(빨강)을 그대로 쓴다. */
+.scent-note{margin-top:clamp(32px,2.5vw,48px);padding-top:clamp(20px,1.5vw,28px);border-top:1px solid var(--ink)}
+.scent-note .body{margin:0}
+
+.scent-more{margin-top:clamp(28px,2.1vw,40px)}   /* 1920 기준 40px — 향 설명과 버튼 사이. 텍스트 블록이 길어져 이전 61px에서 줄였다 */
 .scent-more__toggle{
   display:inline-flex;align-items:center;justify-content:space-between;gap:16px;
   width:21.25vw;min-width:300px;   /* 408px @1920 — 문단 폭(816px)의 절반 */
@@ -364,8 +370,7 @@ body{
 .aroma-modal-close svg{width:20px;height:20px}
 
 .aroma-modal-header{margin-bottom:0}
-.aroma-modal-title{margin:0 0 24px;font-size:clamp(24px,2.8vw,30px);font-weight:500;color:var(--ink);line-height:1.4;max-width:26em;word-break:keep-all;text-wrap:pretty}
-.aroma-modal-desc{margin:0;font-size:18px;font-weight:400;color:var(--ink);line-height:1.6;max-width:34em;word-break:keep-all}
+.aroma-modal-title{margin:0;font-size:clamp(24px,2.8vw,30px);font-weight:500;color:var(--ink);line-height:1.4;max-width:26em;word-break:keep-all;text-wrap:pretty}   /* 아래 간격은 .aroma-modal-grid의 margin-top(48px)이 담당 */
 
 .aroma-modal-grid{
   display:grid;grid-template-columns:repeat(3,1fr);column-gap:24px;row-gap:32px;
@@ -390,7 +395,6 @@ body{
   .aroma-modal-container{padding:40px 24px 32px}
   .aroma-modal-close{top:20px;right:20px}
   .aroma-modal-grid{grid-template-columns:repeat(2,1fr);column-gap:14px;row-gap:28px;margin-top:32px}
-  .aroma-modal-desc{font-size:15px}
 }
 
 /* 모바일 팝업 = 바텀시트 (Sketch "4・Large" 모바일 팝업 아트보드 실측 — 393×873, 카드는
@@ -400,12 +404,10 @@ body{
   .aroma-modal-container{
     width:100%;max-width:none;border-radius:12px 12px 0 0;
     max-height:94vh;
+    padding-top:60px;   /* 제목이 한 줄로 거의 폭 전체(≈330px)라 우상단 닫기 버튼(top:20 + 32px)과 겹친다 — 버튼 아래로 내린다 */
     transform:translateY(100%);
   }
   .aroma-modal-overlay.is-active .aroma-modal-container{transform:translateY(0)}
-  /* PC에선 쉼표 뒤 강제 줄바꿈이 의도된 2줄 타이틀이지만, 모바일 폭에선 앞 절이 2줄로 흘러
-     <br> 앞에 27px짜리 토막 줄(빈칸 92%)이 남는다 — 모바일에서만 자연 흐름으로 둔다. */
-  .aroma-modal-title br{display:none}
 }
 
 @media (max-width:768px){
@@ -876,8 +878,9 @@ body{
 
 <!-- ===================== P4 · 향 (Typology PDP 레이아웃 참고) ===================== -->
 <!-- night_P5 = video — 실사/영상 준비 전까지 스케치 목업 스틸 이미지로 분위기만 대체.
-     TOP/MIDDLE/BASE + CPL Aromas 설명은 버튼 하나("아로마 웰니스와 조향 설계")로 묶어
-     팝업으로 이동 — 아코디언이 여러 줄 반복되는 피로감을 없앰. -->
+     아로마 웰니스 설명(제목 + CPL Aromas 소개)은 섹션 상단에 바로 노출하고, 6개 측정 항목과
+     TOP/MIDDLE/BASE는 버튼 하나("아로마 웰니스와 조향 설계")로 묶어 팝업으로 이동 —
+     아코디언이 여러 줄 반복되는 피로감을 없앰. -->
 <section class="scentsec" id="p4">
   <!-- ▶ 영상 슬롯: P4 향 — 좌측 풀하이트. Vimeo "night_P5"(1217189884, 960×1080 = 정확히 8:9 · 15초).
        2026-08-11 재인코딩본 — 이전 1216928666(1080×1216)에서 해상도가 슬롯(960)에 맞게 정리됐고
@@ -890,20 +893,26 @@ body{
   </div>
 
   <div class="scentsec__content">
-    <p class="sec__label">아로마</p>
+    <p class="sec__label">아로마 웰니스</p>
 
     <!-- 강제 줄바꿈 없음 — <br>이 있으면 화면 폭에 따라 문단 중간에 빈 줄칸이 생긴다(CSS 주석 참고) -->
+    <!-- 제목·설명은 팝업 상단에 있던 문구를 섹션으로 꺼내온 것이다(헤드라인 승격은 법무 확인 완료 — 2026-10-06 전달받음).
+         핵심 안락함 표현("마음을 가라앉히듯 안락함을 선사")과 3중 경유 구조는 바꾸지 말 것. -->
     <p class="lede">
-      비 갠 직후 숲속을 걷는 듯, 촉촉하면서도 포근한 향입니다. 라벤더 줄기를 손끝에 문지른 듯 싱그러운 허브, 비에 젖은 흙내음과 이끼낀 나무 껍질.
+      마음을 가라앉히듯 안락함을 선사하고, 잠에 드는 여정을 함께하는 향.
     </p>
 
-    <!-- 아래 문장의 핵심 안락함 표현("마음이 가라앉는 듯한 안락함을 선사")은 법무 검토를 통과한
-         3중 경유 형태이므로 그 부분은 바꾸지 말 것. 인용 출처는 CPL Aromas/Aroma Wellness와
-         병합해 한 문단으로 정리(사용자 지시). -->
-    <p class="body">
-      향기를 통해 감정을 이야기하는 「CPL Aromas」의 「Aroma Wellness」 라인을 활용해 조향했습니다.
-      차분하고 은은한 향기가 마음이 가라앉는 듯한 안락함을 선사하며, 잠에 드는 여정을 함께합니다.
+    <!-- 설명 마지막 문장("…연구한 향 라인을 사용했습니다")이 제품과 CPL Aromas를 잇는 문장이다 — 빼지 말 것. -->
+    <p class="body body--wellness">
+      「CPL Aromas」의 「Aroma Wellness」는 향기와 감정의 연결을 탐구하는 향 연구 플랫폼입니다. 다양한 바이오센서와 기술을 활용해 '향조'가 사람의 행동, 생리적 반응 및 주관적 인식에 어떻게 연결되는지 연구한 향 라인을 사용했습니다.
     </p>
+
+    <div class="scent-note">
+      <p class="sec__label">향 설명</p>
+      <p class="body">
+        비 갠 직후 숲속을 걷는 듯, 촉촉하면서도 포근한 향입니다. 라벤더 줄기를 손끝에 문지른 듯 싱그러운 허브, 비에 젖은 흙내음과 이끼낀 나무 껍질.
+      </p>
+    </div>
 
     <div class="scent-more">
       <button type="button" class="scent-more__toggle" onclick="openAromaPopup()">
@@ -921,13 +930,8 @@ body{
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
     </button>
 
-    <p class="sec__label">아로마 웰니스</p>
-    <!-- 쉼표 뒤 공백은 필수 — 모바일에선 이 <br>을 display:none으로 숨기므로, 공백이 없으면
-         두 절이 "선사하고,잠에"로 붙어버린다. PC에선 줄 끝 공백이라 보이지 않는다. -->
-    <div class="aroma-modal-title">마음을 가라앉히듯 안락함을 선사하고, <br>잠에 드는 여정을 함께하는 향.</div>
-    <p class="aroma-modal-desc">
-      「CPL Aromas」의 「Aroma Wellness」는 향기와 감정의 연결을 탐구하는 향 연구 플랫폼입니다. 다양한 바이오센서와 기술을 활용해 '향조'가 사람의 행동, 생리적 반응 및 주관적 인식에 어떻게 연결되는지 연구합니다.
-    </p>
+    <!-- 이전 상단(라벨 + 제목 + 설명)은 섹션 본문으로 이동했다. 팝업은 제목 하나로 시작한다. -->
+    <div class="aroma-modal-title">아로마 웰니스: 향-감정의 연구 사례</div>
     <div class="aroma-modal-grid">
       <div class="aroma-feature"><div class="aroma-feature-text"><div class="aroma-feature-en">Heart rate</div><div class="aroma-feature-ko">심박 측정</div></div><div class="aroma-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div></div>
       <div class="aroma-feature"><div class="aroma-feature-text"><div class="aroma-feature-en">Facial expressions</div><div class="aroma-feature-ko">표정 변화</div></div><div class="aroma-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2" stroke-linecap="round"/><line x1="9" y1="9" x2="9.01" y2="9" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="9" x2="15.01" y2="9" stroke-width="2" stroke-linecap="round"/></svg></div></div>
