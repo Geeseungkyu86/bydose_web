@@ -573,7 +573,7 @@ body{
 .p5test__avatar{
   width:2.5vw;height:2.5vw;min-width:36px;min-height:36px;   /* 48px @1920 */
   border-radius:50%;
-  background:#d8d8d8 center/cover no-repeat;   /* 회색 원 — 후기별 일러스트는 JS가 background-image로 얹는다(투명 배경이라 회색이 비친다). 이미지가 없으면 회색 원 그대로 */
+  background:var(--bg) center/cover no-repeat;   /* 크림(#F3F3E9) 원 — 후기별 일러스트는 JS가 background-image로 얹는다(투명 배경이라 크림색이 비친다). 이미지가 없으면 크림 원 그대로 */
   flex-shrink:0;
 }
 .p5test__name{display:block;font-size:16px;font-weight:500;line-height:1.5;color:var(--ink)}
@@ -961,7 +961,7 @@ body{
 
 <!-- ===================== P5 · 증언 (Sketch "웹페이지 리뉴얼" PC 아트보드 실측 반영) ===================== -->
 <!-- 캔버스에 흩어져 있던 후기 5건(닷 5개와 매칭)을 JS 데이터로 옮겨 캐러셀로 순환.
-     아바타는 회색 원 안에 후기별 일러스트(5종)를 채운다 — 이미지는 아래 스크립트의 avatars 배열. -->
+     아바타는 크림색(#F3F3E9) 원 안에 후기별 일러스트(5종)를 채운다 — 이미지는 아래 스크립트의 avatars 배열. -->
 <section class="p5test" id="p5">
   <!-- ▶ 이미지 슬롯: P5 증언 — 후기별 배경 이미지 4장(후기 5건에 순환 재사용) -->
   <div class="p5test__bg">
@@ -1163,7 +1163,7 @@ document.addEventListener('keydown', function(e){
 (function(){
   var section = document.getElementById('p5');
   if (!section) return;
-  /* 후기 작성자 일러스트 아바타 — 회색 원 안에 cover로 채운다. 원본(2000px 투명 배경)에서 얼굴 영역만 잘라
+  /* 후기 작성자 일러스트 아바타 — 크림색 원 안에 cover로 채운다. 원본(2000px 투명 배경)에서 얼굴 영역만 잘라
      160px WebP로 줄여 data URI로 내장했다(5장 합계 약 32KB). 아임웹에 올린 뒤에는 이 값을 이미지 URL로 바꿔도 된다.
      아래 testimonials의 각 후기가 avatars[i]로 직접 묶여 있어, 후기 순서를 바꿔도 사진이 따라간다. */
   var avatars = [
