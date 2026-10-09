@@ -33,6 +33,16 @@
 └── .claude/                Claude Code 설정
 ```
 
+## 나잇나잇 구매 페이지 통합
+
+`nightnight.html`을 아임웹 구매 페이지(`shop_view?idx=63`)에 합치는 코드 위젯 2개를 생성한다. 설치·검수 방법은 `nightnight-pdp.md`를 본다.
+
+| 파일 | 내용 |
+|---|---|
+| `tools/build_nightnight_pdp.py` | 생성 스크립트 — `python3 tools/build_nightnight_pdp.py` |
+| `nightnight-pdp-top.html` | 위젯 ① (자동 생성) — 상품 위젯 위: CSS + 히어로 |
+| `nightnight-pdp-bottom.html` | 위젯 ② (자동 생성) — 상품 위젯 아래: P3~P8 + PC 플로팅 구매 바 |
+
 ## 원본 소스 파일 위치 (여기 없음)
 
 용량이 커서 iCloud로 옮기지 않고 데스크탑에 그대로 뒀습니다.

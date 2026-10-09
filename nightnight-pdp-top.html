@@ -1,0 +1,545 @@
+<!-- 자동 생성 파일 — 직접 고치지 말 것. nightnight.html을 고친 뒤 `python3 tools/build_nightnight_pdp.py`로 다시 만든다. 설치 방법: nightnight-pdp.md -->
+<!-- 위젯 ① — 상품 상세페이지 레이아웃에서 상품 위젯 "위" 섹션의 코드 위젯 (섹션 상하 여백 0) -->
+<script>
+/* 게이트 — 상품 상세 레이아웃은 모든 상품이 같이 쓰므로, 나잇나잇 크림(idx=63) 페이지에서만
+   <html>에 nn-pdp를 붙인다. .nnp 영역은 이 클래스가 있을 때만 보인다(아래 CSS).
+   위젯 ①·② 양쪽에 같은 코드가 있다 — 어느 한쪽만 남아도 동작하도록. */
+(function(){
+  var p = new URLSearchParams(location.search);
+  if (/\/shop_view\/?$/.test(location.pathname) && p.get('idx') === '63') {
+    document.documentElement.classList.add('nn-pdp');
+  }
+})();
+</script>
+<style>.nnp{display:none}html.nn-pdp .nnp{display:block}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=42dot+Sans:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+.nnp{--bg:#F3F3E9;
+  --ink:#2A2A29;
+  --accent:#D35B40;
+  --hairline:rgba(42,42,41,.16);
+  --muted:rgba(42,42,41,.55);
+  --font:"42dot Sans","Asta Sans",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard",sans-serif;
+  --mono:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --media-ratio:90.9%;
+  --foot-h:98px;
+  --sec-gap:6.25vw;}
+.nnp *,.nnp *::before,.nnp *::after{box-sizing:border-box}
+.nnp{margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--font);font-weight:400;
+  letter-spacing:0;
+  -webkit-font-smoothing:antialiased;}
+.nnp .wrap{max-width:1128px;margin:0 auto;padding:0 24px}
+.nnp .hero{height:100vh;
+  height:100dvh;
+  min-height:600px;
+  display:flex;flex-direction:column;
+  background:var(--bg);}
+.nnp .hero__media{position:relative;flex:1 1 auto;min-height:0;
+  overflow:hidden;
+  background:var(--bg);}
+.nnp .hero__bg{position:absolute;inset:0;z-index:0;
+  width:100%;height:100%;object-fit:cover;display:block;}
+.nnp .hero__text{position:absolute;z-index:2;
+  left:3.75vw;
+  top:43.3%;}
+.nnp .hero__eyebrow{margin:0;
+  font-size:16px;font-weight:400;line-height:19px;
+  color:var(--accent);}
+.nnp .hero__title{margin:12px 0 0;
+  font-size:clamp(26px,3vw,30px);font-weight:500;line-height:1.4;
+  color:var(--ink);}
+.nnp .hero__spec{margin:12px 0 0;
+  font-family:var(--mono);
+  font-size:16px;font-weight:400;line-height:30px;
+  color:var(--ink);}
+.nnp .hero__foot{flex:0 0 var(--foot-h);
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;
+  padding-top:24px;}
+.nnp .hero__foot p{margin:0;
+  font-family:var(--mono);
+  font-size:16px;font-weight:400;line-height:30px;
+  color:var(--ink);
+  text-align:center;}
+.nnp .hero__arrow{margin-top:7px;
+  font-size:16px;font-weight:600;line-height:16px;
+  color:var(--ink);text-decoration:none;}
+.nnp .sec{margin-top:var(--sec-gap);padding:3.75vw 0 clamp(96px,14vh,168px)}
+.nnp .p8wrap{max-width:none;margin:0;padding:0 3.75vw}
+.nnp .sec__label{margin:0 0 12px;
+  font-size:16px;font-weight:400;
+  color:var(--accent);}
+.nnp .sec__title{margin:0;
+  font-size:clamp(26px,3vw,30px);font-weight:500;line-height:1.4;}
+.nnp .sec__title-en{margin:10px 0 0;
+  font-family:var(--mono);
+  font-size:14px;font-weight:400;letter-spacing:.06em;
+  color:var(--muted);}
+.nnp .lede{margin:28px 0 0;
+  font-size:clamp(18px,1.5vw,21px);font-weight:400;line-height:1.75;}
+.nnp .body{margin:20px 0 0;
+  font-size:16px;font-weight:400;line-height:1.9;
+  color:rgba(42,42,41,.8);
+  max-width:34em;}
+.nnp .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:80px;align-items:start}
+.nnp .split__left{position:sticky;top:calc(var(--gnb) + 48px)}
+.nnp .notes{margin:0;border-top:1px solid var(--ink)}
+.nnp .notes > div{display:grid;grid-template-columns:88px 1fr;gap:20px;
+  padding:18px 0;border-bottom:1px solid var(--hairline);}
+.nnp .notes dt{margin:0;font-family:var(--mono);
+  font-size:12px;font-weight:500;letter-spacing:.1em;line-height:1.7;
+  color:var(--muted);}
+.nnp .notes dd{margin:0;font-size:15px;line-height:1.7;}
+.nnp .src{margin:32px 0 0;
+  font-size:15px;line-height:1.7;color:rgba(42,42,41,.8);}
+.nnp .more{display:inline-block;margin-top:14px;
+  font-size:15px;color:var(--ink);
+  text-decoration:none;border:0;border-bottom:1px solid var(--ink);
+  padding:0 0 2px;background:none;cursor:pointer;font-family:var(--font);}
+.nnp .more:hover{color:var(--accent);border-color:var(--accent)}
+.nnp .p2card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  aspect-ratio:8/5;
+  margin-top:var(--sec-gap);}
+.nnp .p2card__media{overflow:hidden;background:#000;min-width:0}
+.nnp .p2card__media img{width:100%;height:100%;object-fit:cover;display:block}
+.nnp .p2card__content{display:flex;flex-direction:column;align-items:center;text-align:center;
+  justify-content:center;min-width:0;
+  padding:clamp(40px,3.3333vw,64px) clamp(24px,6vw,96px);}
+.nnp .p2card__brand{margin:0;font-family:var(--mono);font-size:24px;font-weight:500;
+  letter-spacing:.08em;color:var(--ink);}
+.nnp .p2card__desc{margin:16px 0 0;max-width:30em;
+  font-size:16px;font-weight:400;line-height:1.4375;color:var(--ink);}
+.nnp .p2card__bottle{margin-top:clamp(24px,2.0833vw,40px);width:clamp(90px,6.25vw,120px)}
+.nnp .p2card__bottle img{width:100%;height:auto;display:block}
+.nnp .p2card__name{margin:clamp(16px,1.25vw,24px) 0 0;font-size:15px}
+.nnp .p2card__price{margin:clamp(6px,0.4167vw,8px) 0 0;font-size:16px;font-weight:700}
+.nnp .p2card__cta{display:block;box-sizing:border-box;text-align:center;text-decoration:none;
+  margin-top:clamp(14px,1.0417vw,20px);
+  padding:clamp(12px,0.8333vw,16px) clamp(24px,2.0833vw,40px);
+  background:var(--ink);border:0;
+  font-family:var(--font);font-size:16px;font-weight:500;
+  cursor:pointer;width:100%;max-width:clamp(240px,16.6667vw,320px);}
+.nnp .p2card__cta,.nnp .p2card__cta:hover{color:var(--bg)!important}
+.nnp .p2card__cta:hover{background:var(--accent)}
+@media (max-width:768px){
+.nnp .p2card{grid-template-columns:1fr;aspect-ratio:auto;margin-top:26px}
+.nnp .p2card__content{padding:48px 24px 36px}
+.nnp .p2card__media{aspect-ratio:4/5}
+}
+.nnp .p4tex{position:relative;aspect-ratio:16/9;overflow:hidden;margin-top:var(--sec-gap)}
+.nnp .p4tex__media{position:absolute;inset:0;overflow:hidden;background:#dedbd2;display:flex;align-items:center;justify-content:center}
+.nnp .p4tex__media video,.nnp .p4tex__media-mock{width:100%;height:100%;object-fit:cover;display:block}
+.nnp .p4tex__media iframe{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  min-width:100%;min-height:100%;aspect-ratio:16/9;border:0;display:block;
+  pointer-events:none;}
+.nnp .p4tex__content{position:absolute;top:0;left:0;
+  padding:3.75vw 0 0 3.75vw;}
+.nnp .p4tex__content .sec__title{max-width:20em}
+.nnp .p4tex__content .body{max-width:28.125vw;min-width:420px;font-size:18px;line-height:1.389;color:var(--ink);
+  word-break:keep-all;text-wrap:pretty;}
+.nnp .accordion{margin-top:5.625vw;width:28.125vw;min-width:420px}
+.nnp .accordion__toggle{display:flex;align-items:center;justify-content:space-between;width:100%;
+  padding:12px 0;background:none;border:0;cursor:pointer;
+  font-family:var(--font);font-size:20px;font-weight:500;color:var(--ink);text-align:left;}
+.nnp .accordion__icon{font-family:"PingFangSC-Light","PingFang SC",var(--font);font-weight:300;font-size:20px}
+.nnp .accordion__panel{padding:0 0 2.5vw}
+.nnp .accordion__panel p{margin:0;font-size:16px;line-height:1.5;color:var(--ink);max-width:26em}
+.nnp .accordion__rating{display:flex;align-items:center;gap:24px;margin-top:12px;font-size:16px}
+.nnp .accordion__dots{display:flex;gap:14px}
+.nnp .accordion__dots i{width:8px;height:8px;border-radius:50%;background:var(--ink);display:block;box-sizing:border-box}
+.nnp .accordion__dots i.is-empty{background:none;border:1px solid var(--ink)}
+@media (max-width:768px){
+.nnp .p4tex{aspect-ratio:auto;overflow:visible}
+.nnp .p4tex__media{position:relative;inset:auto;aspect-ratio:1/1}
+.nnp .p4tex__content{position:static;padding:36px 24px 24px}
+.nnp .p4tex__content .body{min-width:0;max-width:100%}
+.nnp .accordion{width:auto;min-width:0;max-width:100%}
+}
+.nnp .scentsec{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  aspect-ratio:16/9;
+  margin-top:var(--sec-gap);}
+.nnp .scentsec__media{position:relative;overflow:hidden;background:#dedbd2;min-width:0;display:flex;align-items:center;justify-content:center}
+.nnp .scentsec__media video,.nnp .scentsec__media img{width:100%;height:100%;object-fit:cover;display:block}
+.nnp .scentsec__media iframe{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(1.006);
+  min-width:100%;min-height:100%;aspect-ratio:8/9;border:0;display:block;
+  pointer-events:none;}
+.nnp .scentsec__content{min-width:0;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 3.75vw;}
+.nnp .scentsec__content .lede{font-size:clamp(24px,2.2vw,30px);font-weight:500;line-height:1.333;
+  word-break:keep-all;
+  text-wrap:pretty;}
+.nnp .scentsec__content .body{font-size:18px;line-height:1.389;color:var(--ink);word-break:keep-all;text-wrap:pretty}
+.nnp .body--wellness{margin:24px 0 0}
+.nnp .scent-note{margin-top:clamp(32px,2.5vw,48px);padding-top:clamp(20px,1.5vw,28px);border-top:1px solid var(--ink)}
+.nnp .scent-note .body{margin:0}
+.nnp .scent-more{margin-top:clamp(28px,2.1vw,40px)}
+.nnp .scent-more__toggle{display:inline-flex;align-items:center;justify-content:space-between;gap:16px;
+  width:21.25vw;min-width:300px;
+  padding:12px 24px;
+  background:var(--ink);color:var(--bg);border:0;
+  cursor:pointer;font-family:var(--font);font-size:16px;font-weight:500;line-height:20px;text-align:left;}
+.nnp .scent-more__toggle .accordion__icon{font-weight:500;font-size:16px;line-height:20px}
+.nnp .aroma-modal-overlay{position:fixed;inset:0;z-index:200;
+  background:rgba(42,42,41,.7);
+  display:flex;justify-content:center;align-items:flex-start;
+  padding:0 24px 24px;
+  opacity:0;pointer-events:none;transition:opacity .3s ease;}
+.nnp .aroma-modal-overlay.is-active{opacity:1;pointer-events:auto}
+.nnp .aroma-modal-container{position:relative;background:var(--bg);
+  border-radius:12px;
+  width:100%;max-width:1080px;
+  margin-top:15vh;
+  padding:72px 72px 154px;box-sizing:border-box;
+  transform:translateY(100%);transition:transform .3s ease;
+  max-height:80vh;overflow-y:auto;}
+.nnp .aroma-modal-overlay.is-active .aroma-modal-container{transform:translateY(0)}
+.nnp .aroma-modal-close{position:absolute;top:32px;right:32px;background:none;border:0;cursor:pointer;padding:0;
+  width:32px;height:32px;display:flex;justify-content:center;align-items:center;color:var(--ink);}
+.nnp .aroma-modal-close svg{width:20px;height:20px}
+.nnp .aroma-modal-header{margin-bottom:0}
+.nnp .aroma-modal-title{margin:0;font-size:clamp(24px,2.8vw,30px);font-weight:500;color:var(--ink);line-height:1.4;max-width:26em;word-break:keep-all;text-wrap:pretty}
+.nnp .aroma-modal-grid{display:grid;grid-template-columns:repeat(3,1fr);column-gap:24px;row-gap:32px;
+  margin-top:48px;}
+.nnp .aroma-feature{border-top:1px solid var(--ink);padding-top:16px;display:flex;justify-content:space-between;align-items:flex-start}
+.nnp .aroma-feature-text{display:flex;flex-direction:column;gap:4px}
+.nnp .aroma-feature-en{font-weight:500;font-size:16px;color:var(--ink)}
+.nnp .aroma-feature-ko{font-weight:400;font-size:14px;color:var(--muted)}
+.nnp .aroma-feature-icon{width:28px;height:28px;flex-shrink:0;margin-top:2px;color:var(--ink)}
+.nnp .aroma-modal-label2{margin-top:60px}
+.nnp .scent-flow{margin-top:12px}
+.nnp .scent-flow__item{margin-bottom:24px}
+.nnp .scent-flow__item:last-child{margin-bottom:0}
+.nnp .scent-flow__label{margin:0;font-size:18px;font-weight:600;color:var(--ink)}
+.nnp .scent-flow__notes{margin:6px 0 0;font-size:15px;line-height:1.6;color:var(--muted);word-break:keep-all;text-wrap:pretty}
+.nnp .scent-flow__notes strong{font-weight:700;color:var(--ink)}
+@media (max-width:992px){
+.nnp .aroma-modal-container{padding:40px 24px 32px}
+.nnp .aroma-modal-close{top:20px;right:20px}
+.nnp .aroma-modal-grid{grid-template-columns:repeat(2,1fr);column-gap:14px;row-gap:28px;margin-top:32px}
+}
+@media (max-width:768px){
+.nnp .aroma-modal-overlay{align-items:flex-end;padding:0}
+.nnp .aroma-modal-container{width:100%;max-width:none;border-radius:12px 12px 0 0;
+  max-height:94vh;
+  padding-top:60px;
+  transform:translateY(100%);}
+.nnp .aroma-modal-overlay.is-active .aroma-modal-container{transform:translateY(0)}
+}
+@media (max-width:768px){
+.nnp .scentsec{grid-template-columns:1fr;aspect-ratio:auto}
+.nnp .scentsec__media{aspect-ratio:1/1;order:-1}
+.nnp .scentsec__content{padding:36px 24px 72px}
+.nnp .scent-more{margin-top:36px;display:flex;justify-content:center}
+.nnp .scent-more__toggle{width:310px;max-width:100%;min-width:0;padding:13px 24px}
+}
+.nnp .p3spec{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  aspect-ratio:2/1;
+  margin-top:var(--sec-gap);}
+.nnp .p3spec__content{padding:calc(7.5vw - 20px) 0 0 3.75vw;min-width:0}
+.nnp .p3spec__media{position:relative;overflow:hidden;background:#000;min-width:0;min-height:0}
+.nnp .p3spec__media img,.nnp .p3spec__media video{width:100%;height:100%;object-fit:cover;display:block}
+.nnp .p3spec__media iframe{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  min-width:100%;min-height:100%;aspect-ratio:1/1;border:0;display:block;
+  pointer-events:none;}
+.nnp .usage-spec{margin:0;width:36.4583vw;max-width:100%}
+.nnp .usage-spec > div{padding:20px 0;border-bottom:1px solid rgba(42,42,41,.3)}
+.nnp .usage-spec > div:last-child{border-bottom:none}
+.nnp .usage-spec dt{margin:0 0 8px;font-size:16px;font-weight:700}
+.nnp .usage-spec dd{margin:0;font-size:18px;line-height:1.6;color:var(--ink)}
+@media (max-width:768px){
+.nnp .p3spec{grid-template-columns:1fr;aspect-ratio:auto}
+.nnp .p3spec__content{padding:48px 24px 36px}
+.nnp .p3spec__media{aspect-ratio:1/1;order:-1}
+.nnp .usage-spec{width:100%}
+}
+.nnp .p6card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  align-items:center;
+  margin-top:var(--sec-gap);}
+.nnp .p6card__content{min-width:0;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 3.75vw;}
+.nnp .p6card__media{overflow:hidden;background:#dedbd2;min-width:0;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center}
+.nnp .p6card__media img,.nnp .p6card__media video{width:100%;height:100%;object-fit:cover;display:block}
+.nnp .p6-accordion .accordion__panel{padding-bottom:1.875vw}
+.nnp .p6-actives{margin-top:6px}
+.nnp .p6-actives .p6-actives__label{margin:0 0 12px;font-size:14px;font-weight:600;color:var(--ink)}
+.nnp .p6-actives .p6-actives__list{margin:0;padding-left:16px;border-left:1px solid var(--accent);
+  font-size:14px;line-height:1.6;color:var(--accent);}
+@media (max-width:768px){
+.nnp .p6card{grid-template-columns:1fr;aspect-ratio:auto;row-gap:36px}
+.nnp .p6card__content{order:-1;padding:36px 24px 48px}
+.nnp .p6card__media{aspect-ratio:4/5}
+}
+.nnp .ing-wrap{margin-top:56px}
+.nnp .ing{width:100%;border-collapse:collapse;}
+.nnp .ing th{padding:10px 12px 10px 0;text-align:left;
+  font-family:var(--mono);
+  font-size:11px;font-weight:500;letter-spacing:.12em;
+  color:var(--muted);
+  white-space:nowrap;}
+.nnp .ing td{padding:11px 12px 11px 0;
+  vertical-align:top;
+  font-size:14px;line-height:1.55;}
+.nnp .c-ewg{font-family:var(--mono);font-size:12px;width:64px;white-space:nowrap}
+.nnp .c-en{font-family:var(--mono);font-size:13px;width:32%}
+.nnp .c-ko{width:28%}
+.nnp .c-role{color:rgba(42,42,41,.65)}
+.nnp .ing-key{display:inline-block;margin-right:8px;
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.06em;color:var(--accent);}
+.nnp .p5test{position:relative;
+  aspect-ratio:16/9;
+  background:var(--accent);
+  display:flex;align-items:center;
+  overflow:hidden;
+  margin-top:var(--sec-gap);}
+.nnp .p5test__bg{position:absolute;inset:0;z-index:0}
+.nnp .p5test__bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .5s ease;}
+.nnp .p5test__bg img.is-active{opacity:1}
+.nnp .p5test__wrap{position:relative;z-index:1;width:100%;
+  display:flex;flex-direction:column;align-items:center;}
+.nnp .p5test__slide{width:22.4vw;min-width:340px;text-align:left}
+.nnp .p5test__quote{margin:0;
+  font-size:clamp(20px,1.25vw,24px);font-weight:500;line-height:1.5;
+  color:var(--ink);
+  word-break:keep-all;text-wrap:pretty;}
+.nnp .p5test__author{display:flex;align-items:center;gap:clamp(14px,1.0417vw,20px);
+  margin-top:clamp(20px,1.4583vw,28px);}
+.nnp .p5test__avatar{width:2.5vw;height:2.5vw;min-width:36px;min-height:36px;
+  border-radius:50%;
+  background:var(--bg) center/cover no-repeat;
+  flex-shrink:0;}
+.nnp .p5test__name{display:block;font-size:16px;font-weight:500;line-height:1.5;color:var(--ink)}
+.nnp .p5test__role{display:block;font-size:16px;font-weight:500;line-height:1.5;color:var(--ink);opacity:.5}
+.nnp .p5test__dots{display:flex;gap:6px;margin-top:clamp(56px,8.6979vw,167px)}
+.nnp .p5test__dots i{width:6px;height:6px;border-radius:50%;
+  background:var(--ink);border:1px solid var(--ink);box-sizing:border-box;
+  display:block;padding:0;cursor:pointer;}
+.nnp .p5test__dots i.is-active{background:var(--accent)}
+.nnp .p5test__nav{position:absolute;top:50%;transform:translateY(-50%);
+  z-index:2;
+  left:18.91vw;
+  width:1.406vw;min-width:20px;height:2.656vw;min-height:38px;
+  display:flex;align-items:center;justify-content:center;
+  background:none;border:0;cursor:pointer;padding:0;color:var(--ink);}
+.nnp .p5test__nav svg{width:100%;height:100%}
+.nnp .p5test__nav:hover{opacity:.6}
+.nnp .p5test__nav--next{left:auto;right:18.91vw}
+@media (max-width:768px){
+.nnp .p5test{aspect-ratio:auto;padding:248px 0 36px;align-items:flex-start}
+.nnp .p5test__nav{display:none}
+.nnp .p5test__slide{width:100%;min-width:0;max-width:100%;padding:0;text-align:center}
+.nnp .p5test__quote{font-size:18px;line-height:28px}
+.nnp .p5test__author{flex-direction:column;gap:9px;margin-top:24px}
+.nnp .p5test__avatar{width:48px;height:48px;min-width:48px;min-height:48px}
+.nnp .p5test__role{margin-top:3px}
+.nnp .p5test__dots{margin-top:205px}
+}
+@media (max-width:768px){
+.nnp{--foot-h:102px;
+  --sec-gap:9.16vw;}
+.nnp .hero__text{left:0;right:0;
+  top:10.9%;
+  bottom:0;
+  text-align:center;
+  padding:0 24px;
+  pointer-events:none;}
+.nnp .hero__eyebrow{font-size:16px}
+.nnp .hero__title{margin-top:12px;font-size:18px;line-height:24px}
+.nnp .hero__spec{position:absolute;left:24px;right:24px;bottom:24px;
+  margin:0;text-align:center;
+  font-size:16px;line-height:30px;}
+.nnp .hero__foot{padding-top:36px}
+.nnp .hero__foot p{font-size:16px;line-height:30px}
+.nnp .hero__arrow{margin-top:10px}
+.nnp .sec__label{margin-bottom:14px}
+.nnp .sec__title{font-size:18px;line-height:28px}
+.nnp .lede,.nnp .scentsec__content .lede{margin:0;font-size:18px;line-height:28px}
+.nnp .body,.nnp .scentsec__content .body,.nnp .p4tex__content .body{margin:12px 0 0;font-size:16px;line-height:26px}
+.nnp .sec{padding:36px 0 80px}
+.nnp .p8wrap{padding:0 24px}
+.nnp .split{grid-template-columns:1fr;gap:48px}
+.nnp .split__left{position:static}
+.nnp .notes > div{grid-template-columns:72px 1fr;gap:14px;padding:16px 0}
+.nnp .notes dd{font-size:15px}
+.nnp .ing-wrap{margin-top:40px}
+.nnp .ing thead{display:none}
+.nnp .ing tbody tr{display:flex;flex-direction:column;gap:6px;
+  padding:13px 0 12px;
+  border-bottom:1px solid var(--hairline);}
+.nnp .ing tbody td{display:block;padding:0;border:0;width:auto;font-size:14px;line-height:1.4;color:var(--ink)}
+.nnp .ing tbody td.c-ewg{display:none}
+.nnp .c-en{font-family:var(--mono)}
+.nnp .c-role{margin-top:0}
+}
+.nnp .vlazy{background-size:cover;background-position:center;background-repeat:no-repeat}
+.nnp .vlazy iframe{opacity:0;transition:opacity .4s ease}
+.nnp .vlazy.is-ready iframe{opacity:1}
+
+/* 페이지 바탕 — nightnight 크림색 */
+html.nn-pdp body{background:#F3F3E9}
+/* 상품 위젯 섹션(상세 레이아웃 공용 섹션 — 실측 id). 배경을 섹션 설정 대신 여기서 바꾸는 이유:
+   섹션 설정은 모든 상품에 적용되기 때문 */
+html.nn-pdp #s20240828fb34601919f3e{background-color:#F3F3E9!important}
+
+/* 구매 영역 글꼴 — 아이콘 폰트를 깨지 않도록 *가 아니라 컨테이너에 걸어 상속시킨다 */
+html.nn-pdp #prod_detail{
+  font-family:"42dot Sans","Asta Sans",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard",sans-serif;
+  color:#2A2A29;-webkit-font-smoothing:antialiased;
+}
+html.nn-pdp #prod_detail :is(button,input,select,textarea){font-family:inherit}
+
+/* 구매하기 — PC a._btn_buy, 모바일 하단 고정 바의 a.btn.buy(showMobileOptions) 둘 다 .btn.buy */
+html.nn-pdp #prod_detail a.btn.buy{
+  background:#2A2A29!important;border-color:#2A2A29!important;color:#F3F3E9!important;
+  border-radius:0!important;font-weight:500;
+}
+html.nn-pdp #prod_detail a.btn.buy:hover{background:#D35B40!important;border-color:#D35B40!important}
+/* 장바구니 — 외곽선 버튼 */
+html.nn-pdp #prod_detail a._btn_cart{
+  background:transparent!important;border:1px solid #2A2A29!important;color:#2A2A29!important;
+  border-radius:0!important;font-weight:500;
+}
+
+/* 모바일(아임웹 기준 991px 이하)엔 하단 고정 구매 바(실측 72px)가 처음부터 떠 있어서
+   100dvh 히어로의 하단 스트립(패키지 문구·화살표)을 덮는다 — 그만큼 히어로를 줄인다 */
+@media (max-width:991px){
+  html.nn-pdp .nnp .hero{height:calc(100vh - 72px);height:calc(100dvh - 72px)}
+}
+
+/* 아로마 팝업은 구매 페이지에서 헤더(z-index 99999)와 모바일 하단 구매 바 위로 올린다 */
+html.nn-pdp .nnp .aroma-modal-overlay{z-index:100000}
+
+/* PC 플로팅 구매 바 — 원래 구매 버튼이 화면 위로 지나가면 나타난다. 모바일에는 아임웹 하단 고정 바가 있어 띄우지 않는다(스크립트) */
+html.nn-pdp .nnp.nnp-float{
+  position:fixed;left:50%;bottom:24px;z-index:9999;
+  width:calc(100% - 208px);max-width:1280px;height:56px;box-sizing:border-box;
+  display:flex;align-items:center;justify-content:space-between;padding:0 24px;
+  background:rgba(243,243,233,.85);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border:1px solid rgba(42,42,41,.12);
+  font-family:"42dot Sans",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
+  opacity:0;pointer-events:none;transform:translateX(-50%) translateY(12px);
+  transition:opacity .3s ease,transform .3s ease;
+}
+html.nn-pdp .nnp.nnp-float.is-visible{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nnp-float__name{font-size:16px;font-weight:500;color:#2A2A29}
+.nnp-float__btn{
+  width:180px;height:40px;border:0;cursor:pointer;
+  background:#2A2A29;color:#F3F3E9;font:inherit;font-size:16px;font-weight:500;
+}
+.nnp-float__btn:hover{background:#D35B40}
+</style>
+<div class="nnp">
+<!-- ===================== P1 · 히어로 ===================== -->
+<section class="hero" id="p1">
+  <div class="hero__media" id="heroMedia">
+    <!-- night_hero = Image 1장. Sketch 마스크 그룹을 실제로 export해서 가져온 목업
+         (이불 속에서 눈 뜬 인물 — 이전에 쓰던 제품컷 슬라이드는 실제 히어로 이미지가 아니었음). -->
+    <!-- ▶ 이미지 슬롯: P1 히어로 — 모바일/PC 배경 이미지 각 1장 -->
+    <picture>
+      <source media="(max-width:768px)" srcset="https://cdn.imweb.me/upload/S2024082705e460c86991c/ca5acc1af672b.png">
+      <img class="hero__bg" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/8c6f5582a5607.png" alt="">
+    </picture>
+
+    <div class="hero__text">
+      <p class="hero__eyebrow">NIGHT NIGHT Cream™</p>
+      <div class="hero__title">밤에 일하는 &lsquo;피부를 위한&rsquo;<br>바를거리</div>
+      <!-- ￦ 기호는 의도적. 모노 서체 안에서 '원'이 폴백되면 자폭 리듬이 깨진다 -->
+      <p class="hero__spec">FACE CREAM &middot; 50mL &middot; &#8361;28,900</p>
+    </div>
+  </div>
+
+  <div class="hero__foot">
+    <p>FACE CREAM FOR SKIN-RENEWAL ENVIRONMENT</p>
+    <a class="hero__arrow" href="#prod_detail" data-nnp-scroll>&darr;</a>
+  </div>
+</section>
+</div>
+<script>
+/* 히어로를 커스텀 GNB 뒤로 끌어올림.
+   아임웹의 "상단 겹치기"를 켜도 헤더가 position:relative로 남아(2026-08-07 콘솔 실측 확인)
+   문서 흐름에서 콘텐츠를 밀어낸다 — 헤더 76px + 그 위아래 여백까지 합쳐 히어로가 146px 아래에서 시작했다.
+   헤더 자체는 배경이 transparent라(글로벌 헤더 CSS [1]) 그 자리엔 페이지 배경만 비쳐 "빈 띠"로 보였던 것.
+   PC/모바일 헤더 높이가 다르고 관리자 미리보기 바 유무로도 값이 달라지므로 고정 px 대신 실측해서 보정한다.
+   헤더는 z-index 99999라 끌어올린 이미지 위에 그대로 떠 있는다. */
+(function(){
+  var HEADERS = '#s2025111496adad2a19d7b, #s2025111421543da50f666';   /* PC · 모바일 헤더 섹션 */
+
+  function fitHero(){
+    var hero = document.querySelector('.nnp .hero');
+    if (!hero) return;
+
+    hero.style.marginTop = '0px';               /* 매번 초기화 후 재측정 — 리사이즈 누적 방지 */
+    var heroTop = hero.getBoundingClientRect().top + window.scrollY;
+
+    /* 히어로보다 위에 있는 보이는 헤더 중 가장 높은 지점 = 이미지가 닿아야 할 목표선.
+       문서 0이 아니라 헤더 상단 기준이라, 미리보기 바가 있어도 그 아래로 정확히 붙는다. */
+    var target = null;
+    document.querySelectorAll(HEADERS).forEach(function(h){
+      var r = h.getBoundingClientRect();
+      if (r.height < 1) return;                 /* 미디어쿼리로 숨겨진 쪽은 제외 */
+      var t = r.top + window.scrollY;
+      if (t < heroTop && (target === null || t < target)) target = t;
+    });
+    if (target === null) return;                /* 헤더를 못 찾으면 원래대로 둔다 */
+
+    hero.style.marginTop = -(heroTop - target) + 'px';
+  }
+
+  fitHero();
+  window.addEventListener('load', fitHero);     /* 웹폰트·이미지 로드 후 값이 밀리는 경우 재보정 */
+  window.addEventListener('resize', fitHero);
+})();
+</script>
+<script>
+/* 아임웹 헤더 오프셋 상쇄 — home-hero.html의 fitHero()와 동일한 방식.
+   아임웹 헤더는 fixed가 아니라 일반 흐름에 놓여서 첫 섹션을 아래로 밀어낸다(PC 76px / 좁은 화면 54px).
+   그만큼 위로 당겨야 히어로가 화면 최상단부터 꽉 찬다.
+   - 높이가 브레이크포인트마다 달라서 고정값을 쓰면 한쪽이 틀어진다 → 실측한다.
+   - 음수 마진이 아임웹 래퍼를 거치며 일부 상쇄(margin collapsing)돼 N만큼 당겨도 N보다 덜 움직이는
+     경우가 있다 → 잔차를 보고 반복 수렴시킨다. 단독 프로토타입은 1회, 아임웹에서는 3회쯤 걸린다.
+   - margin-top을 CSS 변수가 아니라 인라인으로 직접 넣는다. 변수로 하면 값만 바꿨을 때
+     stylesheet의 calc()가 재계산되지 않고 margin-top이 0으로 남는 현상이 있었다.
+   단독으로 열면 오프셋이 0이라 아무 효과도 없다 — 아임웹에 심었을 때만 동작한다. */
+(function () {
+  var hero = document.querySelector('.nnp .hero');
+  if (!hero) return;
+
+  function fitHero() {
+    hero.style.marginTop = '0px';   // 재기 전 초기화
+    var pull = hero.getBoundingClientRect().top + window.pageYOffset;
+
+    for (var i = 0; i < 5; i++) {
+      hero.style.marginTop = (-pull) + 'px';
+      var residual = hero.getBoundingClientRect().top + window.pageYOffset;
+      if (Math.abs(residual) < 0.5) break;
+      pull += residual;
+    }
+  }
+
+  fitHero();
+  window.addEventListener('load', fitHero);            // 웹폰트·로고가 자리 잡은 뒤 재측정
+  window.addEventListener('resize', fitHero);
+  window.addEventListener('orientationchange', fitHero);
+})();
+</script>
+<script>
+/* 히어로 화살표 → 아임웹 구매 영역으로 부드럽게 이동. html{scroll-behavior:smooth}는 아임웹 페이지 전체에
+   걸리므로 쓰지 않고 여기서만 smooth 스크롤한다. 해시를 남기지 않는 이유: 아임웹이 #prod_detail_* 해시로
+   탭을 바꾸기 때문 */
+(function(){
+  document.querySelectorAll('.nnp [data-nnp-scroll]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var t = document.querySelector(a.getAttribute('href'));
+      if (!t) return;
+      e.preventDefault();
+      t.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+})();
+</script>

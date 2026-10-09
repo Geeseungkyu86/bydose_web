@@ -115,6 +115,13 @@
 (function() {
     var btn = document.getElementById('floatingBuyBtn');
 
+    // 나잇나잇 구매 페이지(shop_view?idx=63)에서는 띄우지 않는다 — 그 페이지로 보내는 버튼이라 의미가 없고,
+    // 모바일은 아임웹 하단 고정 구매 바와 겹친다. 그 페이지의 PC 플로팅 바는 nightnight-pdp-bottom.html이 띄운다.
+    if (/\/shop_view\/?$/.test(location.pathname) && new URLSearchParams(location.search).get('idx') === '63') {
+        btn.remove();
+        return;
+    }
+
     var USE_PCT    = true;
     var SCROLL_PCT = 10;
     var SCROLL_PX  = 400;
