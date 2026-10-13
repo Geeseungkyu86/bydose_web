@@ -35,7 +35,7 @@
 
 ## 나잇나잇 구매 페이지 통합
 
-`nightnight.html`을 아임웹 구매 페이지(`shop_view?idx=63`)에 합치는 코드 위젯 2개를 생성한다. 설치·검수 방법은 `nightnight-pdp.md`를 본다.
+`nightnight.html`을 아임웹 구매 페이지(`shop_view?idx=63`)에 합치는 코드 위젯 2개를 생성한다. 설치·검수 방법은 `nightnight-pdp.md`, 영역별 디자인 자유도는 `nightnight-pdp-zones.md`를 본다.
 
 | 파일 | 내용 |
 |---|---|
