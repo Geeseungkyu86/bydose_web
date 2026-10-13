@@ -139,6 +139,12 @@ html.nn-pdp #prod_detail a._btn_cart{
   html.nn-pdp .nnp .hero{height:calc(100vh - 72px);height:calc(100dvh - 72px)}
 }
 
+/* 상세정보 탭 안으로 옮겨진 스토리(MOVE_JS). 다른 탭일 때는 hidden — .nnp{display:block}이 [hidden]을 덮으므로 다시 숨긴다.
+   PC는 본문 폭(1280) 안에 놓이고, 모바일은 상세 영역 좌우 여백(15)을 넘어 화면 끝까지 편다. */
+html.nn-pdp .nnp.nnp-story[hidden]{display:none}
+html.nn-pdp .nnp.nnp-story.is-in-tab{margin-bottom:40px}
+html.nn-pdp .nnp.nnp-story.is-mobile{width:100vw;margin-left:calc(50% - 50vw)}
+
 /* 아로마 팝업은 구매 페이지에서 헤더(z-index 99999)와 모바일 하단 구매 바 위로 올린다 */
 html.nn-pdp .nnp .aroma-modal-overlay{z-index:100000}
 
@@ -182,6 +188,66 @@ FLOAT_HTML = '''<div class="nnp nnp-float" id="nnpFloat">
   <span class="nnp-float__name">나잇나잇 크림</span>
   <button type="button" class="nnp-float__btn">구매하기</button>
 </div>'''
+
+MOVE_JS = '''<script>
+/* 스토리를 아임웹 "상세정보" 탭 안으로 옮긴다.
+   상세설명 편집기는 class를 지워서(2026-10-13 확인) 스토리를 편집기에 넣을 수 없다. 그래서 내용은 위젯 ②에 두고,
+   페이지가 열리면 상세설명 본문(#prod_detail_body) 바로 앞으로 옮긴다 — 본문 "안"이 아니라 "앞"인 이유:
+   본문은 지연 로딩이라 아임웹이 내용을 다시 채울 때 우리 요소가 지워질 수 있다.
+   - PC와 모바일 상세 영역이 따로 있다(같은 id가 두 번 나온다). 화면 폭에 따라 보이는 쪽에 넣고, 폭이 바뀌면 다시 옮긴다.
+   - 구매평·Q&A 탭을 누르면 숨기고, 상세정보 탭으로 돌아오면 보인다(탭 링크의 active 클래스를 따라간다).
+   - 자리를 못 찾으면(아임웹 구조 변경 등) 원래 자리인 위젯 ②에 그대로 보인다. */
+(function(){
+  if (!document.documentElement.classList.contains('nn-pdp')) return;
+  var story = document.getElementById('nnpStory');
+  if (!story) return;
+  var home = document.createComment('nnp-story-home');
+  story.parentNode.insertBefore(home, story);
+
+  var SLOTS = [   /* 실측 구조: PC .review-box · 모바일 ._categorize_mobile(구매 정보 칸 안) */
+    { box: '#prod_detail .categorize.review-box', tab: '#fixed_tab a._detail', mobile: false },
+    { box: '#prod_detail ._categorize_mobile', tab: '#fixed_tab_mobile a._detail', mobile: true }
+  ];
+  function shown(el){ return !!el && el.getClientRects().length > 0; }
+  function findSlot(){
+    for (var i = 0; i < SLOTS.length; i++) {
+      var box = document.querySelector(SLOTS[i].box);
+      if (!shown(box)) continue;
+      var body = box.querySelector('#prod_detail_body');
+      if (body) return { body: body, tab: document.querySelector(SLOTS[i].tab), mobile: SLOTS[i].mobile };
+    }
+    return null;
+  }
+
+  var placedBody = null;
+  function sync(){
+    var slot = findSlot();
+    if (!slot) {
+      if (placedBody) { home.parentNode.insertBefore(story, home.nextSibling); placedBody = null; }
+      story.classList.remove('is-in-tab', 'is-mobile');
+      story.hidden = false;
+      return;
+    }
+    if (placedBody !== slot.body) {
+      slot.body.parentNode.insertBefore(story, slot.body);
+      placedBody = slot.body;
+    }
+    story.classList.add('is-in-tab');
+    story.classList.toggle('is-mobile', slot.mobile);
+    story.hidden = !!slot.tab && !slot.tab.classList.contains('active');
+  }
+
+  var queued = false;
+  function queue(){ if (!queued) { queued = true; requestAnimationFrame(function(){ queued = false; sync(); }); } }
+  ['#fixed_tab', '#fixed_tab_mobile'].forEach(function(sel){
+    var nav = document.querySelector(sel);
+    if (nav) new MutationObserver(queue).observe(nav, {subtree:true, attributes:true, attributeFilter:['class']});
+  });
+  window.addEventListener('resize', queue);
+  window.addEventListener('load', queue);
+  sync();
+})();
+</script>'''
 
 FLOAT_JS = '''<script>
 /* PC 플로팅 구매 바. 자체 결제 로직 없이 아임웹의 원래 구매 버튼(a._btn_buy)을 대신 누른다 —
@@ -275,11 +341,12 @@ def main():
         '<!-- 위젯 ② — 상품 상세페이지 레이아웃에서 상품 위젯 "아래" 섹션의 코드 위젯 (섹션 상하 여백 0). '
         'CSS는 위젯 ①에 있다 -->',
         GATE,
-        '<div class="nnp">',
+        '<div class="nnp nnp-story" id="nnpStory">',
         story,
         '</div>',
         FLOAT_HTML,
         story_js,
+        MOVE_JS,
         FLOAT_JS,
         '',
     ])

@@ -412,6 +412,12 @@ html.nn-pdp #prod_detail a._btn_cart{
   html.nn-pdp .nnp .hero{height:calc(100vh - 72px);height:calc(100dvh - 72px)}
 }
 
+/* 상세정보 탭 안으로 옮겨진 스토리(MOVE_JS). 다른 탭일 때는 hidden — .nnp{display:block}이 [hidden]을 덮으므로 다시 숨긴다.
+   PC는 본문 폭(1280) 안에 놓이고, 모바일은 상세 영역 좌우 여백(15)을 넘어 화면 끝까지 편다. */
+html.nn-pdp .nnp.nnp-story[hidden]{display:none}
+html.nn-pdp .nnp.nnp-story.is-in-tab{margin-bottom:40px}
+html.nn-pdp .nnp.nnp-story.is-mobile{width:100vw;margin-left:calc(50% - 50vw)}
+
 /* 아로마 팝업은 구매 페이지에서 헤더(z-index 99999)와 모바일 하단 구매 바 위로 올린다 */
 html.nn-pdp .nnp .aroma-modal-overlay{z-index:100000}
 
