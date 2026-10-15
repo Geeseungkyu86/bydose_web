@@ -1,0 +1,158 @@
+<!--
+  모바일 메뉴 펼치기
+  아임웹 모바일 메뉴의 ⋮ 버튼 안에 있는 "장바구니"와 "마이페이지"를
+  메뉴 목록("나잇나잇 크림", "이야기") 아래로 꺼낸다.
+  - 장바구니: 항상 보인다.
+  - 마이페이지: 로그인했을 때만 보인다(⋮ 안에 "로그아웃"이 있을 때).
+  꺼낸 항목은 ⋮ 안에서는 숨긴다. 누르면 ⋮ 안의 원래 항목을 대신 눌러서
+  아임웹 기본 동작(이동·로그인 확인)을 그대로 쓴다.
+
+  붙이는 곳: 아임웹 관리자 → 환경설정 → SEO/헤더 설정(코드 삽입)의 "바디 코드".
+  아임웹 클래스명 대신 화면에 보이는 글자로 요소를 찾기 때문에
+  메뉴 이름("나잇나잇 크림", "이야기", ⋮ 안의 항목명)을 바꾸면 아래 TEXT 값도 같이 바꾼다.
+-->
+<script>
+(function () {
+  var TEXT = {
+    anchorMenu: '이야기',        // 이 메뉴 아래에 꺼낸 항목을 붙인다
+    firstMenu: '나잇나잇 크림',  // 모바일 메뉴 영역을 찾는 기준
+    dropdownMarker: '위시리스트', // ⋮ 안의 목록을 찾는 기준
+    logout: '로그아웃',
+    cart: '장바구니',
+    mypage: '마이페이지'
+  };
+  var CART_FALLBACK_URL = '/shop_cart'; // ⋮ 안에 장바구니가 없을 때(비로그인 등) 쓰는 주소
+  var MARK = 'data-bydose-unfold';
+  var MOBILE_QUERY = '(max-width: 991px)'; // 아임웹 모바일 화면 기준
+
+  // 글자가 정확히 일치하는 가장 안쪽 요소들
+  function findByText(root, text) {
+    var out = [];
+    var all = root.querySelectorAll('a, button, li, span, div, p');
+    for (var i = 0; i < all.length; i++) {
+      var el = all[i];
+      if (el.closest('[' + MARK + ']')) continue;
+      if (el.textContent.trim() !== text) continue;
+      var deeper = false;
+      for (var j = 0; j < el.children.length; j++) {
+        if (el.children[j].textContent.trim() === text) { deeper = true; break; }
+      }
+      if (!deeper) out.push(el);
+    }
+    return out;
+  }
+
+  function commonAncestor(a, b) {
+    var node = a;
+    while (node && !node.contains(b)) node = node.parentElement;
+    return node;
+  }
+
+  // ancestor 바로 아래 자식 중 el을 품고 있는 것 (목록의 한 칸)
+  function childOf(ancestor, el) {
+    var node = el;
+    while (node && node.parentElement !== ancestor) node = node.parentElement;
+    return node;
+  }
+
+  function clickable(el) {
+    return el.closest('a, button') || el;
+  }
+
+  function run() {
+    if (!window.matchMedia(MOBILE_QUERY).matches) return;
+    // 1. ⋮ 안의 목록: "위시리스트"가 있는 목록 (헤더가 여러 벌일 수 있어 전부 처리)
+    var markers = findByText(document.body, TEXT.dropdownMarker);
+    for (var i = 0; i < markers.length; i++) {
+      // 2. 모바일 메뉴 영역: 그 목록과 "나잇나잇 크림"을 같이 품은 가장 가까운 조상
+      var node = markers[i].parentElement;
+      while (node) {
+        if (findByText(node, TEXT.firstMenu).length && findByText(node, TEXT.anchorMenu).length) {
+          unfold(node, markers[i]);
+          break;
+        }
+        node = node.parentElement;
+      }
+    }
+  }
+
+  function unfold(drawer, dropdown) {
+
+    // 3. 메뉴 목록의 한 칸("이야기")
+    var first = findByText(drawer, TEXT.firstMenu)[0];
+    var anchor = findByText(drawer, TEXT.anchorMenu)[0];
+    var menuList = commonAncestor(first, anchor);
+    if (!menuList || menuList.contains(dropdown)) return;
+    var anchorItem = childOf(menuList, anchor);
+    if (!anchorItem) return;
+
+    var isLoggedIn = findByText(drawer, TEXT.logout).length > 0;
+    var lastInserted = anchorItem;
+
+    function lift(label, show, fallbackUrl) {
+      var existing = menuList.querySelector('[' + MARK + '="' + label + '"]');
+      var source = null, sourceItem = null;
+      var found = findByText(drawer, label).filter(function (el) { return !menuList.contains(el); });
+      if (found.length) {
+        source = clickable(found[0]);
+        var dropList = commonAncestor(found[0], dropdown);
+        sourceItem = dropList ? childOf(dropList, found[0]) : null;
+      }
+      if (!show || (!source && !fallbackUrl)) {
+        if (existing) existing.remove();
+        if (sourceItem) sourceItem.style.display = '';
+        return;
+      }
+      if (sourceItem) sourceItem.style.display = 'none';
+      if (existing) { lastInserted = existing; return; }
+
+      // "이야기" 칸을 복제해서 글씨·간격을 그대로 맞춘다
+      var item = anchorItem.cloneNode(true);
+      item.removeAttribute('id');
+      var all = item.querySelectorAll('*');
+      for (var k = 0; k < all.length; k++) {
+        all[k].removeAttribute('id');
+        all[k].removeAttribute('onclick');
+        all[k].classList.remove('active', 'on', 'current', 'selected');
+      }
+      item.removeAttribute('onclick');
+      item.classList.remove('active', 'on', 'current', 'selected');
+      var textEl = findByText(item, TEXT.anchorMenu)[0];
+      if (textEl) textEl.textContent = label;
+      item.setAttribute(MARK, label);
+      var link = item.tagName === 'A' ? item : item.querySelector('a');
+      if (link) link.setAttribute('href', source && source.getAttribute('href') || fallbackUrl || '#');
+
+      item.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (source && document.contains(source)) source.click();
+        else if (fallbackUrl) location.href = fallbackUrl;
+      }, true);
+
+      lastInserted.insertAdjacentElement('afterend', item);
+      lastInserted = item;
+    }
+
+    lift(TEXT.cart, true, CART_FALLBACK_URL);
+    lift(TEXT.mypage, isLoggedIn, null);
+  }
+
+  var timer = null;
+  function schedule() {
+    clearTimeout(timer);
+    timer = setTimeout(run, 100);
+  }
+
+  window.addEventListener('resize', schedule);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule);
+  else schedule();
+  // 아임웹은 모바일 메뉴를 늦게 그리거나 다시 그리므로 변경을 지켜본다
+  new MutationObserver(function (mutations) {
+    for (var i = 0; i < mutations.length; i++) {
+      var t = mutations[i].target;
+      if (!(t.closest && t.closest('[' + MARK + ']'))) { schedule(); return; }
+    }
+  }).observe(document.documentElement, { childList: true, subtree: true });
+})();
+</script>
