@@ -94,6 +94,20 @@
   .viewport-nav.mobile.bydose-unfolded .profile-area .drop_mypage {
     display: none !important;
   }
+
+  /* 페이지 메뉴와 쇼핑 메뉴(장바구니·마이페이지) 구분: 가는 선 + 작은 회색 글씨 */
+  .viewport-nav.mobile > li.bydose-shop-first {
+    margin-top: 12px !important;
+    padding-top: 12px !important;
+    border-top: 1px solid rgba(42, 42, 41, 0.15) !important;
+  }
+  .viewport-nav.mobile > li.bydose-shop-item a,
+  .viewport-nav.mobile > li.bydose-shop-item .plain_name {
+    color: #8A8A85 !important;
+  }
+  .viewport-nav.mobile > li.bydose-shop-item .plain_name {
+    font-size: 0.85em !important;
+  }
 </style>
 <script>
 (function () {
@@ -110,6 +124,7 @@
     li.removeAttribute('id');
     li.classList.remove('active');
     li.setAttribute(MARK, label);
+    li.classList.add('bydose-shop-item');
     var a = li.querySelector('a');
     if (!a) return null;
     a.setAttribute('href', href);
@@ -148,6 +163,8 @@
         last.insertAdjacentElement('afterend', li);
         last = li;
       }
+      var shop = nav.querySelectorAll(':scope > [' + MARK + ']');
+      for (var j = 0; j < shop.length; j++) shop[j].classList.toggle('bydose-shop-first', j === 0);
       nav.classList.add('bydose-unfolded');
     } catch (e) {
       // 아임웹 구조가 바뀌면 조용히 멈춘다 (사이트와 ⋮ 메뉴는 그대로 둔다)
