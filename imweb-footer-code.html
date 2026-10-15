@@ -73,207 +73,97 @@
 
 <!--
   모바일 메뉴 펼치기
-  아임웹 모바일 메뉴의 ⋮ 버튼 안에 있는 "장바구니"와 "마이페이지"를
+  아임웹 모바일 메뉴서랍의 ⋮ 버튼 안에 있는 "장바구니"와 "마이페이지"를
   메뉴 목록("나잇나잇 크림", "이야기") 아래로 꺼낸다.
   - 장바구니: 항상 보인다.
-  - 마이페이지: 로그인했을 때만 보인다(⋮ 안에 "로그아웃"이 있을 때).
-  꺼낸 항목은 ⋮ 안에서는 숨긴다. 누르면 ⋮ 안의 원래 항목을 대신 눌러서
-  아임웹 기본 동작(이동·로그인 확인)을 그대로 쓴다.
+  - 마이페이지: 로그인했을 때만 보인다(⋮ 안에 마이페이지가 있을 때).
+  꺼낸 항목은 ⋮ 안에서는 숨긴다.
 
-  붙이는 곳: 아임웹 관리자 → 환경설정 → SEO/헤더 설정(코드 삽입)의 "바디 코드".
-  아임웹 클래스명 대신 화면에 보이는 글자로 요소를 찾기 때문에
-  메뉴 이름("나잇나잇 크림", "이야기", ⋮ 안의 항목명)을 바꾸면 아래 TEXT 값도 같이 바꾼다.
+  아임웹 모바일 메뉴서랍 구조 (2026-10-15 bydose.kr 실제 화면 기준):
+    div.viewport-nav.mobile
+      div.profile-area  … ⋮ 목록 ul.dropdown-menu > li.drop_mypage / li.drop_cart / …
+      li.depth-01 > a > span.plain_name   (나잇나잇 크림)
+      li.depth-01 > a > span.plain_name   (이야기)
+  메뉴 칸(li.depth-01)을 복제해서 붙이므로 글씨·간격은 기존 메뉴와 같다.
 
-  안전장치: 글자 수가 적은 작은 목록(메뉴 목록, ⋮ 목록)만 건드린다.
-  조건에 맞는 목록을 못 찾으면 아무것도 하지 않는다.
+  붙이는 곳: 아임웹 푸터 코드 칸 (imweb-footer-code.html에 합쳐 둠).
 -->
+<style>
+  /* 꺼내기가 끝난 메뉴서랍에서만 ⋮ 안의 원래 항목을 숨긴다 */
+  .viewport-nav.mobile.bydose-unfolded .profile-area .drop_cart,
+  .viewport-nav.mobile.bydose-unfolded .profile-area .drop_mypage {
+    display: none !important;
+  }
+</style>
 <script>
 (function () {
-  var TEXT = {
-    firstMenu: '나잇나잇 크림',  // 메뉴 목록을 찾는 기준 1
-    anchorMenu: '이야기',        // 메뉴 목록을 찾는 기준 2, 이 아래에 꺼낸 항목을 붙인다
-    dropdownMarker: '위시리스트', // ⋮ 목록을 찾는 기준 1
-    dropdownMarker2: '주문배송',  // ⋮ 목록을 찾는 기준 2
-    logout: '로그아웃',
-    cart: '장바구니',
-    mypage: '마이페이지'
-  };
-  var CART_FALLBACK_URL = '/shop_cart'; // ⋮ 안에 장바구니가 없을 때(비로그인 등) 쓰는 주소
   var MARK = 'data-bydose-unfold';
-  var HIDDEN = 'data-bydose-hidden';
-  var MOBILE_QUERY = '(max-width: 991px)'; // 아임웹 모바일 화면 기준
-  var MAX_MENU_TEXT = 120;     // 메뉴 목록 전체 글자 수 상한
-  var MAX_DROPDOWN_TEXT = 80;  // ⋮ 목록 전체 글자 수 상한
-  var MAX_CLIMB = 8;           // 메뉴 목록에서 ⋮ 목록을 찾으러 올라가는 최대 단계
+  var ITEMS = [
+    // label: 메뉴에 보일 이름, source: ⋮ 안의 원래 항목, fallback: 원래 항목이 없을 때 주소
+    { label: '장바구니', source: '.profile-area .drop_cart a', fallback: '/shop_cart', always: true },
+    { label: '마이페이지', source: '.profile-area .drop_mypage a', fallback: null, always: false }
+  ];
 
-  function textOf(el) {
-    return (el.textContent || '').replace(/\s+/g, ' ').trim();
-  }
-
-  // 글자가 정확히 일치하는 가장 안쪽 요소들 (꺼내 붙인 항목은 제외)
-  function findByText(root, text) {
-    var out = [];
-    var all = root.querySelectorAll('a, button, li, span, div, p');
-    for (var i = 0; i < all.length; i++) {
-      var el = all[i];
-      if (textOf(el) !== text) continue;
-      if (el.closest('[' + MARK + ']')) continue;
-      var deeper = false;
-      for (var j = 0; j < el.children.length; j++) {
-        if (textOf(el.children[j]) === text) { deeper = true; break; }
-      }
-      if (!deeper) out.push(el);
-    }
-    return out;
-  }
-
-  function commonAncestor(a, b) {
-    var node = a;
-    while (node && !node.contains(b)) node = node.parentElement;
-    return node;
-  }
-
-  // ancestor 바로 아래 자식 중 el을 품고 있는 것 (목록의 한 칸)
-  function childOf(ancestor, el) {
-    var node = el;
-    while (node && node.parentElement !== ancestor) node = node.parentElement;
-    return node;
-  }
-
-  // 메뉴 목록: "나잇나잇 크림"과 "이야기"만 들어 있는 작은 목록
-  function findMenuLists() {
-    var lists = [], seen = [];
-    var firsts = findByText(document.body, TEXT.firstMenu);
-    var anchors = findByText(document.body, TEXT.anchorMenu);
-    for (var i = 0; i < firsts.length; i++) {
-      for (var j = 0; j < anchors.length; j++) {
-        var list = commonAncestor(firsts[i], anchors[j]);
-        if (!list || list === document.body || list === document.documentElement) continue;
-        if (textOf(list).length > MAX_MENU_TEXT) continue;
-        var item = childOf(list, anchors[j]);
-        if (!item || textOf(item) !== TEXT.anchorMenu) continue;
-        if (childOf(list, firsts[i]) === item) continue;
-        if (seen.indexOf(list) !== -1) continue;
-        seen.push(list);
-        lists.push({ list: list, anchorItem: item });
-      }
-    }
-    return lists;
-  }
-
-  // 같은 모바일 메뉴 안의 ⋮ 목록: "위시리스트"와 "주문배송"이 같이 있는 작은 목록
-  function findDropdown(menuList) {
-    var scope = menuList.parentElement;
-    for (var step = 0; scope && step < MAX_CLIMB; step++, scope = scope.parentElement) {
-      var markers = findByText(scope, TEXT.dropdownMarker);
-      var markers2 = findByText(scope, TEXT.dropdownMarker2);
-      for (var i = 0; i < markers.length; i++) {
-        for (var j = 0; j < markers2.length; j++) {
-          var list = commonAncestor(markers[i], markers2[j]);
-          if (!list || list.contains(menuList) || menuList.contains(list)) continue;
-          if (textOf(list).length > MAX_DROPDOWN_TEXT) continue;
-          return list;
-        }
-      }
-    }
-    return null;
-  }
-
-  function unfold(menuList, anchorItem) {
-    var dropList = findDropdown(menuList);
-    var isLoggedIn = !!(dropList && findByText(dropList, TEXT.logout).length);
-    var lastInserted = anchorItem;
-
-    function lift(label, show, fallbackUrl) {
-      var existing = menuList.querySelector('[' + MARK + '="' + label + '"]');
-      var source = null, sourceItem = null;
-      if (dropList) {
-        var found = findByText(dropList, label)[0];
-        if (found) {
-          source = found.closest('a, button') || found;
-          if (!dropList.contains(source)) source = found;
-          sourceItem = childOf(dropList, found);
-          // ⋮ 목록의 그 한 칸만 숨긴다. 다른 글자가 섞여 있으면 손대지 않는다.
-          if (sourceItem && textOf(sourceItem) !== label) sourceItem = null;
-        }
-      }
-      if (!show || (!source && !fallbackUrl)) {
-        if (existing) existing.remove();
-        if (sourceItem) {
-          sourceItem.style.display = '';
-          sourceItem.removeAttribute(HIDDEN);
-        }
-        return;
-      }
-      if (sourceItem) {
-        sourceItem.style.display = 'none';
-        sourceItem.setAttribute(HIDDEN, '');
-      }
-      if (existing) { lastInserted = existing; return; }
-
-      // "이야기" 칸을 복제해서 글씨·간격을 그대로 맞춘다
-      var item = anchorItem.cloneNode(true);
-      item.removeAttribute('id');
-      item.removeAttribute('onclick');
-      item.classList.remove('active', 'on', 'current', 'selected');
-      var all = item.querySelectorAll('*');
-      for (var k = 0; k < all.length; k++) {
-        all[k].removeAttribute('id');
-        all[k].removeAttribute('onclick');
-        all[k].classList.remove('active', 'on', 'current', 'selected');
-      }
-      var textEl = findByText(item, TEXT.anchorMenu)[0];
-      if (!textEl) return;
-      textEl.textContent = label;
-      item.setAttribute(MARK, label);
-      var link = item.tagName === 'A' ? item : item.querySelector('a');
-      var href = source && source.getAttribute && source.getAttribute('href');
-      if (link) link.setAttribute('href', href || fallbackUrl || '#');
-
-      item.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if (source && document.contains(source)) source.click();
-        else if (fallbackUrl) location.href = fallbackUrl;
-      }, true);
-
-      lastInserted.insertAdjacentElement('afterend', item);
-      lastInserted = item;
-    }
-
-    lift(TEXT.cart, true, CART_FALLBACK_URL);
-    lift(TEXT.mypage, isLoggedIn, null);
+  function makeItem(template, label, href) {
+    var li = template.cloneNode(true);
+    li.removeAttribute('data-code');
+    li.removeAttribute('id');
+    li.classList.remove('active');
+    li.setAttribute(MARK, label);
+    var a = li.querySelector('a');
+    if (!a) return null;
+    a.setAttribute('href', href);
+    a.removeAttribute('onclick');
+    a.removeAttribute('data-url');
+    a.classList.remove('active');
+    var name = li.querySelector('.plain_name');
+    if (name) name.textContent = label;
+    else a.textContent = label;
+    var toggle = li.querySelector('._toggle_btn');
+    if (toggle) toggle.remove();
+    return li;
   }
 
   function run() {
     try {
-      if (!window.matchMedia(MOBILE_QUERY).matches) {
-        // PC 화면이면 꺼낸 항목을 지우고 숨긴 항목을 되돌린다
-        document.querySelectorAll('[' + MARK + ']').forEach(function (el) { el.remove(); });
-        document.querySelectorAll('[' + HIDDEN + ']').forEach(function (el) {
-          el.style.display = '';
-          el.removeAttribute(HIDDEN);
-        });
-        return;
+      var nav = document.querySelector('.viewport-nav.mobile');
+      if (!nav) return;
+      var menus = nav.querySelectorAll(':scope > li.depth-01:not([' + MARK + '])');
+      if (!menus.length) return;
+      var last = menus[menus.length - 1];
+
+      for (var i = 0; i < ITEMS.length; i++) {
+        var it = ITEMS[i];
+        var src = nav.querySelector(it.source);
+        var href = (src && src.getAttribute('href')) || it.fallback;
+        var existing = nav.querySelector(':scope > [' + MARK + '="' + it.label + '"]');
+        var show = href && (it.always || src);
+        if (!show) {
+          if (existing) existing.remove();
+          continue;
+        }
+        if (existing) { last = existing; continue; }
+        var li = makeItem(last, it.label, href);
+        if (!li) continue;
+        last.insertAdjacentElement('afterend', li);
+        last = li;
       }
-      var lists = findMenuLists();
-      for (var i = 0; i < lists.length; i++) unfold(lists[i].list, lists[i].anchorItem);
+      nav.classList.add('bydose-unfolded');
     } catch (e) {
-      // 아임웹 화면 구조가 예상과 다르면 조용히 멈춘다 (사이트는 그대로 둔다)
+      // 아임웹 구조가 바뀌면 조용히 멈춘다 (사이트와 ⋮ 메뉴는 그대로 둔다)
       if (window.console) console.warn('[bydose] 모바일 메뉴 펼치기 실패', e);
     }
   }
 
-  // 아임웹은 모바일 메뉴를 늦게 그리므로, 로딩 후 몇 번 + 화면을 누를 때마다(메뉴 열기) 다시 확인한다
+  // 메뉴서랍이 늦게 그려질 수 있어 로딩 후 몇 번 + 화면을 누를 때(메뉴 열기) 다시 확인한다
   function later() {
     setTimeout(run, 0);
-    setTimeout(run, 300);
-    setTimeout(run, 1500);
+    setTimeout(run, 500);
+    setTimeout(run, 2000);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', later);
   else later();
   window.addEventListener('load', later);
-  window.addEventListener('resize', function () { setTimeout(run, 200); });
-  document.addEventListener('click', function () { setTimeout(run, 50); setTimeout(run, 400); }, true);
+  document.addEventListener('click', function () { setTimeout(run, 50); }, true);
 })();
 </script>
