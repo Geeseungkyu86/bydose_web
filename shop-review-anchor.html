@@ -27,9 +27,10 @@
   var loading = false, holdScroll = false, queue = [];
   var autoScrolling = false, autoTimer = null, lastDetailY = null; // lastDetailY: 상세정보에서 마지막으로 읽던 위치
 
+  // 탭바가 position:fixed가 되면 offsetParent가 null이 되므로 getClientRects로 표시 여부 판단
+  function shown(el) { return !!el && el.getClientRects().length > 0; }
   function isMobile() {
-    var pc = document.getElementById('pc_tab_offset');
-    return !(pc && pc.offsetParent !== null);
+    return !shown(document.querySelector('._prod_detail_detail_lazy_load'));
   }
   function body() {
     return document.querySelector(isMobile() ? '._prod_detail_detail_lazy_load_mobile' : '._prod_detail_detail_lazy_load');
@@ -102,14 +103,14 @@
   }
 
   // 구매평 모드가 아니면 아임웹 함수로 불러온 뒤 cb 실행
-  function ensureReview(cb, keepScroll) {
+  function ensureReview(cb, keepScroll, onFail) {
     var b = body();
     if (inReview(b) && reviewAnchor(b)) return cb && cb();
     if (cb) queue.push(cb);
     if (loading) return;
 
     var S = window.SITE_SHOP_DETAIL;
-    if (!S) return log('SITE_SHOP_DETAIL 없음');
+    if (!S) { queue = []; log('SITE_SHOP_DETAIL 없음'); return onFail && onFail(); }
     loading = true;
     var url = location.href, y = window.pageYOffset, t0 = Date.now();
     holdScroll = !!keepScroll;
@@ -135,6 +136,7 @@
     }, function () {
       loading = false; queue = [];
       log('구매평 영역을 찾지 못함');
+      if (onFail) onFail();
     });
   }
 
@@ -152,7 +154,8 @@
     var type = a.classList.contains('_review') ? 'review' : 'detail';
     ensureReview(function () {
       if (type === 'review') {
-        if (where() === 'detail') lastDetailY = window.pageYOffset;
+        var w = where();
+        if (w !== 'review') lastDetailY = w === 'detail' ? window.pageYOffset : null;
         scrollToEl(reviewAnchor(body()));
         setHash('#prod_detail_review');
       } else {
@@ -162,6 +165,13 @@
         setHash('#prod_detail_detail');
       }
       setActive(type);
+    }, false, function () {
+      // 구매평 영역을 못 찾으면 아임웹 기본 동작으로 (탭이 먹통이 되지 않도록)
+      var S = window.SITE_SHOP_DETAIL;
+      if (!S) return;
+      if (isMobile()) S.changeContentTab(type, 0, 0);
+      else if (type === 'review') S.changeContentPCTab('review', 0, 0, true);
+      else S.changeContentPCTab('detail', 0, 0, true, false, 0, 100);
     });
   }, true);
 
