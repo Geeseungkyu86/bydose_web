@@ -3,7 +3,7 @@
 <!--
   동작
   1. 첫 진입 시 아임웹의 '구매평' 모드(상세정보 + 구매평이 함께 그려짐)를 조용히 불러온다. 스크롤 위치·URL은 유지.
-  2. 구매평 탭 → 구매평 시작 위치로 스크롤 / 상세정보 탭 → 상세정보 맨 위로 스크롤 (둘 다 다시 그리지 않음)
+  2. 구매평 탭 → 구매평 시작 위치로 스크롤 / 상세정보 탭 → 읽던 위치로 복귀 (읽던 곳이 없으면 상세정보 맨 위) — 둘 다 다시 그리지 않음
   3. 스크롤 위치에 따라 탭 활성 표시가 바뀜
   4. #prod_detail_review 로 들어오면 구매평 위치로 바로 이동
   Q&A 탭은 아임웹 기본 동작 그대로.
@@ -25,6 +25,7 @@
   var REVIEW_MARK = '#starPointer, .comment_list, [id^="comment_count_"], .review_summary_wrap, ._review_summary_wrap, .review-box';
 
   var loading = false, holdScroll = false, queue = [];
+  var autoScrolling = false, autoTimer = null, lastDetailY = null; // lastDetailY: 상세정보에서 마지막으로 읽던 위치
 
   function isMobile() {
     var pc = document.getElementById('pc_tab_offset');
@@ -59,9 +60,19 @@
   }
   function scrollToEl(el) {
     if (!el) return;
-    var y = el.getBoundingClientRect().top + window.pageYOffset - offset();
+    scrollToY(el.getBoundingClientRect().top + window.pageYOffset - offset());
+  }
+  // 탭으로 이동하는 동안 지나가는 위치는 '읽던 위치'로 기록하지 않음
+  function scrollToY(y) {
+    autoScrolling = true;
+    clearTimeout(autoTimer);
+    autoTimer = setTimeout(function () { autoScrolling = false; }, 1500);
     window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
   }
+  window.addEventListener('scrollend', function () {
+    clearTimeout(autoTimer);
+    autoTimer = setTimeout(function () { autoScrolling = false; }, 100);
+  });
   function setHash(hash) {
     history.replaceState(history.state, '', location.pathname + location.search + hash);
   }
@@ -128,7 +139,7 @@
   }
 
   ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) {
-    window.addEventListener(ev, function () { holdScroll = false; }, { passive: true });
+    window.addEventListener(ev, function () { holdScroll = false; autoScrolling = false; }, { passive: true });
   });
 
   // 상세정보·구매평 탭: 아임웹 onclick(다시 그리기 + 맨 위 이동) 대신 스크롤만
@@ -140,23 +151,40 @@
     e.stopPropagation();
     var type = a.classList.contains('_review') ? 'review' : 'detail';
     ensureReview(function () {
-      if (type === 'review') { scrollToEl(reviewAnchor(body())); setHash('#prod_detail_review'); }
-      else { scrollToEl(body()); setHash('#prod_detail_detail'); }
+      if (type === 'review') {
+        if (where() === 'detail') lastDetailY = window.pageYOffset;
+        scrollToEl(reviewAnchor(body()));
+        setHash('#prod_detail_review');
+      } else {
+        // 구매평을 보다가 누르면 읽던 곳으로, 이미 상세정보 안이거나 읽던 곳이 없으면 맨 위로
+        if (where() === 'review' && lastDetailY !== null) scrollToY(lastDetailY);
+        else scrollToEl(body());
+        setHash('#prod_detail_detail');
+      }
       setActive(type);
     });
   }, true);
 
-  // 스크롤 위치에 따라 탭 활성 표시
+  // 현재 스크롤 위치: 'above'(상세정보 위) / 'detail' / 'review'
+  function where() {
+    var b = body(), anchor = reviewAnchor(b);
+    if (!inReview(b) || !anchor) return null;
+    if (anchor.getBoundingClientRect().top - offset() <= 1) return 'review';
+    return b.getBoundingClientRect().top - offset() <= 1 ? 'detail' : 'above';
+  }
+
+  // 스크롤 위치에 따라 탭 활성 표시 + 읽던 위치 기록
   var ticking = false;
   window.addEventListener('scroll', function () {
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(function () {
       ticking = false;
-      var b = body();
-      if (loading || !inReview(b)) return;
-      var anchor = reviewAnchor(b);
-      if (anchor) setActive(anchor.getBoundingClientRect().top - offset() <= 1 ? 'review' : 'detail');
+      if (loading) return;
+      var w = where();
+      if (!w) return;
+      setActive(w === 'review' ? 'review' : 'detail');
+      if (w === 'detail' && !autoScrolling) lastDetailY = window.pageYOffset;
     });
   }, { passive: true });
 
