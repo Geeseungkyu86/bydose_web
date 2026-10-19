@@ -1,0 +1,178 @@
+<!-- 상품 상세(shop_view) — 구매평을 상세정보 아래에 항상 표시 + 탭 클릭 시 새로고침 없이 앵커 이동 -->
+<!-- 아임웹 관리자 > 환경설정 > SEO의 '바디 코드'에 붙여넣기 (상세정보 칸은 스크립트 불가) -->
+<!--
+  동작
+  1. 첫 진입 시 아임웹의 '구매평' 모드(상세정보 + 구매평이 함께 그려짐)를 조용히 불러온다. 스크롤 위치·URL은 유지.
+  2. 구매평 탭 → 구매평 시작 위치로 스크롤 / 상세정보 탭 → 상세정보 맨 위로 스크롤 (둘 다 다시 그리지 않음)
+  3. 스크롤 위치에 따라 탭 활성 표시가 바뀜
+  4. #prod_detail_review 로 들어오면 구매평 위치로 바로 이동
+  Q&A 탭은 아임웹 기본 동작 그대로.
+  디버그: 주소 뒤에 &bdreview=debug 를 붙이면 콘솔에 로그가 찍힘
+-->
+<script>
+(function () {
+  var PRODUCT_IDX = ['63']; // 적용할 상품 idx. 비우면([]) 모든 상품에 적용
+  var EXTRA_OFFSET = 16;    // 고정 탭바 아래 여백(px). 사이트 헤더가 고정이라 가려지면 늘리기
+
+  if (!/\/shop_view/.test(location.pathname)) return;
+  var idx = new URLSearchParams(location.search).get('idx');
+  if (PRODUCT_IDX.length && PRODUCT_IDX.indexOf(idx) < 0) return;
+
+  var DEBUG = /bdreview=debug/.test(location.search);
+  function log() { if (DEBUG) console.log.apply(console, ['[bd-review]'].concat([].slice.call(arguments))); }
+
+  // 구매평 영역에만 있는 요소 (상세정보 안의 .nnd-review 같은 자체 요소와 겹치지 않게)
+  var REVIEW_MARK = '#starPointer, .comment_list, [id^="comment_count_"], .review_summary_wrap, ._review_summary_wrap, .review-box';
+
+  var loading = false, holdScroll = false, queue = [];
+
+  function isMobile() {
+    var pc = document.getElementById('pc_tab_offset');
+    return !(pc && pc.offsetParent !== null);
+  }
+  function body() {
+    return document.querySelector(isMobile() ? '._prod_detail_detail_lazy_load_mobile' : '._prod_detail_detail_lazy_load');
+  }
+  function inReview(b) { return !!b && b.classList.contains('product_review'); }
+
+  // 구매평 영역이 시작되는 요소
+  function reviewAnchor(b) {
+    if (!b) return null;
+    var kids = b.children, start = -1, i;
+    for (i = 0; i < kids.length; i++) {
+      if (kids[i].matches(REVIEW_MARK) || kids[i].querySelector(REVIEW_MARK)) { start = i; break; }
+    }
+    if (start < 0) return null;
+    if (start === 0) return kids[0].matches(REVIEW_MARK) ? kids[0] : kids[0].querySelector(REVIEW_MARK);
+    // 바로 앞의 '구매평 59' 같은 제목·요약 블록도 포함
+    while (start > 1) {
+      var p = kids[start - 1];
+      if (p.offsetHeight < 300 && !p.querySelector('img, iframe, video') && /구매평|리뷰|review|평점|별점/i.test(p.textContent)) start--;
+      else break;
+    }
+    return kids[start];
+  }
+
+  function offset() {
+    var nav = document.querySelector(isMobile() ? '#tab_offset .site_prod_nav' : '#pc_tab_offset .site_prod_nav');
+    return (nav ? nav.offsetHeight : 0) + EXTRA_OFFSET;
+  }
+  function scrollToEl(el) {
+    if (!el) return;
+    var y = el.getBoundingClientRect().top + window.pageYOffset - offset();
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+  function setHash(hash) {
+    history.replaceState(history.state, '', location.pathname + location.search + hash);
+  }
+
+  var current = null;
+  function setActive(type) {
+    if (current === type) return;
+    current = type;
+    document.querySelectorAll('.site_prod_nav').forEach(function (nav) {
+      if (nav.querySelector('li.activeborder')) nav.setAttribute('data-bd-border', '1');
+      var border = nav.hasAttribute('data-bd-border');
+      nav.querySelectorAll('a._detail, a._review, a._qna').forEach(function (a) {
+        var on = a.classList.contains('_' + type);
+        a.classList.toggle('active', on);
+        if (border && a.parentElement) a.parentElement.classList.toggle('activeborder', on);
+      });
+    });
+  }
+
+  function waitFor(cond, done, fail, ms) {
+    var t0 = Date.now();
+    (function tick() {
+      if (cond()) return done();
+      if (Date.now() - t0 > (ms || 10000)) return fail && fail();
+      setTimeout(tick, 100);
+    })();
+  }
+
+  // 구매평 모드가 아니면 아임웹 함수로 불러온 뒤 cb 실행
+  function ensureReview(cb, keepScroll) {
+    var b = body();
+    if (inReview(b) && reviewAnchor(b)) return cb && cb();
+    if (cb) queue.push(cb);
+    if (loading) return;
+
+    var S = window.SITE_SHOP_DETAIL;
+    if (!S) return log('SITE_SHOP_DETAIL 없음');
+    loading = true;
+    var url = location.href, y = window.pageYOffset, t0 = Date.now();
+    holdScroll = !!keepScroll;
+    log('구매평 모드 불러오는 중', isMobile() ? 'mobile' : 'pc');
+
+    if (isMobile()) S.changeContentTab('review', 0, 0);
+    else S.changeContentPCTab('review', 0, 0, true);
+
+    // 아임웹이 탭 위치로 끌어올리는 스크롤을 되돌림 (사용자가 직접 움직이면 중단)
+    (function hold() {
+      if (!holdScroll) return;
+      if (window.jQuery) window.jQuery('html, body').stop(true);
+      if (window.pageYOffset !== y) window.scrollTo(0, y);
+      if (Date.now() - t0 < 2000) requestAnimationFrame(hold);
+    })();
+
+    waitFor(function () { return inReview(body()) && reviewAnchor(body()); }, function () {
+      loading = false;
+      if (keepScroll && location.href !== url) history.replaceState(history.state, '', url);
+      log('구매평 영역', reviewAnchor(body()));
+      var q = queue; queue = [];
+      q.forEach(function (f) { f(); });
+    }, function () {
+      loading = false; queue = [];
+      log('구매평 영역을 찾지 못함');
+    });
+  }
+
+  ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) {
+    window.addEventListener(ev, function () { holdScroll = false; }, { passive: true });
+  });
+
+  // 상세정보·구매평 탭: 아임웹 onclick(다시 그리기 + 맨 위 이동) 대신 스크롤만
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('.site_prod_nav a._review, .site_prod_nav a._detail, .site_prod_nav a._qna');
+    if (!a) return;
+    if (a.classList.contains('_qna')) { current = null; return; } // Q&A는 아임웹 기본 동작
+    e.preventDefault();
+    e.stopPropagation();
+    var type = a.classList.contains('_review') ? 'review' : 'detail';
+    ensureReview(function () {
+      if (type === 'review') { scrollToEl(reviewAnchor(body())); setHash('#prod_detail_review'); }
+      else { scrollToEl(body()); setHash('#prod_detail_detail'); }
+      setActive(type);
+    });
+  }, true);
+
+  // 스크롤 위치에 따라 탭 활성 표시
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      var b = body();
+      if (loading || !inReview(b)) return;
+      var anchor = reviewAnchor(b);
+      if (anchor) setActive(anchor.getBoundingClientRect().top - offset() <= 1 ? 'review' : 'detail');
+    });
+  }, { passive: true });
+
+  function init() {
+    waitFor(function () { return window.SITE_SHOP_DETAIL && body(); }, function () {
+      if (location.hash === '#prod_detail_review') {
+        ensureReview(function () {
+          setTimeout(function () { scrollToEl(reviewAnchor(body())); setActive('review'); }, 300);
+        });
+      } else {
+        ensureReview(function () { setActive('detail'); }, true);
+      }
+    });
+  }
+
+  if (document.readyState === 'complete') setTimeout(init, 0);
+  else window.addEventListener('load', function () { setTimeout(init, 0); });
+})();
+</script>

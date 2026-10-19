@@ -11,6 +11,7 @@
 │   ├── home-hero.html        홈 히어로
 │   ├── footer.html           푸터 (아임웹 기본 푸터 오버라이드)
 │   ├── floating-buy-btn.html 플로팅 구매 버튼
+│   ├── shop-review-anchor.html 상품 상세: 구매평 상시 표시 + 탭 앵커 이동 (바디 코드)
 │   ├── links.html            링크 페이지
 │   ├── product-intro.html / product-detail.html
 │   ├── reels-collector.html / reels-collector-widget.html
