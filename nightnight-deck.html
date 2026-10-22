@@ -221,7 +221,7 @@
 
 /* ---------- 크롬 공통 ---------- */
 #bdk .chrome{position:absolute;z-index:10;pointer-events:none}
-#bdk .chrome > *{pointer-events:auto}
+#bdk .chrome > *,#bdk .chrome.arrow{pointer-events:auto}   /* 화살표는 버튼 자신이 .chrome 이라 따로 풀어준다 */
 #bdk .count{font-family:var(--mono);font-size:12px;letter-spacing:.08em}
 #bdk .count b{font-weight:500}
 #bdk .is-dark-ui{color:var(--bg)}
