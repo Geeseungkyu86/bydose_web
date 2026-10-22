@@ -268,6 +268,21 @@
       b.insertBefore(node, first);
     });
     log('상단 공통 복원', top.length, tpl.id);
+    pinTop(b);
+  }
+  // 아임웹이 상세 본문을 나중에 맨 앞에 끼워 넣으면 상단 공통이 아래로 밀리므로, 바뀔 때마다 맨 위로 다시 올린다
+  function pinTop(b) {
+    if (b.hasAttribute('data-bd-pin')) return;
+    b.setAttribute('data-bd-pin', '1');
+    new MutationObserver(function () {
+      if (!inReview(b)) return;
+      var tops = [].filter.call(b.children, function (c) { return c.hasAttribute('data-bd-top'); });
+      if (!tops.length) return restoreTop(b);
+      if (b.firstElementChild === tops[0] && tops.every(function (n, k) { return b.children[k] === n; })) return;
+      var first = [].filter.call(b.children, function (c) { return !c.hasAttribute('data-bd-top'); })[0];
+      tops.forEach(function (n) { b.insertBefore(n, first || null); });
+      log('상단 공통을 맨 위로 이동');
+    }).observe(b, { childList: true });
   }
 
   function offset() {
