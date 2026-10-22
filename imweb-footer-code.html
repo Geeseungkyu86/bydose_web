@@ -243,48 +243,6 @@
     return kids[start];
   }
 
-  // 아임웹의 구매평 모드는 '상품 상세 상단 공통'을 빼고 그린다.
-  // 상단 공통 원본(<template id="prodDetailPC">, 모바일은 prodDetailMobile)을 복사해 상세 첫 요소 앞에 다시 넣는다.
-  function sameNode(a, b) {
-    if (a.id || b.id) return a.id === b.id;
-    return a.tagName === b.tagName && a.className === b.className &&
-      a.textContent.slice(0, 200) === b.textContent.slice(0, 200);
-  }
-  function detailTemplate() {
-    return document.getElementById(isMobile() ? 'prodDetailMobile' : 'prodDetailPC');
-  }
-  function restoreTop(b) {
-    var tpl = detailTemplate(), first = b && b.firstElementChild;
-    if (!tpl || !tpl.content || !first || b.querySelector('[data-bd-top]')) return;
-    var src = [].slice.call(tpl.content.children), i, kids = [].slice.call(b.children);
-    for (i = 0; i < src.length; i++) if (sameNode(src[i], first)) break;
-    // 원본에 상세 본문도 있으면 그 앞부분만, 상단 공통만 있으면 화면에 없는 것 전부
-    var top = i < src.length ? src.slice(0, i) : src.filter(function (n) {
-      return !kids.some(function (k) { return sameNode(n, k); });
-    });
-    top.forEach(function (n) {
-      var node = document.importNode(n, true);
-      node.setAttribute('data-bd-top', '1');
-      b.insertBefore(node, first);
-    });
-    log('상단 공통 복원', top.length, tpl.id);
-    pinTop(b);
-  }
-  // 아임웹이 상세 본문을 나중에 맨 앞에 끼워 넣으면 상단 공통이 아래로 밀리므로, 바뀔 때마다 맨 위로 다시 올린다
-  function pinTop(b) {
-    if (b.hasAttribute('data-bd-pin')) return;
-    b.setAttribute('data-bd-pin', '1');
-    new MutationObserver(function () {
-      if (!inReview(b)) return;
-      var tops = [].filter.call(b.children, function (c) { return c.hasAttribute('data-bd-top'); });
-      if (!tops.length) return restoreTop(b);
-      if (b.firstElementChild === tops[0] && tops.every(function (n, k) { return b.children[k] === n; })) return;
-      var first = [].filter.call(b.children, function (c) { return !c.hasAttribute('data-bd-top'); })[0];
-      tops.forEach(function (n) { b.insertBefore(n, first || null); });
-      log('상단 공통을 맨 위로 이동');
-    }).observe(b, { childList: true });
-  }
-
   function offset() {
     var nav = document.querySelector(isMobile() ? '#tab_offset .site_prod_nav' : '#pc_tab_offset .site_prod_nav');
     return (nav ? nav.offsetHeight : 0) + EXTRA_OFFSET;
@@ -335,7 +293,7 @@
   // 구매평 모드가 아니면 아임웹 함수로 불러온 뒤 cb 실행
   function ensureReview(cb, keepScroll, onFail) {
     var b = body();
-    if (inReview(b) && reviewAnchor(b)) { restoreTop(b); return cb && cb(); }
+    if (inReview(b) && reviewAnchor(b)) return cb && cb();
     if (cb) queue.push(cb);
     if (loading) return;
 
@@ -359,7 +317,6 @@
 
     waitFor(function () { return inReview(body()) && reviewAnchor(body()); }, function () {
       loading = false;
-      restoreTop(body());
       if (keepScroll && location.href !== url) history.replaceState(history.state, '', url);
       log('구매평 영역', reviewAnchor(body()));
       var q = queue; queue = [];
@@ -430,8 +387,7 @@
   }, { passive: true });
 
   function init() {
-    // 상세정보가 다 그려진 뒤에 시작해야 상단 공통을 저장할 수 있음
-    waitFor(function () { var b = body(); return window.SITE_SHOP_DETAIL && b && b.children.length; }, function () {
+    waitFor(function () { return window.SITE_SHOP_DETAIL && body(); }, function () {
       if (location.hash === '#prod_detail_review') {
         ensureReview(function () {
           setTimeout(function () { scrollToEl(reviewAnchor(body())); setActive('review'); }, 300);
@@ -447,7 +403,7 @@
 })();
 </script>
 
-<!-- 상품 상세 상단 공통 프로모션 배너(#bd-promo) — 세일이 끝나면 자동으로 숨김 -->
+<!-- 상세정보(Story) 맨 위 프로모션 배너(#bd-promo) — 세일이 끝나면 자동으로 숨김 -->
 <script>
 (function () {
   var PROMO_END = '2026-11-01T00:00:00+09:00'; // 이 시각부터 숨김. 세일 연장 시 바꾸기
