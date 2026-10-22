@@ -26,6 +26,7 @@
 
   var loading = false, holdScroll = false, queue = [];
   var autoScrolling = false, autoTimer = null, lastDetailY = null; // lastDetailY: 상세정보에서 마지막으로 읽던 위치
+  var topSaved = {}; // 상세정보 모드에서 본 영역의 자식들 (pc / mobile). 상단 공통을 되살릴 때 씀
 
   // 탭바가 position:fixed가 되면 offsetParent가 null이 되므로 getClientRects로 표시 여부 판단
   function shown(el) { return !!el && el.getClientRects().length > 0; }
@@ -54,6 +55,25 @@
       else break;
     }
     return kids[start];
+  }
+
+  // 아임웹의 구매평 모드는 '상품 상세 상단 공통'을 빼고 그린다.
+  // 상세정보 모드에서 저장해 둔 자식들 중 구매평 모드의 첫 요소보다 앞에 있던 것(= 상단 공통)을 다시 넣는다.
+  function sameNode(a, b) {
+    if (a.id || b.id) return a.id === b.id;
+    return a.tagName === b.tagName && a.className === b.className &&
+      a.textContent.slice(0, 200) === b.textContent.slice(0, 200);
+  }
+  function saveTop(key, b) {
+    if (!topSaved[key] && b && !inReview(b) && b.children.length) topSaved[key] = [].slice.call(b.children);
+  }
+  function restoreTop(key, b) {
+    var saved = topSaved[key], first = b && b.firstElementChild;
+    if (!saved || !first || b.contains(saved[0])) return;
+    for (var i = 0; i < saved.length; i++) if (sameNode(saved[i], first)) break;
+    if (i === 0 || i === saved.length) return; // 상단 공통이 없거나 맞는 요소를 못 찾음
+    for (var j = 0; j < i; j++) b.insertBefore(saved[j], first);
+    log('상단 공통 복원', i);
   }
 
   function offset() {
@@ -113,6 +133,8 @@
     var S = window.SITE_SHOP_DETAIL;
     if (!S) { queue = []; log('SITE_SHOP_DETAIL 없음'); return onFail && onFail(); }
     loading = true;
+    var key = isMobile() ? 'm' : 'pc';
+    saveTop(key, b);
     var url = location.href, y = window.pageYOffset, t0 = Date.now();
     holdScroll = !!keepScroll;
     log('구매평 모드 불러오는 중', isMobile() ? 'mobile' : 'pc');
@@ -130,6 +152,7 @@
 
     waitFor(function () { return inReview(body()) && reviewAnchor(body()); }, function () {
       loading = false;
+      restoreTop(key, body());
       if (keepScroll && location.href !== url) history.replaceState(history.state, '', url);
       log('구매평 영역', reviewAnchor(body()));
       var q = queue; queue = [];
@@ -200,7 +223,8 @@
   }, { passive: true });
 
   function init() {
-    waitFor(function () { return window.SITE_SHOP_DETAIL && body(); }, function () {
+    // 상세정보가 다 그려진 뒤에 시작해야 상단 공통을 저장할 수 있음
+    waitFor(function () { var b = body(); return window.SITE_SHOP_DETAIL && b && b.children.length; }, function () {
       if (location.hash === '#prod_detail_review') {
         ensureReview(function () {
           setTimeout(function () { scrollToEl(reviewAnchor(body())); setActive('review'); }, 300);
