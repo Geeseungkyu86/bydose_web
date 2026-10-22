@@ -402,3 +402,14 @@
   else window.addEventListener('load', function () { setTimeout(init, 0); });
 })();
 </script>
+
+<!-- 상품 상세 상단 공통 프로모션 배너(#bd-promo) — 세일이 끝나면 자동으로 숨김 -->
+<script>
+(function () {
+  var PROMO_END = '2026-11-01T00:00:00+09:00'; // 이 시각부터 숨김. 세일 연장 시 바꾸기
+  if (Date.now() < new Date(PROMO_END).getTime()) return;
+  var s = document.createElement('style');
+  s.textContent = '#bd-promo, .bd-promo { display: none !important; }';
+  document.head.appendChild(s);
+})();
+</script>
