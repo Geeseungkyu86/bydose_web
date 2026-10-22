@@ -57,30 +57,30 @@
   }
 
   // 아임웹의 구매평 모드는 '상품 상세 상단 공통'을 빼고 그린다.
-  // 상세 내용 원본(<template id="prodDetailPC"> 등)에서 상세 첫 요소보다 앞에 있는 것(= 상단 공통)을 복사해 다시 넣는다.
+  // 상단 공통 원본(<template id="prodDetailPC">, 모바일은 prodDetailMobile)을 복사해 상세 첫 요소 앞에 다시 넣는다.
   function sameNode(a, b) {
     if (a.id || b.id) return a.id === b.id;
     return a.tagName === b.tagName && a.className === b.className &&
       a.textContent.slice(0, 200) === b.textContent.slice(0, 200);
   }
   function detailTemplate() {
-    var list = [].slice.call(document.querySelectorAll('template[id^="prodDetail"]'));
-    var pc = document.getElementById('prodDetailPC');
-    if (!isMobile()) return pc;
-    return list.filter(function (x) { return x !== pc; })[0] || pc;
+    return document.getElementById(isMobile() ? 'prodDetailMobile' : 'prodDetailPC');
   }
   function restoreTop(b) {
     var tpl = detailTemplate(), first = b && b.firstElementChild;
     if (!tpl || !tpl.content || !first || b.querySelector('[data-bd-top]')) return;
-    var src = tpl.content.children, i;
+    var src = [].slice.call(tpl.content.children), i, kids = [].slice.call(b.children);
     for (i = 0; i < src.length; i++) if (sameNode(src[i], first)) break;
-    if (i === 0 || i === src.length) return; // 상단 공통이 없거나 맞는 요소를 못 찾음
-    for (var j = 0; j < i; j++) {
-      var node = document.importNode(src[j], true);
+    // 원본에 상세 본문도 있으면 그 앞부분만, 상단 공통만 있으면 화면에 없는 것 전부
+    var top = i < src.length ? src.slice(0, i) : src.filter(function (n) {
+      return !kids.some(function (k) { return sameNode(n, k); });
+    });
+    top.forEach(function (n) {
+      var node = document.importNode(n, true);
       node.setAttribute('data-bd-top', '1');
       b.insertBefore(node, first);
-    }
-    log('상단 공통 복원', i, tpl.id);
+    });
+    log('상단 공통 복원', top.length, tpl.id);
   }
 
   function offset() {
