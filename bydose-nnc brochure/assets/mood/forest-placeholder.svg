@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1100" viewBox="0 0 1000 1100">
+  <defs>
+    <linearGradient id="air" x2=".7" y2="1"><stop stop-color="#d4d9bc"/><stop offset=".5" stop-color="#859b7b"/><stop offset="1" stop-color="#465d4d"/></linearGradient>
+    <linearGradient id="bark"><stop stop-color="#313e35"/><stop offset=".48" stop-color="#69705a"/><stop offset="1" stop-color="#263d33"/></linearGradient>
+    <radialGradient id="mist"><stop stop-color="#f1eed6" stop-opacity=".7"/><stop offset="1" stop-color="#f1eed6" stop-opacity="0"/></radialGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="23"/></filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".07 .3" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".15"/></feComponentTransfer><feBlend in="SourceGraphic" mode="soft-light"/></filter>
+  </defs>
+  <!-- Temporary scent impression: bark, moss and wet air. Not an ingredient image or photograph. -->
+  <path fill="url(#air)" d="M0 0h1000v1100H0z"/>
+  <g filter="url(#soft)" opacity=".55" fill="#3e5a49">
+    <path d="m144-40 75 0-17 890H90zM601-40h52l49 921-71 50zM871-40h59l89 1010-92 70z"/>
+    <ellipse cx="744" cy="708" rx="290" ry="150"/>
+    <ellipse cx="523" cy="1007" rx="540" ry="200"/>
+  </g>
+  <ellipse fill="url(#mist)" cx="670" cy="190" rx="510" ry="520"/>
+  <g filter="url(#grain)">
+    <path fill="url(#bark)" d="M248-50h143l-39 388 24 211-66 551H79l98-443 64-270z"/>
+    <g fill="none" stroke="#232f2b" stroke-opacity=".5">
+      <path stroke-width="9" d="m310-5-40 323 14 172-97 555M342 90l-22 322 8 167-85 504M259 161l-23 221-28 132"/>
+      <path stroke-width="3" d="m366 21-26 293M260 558l-72 328M302 642l-48 325M203 651l-37 137"/>
+    </g>
+    <g fill="#7a8e5b">
+      <path d="m139 774 43-36 18 17 39-37 25 18-35 49 17 32-48 35-39-8-38 36z"/>
+      <path d="m231 480 18-38 26 16 23-13 10 26-35 35-27-4zM98 946l58-22 44 16-12 53 20 48-62 31-65-22z"/>
+    </g>
+    <g stroke="#bac29a" stroke-opacity=".45" stroke-width="3" fill="none">
+      <path d="m164 791 23-21m-8 36 22-18m-39 35 20-9m69-335 16-12m-142 486 38-9m-33 31 38-10"/>
+    </g>
+  </g>
+  <g stroke="#a5b499" fill="none" stroke-width="3" opacity=".7">
+    <path d="M724 1060q-14-193 93-365M744 948q-79-17-104-70M759 882q79-12 113-62M783 802q-53-13-64-52"/>
+    <path d="M551 1100q22-133 3-197M558 995q-44-22-70-19M561 1023q57-32 83-27"/>
+  </g>
+  <g fill="#e2e8d8" opacity=".65">
+    <ellipse cx="275" cy="401" rx="3" ry="7"/><ellipse cx="249" cy="590" rx="3" ry="6"/>
+    <ellipse cx="203" cy="741" rx="4" ry="8"/><ellipse cx="318" cy="256" rx="3" ry="5"/>
+  </g>
+</svg>
