@@ -35,7 +35,8 @@
   function body() {
     return document.querySelector(isMobile() ? '._prod_detail_detail_lazy_load_mobile' : '._prod_detail_detail_lazy_load');
   }
-  function inReview(b) { return !!b && b.classList.contains('product_review'); }
+  // 구매평 모드 클래스: PC 'product_review', 모바일 'product_review_mobile'
+  function inReview(b) { return !!b && (b.classList.contains('product_review') || b.classList.contains('product_review_mobile')); }
 
   // 구매평 영역이 시작되는 요소
   function reviewAnchor(b) {

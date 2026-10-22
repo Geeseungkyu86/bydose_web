@@ -12,6 +12,7 @@
 │   ├── footer.html           푸터 (아임웹 기본 푸터 오버라이드)
 │   ├── floating-buy-btn.html 플로팅 구매 버튼
 │   ├── shop-review-anchor.html 상품 상세: 구매평 상시 표시 + 탭 앵커 이동 (바디 코드)
+│   ├── imweb-footer-code.html 아임웹 푸터(바디) 코드 칸 전체본: 폰트·커서 토끼·모바일 메뉴·구매평 앵커
 │   ├── links.html            링크 페이지
 │   ├── product-intro.html / product-detail.html
 │   ├── reels-collector.html / reels-collector-widget.html

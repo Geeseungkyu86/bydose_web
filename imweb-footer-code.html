@@ -1,0 +1,404 @@
+<style>
+  body, h1, h2, h3, h4, h5, h6, p, span {
+    font-family: '42dot Sans'!important;
+  }
+</style>
+<!--
+  전체 사이트 공통 위젯 (모든 페이지에 노출)
+  home-hero.html 안에만 있던 "커서 따라다니는 토끼 마크"를 사이트 전역으로 뺀 버전.
+
+  적용 방법 (아임웹):
+  환경설정 > 기본 정보 설정 > 추가 스크립트 삽입 (Body) 에 이 파일 전체를 붙여넣기.
+  → footer.html처럼 모든 페이지의 </body> 앞에 삽입되어야 전 페이지에서 동작함.
+  (개별 페이지의 "코드 위젯"에 붙이면 그 페이지에서만 나타남 — 주의)
+
+  home-hero.html 쪽 원래 커서 코드는 중복 표시를 막기 위해 제거함.
+-->
+
+<style>
+.bydose-cursor-bunny {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 64px;
+  height: 32px;
+  pointer-events: none;
+  z-index: 99998; /* floating-buy-btn(99999)보다는 아래, 다른 콘텐츠보다는 위 */
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  will-change: transform;
+}
+
+.bydose-cursor-bunny.is-active {
+  opacity: 1;
+}
+
+.bydose-cursor-bunny img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+</style>
+
+<div class="bydose-cursor-bunny" id="bydoseCursorBunny">
+  <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjMycHgiIGhlaWdodD0iMTE3cHgiIHZpZXdCb3g9IjAgMCAyMzIgMTE3IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPHRpdGxlPnRyYWRlIG1hcms8L3RpdGxlPgogICAgPGRlZnM+CiAgICAgICAgPHBhdGggZD0iTTE0Ni4zODkyNzUsMi4yNTk5Njk1IEMxNDkuNTYzMjc3LDUuNDI1OTM1NjcgMTU1LjU1MTAyNCwxMi41MzQ2Mjc5IDE2My41MDQ3NzcsMTQuNjAxMDc3IEMxNzAuNzI0NjI3LDE2LjQ3NzM1MzkgMTc2LjMyMzk5NCwxOC43OTQyNDEyIDE3OC4zMzAxNzcsMjguMzMzNjU2MiBDMTc4LjkxMjc0NywyOS4zMDE5Mjc1IDE4MC4xMDg2OSwzMC43NDE2MTE4IDE4Mi4xNTc3MjksMzAuODA0NTU2MiBDMTg1LjE3NTAzOSwyOS45NTQxMzggMTkwLjk4MzMyOCwyNi4zODYzOTk1IDIwMS44MDU3MzYsMzkuNzM4NjM0MSBDMjA1Ljk2OTQzNyw0My44MTc5NjI4IDIwOS4xNjA4NDksNDUuOTM1MzAzMSAyMDkuMzQwMzA3LDQ4LjAyMDUwMTYgQzIwOS41MTk3NjUsNTAuMTA4Mzc4NiAyMDYuNTkyMTg0LDU4LjQ1MzE5MDUgMTk2LjU1NDU3MSw1Ny4wNTIzNDQyIEMxOTMuNjE3NjE1LDU2LjcyMjg5MDggMTkyLjM3NzQ3OCw1OC45NDMzNTI3IDE5Mi4zNzc0NzgsNTguOTQzMzUyNyBDMTkyLjM3NzQ3OCw1OC45NDMzNTI3IDE5Ni44NTMyMjIsNjQuNjIxNzM1NCAxOTUuODIyMDA2LDcwLjQxNTI5MjcgQzE5NS40ODU4NTcsNzIuMzA3NjQwNSAxOTQuNzc0NzIsNzUuNjA3NTMwOCAxOTIuNjYxMzk3LDc5LjE4NzMyMjUgQzE5My4yOTc1MzcsODAuNDA2MDMyIDE5NC4yMTg5MzUsODEuNTY0NDc1NiAxOTUuNjc0NjksODIuMzU3MzA2NCBDMTk5LjIwNDkzLDg0LjI4NDQ3NDUgMjA2LjczMDEyNiw4MS41ODA1NDY1IDIxNS4zMDI2MDksODAuMTYwOTUwOSBDMjIwLjE0OTMyMyw3OS4zNTYwNjY5IDIyMy45OTAyNjYsNzkuNTI0ODExMyAyMjYuODgzMDI3LDgwLjI0OTM0MDggQzIzMC40MjI2NDIsODEuMTM0NTc5MiAyMzIuNTIyNTcyLDg0LjgwNTQzOTMgMjMxLjg4NjQzMiw4OC4zOTcyODQyIEwyMzEuODcwMzYxLDg4LjQ4Mjk5NTYgQzIzMS4zMzg2ODMsOTEuNDY1NDg1NyAyMjcuNTg0NzksOTIuNzEzNjU4NSAyMjUuMzQ0MjM5LDkwLjY3MjY1NDkgQzIyMi43OTI5ODUsODguMzQ2MzkzIDIxOC42MzQ2NDEsODYuMDc3NzE4NCAyMTIuODY2NTI5LDg3LjY5ODIwMDMgQzIwMy44MzIwMDgsOTAuMjM2MDYyMyAxOTEuNjc4Mzk0LDEwMC4xNjM4NTcgMTgxLjgzMDk1NCw4OS4xNzUzODMzIEMxODEuNjQwNzgxLDg5LjI3NzE2NTYgMTgxLjQyMjQ4NSw4OS4zNjk1NzMzIDE4MS4yMjgyOTUsODkuNDcwMDE2NCBDMTgxLjE0NTI2Miw5MS43MjY2Mzc4IDE4MS4zNTQxODQsOTQuNjM5NDg3MyAxODMuNTk4NzUyLDk2Ljg4MDAzNzggQzE4Ni42NTg5MTgsOTkuOTMyMTY4NSAxOTUuMjQwNzc2LDk5LjQwOTg2NDQgMjA0LjUxNjM2LDEwMC41MjU0NTIgQzIwOS43NjQ4NDYsMTAxLjE1NjIzNSAyMTMuNjc5NDQ4LDEwMi40ODg3OCAyMTYuNDQ2MzIxLDEwNC4xMDkyNjIgQzIxOS44Mjc5MDUsMTA2LjA5MjY3OCAyMjAuODgwNTQ4LDExMC41MTQ4NTIgMjE5LjEzNDE3OCwxMTQuMDIyMzI1IEwyMTkuMDkxMzIyLDExNC4xMDY2OTcgQzIxNy42NDA5MjQsMTE3LjAyMzU2NSAyMTMuMzg4ODMzLDExNy4xNzg5MTcgMjExLjY5NjAzMiwxMTQuMzk1OTczIEMyMDkuNzY3NTI1LDExMS4yMjg2NjggMjA2LjE2MzYyNywxMDcuNjM4MTYyIDE5OS43MjA1MzgsMTA3LjU2OTg2MSBDMTg4LjUzMzg1NiwxMDcuNDU3MzY1IDE3MC42NzUwNzUsMTE1LjQ3ODA4IDE2NS4zODUwNzIsOTQuMjIyOTgzMyBDMTYxLjQzNjk4OSw5NC44MDY4OTI1IDE1Ni45ODUzNTEsOTUuMTQwMzYzNSAxNTEuOTE5MDAyLDk1LjE0MDM2MzUgQzEzMy45MzQzMzIsOTUuMTQwMzYzNSAxMjguMDIxNTgyLDc0LjYzMjU2MzIgMTEyLjg3MzQyNSw3My45MjAwODY5IEM5Ny43MjM5Mjg3LDczLjIwNzYxMDYgOTguNDQxNzYyLDkzLjY4MTkyOTkgODguNzYxNzI2Nyw5NS44MjczOTQzIEM3OS4wODE2OTE0LDk3Ljk3NDE5NzkgNjguMTkwOTgyMSw5My4zMDk2MjA4IDUxLjY3ODEzODIsODUuMjI3MzAwMyBDNDguNjA5OTM2Nyw4My44NDM4NjQxIDQ3LjE4NjMyMzMsODMuMTU5NTExOSA0NC4xMzI4NTM0LDgzLjE1OTUxMTkgQzQxLjA3OTM4MzUsODMuMTU5NTExOSAzOS41MTI0NzEzLDg2LjExMTE5OTUgMzcuMzczNzAzMSw4OC40OTIzNzAzIEMzNS4yMzQ5MzQ5LDkwLjg3MjIwMTkgMjAuOTg0MDY5NSwxMTAuMjcxMTEgNi41NjMxMjAzOCwxMDcuMjUyNDYxIEMyLjY5MTM3NDExLDEwNi4zMTc2NyAwLjc2NTU0NTI4MiwxMDUuMzExOSAwLjA2MjQ0MzY1OSwxMDEuMzQyMzg5IEMtMC4zODM1MjM2NTYsOTguODI0NjE2IDEuNjE4NjQxOTIsOTYuNTEzMDg1OCA0LjE3MzkxNDEsOTYuNDE2NjYwNCBMMjAuMDE3MTM3Myw5NS44Mjg3MzM1IEMyMC4wMTcxMzczLDk1LjgyODczMzUgMzAuMDk3NjA1OCw4Ni4yODM5NjE2IDM0LjE3ODI3MzcsNzYuMzM2MDc4IEMzNC4xNzgyNzM3LDc2LjMzNjA3OCAyNy4xNjE5ODkxLDg2LjMzMjE3NDIgMTEuMTMyNjExMyw4Ni4zMzIxNzQyIEM2LjA4NTAxMTI4LDg2LjMzMjE3NDIgNC4wNzA3OTI1Myw4Mi44Mzk0MzMyIDMuNTk5Mzc5NjMsNzkuNDMzNzQyOSBDMy4yMjcwNzA1OCw3Ni43NDQ1NDY2IDUuMzU1MTI0ODMsNzQuMzU5MzU4IDguMDY4NDI3NDcsNzQuNDc3MjExMyBMMjMuMjU4MTAxLDc1LjE0MDEzNTcgQzI1LjIwNTM1NzcsNzUuMjI0NTA3OCAyNy4xMDk3NTg3LDc0LjY5Njg0NjggMjguNzI4OTAxMyw3My42MTA3MjIyIEMzMi42MzAxMTA4LDcwLjk5NTE4NDIgMzkuOTE1NTgyOSw2NS43ODAxNzkgNDIuNjg1MTMzNyw2MS41NjQyNDc3IEM0Ni41NDc1MDUzLDU1LjY4MDk2MTIgNTEuNTU4OTQ1OCw1OC4xMjY0MTU2IDUzLjc5NDEzOTMsNTkuNjIzNjg3MyBDNTYuOTg2ODkwMyw2MS43NTcwOTg1IDY2Ljg0NzcyMzIsNjUuNDYwMTAwNCA3MC42NzkyOTIyLDY1LjQ0MjY5MDIgQzcwLjY3OTI5MjIsNjUuNDQyNjkwMiA3MS45NzQzMzg0LDU5LjkxODMyMDMgNzUuOTA3Njg5OCw1NC44Nzg3NTU3IEM3NC4zMTY2NzEzLDUyLjg2NTg3NjIgNzMuNTI3ODU4Miw1MC4xOTY3Njg1IDc0LjIzMjI5OTEsNDcuMjg3OTM2NyBDNzUuMDEwMzk4Miw0NC4wNjk3NDAxIDc3LjY5ODI1NTMsNDEuNDQwODA5NyA4MC45NDA1NTgyLDQwLjc2NzE3MTMgQzg1LjM3MDc2OCwzOS44NDcxMTI3IDg5LjM3OTExNjksNDIuMjI5NjIyNyA5MC45NzgxNzA5LDQ1Ljg5NjQ2NTEgQzEwMC42MDk5OTMsNDMuMjM4MDcxMyAxMTMuMDU5NTgsNDMuMjkyOTgwMiAxMjcuNTcwMjU4LDUyLjY0MDg4MzcgQzE0MC41OTU3MTgsNjEuMDMxMjI5NyAxNTYuNTEyNTk5LDU2LjY5NzQ0NTMgMTY1LjQzOTk4MSw1Mi4wMTgxMzY2IEMxNjkuNTM2NzIsNDkuODcxMzMyOSAxNzIuNDg1NzI5LDQ2LjA0Mzc4MTYgMTczLjc3Njc1Nyw0MS42MDI4NTc4IEMxNzMuNzY2MDQzLDM3LjM5MDk0NDMgMTcxLjExMTY2NywzMi40NTQ1MDEzIDE2Mi42MzE1OTIsMzAuMzQ2NTM1NyBDMTU4LjI0NDIzOCwyOS4yNTM3MTQ5IDE1My42MjI1MTcsMjkuNjYyMTgzNCAxNDkuMzM4Mjg0LDMxLjEwMzIwNjkgQzE0MC4wMjc4NzksMzQuMjM4MzcwNiAxMjQuMzIyNTk4LDQwLjAwNTE0MzEgMTE3LjIxNjU4NCwzMy45NTk4MDg0IEMxMTMuNDE0NDc4LDMxLjA5OTE4OTIgMTEyLjY4ODYxLDI4LjM0MDM1MjQgMTE0LjY0NjU4LDI0Ljg0MjI1NDQgQzExNy4xMTc0OCwyMC40Mjk0NTQ3IDEyMi45Mzc4MjMsMjAuMzg3OTM4MiAxMjcuODk4MzcyLDIzLjM3MDQyODMgQzEzMi44NTg5MjEsMjYuMzUyOTE4NSAxNDYuMjEyNDk1LDIyLjk1NTI2MzYgMTUwLjMzNjAxOSwyMi4wNjA2NTA1IEMxNTQuNDU4MjAzLDIxLjE2NjAzNzMgMTY1LjQ2NDA4NywyMC45MDQ4ODUzIDE3MC43MTY1OTEsMjcuNjA3Nzg3NCBDMTcwLjcxNjU5MSwyNy42MDc3ODc0IDE3MC45NDgyOCwyNS4xNDQ5MjI5IDE2OC42MDMyNjksMjIuNjAxNzAzOSBDMTY2LjI1OTU5NiwyMC4wNjM4NDE4IDE2MS42MDcwNzMsMTguMjk2MDQzNSAxNTMuMTE3NjIzLDE4LjAxNzQ4MTMgQzE0NC42Mjk1MTIsMTcuNzQwMjU4NCAxMzguNjUzODE4LDEwLjU4NzM3MTIgMTM3LjE2MDU2NCw3Ljg0MTkyNjc3IEMxMzUuNjY3MzEsNS4xMDE4MzkzIDEzNS45OTU0MjQsMi45ODcxNzc0NyAxMzcuNjM4NjczLDEuMzQ2NjA3MDEgQzEzOS4yODE5MjIsLTAuMjkyNjI0MTk5IDE0My4yMTY2MTMsLTAuOTAzMzE4MTgxIDE0Ni4zODkyNzUsMi4yNTk5Njk1IFogTTQ1LjExMzE3NzksNzEuMDYwODA3IEM1NC41MjQwMjU4LDgxLjE2NDA0MjUgNjguMjYxOTYxOSw3OS40NjU4ODQ3IDY4LjI2MTk2MTksNzkuNDY1ODg0NyBDNjguMjYxOTYxOSw3OS40NjU4ODQ3IDY5LjEzMzgwNzksNzUuMTczNjE2NyA1OS45OTA4MDgzLDcxLjU5NTE2NDIgQzUwLjg0OTE0NzksNjguMDIyMDY4NyA0NS4xMTMxNzc5LDcxLjA2MDgwNyA0NS4xMTMxNzc5LDcxLjA2MDgwNyBaIE0xMi4xNTkxMzk3LDQwLjc2NzQzOTIgTDEyLjE1OTEzOTcsNDMuMDM3NDUzIEw3LjQ0MzY3MTQ2LDQzLjAzNzQ1MyBMNy40NDM2NzE0Niw1Ni4xOTgxNzYyIEw0LjczNzA2NTAyLDU2LjE5ODE3NjIgTDQuNzM3MDY1MDIsNDMuMDM3NDUzIEwwLjAwMDE2ODk0MzgyOSw0My4wMzc0NTMgTDAuMDAwMTY4OTQzODI5LDQwLjc2NzQzOTIgTDEyLjE1OTEzOTcsNDAuNzY3NDM5MiBaIE0xNy41MjUzNDUyLDQwLjc2NzQzOTIgTDIxLjU4NTkyNDUsNTIuNzkzODI1MSBMMjEuNjcwMjk2Nyw1Mi43OTM4MjUxIEwyNS44NTk0NDMxLDQwLjc2NzQzOTIgTDI5LjUzMDMwMzIsNDAuNzY3NDM5MiBMMjkuNTMwMzAzMiw1Ni4xOTgxNzYyIEwyNi45Mjk0OTY4LDU2LjE5ODE3NjIgTDI2LjkyOTQ5NjgsNDQuOTU3OTI0OSBMMjYuODY2NTUyNSw0NC45NTc5MjQ5IEwyMi45NTk5ODU5LDU2LjE5ODE3NjIgTDIwLjI1MzM3OTUsNTYuMTk4MTc2MiBMMTYuNDUzOTUyMiw0NC45NTc5MjQ5IEwxNi4zOTEwMDc5LDQ0Ljk1NzkyNDkgTDE2LjM5MTAwNzksNTYuMTk4MTc2MiBMMTMuNzkwMjAxNSw1Ni4xOTgxNzYyIEwxMy43OTAyMDE1LDQwLjc2NzQzOTIgTDE3LjUyNTM0NTIsNDAuNzY3NDM5MiBaIE0yMjMuMzExMDAzLDAgTDIyNC4xNDgwMjksMi4yNzEzNTMwNSBDMjI1LjEwNTU4Niw0Ljg2OTQ4MDk2IDIyNy4xNDY1OSw2LjkxNzE4MDczIDIyOS43MzUzNDMsNy44Nzg3NTU5IEwyMzIsOC43MTg0NjAxMyBMMjI5LjczNDAwNCw5LjU1OTUwMzU5IEMyMjcuMTQ2NTksMTAuNTIxMDc4OCAyMjUuMTA1NTg2LDEyLjU2ODc3ODUgMjI0LjE0ODAyOSwxNS4xNjQyMjggTDIyMy4zMTEwMDMsMTcuNDM2OTIwMyBMMjIyLjQ3MjYzOCwxNS4xNjQyMjggQzIyMS41MTUwODEsMTIuNTY4Nzc4NSAyMTkuNDc0MDc3LDEwLjUyMTA3ODggMjE2Ljg4NjY2Myw5LjU1OTUwMzU5IEwyMTQuNjIyMDA2LDguNzE4NDYwMTMgTDIxNi44ODUzMjQsNy44Nzg3NTU5IEMyMTkuNDc0MDc3LDYuOTE3MTgwNzMgMjIxLjUxNTA4MSw0Ljg2OTQ4MDk2IDIyMi40NzI2MzgsMi4yNzEzNTMwNSBMMjIzLjMxMTAwMywwIFoiIGlkPSJwYXRoLTEiPjwvcGF0aD4KICAgIDwvZGVmcz4KICAgIDxnIGlkPSLsnbjsiqTtg4Dqt7jrnqgt66a07IqkIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0i7I2464Sk7J28IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNDI0LCAtOTAyKSIgZmlsbD0iIzJBMkEyOSI+CiAgICAgICAgICAgIDxnIGlkPSJ0cmFkZS1tYXJrIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0MjQsIDkwMikiIHhsaW5rOmhyZWY9IiNwYXRoLTEiPgogICAgICAgICAgICAgICAgPHBhdGggZD0iTTE0Ni4zODkyNzUsMi4yNTk5Njk1IEMxNDkuNTYzMjc3LDUuNDI1OTM1NjcgMTU1LjU1MTAyNCwxMi41MzQ2Mjc5IDE2My41MDQ3NzcsMTQuNjAxMDc3IEMxNzAuNzI0NjI3LDE2LjQ3NzM1MzkgMTc2LjMyMzk5NCwxOC43OTQyNDEyIDE3OC4zMzAxNzcsMjguMzMzNjU2MiBDMTc4LjkxMjc0NywyOS4zMDE5Mjc1IDE4MC4xMDg2OSwzMC43NDE2MTE4IDE4Mi4xNTc3MjksMzAuODA0NTU2MiBDMTg1LjE3NTAzOSwyOS45NTQxMzggMTkwLjk4MzMyOCwyNi4zODYzOTk1IDIwMS44MDU3MzYsMzkuNzM4NjM0MSBDMjA1Ljk2OTQzNyw0My44MTc5NjI4IDIwOS4xNjA4NDksNDUuOTM1MzAzMSAyMDkuMzQwMzA3LDQ4LjAyMDUwMTYgQzIwOS41MTk3NjUsNTAuMTA4Mzc4NiAyMDYuNTkyMTg0LDU4LjQ1MzE5MDUgMTk2LjU1NDU3MSw1Ny4wNTIzNDQyIEMxOTMuNjE3NjE1LDU2LjcyMjg5MDggMTkyLjM3NzQ3OCw1OC45NDMzNTI3IDE5Mi4zNzc0NzgsNTguOTQzMzUyNyBDMTkyLjM3NzQ3OCw1OC45NDMzNTI3IDE5Ni44NTMyMjIsNjQuNjIxNzM1NCAxOTUuODIyMDA2LDcwLjQxNTI5MjcgQzE5NS40ODU4NTcsNzIuMzA3NjQwNSAxOTQuNzc0NzIsNzUuNjA3NTMwOCAxOTIuNjYxMzk3LDc5LjE4NzMyMjUgQzE5My4yOTc1MzcsODAuNDA2MDMyIDE5NC4yMTg5MzUsODEuNTY0NDc1NiAxOTUuNjc0NjksODIuMzU3MzA2NCBDMTk5LjIwNDkzLDg0LjI4NDQ3NDUgMjA2LjczMDEyNiw4MS41ODA1NDY1IDIxNS4zMDI2MDksODAuMTYwOTUwOSBDMjIwLjE0OTMyMyw3OS4zNTYwNjY5IDIyMy45OTAyNjYsNzkuNTI0ODExMyAyMjYuODgzMDI3LDgwLjI0OTM0MDggQzIzMC40MjI2NDIsODEuMTM0NTc5MiAyMzIuNTIyNTcyLDg0LjgwNTQzOTMgMjMxLjg4NjQzMiw4OC4zOTcyODQyIEwyMzEuODcwMzYxLDg4LjQ4Mjk5NTYgQzIzMS4zMzg2ODMsOTEuNDY1NDg1NyAyMjcuNTg0NzksOTIuNzEzNjU4NSAyMjUuMzQ0MjM5LDkwLjY3MjY1NDkgQzIyMi43OTI5ODUsODguMzQ2MzkzIDIxOC42MzQ2NDEsODYuMDc3NzE4NCAyMTIuODY2NTI5LDg3LjY5ODIwMDMgQzIwMy44MzIwMDgsOTAuMjM2MDYyMyAxOTEuNjc4Mzk0LDEwMC4xNjM4NTcgMTgxLjgzMDk1NCw4OS4xNzUzODMzIEMxODEuNjQwNzgxLDg5LjI3NzE2NTYgMTgxLjQyMjQ4NSw4OS4zNjk1NzMzIDE4MS4yMjgyOTUsODkuNDcwMDE2NCBDMTgxLjE0NTI2Miw5MS43MjY2Mzc4IDE4MS4zNTQxODQsOTQuNjM5NDg3MyAxODMuNTk4NzUyLDk2Ljg4MDAzNzggQzE4Ni42NTg5MTgsOTkuOTMyMTY4NSAxOTUuMjQwNzc2LDk5LjQwOTg2NDQgMjA0LjUxNjM2LDEwMC41MjU0NTIgQzIwOS43NjQ4NDYsMTAxLjE1NjIzNSAyMTMuNjc5NDQ4LDEwMi40ODg3OCAyMTYuNDQ2MzIxLDEwNC4xMDkyNjIgQzIxOS44Mjc5MDUsMTA2LjA5MjY3OCAyMjAuODgwNTQ4LDExMC41MTQ4NTIgMjE5LjEzNDE3OCwxMTQuMDIyMzI1IEwyMTkuMDkxMzIyLDExNC4xMDY2OTcgQzIxNy42NDA5MjQsMTE3LjAyMzU2NSAyMTMuMzg4ODMzLDExNy4xNzg5MTcgMjExLjY5NjAzMiwxMTQuMzk1OTczIEMyMDkuNzY3NTI1LDExMS4yMjg2NjggMjA2LjE2MzYyNywxMDcuNjM4MTYyIDE5OS43MjA1MzgsMTA3LjU2OTg2MSBDMTg4LjUzMzg1NiwxMDcuNDU3MzY1IDE3MC42NzUwNzUsMTE1LjQ3ODA4IDE2NS4zODUwNzIsOTQuMjIyOTgzMyBDMTYxLjQzNjk4OSw5NC44MDY4OTI1IDE1Ni45ODUzNTEsOTUuMTQwMzYzNSAxNTEuOTE5MDAyLDk1LjE0MDM2MzUgQzEzMy45MzQzMzIsOTUuMTQwMzYzNSAxMjguMDIxNTgyLDc0LjYzMjU2MzIgMTEyLjg3MzQyNSw3My45MjAwODY5IEM5Ny43MjM5Mjg3LDczLjIwNzYxMDYgOTguNDQxNzYyLDkzLjY4MTkyOTkgODguNzYxNzI2Nyw5NS44MjczOTQzIEM3OS4wODE2OTE0LDk3Ljk3NDE5NzkgNjguMTkwOTgyMSw5My4zMDk2MjA4IDUxLjY3ODEzODIsODUuMjI3MzAwMyBDNDguNjA5OTM2Nyw4My44NDM4NjQxIDQ3LjE4NjMyMzMsODMuMTU5NTExOSA0NC4xMzI4NTM0LDgzLjE1OTUxMTkgQzQxLjA3OTM4MzUsODMuMTU5NTExOSAzOS41MTI0NzEzLDg2LjExMTE5OTUgMzcuMzczNzAzMSw4OC40OTIzNzAzIEMzNS4yMzQ5MzQ5LDkwLjg3MjIwMTkgMjAuOTg0MDY5NSwxMTAuMjcxMTEgNi41NjMxMjAzOCwxMDcuMjUyNDYxIEMyLjY5MTM3NDExLDEwNi4zMTc2NyAwLjc2NTU0NTI4MiwxMDUuMzExOSAwLjA2MjQ0MzY1OSwxMDEuMzQyMzg5IEMtMC4zODM1MjM2NTYsOTguODI0NjE2IDEuNjE4NjQxOTIsOTYuNTEzMDg1OCA0LjE3MzkxNDEsOTYuNDE2NjYwNCBMMjAuMDE3MTM3Myw5NS44Mjg3MzM1IEMyMC4wMTcxMzczLDk1LjgyODczMzUgMzAuMDk3NjA1OCw4Ni4yODM5NjE2IDM0LjE3ODI3MzcsNzYuMzM2MDc4IEMzNC4xNzgyNzM3LDc2LjMzNjA3OCAyNy4xNjE5ODkxLDg2LjMzMjE3NDIgMTEuMTMyNjExMyw4Ni4zMzIxNzQyIEM2LjA4NTAxMTI4LDg2LjMzMjE3NDIgNC4wNzA3OTI1Myw4Mi44Mzk0MzMyIDMuNTk5Mzc5NjMsNzkuNDMzNzQyOSBDMy4yMjcwNzA1OCw3Ni43NDQ1NDY2IDUuMzU1MTI0ODMsNzQuMzU5MzU4IDguMDY4NDI3NDcsNzQuNDc3MjExMyBMMjMuMjU4MTAxLDc1LjE0MDEzNTcgQzI1LjIwNTM1NzcsNzUuMjI0NTA3OCAyNy4xMDk3NTg3LDc0LjY5Njg0NjggMjguNzI4OTAxMyw3My42MTA3MjIyIEMzMi42MzAxMTA4LDcwLjk5NTE4NDIgMzkuOTE1NTgyOSw2NS43ODAxNzkgNDIuNjg1MTMzNyw2MS41NjQyNDc3IEM0Ni41NDc1MDUzLDU1LjY4MDk2MTIgNTEuNTU4OTQ1OCw1OC4xMjY0MTU2IDUzLjc5NDEzOTMsNTkuNjIzNjg3MyBDNTYuOTg2ODkwMyw2MS43NTcwOTg1IDY2Ljg0NzcyMzIsNjUuNDYwMTAwNCA3MC42NzkyOTIyLDY1LjQ0MjY5MDIgQzcwLjY3OTI5MjIsNjUuNDQyNjkwMiA3MS45NzQzMzg0LDU5LjkxODMyMDMgNzUuOTA3Njg5OCw1NC44Nzg3NTU3IEM3NC4zMTY2NzEzLDUyLjg2NTg3NjIgNzMuNTI3ODU4Miw1MC4xOTY3Njg1IDc0LjIzMjI5OTEsNDcuMjg3OTM2NyBDNzUuMDEwMzk4Miw0NC4wNjk3NDAxIDc3LjY5ODI1NTMsNDEuNDQwODA5NyA4MC45NDA1NTgyLDQwLjc2NzE3MTMgQzg1LjM3MDc2OCwzOS44NDcxMTI3IDg5LjM3OTExNjksNDIuMjI5NjIyNyA5MC45NzgxNzA5LDQ1Ljg5NjQ2NTEgQzEwMC42MDk5OTMsNDMuMjM4MDcxMyAxMTMuMDU5NTgsNDMuMjkyOTgwMiAxMjcuNTcwMjU4LDUyLjY0MDg4MzcgQzE0MC41OTU3MTgsNjEuMDMxMjI5NyAxNTYuNTEyNTk5LDU2LjY5NzQ0NTMgMTY1LjQzOTk4MSw1Mi4wMTgxMzY2IEMxNjkuNTM2NzIsNDkuODcxMzMyOSAxNzIuNDg1NzI5LDQ2LjA0Mzc4MTYgMTczLjc3Njc1Nyw0MS42MDI4NTc4IEMxNzMuNzY2MDQzLDM3LjM5MDk0NDMgMTcxLjExMTY2NywzMi40NTQ1MDEzIDE2Mi42MzE1OTIsMzAuMzQ2NTM1NyBDMTU4LjI0NDIzOCwyOS4yNTM3MTQ5IDE1My42MjI1MTcsMjkuNjYyMTgzNCAxNDkuMzM4Mjg0LDMxLjEwMzIwNjkgQzE0MC4wMjc4NzksMzQuMjM4MzcwNiAxMjQuMzIyNTk4LDQwLjAwNTE0MzEgMTE3LjIxNjU4NCwzMy45NTk4MDg0IEMxMTMuNDE0NDc4LDMxLjA5OTE4OTIgMTEyLjY4ODYxLDI4LjM0MDM1MjQgMTE0LjY0NjU4LDI0Ljg0MjI1NDQgQzExNy4xMTc0OCwyMC40Mjk0NTQ3IDEyMi45Mzc4MjMsMjAuMzg3OTM4MiAxMjcuODk4MzcyLDIzLjM3MDQyODMgQzEzMi44NTg5MjEsMjYuMzUyOTE4NSAxNDYuMjEyNDk1LDIyLjk1NTI2MzYgMTUwLjMzNjAxOSwyMi4wNjA2NTA1IEMxNTQuNDU4MjAzLDIxLjE2NjAzNzMgMTY1LjQ2NDA4NywyMC45MDQ4ODUzIDE3MC43MTY1OTEsMjcuNjA3Nzg3NCBDMTcwLjcxNjU5MSwyNy42MDc3ODc0IDE3MC45NDgyOCwyNS4xNDQ5MjI5IDE2OC42MDMyNjksMjIuNjAxNzAzOSBDMTY2LjI1OTU5NiwyMC4wNjM4NDE4IDE2MS42MDcwNzMsMTguMjk2MDQzNSAxNTMuMTE3NjIzLDE4LjAxNzQ4MTMgQzE0NC42Mjk1MTIsMTcuNzQwMjU4NCAxMzguNjUzODE4LDEwLjU4NzM3MTIgMTM3LjE2MDU2NCw3Ljg0MTkyNjc3IEMxMzUuNjY3MzEsNS4xMDE4MzkzIDEzNS45OTU0MjQsMi45ODcxNzc0NyAxMzcuNjM4NjczLDEuMzQ2NjA3MDEgQzEzOS4yODE5MjIsLTAuMjkyNjI0MTk5IDE0My4yMTY2MTMsLTAuOTAzMzE4MTgxIDE0Ni4zODkyNzUsMi4yNTk5Njk1IFogTTQ1LjExMzE3NzksNzEuMDYwODA3IEM1NC41MjQwMjU4LDgxLjE2NDA0MjUgNjguMjYxOTYxOSw3OS40NjU4ODQ3IDY4LjI2MTk2MTksNzkuNDY1ODg0NyBDNjguMjYxOTYxOSw3OS40NjU4ODQ3IDY5LjEzMzgwNzksNzUuMTczNjE2NyA1OS45OTA4MDgzLDcxLjU5NTE2NDIgQzUwLjg0OTE0NzksNjguMDIyMDY4NyA0NS4xMTMxNzc5LDcxLjA2MDgwNyA0NS4xMTMxNzc5LDcxLjA2MDgwNyBaIE0xMi4xNTkxMzk3LDQwLjc2NzQzOTIgTDEyLjE1OTEzOTcsNDMuMDM3NDUzIEw3LjQ0MzY3MTQ2LDQzLjAzNzQ1MyBMNy40NDM2NzE0Niw1Ni4xOTgxNzYyIEw0LjczNzA2NTAyLDU2LjE5ODE3NjIgTDQuNzM3MDY1MDIsNDMuMDM3NDUzIEwwLjAwMDE2ODk0MzgyOSw0My4wMzc0NTMgTDAuMDAwMTY4OTQzODI5LDQwLjc2NzQzOTIgTDEyLjE1OTEzOTcsNDAuNzY3NDM5MiBaIE0xNy41MjUzNDUyLDQwLjc2NzQzOTIgTDIxLjU4NTkyNDUsNTIuNzkzODI1MSBMMjEuNjcwMjk2Nyw1Mi43OTM4MjUxIEwyNS44NTk0NDMxLDQwLjc2NzQzOTIgTDI5LjUzMDMwMzIsNDAuNzY3NDM5MiBMMjkuNTMwMzAzMiw1Ni4xOTgxNzYyIEwyNi45Mjk0OTY4LDU2LjE5ODE3NjIgTDI2LjkyOTQ5NjgsNDQuOTU3OTI0OSBMMjYuODY2NTUyNSw0NC45NTc5MjQ5IEwyMi45NTk5ODU5LDU2LjE5ODE3NjIgTDIwLjI1MzM3OTUsNTYuMTk4MTc2MiBMMTYuNDUzOTUyMiw0NC45NTc5MjQ5IEwxNi4zOTEwMDc5LDQ0Ljk1NzkyNDkgTDE2LjM5MTAwNzksNTYuMTk4MTc2MiBMMTMuNzkwMjAxNSw1Ni4xOTgxNzYyIEwxMy43OTAyMDE1LDQwLjc2NzQzOTIgTDE3LjUyNTM0NTIsNDAuNzY3NDM5MiBaIE0yMjMuMzExMDAzLDAgTDIyNC4xNDgwMjksMi4yNzEzNTMwNSBDMjI1LjEwNTU4Niw0Ljg2OTQ4MDk2IDIyNy4xNDY1OSw2LjkxNzE4MDczIDIyOS43MzUzNDMsNy44Nzg3NTU5IEwyMzIsOC43MTg0NjAxMyBMMjI5LjczNDAwNCw5LjU1OTUwMzU5IEMyMjcuMTQ2NTksMTAuNTIxMDc4OCAyMjUuMTA1NTg2LDEyLjU2ODc3ODUgMjI0LjE0ODAyOSwxNS4xNjQyMjggTDIyMy4zMTEwMDMsMTcuNDM2OTIwMyBMMjIyLjQ3MjYzOCwxNS4xNjQyMjggQzIyMS41MTUwODEsMTIuNTY4Nzc4NSAyMTkuNDc0MDc3LDEwLjUyMTA3ODggMjE2Ljg4NjY2Myw5LjU1OTUwMzU5IEwyMTQuNjIyMDA2LDguNzE4NDYwMTMgTDIxNi44ODUzMjQsNy44Nzg3NTU5IEMyMTkuNDc0MDc3LDYuOTE3MTgwNzMgMjIxLjUxNTA4MSw0Ljg2OTQ4MDk2IDIyMi40NzI2MzgsMi4yNzEzNTMwNSBMMjIzLjMxMTAwMywwIFoiIGlkPSJDb21iaW5lZC1TaGFwZSI+PC9wYXRoPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=" alt="">
+</div>
+
+<script>
+(function () {
+  var cursor = document.getElementById('bydoseCursorBunny');
+
+  // 데스크탑(마우스 + hover 가능)에서만: 모바일/터치에서는 커서 자체가 없어 의미 없음
+  var isDesktopPointer =
+    window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+    window.innerWidth >= 900;
+
+  if (!isDesktopPointer) return;
+
+  var OFFSET = 46; // 실제 포인터로부터 떨어진 거리(px)
+  var offsetDx = OFFSET * Math.cos(Math.PI / 4);
+  var offsetDy = -OFFSET * Math.sin(Math.PI / 4); // 음수 = 위쪽
+
+  window.addEventListener('mousemove', function (e) {
+    cursor.classList.add('is-active');
+    cursor.style.transform =
+      'translate(' + (e.clientX + offsetDx - 32) + 'px, ' + (e.clientY + offsetDy - 16) + 'px)';
+  });
+
+  window.addEventListener('mouseleave', function () {
+    cursor.classList.remove('is-active');
+  });
+})();
+</script>
+
+<!--
+  모바일 메뉴 펼치기
+  아임웹 모바일 메뉴서랍의 ⋮ 버튼 안에 있는 "장바구니"와 "마이페이지"를
+  메뉴 목록("나잇나잇 크림", "이야기") 아래로 꺼낸다.
+  - 장바구니: 항상 보인다.
+  - 마이페이지: 로그인했을 때만 보인다(⋮ 안에 마이페이지가 있을 때).
+  꺼낸 항목은 ⋮ 안에서는 숨긴다.
+
+  아임웹 모바일 메뉴서랍 구조 (2026-10-15 bydose.kr 실제 화면 기준):
+    div.viewport-nav.mobile
+      div.profile-area  … ⋮ 목록 ul.dropdown-menu > li.drop_mypage / li.drop_cart / …
+      li.depth-01 > a > span.plain_name   (나잇나잇 크림)
+      li.depth-01 > a > span.plain_name   (이야기)
+  메뉴 칸(li.depth-01)을 복제해서 붙이므로 글씨·간격은 기존 메뉴와 같다.
+
+  붙이는 곳: 아임웹 푸터 코드 칸 (imweb-footer-code.html에 합쳐 둠).
+-->
+<style>
+  /* 꺼내기가 끝난 메뉴서랍에서만 ⋮ 안의 원래 항목을 숨긴다 */
+  .viewport-nav.mobile.bydose-unfolded .profile-area .drop_cart,
+  .viewport-nav.mobile.bydose-unfolded .profile-area .drop_mypage {
+    display: none !important;
+  }
+
+  /* 페이지 메뉴와 쇼핑 메뉴(장바구니·마이페이지) 구분: 가는 선 + 작은 회색 글씨 */
+  .viewport-nav.mobile > li.bydose-shop-first {
+    margin-top: 12px !important;
+    padding-top: 12px !important;
+    border-top: 1px solid rgba(42, 42, 41, 0.15) !important;
+  }
+  .viewport-nav.mobile > li.bydose-shop-item a,
+  .viewport-nav.mobile > li.bydose-shop-item .plain_name {
+    color: #8A8A85 !important;
+  }
+  .viewport-nav.mobile > li.bydose-shop-item .plain_name {
+    font-size: 0.85em !important;
+  }
+</style>
+<script>
+(function () {
+  var MARK = 'data-bydose-unfold';
+  var ITEMS = [
+    // label: 메뉴에 보일 이름, source: ⋮ 안의 원래 항목, fallback: 원래 항목이 없을 때 주소
+    { label: '장바구니', source: '.profile-area .drop_cart a', fallback: '/shop_cart', always: true },
+    { label: '마이페이지', source: '.profile-area .drop_mypage a', fallback: null, always: false }
+  ];
+
+  function makeItem(template, label, href) {
+    var li = template.cloneNode(true);
+    li.removeAttribute('data-code');
+    li.removeAttribute('id');
+    li.classList.remove('active');
+    li.setAttribute(MARK, label);
+    li.classList.add('bydose-shop-item');
+    var a = li.querySelector('a');
+    if (!a) return null;
+    a.setAttribute('href', href);
+    a.removeAttribute('onclick');
+    a.removeAttribute('data-url');
+    a.classList.remove('active');
+    var name = li.querySelector('.plain_name');
+    if (name) name.textContent = label;
+    else a.textContent = label;
+    var toggle = li.querySelector('._toggle_btn');
+    if (toggle) toggle.remove();
+    return li;
+  }
+
+  function run() {
+    try {
+      var nav = document.querySelector('.viewport-nav.mobile');
+      if (!nav) return;
+      var menus = nav.querySelectorAll(':scope > li.depth-01:not([' + MARK + '])');
+      if (!menus.length) return;
+      var last = menus[menus.length - 1];
+
+      for (var i = 0; i < ITEMS.length; i++) {
+        var it = ITEMS[i];
+        var src = nav.querySelector(it.source);
+        var href = (src && src.getAttribute('href')) || it.fallback;
+        var existing = nav.querySelector(':scope > [' + MARK + '="' + it.label + '"]');
+        var show = href && (it.always || src);
+        if (!show) {
+          if (existing) existing.remove();
+          continue;
+        }
+        if (existing) { last = existing; continue; }
+        var li = makeItem(last, it.label, href);
+        if (!li) continue;
+        last.insertAdjacentElement('afterend', li);
+        last = li;
+      }
+      var shop = nav.querySelectorAll(':scope > [' + MARK + ']');
+      for (var j = 0; j < shop.length; j++) shop[j].classList.toggle('bydose-shop-first', j === 0);
+      nav.classList.add('bydose-unfolded');
+    } catch (e) {
+      // 아임웹 구조가 바뀌면 조용히 멈춘다 (사이트와 ⋮ 메뉴는 그대로 둔다)
+      if (window.console) console.warn('[bydose] 모바일 메뉴 펼치기 실패', e);
+    }
+  }
+
+  // 메뉴서랍이 늦게 그려질 수 있어 로딩 후 몇 번 + 화면을 누를 때(메뉴 열기) 다시 확인한다
+  function later() {
+    setTimeout(run, 0);
+    setTimeout(run, 500);
+    setTimeout(run, 2000);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', later);
+  else later();
+  window.addEventListener('load', later);
+  document.addEventListener('click', function () { setTimeout(run, 50); }, true);
+})();
+</script>
+
+<!-- 상품 상세(shop_view) — 구매평을 상세정보 아래에 항상 표시 + 탭 클릭 시 새로고침 없이 앵커 이동 -->
+<!-- 아임웹 관리자 > 환경설정 > SEO의 '바디 코드'에 붙여넣기 (상세정보 칸은 스크립트 불가) -->
+<!--
+  동작
+  1. 첫 진입 시 아임웹의 '구매평' 모드(상세정보 + 구매평이 함께 그려짐)를 조용히 불러온다. 스크롤 위치·URL은 유지.
+  2. 구매평 탭 → 구매평 시작 위치로 스크롤 / 상세정보 탭 → 읽던 위치로 복귀 (읽던 곳이 없으면 상세정보 맨 위) — 둘 다 다시 그리지 않음
+  3. 스크롤 위치에 따라 탭 활성 표시가 바뀜
+  4. #prod_detail_review 로 들어오면 구매평 위치로 바로 이동
+  Q&A 탭은 아임웹 기본 동작 그대로.
+  디버그: 주소 뒤에 &bdreview=debug 를 붙이면 콘솔에 로그가 찍힘
+-->
+<script>
+(function () {
+  var PRODUCT_IDX = ['63']; // 적용할 상품 idx. 비우면([]) 모든 상품에 적용
+  var EXTRA_OFFSET = 16;    // 고정 탭바 아래 여백(px). 사이트 헤더가 고정이라 가려지면 늘리기
+
+  if (!/\/shop_view/.test(location.pathname)) return;
+  var idx = new URLSearchParams(location.search).get('idx');
+  if (PRODUCT_IDX.length && PRODUCT_IDX.indexOf(idx) < 0) return;
+
+  var DEBUG = /bdreview=debug/.test(location.search);
+  function log() { if (DEBUG) console.log.apply(console, ['[bd-review]'].concat([].slice.call(arguments))); }
+
+  // 구매평 영역에만 있는 요소 (상세정보 안의 .nnd-review 같은 자체 요소와 겹치지 않게)
+  var REVIEW_MARK = '#starPointer, .comment_list, [id^="comment_count_"], .review_summary_wrap, ._review_summary_wrap, .review-box';
+
+  var loading = false, holdScroll = false, queue = [];
+  var autoScrolling = false, autoTimer = null, lastDetailY = null; // lastDetailY: 상세정보에서 마지막으로 읽던 위치
+
+  // 탭바가 position:fixed가 되면 offsetParent가 null이 되므로 getClientRects로 표시 여부 판단
+  function shown(el) { return !!el && el.getClientRects().length > 0; }
+  function isMobile() {
+    return !shown(document.querySelector('._prod_detail_detail_lazy_load'));
+  }
+  function body() {
+    return document.querySelector(isMobile() ? '._prod_detail_detail_lazy_load_mobile' : '._prod_detail_detail_lazy_load');
+  }
+  // 구매평 모드 클래스: PC 'product_review', 모바일 'product_review_mobile'
+  function inReview(b) { return !!b && (b.classList.contains('product_review') || b.classList.contains('product_review_mobile')); }
+
+  // 구매평 영역이 시작되는 요소
+  function reviewAnchor(b) {
+    if (!b) return null;
+    var kids = b.children, start = -1, i;
+    for (i = 0; i < kids.length; i++) {
+      if (kids[i].matches(REVIEW_MARK) || kids[i].querySelector(REVIEW_MARK)) { start = i; break; }
+    }
+    if (start < 0) return null;
+    if (start === 0) return kids[0].matches(REVIEW_MARK) ? kids[0] : kids[0].querySelector(REVIEW_MARK);
+    // 바로 앞의 '구매평 59' 같은 제목·요약 블록도 포함
+    while (start > 1) {
+      var p = kids[start - 1];
+      if (p.offsetHeight < 300 && !p.querySelector('img, iframe, video') && /구매평|리뷰|review|평점|별점/i.test(p.textContent)) start--;
+      else break;
+    }
+    return kids[start];
+  }
+
+  function offset() {
+    var nav = document.querySelector(isMobile() ? '#tab_offset .site_prod_nav' : '#pc_tab_offset .site_prod_nav');
+    return (nav ? nav.offsetHeight : 0) + EXTRA_OFFSET;
+  }
+  function scrollToEl(el) {
+    if (!el) return;
+    scrollToY(el.getBoundingClientRect().top + window.pageYOffset - offset());
+  }
+  // 탭으로 이동하는 동안 지나가는 위치는 '읽던 위치'로 기록하지 않음
+  function scrollToY(y) {
+    autoScrolling = true;
+    clearTimeout(autoTimer);
+    autoTimer = setTimeout(function () { autoScrolling = false; }, 1500);
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+  window.addEventListener('scrollend', function () {
+    clearTimeout(autoTimer);
+    autoTimer = setTimeout(function () { autoScrolling = false; }, 100);
+  });
+  function setHash(hash) {
+    history.replaceState(history.state, '', location.pathname + location.search + hash);
+  }
+
+  var current = null;
+  function setActive(type) {
+    if (current === type) return;
+    current = type;
+    document.querySelectorAll('.site_prod_nav').forEach(function (nav) {
+      if (nav.querySelector('li.activeborder')) nav.setAttribute('data-bd-border', '1');
+      var border = nav.hasAttribute('data-bd-border');
+      nav.querySelectorAll('a._detail, a._review, a._qna').forEach(function (a) {
+        var on = a.classList.contains('_' + type);
+        a.classList.toggle('active', on);
+        if (border && a.parentElement) a.parentElement.classList.toggle('activeborder', on);
+      });
+    });
+  }
+
+  function waitFor(cond, done, fail, ms) {
+    var t0 = Date.now();
+    (function tick() {
+      if (cond()) return done();
+      if (Date.now() - t0 > (ms || 10000)) return fail && fail();
+      setTimeout(tick, 100);
+    })();
+  }
+
+  // 구매평 모드가 아니면 아임웹 함수로 불러온 뒤 cb 실행
+  function ensureReview(cb, keepScroll, onFail) {
+    var b = body();
+    if (inReview(b) && reviewAnchor(b)) return cb && cb();
+    if (cb) queue.push(cb);
+    if (loading) return;
+
+    var S = window.SITE_SHOP_DETAIL;
+    if (!S) { queue = []; log('SITE_SHOP_DETAIL 없음'); return onFail && onFail(); }
+    loading = true;
+    var url = location.href, y = window.pageYOffset, t0 = Date.now();
+    holdScroll = !!keepScroll;
+    log('구매평 모드 불러오는 중', isMobile() ? 'mobile' : 'pc');
+
+    if (isMobile()) S.changeContentTab('review', 0, 0);
+    else S.changeContentPCTab('review', 0, 0, true);
+
+    // 아임웹이 탭 위치로 끌어올리는 스크롤을 되돌림 (사용자가 직접 움직이면 중단)
+    (function hold() {
+      if (!holdScroll) return;
+      if (window.jQuery) window.jQuery('html, body').stop(true);
+      if (window.pageYOffset !== y) window.scrollTo(0, y);
+      if (Date.now() - t0 < 2000) requestAnimationFrame(hold);
+    })();
+
+    waitFor(function () { return inReview(body()) && reviewAnchor(body()); }, function () {
+      loading = false;
+      if (keepScroll && location.href !== url) history.replaceState(history.state, '', url);
+      log('구매평 영역', reviewAnchor(body()));
+      var q = queue; queue = [];
+      q.forEach(function (f) { f(); });
+    }, function () {
+      loading = false; queue = [];
+      log('구매평 영역을 찾지 못함');
+      if (onFail) onFail();
+    });
+  }
+
+  ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) {
+    window.addEventListener(ev, function () { holdScroll = false; autoScrolling = false; }, { passive: true });
+  });
+
+  // 상세정보·구매평 탭: 아임웹 onclick(다시 그리기 + 맨 위 이동) 대신 스크롤만
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('.site_prod_nav a._review, .site_prod_nav a._detail, .site_prod_nav a._qna');
+    if (!a) return;
+    if (a.classList.contains('_qna')) { current = null; return; } // Q&A는 아임웹 기본 동작
+    e.preventDefault();
+    e.stopPropagation();
+    var type = a.classList.contains('_review') ? 'review' : 'detail';
+    ensureReview(function () {
+      if (type === 'review') {
+        var w = where();
+        if (w !== 'review') lastDetailY = w === 'detail' ? window.pageYOffset : null;
+        scrollToEl(reviewAnchor(body()));
+        setHash('#prod_detail_review');
+      } else {
+        // 구매평을 보다가 누르면 읽던 곳으로, 이미 상세정보 안이거나 읽던 곳이 없으면 맨 위로
+        if (where() === 'review' && lastDetailY !== null) scrollToY(lastDetailY);
+        else scrollToEl(body());
+        setHash('#prod_detail_detail');
+      }
+      setActive(type);
+    }, false, function () {
+      // 구매평 영역을 못 찾으면 아임웹 기본 동작으로 (탭이 먹통이 되지 않도록)
+      var S = window.SITE_SHOP_DETAIL;
+      if (!S) return;
+      if (isMobile()) S.changeContentTab(type, 0, 0);
+      else if (type === 'review') S.changeContentPCTab('review', 0, 0, true);
+      else S.changeContentPCTab('detail', 0, 0, true, false, 0, 100);
+    });
+  }, true);
+
+  // 현재 스크롤 위치: 'above'(상세정보 위) / 'detail' / 'review'
+  function where() {
+    var b = body(), anchor = reviewAnchor(b);
+    if (!inReview(b) || !anchor) return null;
+    if (anchor.getBoundingClientRect().top - offset() <= 1) return 'review';
+    return b.getBoundingClientRect().top - offset() <= 1 ? 'detail' : 'above';
+  }
+
+  // 스크롤 위치에 따라 탭 활성 표시 + 읽던 위치 기록
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      if (loading) return;
+      var w = where();
+      if (!w) return;
+      setActive(w === 'review' ? 'review' : 'detail');
+      if (w === 'detail' && !autoScrolling) lastDetailY = window.pageYOffset;
+    });
+  }, { passive: true });
+
+  function init() {
+    waitFor(function () { return window.SITE_SHOP_DETAIL && body(); }, function () {
+      if (location.hash === '#prod_detail_review') {
+        ensureReview(function () {
+          setTimeout(function () { scrollToEl(reviewAnchor(body())); setActive('review'); }, 300);
+        });
+      } else {
+        ensureReview(function () { setActive('detail'); }, true);
+      }
+    });
+  }
+
+  if (document.readyState === 'complete') setTimeout(init, 0);
+  else window.addEventListener('load', function () { setTimeout(init, 0); });
+})();
+</script>
