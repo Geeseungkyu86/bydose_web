@@ -12,7 +12,8 @@
 │   ├── footer.html           푸터 (아임웹 기본 푸터 오버라이드)
 │   ├── floating-buy-btn.html 플로팅 구매 버튼
 │   ├── shop-review-anchor.html 상품 상세: 구매평 상시 표시 + 탭 앵커 이동 (바디 코드)
-│   ├── shop-promo-top.html     건조하지마요 세일 배너: 상세정보(Story) 코드 맨 위에 넣음 (~10/31)
+│   ├── nnd-story-widget.html   나잇나잇 상세 Story 코드 위젯 전체 (세일 배너 포함)
+│   ├── shop-promo-top.html     건조하지마요 세일 배너 원본 (nnd-story-widget.html 안에 들어감, ~10/31)
 │   ├── imweb-footer-code.html 아임웹 푸터(바디) 코드 칸 전체본: 폰트·커서 토끼·모바일 메뉴·구매평 앵커
 │   ├── links.html            링크 페이지
 │   ├── product-intro.html / product-detail.html
@@ -53,8 +54,10 @@
 
 ### 세일 배너 (`shop-promo-top.html`)
 
-- 넣는 곳: idx=63 상세정보 칸의 Story 코드 맨 위 (`<div id="nnd-story"` 바로 앞). 아임웹 '상품 상세 상단 공통'은 쓰지 않는다.
-  상단 공통은 구매평 모드에서 아임웹이 빼고 그려서, 바디 코드의 구매평 스크립트와 함께 쓰면 사라지거나 위치가 바뀐다.
-- 파일 내용 전체를 그대로 붙여넣는다. 이 파일에는 설명 주석을 두지 않는다 (주석 속 태그 글자가 상세페이지 스크립트를 깨뜨림).
+- 넣는 곳: `nnd-story-widget.html`의 `<div id="nnd-story">` 바로 안 맨 앞 (이미 들어 있음). 아임웹 '상품 상세 상단 공통'은 쓰지 않는다.
+  Story 위젯은 스크립트로 자기 자신을 상세 본문 맨 앞에 계속 옮겨 놓고, 상단 공통은 구매평 모드에서 아임웹이 빼고 그린다.
+  그래서 배너를 Story 밖에 두면 사라지거나 Story 아래로 밀린다.
+- 배너를 바꾸면 `shop-promo-top.html`을 고친 뒤 `nnd-story-widget.html` 안의 배너도 같은 내용으로 바꾼다.
+- 편집기(상단 공통 등)에 넣을 때는 설명 주석을 넣지 않는다 (주석 속 태그 글자가 상세페이지 스크립트를 깨뜨림).
 - 인라인 스타일만 쓰고, 작은따옴표는 쓰지 않는다.
 - 세일이 끝나면 지운다 (바디 코드의 promo-end 스크립트가 있으면 11월 1일 0시부터 자동으로 숨겨짐).
