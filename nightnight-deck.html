@@ -65,6 +65,8 @@
   background:var(--cream) center/cover no-repeat;
 }
 #bdk .sl[data-ui="dark"]{background-color:#1d1916}
+/* 모바일 7장: 사진이 글자 뒤에 깔려 잘 안 읽혀서 크림색 반투명 막을 화면 전체(무대 양옆 여백 포함)에 덮는다 */
+#bdk.is-m #aroma::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(243,243,233,.86) 0%,rgba(243,243,233,.78) 55%,rgba(243,243,233,.6) 100%)}
 
 /* ---------- 무대: 피그마 좌표계 그대로, 화면에 맞춰 확대·축소 ---------- */
 #bdk .stage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(var(--s));transform-origin:center}
@@ -362,8 +364,6 @@
         </div>
       </div>
       <div class="stage m">
-        <!-- 모바일은 사진이 글자 뒤에 깔려 잘 안 읽혀서 크림색 반투명 막을 한 겹 덮는다 -->
-        <div class="a" style="left:0;top:0;width:390px;height:844px;background:linear-gradient(180deg,rgba(243,243,233,.86) 0%,rgba(243,243,233,.78) 55%,rgba(243,243,233,.6) 100%)"></div>
         <p class="a xb wrap" style="left:24px;top:84px;width:342px;font-size:20px;line-height:28px">「Aroma Wellness」<br>좋은 향을 넘어, 잠들기 전의 편안함까지.</p>
         <p class="a wrap" style="left:24px;top:152px;width:342px;font-size:14px;line-height:20px">차분한 마음은 '좋은 잠'을, 좋은 잠은 '좋은 피부'를 만든다는 믿음으로, 나잇나잇 크림은 좋은 향을 넘어, 잠들기 전 심리 상태를 고려한 향을 담았습니다.<br><br>CPL Aromas의 「AromaWellness」는 향과 감정의 연결을 탐구하는 향 연구 플랫폼입니다. 향에 대한 사람의 행동과 생리적 반응, 주관적 인식을 다양한 평가 방법으로 살펴봅니다.</p>
         <p class="a b pre" style="left:24px;top:330px;font-size:15px;line-height:24px;color:#000"><span class="mono">01</span> 행동 반응</p>
@@ -689,7 +689,8 @@
       mb.innerHTML='<img src="'+SVG['next-btn']+'" alt="" style="left:-9.6px;top:-1.6px;width:50.4px;height:50.4px">'; m.appendChild(mb);
     }else{
       m.appendChild(chromeBtns(tone,'left:330px;top:12px','left:12px;top:12px',true));
-      if(msec) m.appendChild(pos(el('div','bar'),'width:'+(65*msec)+'px'));
+      /* 진행선은 화면이 무대보다 넓어도 왼쪽 끝까지 닿게 왼쪽으로 길게 뺀다 */
+      if(msec) m.appendChild(pos(el('div','bar'),'left:-600px;width:'+(600+65*msec)+'px'));
       for(var t=1;t<=5;t++){
         var tb=pos(el('a','tab'+(t===msec?' is-on':''),'<span class="mono">0'+t+'</span><span class="t">'+TABS[t]+'</span>'),'left:'+(t-1)*65+'px;color:'+(t===msec?'var(--red)':ink));
         tb.href='#'+SEC_FIRST[t]; m.appendChild(tb);
