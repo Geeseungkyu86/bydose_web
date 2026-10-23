@@ -65,15 +65,10 @@
   background:var(--cream) center/cover no-repeat;
 }
 #bdk .sl[data-ui="dark"]{background-color:#1d1916}
-/* 모바일 7장: 사진이 글자 뒤에 깔려 잘 안 읽혀서 크림색 반투명 막을 화면 전체(무대 양옆 여백 포함)에 덮는다 */
-#bdk.is-m #aroma::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(243,243,233,.86) 0%,rgba(243,243,233,.78) 55%,rgba(243,243,233,.6) 100%)}
 
 /* ---------- 무대: 피그마 좌표계 그대로, 화면에 맞춰 확대·축소 ---------- */
 #bdk .stage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(var(--s));transform-origin:center}
 #bdk .stage.d{width:1440px;height:1024px}
-#bdk .stage.m{width:390px;height:844px;display:none}
-#bdk.is-m .stage.d{display:none}
-#bdk.is-m .stage.m{display:block}
 
 /* 절대배치 요소 */
 #bdk .a{position:absolute;white-space:nowrap}
@@ -121,11 +116,6 @@
 #bdk .next img{position:absolute}
 #bdk .next:hover img{filter:brightness(1.06)}
 #bdk .next-l{font-size:16px;line-height:18px;font-weight:500;letter-spacing:.03em;transform:translateX(-50%)}
-#bdk .tab{position:absolute;top:784px;width:65px;height:60px;text-align:center;font-size:10px;line-height:10px;letter-spacing:.03em}
-#bdk .tab .mono{position:absolute;left:0;right:0;top:17px;font-weight:700}
-#bdk .tab .t{position:absolute;left:3px;right:3px;top:33px;font-weight:500;white-space:nowrap}
-#bdk .tab.is-on{color:var(--red)}
-#bdk .bar{position:absolute;left:0;top:782px;height:2px;background:var(--red)}
 
 /* 언어 메뉴 */
 /* 피그마 Group 28: 반투명 검정 판, 현재 언어 ✓, 마우스 올리면 파랑 */
@@ -133,7 +123,6 @@
   background:rgba(42,42,41,.5);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
   color:#fff;font-size:18px;line-height:24px;display:none;z-index:5}
 #bdk .lang-menu.is-open{display:block}
-#bdk.is-m .lang-menu{transform:scale(.75);transform-origin:top left}   /* 모바일 무대(390px)에선 PC 크기가 커서 75%로 */
 #bdk .lang-menu button{position:relative;display:flex;align-items:center;justify-content:flex-end;gap:12px;width:173px;height:40px;margin:0 12px;padding:0 12px 0 0;border-radius:12px;color:#fff;white-space:pre}
 #bdk .lang-menu button:hover,#bdk .lang-menu button:focus-visible{background:rgba(0,136,255,.6);outline:0}
 #bdk .lang-menu button span:first-child{position:absolute;left:45px;top:8px}
@@ -150,7 +139,6 @@
   #bdk .sl{width:1440px;height:1024px;break-after:page;page-break-after:always}
   #bdk .sl:last-child{break-after:auto;page-break-after:auto}
   #bdk .stage.d{display:block!important;transform:none;left:0;top:0}
-  #bdk .stage.m{display:none!important}
   #bdk .ico,#bdk .next,#bdk .lang-menu{display:none!important}
   #bdk .media iframe{display:none}
 }
@@ -168,11 +156,6 @@
         <p class="a b" style="left:60px;top:197px;font-size:36px;line-height:normal">“ NIGHT NIGHT CREAM “</p>
         <p class="a b trim" style="right:60px;top:212px;font-size:18px;line-height:18px">LIGHT GEL-CREAM · AROMAWELLNESS SCENT · MOISTURE &amp; BARRIER</p>
       </div>
-      <div class="stage m">
-        <img class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/2c20ce999c4f0.jpg" alt="" style="left:24px;top:170px;width:342px;height:593px;border-radius:36px">
-        <p class="a b" style="left:24px;top:92px;font-size:24px;line-height:normal">“ NIGHT NIGHT CREAM “</p>
-        <p class="a b trim wrap" style="left:24px;top:131px;width:342px;font-size:10px;line-height:11px">LIGHT GEL-CREAM · AROMAWELLNESS SCENT · MOISTURE &amp; BARRIER</p>
-      </div>
     </section>
 
     <!-- ===================== 2 · 01 제품 소개 ===================== -->
@@ -187,21 +170,11 @@
         <p class="a pill tag" style="left:120px;top:646px">보습·장벽 케어</p>
         <img class="a fill" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/94d3abb072d92.png" alt="나잇나잇 크림 본품" style="left:828px;top:196px;width:173px;height:703px;object-position:bottom">
       </div>
-      <div class="stage m">
-        <img class="a fill" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/94d3abb072d92.png" alt="" style="left:153px;top:72px;width:84px;height:340px;object-position:bottom">
-        <p class="a xb tr" style="left:24px;top:440px;font-size:20px;line-height:29px">GOOD NIGHT = GOOD SKIN</p>
-        <p class="a wrap" style="left:24px;top:479px;width:342px;font-size:15px;line-height:20px">나잇나잇 크림은 잠들기 전의 감각적인 경험부터,<br>밤사이 피부가 스스로 회복할 수 있는 환경까지 고려한<br>‘아침촉촉’ 나이트크림입니다.</p>
-        <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjM3MS4wMDMiIGhlaWdodD0iMiIgdmlld0JveD0iMCAwIDM3MS4wMDMgMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggaWQ9IlZlY3RvciAxIiBkPSJNMC4wMDEzNDc3IDEuNUwzNzEuMDAxIDAuNDk5OTk4IiBzdHJva2U9IiMyQTJBMjkiLz4KPC9zdmc+Cg==" alt="" style="left:24px;top:552.5px;width:342px;height:2px">
-        <p class="a b tr" style="left:24px;top:566px;font-size:16px;line-height:18px">나잇나잇 크림 50 mL</p>
-        <p class="a pill tag" style="left:24px;top:598px;background:rgba(0,0,0,.15)">가벼운 젤-크림 타입</p>
-        <p class="a pill tag" style="left:21px;top:641px;background:rgba(0,0,0,.15)">「AromaWellness」 조향</p>
-        <p class="a pill tag" style="left:24px;top:684px;background:rgba(0,0,0,.15)">보습·장벽 케어</p>
-      </div>
     </section>
 
     <!-- ===================== 3 · 02 좋은 피부를 위한 좋은 밤 ===================== -->
     <section class="sl" id="why" data-title="02 좋은 밤" data-sec="2" data-ui="dark" data-next="굿나잇 시퀀스™"
-             style="background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/dad4e3c621c98.jpg)" data-mbg="6% center">
+             style="background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/dad4e3c621c98.jpg)">
       <div class="stage d lite">
         <p class="a h24" style="left:120px;top:178px">좋은 피부를 위한 좋은 밤</p>
         <p class="a p18" style="left:120px;top:237px">피부는 밤에도 회복과 유지 활동을 이어갑니다.<br>그리고 수면은 건강한 피부를 위해 중요한 요소입니다.<br>바이도즈는 여기서 출발했습니다.<br><br><span class="u">좋은 잠의 결과가 좋은 피부로 이어지는 화장품.</span><br>나잇나잇 크림의 시작이었습니다.</p>
@@ -212,21 +185,11 @@
         <p class="a md tr" style="left:733px;top:801px;font-size:20px;line-height:20px;color:#fff">밤사이 피부 회복을 위한 환경</p>
         <p class="a tr" style="left:729px;top:841px;font-size:16px;line-height:22px;color:#fff">피부가 밤을 보내는 동안 수분을 공급하고 유지하도록,<br>보습과 장벽 케어를 설계했습니다.</p>
       </div>
-      <div class="stage m lite">
-        <p class="a xb tr" style="left:24px;top:100px;font-size:22px;line-height:32px">좋은 피부를 위한 좋은 밤</p>
-        <p class="a wrap" style="left:24px;top:148px;width:342px;font-size:15px;line-height:22px">피부는 밤에도 회복과 유지 활동을 이어갑니다.<br>그리고 수면은 건강한 피부를 위해 중요한 요소입니다.<br>바이도즈는 여기서 출발했습니다.<br><br><span class="u">좋은 잠의 결과가 좋은 피부로 이어지는 화장품.</span><br>나잇나잇 크림의 시작이었습니다.</p>
-        <p class="a pill badge" style="left:24px;top:320px">For a Good Night</p>
-        <p class="a md tr" style="left:28px;top:354px;font-size:17px;line-height:17px;color:#fff">잠들기 전 경험과 분위기</p>
-        <p class="a wrap tr" style="left:28px;top:379px;width:224px;font-size:14px;line-height:19px;color:#fff">하루의 마지막 스킨케어가 편안한 밤에 어울리도록, 피부에 남는 감촉과 향까지 고려했습니다.</p>
-        <p class="a pill badge" style="left:24px;top:468px">For a Good Skin</p>
-        <p class="a md tr" style="left:28px;top:502px;font-size:17px;line-height:17px;color:#fff">밤사이 피부 회복을 위한 환경</p>
-        <p class="a wrap tr" style="left:28px;top:527px;width:224px;font-size:14px;line-height:19px;color:#fff">피부가 밤을 보내는 동안 수분을 공급하고 유지하도록, 보습과 장벽 케어를 설계했습니다.</p>
-      </div>
     </section>
 
     <!-- ===================== 4 · 02 굿나잇 시퀀스™ ===================== -->
     <section class="sl" id="sequence" data-title="02 굿나잇 시퀀스™" data-sec="2" data-ui="dark" data-next="감촉과 향"
-             style="background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/a4734845a1b52.jpg)" data-mbg="50% center">
+             style="background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/a4734845a1b52.jpg)">
       <div class="stage d lite">
         <p class="a h24" style="left:120px;top:178px">굿나잇 시퀀스™<br><span class="rg">피부 회복을 돕는 설계</span></p>
         <p class="a p18" style="left:120px;top:272px">잠들기 전의 경험부터, 덧바를 수 없는 밤사이의 보습,<br>그리고 다음 날 아침의 피부 컨디션까지.<br><br>나잇나잇 크림은 이 흐름(시퀀스)전체를<br>‘나이트 케어’로 생각했습니다.</p>
@@ -247,26 +210,6 @@
         <p class="a trim" style="left:891px;top:771px;font-size:18px;line-height:1.2;color:var(--ink)">촉촉하게 정돈된<br>아침의 피부결까지 고려한 설계</p>
         <p class="a lt wrap" style="left:837px;top:839px;width:369px;font-size:16px;line-height:23px">※ 11 PM · 3 AM · 7 AM은 밤의 사용 흐름을 표현한<br>상징적인 시간이며, 성분의 작용 시점을 의미하지 않습니다.</p>
       </div>
-      <div class="stage m lite">
-        <p class="a xb tr" style="left:24px;top:100px;font-size:22px;line-height:32px">굿나잇 시퀀스™<br><span class="rg">피부 회복을 돕는 설계</span></p>
-        <p class="a wrap" style="left:24px;top:178px;width:342px;font-size:15px;line-height:22px">잠들기 전의 경험부터, 덧바를 수 없는 밤사이의 보습,<br>그리고 다음 날 아침의 피부 컨디션까지.<br><br>나잇나잇 크림은 이 흐름(시퀀스)전체를<br>‘나이트 케어’로 생각했습니다.</p>
-        <div class="a glass" style="left:24px;top:310px;width:342px;height:128.8px;border-radius:11px"></div>
-        <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCAxIj4KPHBhdGggaWQ9IkVsbGlwc2UgNCIgZD0iTTIzIDEyQzIzIDE4LjA3NTEgMTguMDc1MSAyMyAxMiAyM0M1LjkyNDg3IDIzIDEgMTguMDc1MSAxIDEyQzEgNS45MjQ4NyA1LjkyNDg3IDEgMTIgMUMxOC4wNzUxIDEgMjMgNS45MjQ4NyAyMyAxMloiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3IgNCIgZD0iTTExLjIxNTEgMTIuOTUzQzExLjU1NzMgMTMuMzg2NSAxMi4xODYyIDEzLjQ2MDQgMTIuNjE5NiAxMy4xMTgyQzEzLjA1MzEgMTIuNzc2IDEzLjEyNzEgMTIuMTQ3MiAxMi43ODQ5IDExLjcxMzdMMTIgMTIuMzMzM0wxMS4yMTUxIDEyLjk1M1pNMTIgMTIuMzMzM0wxMi43ODQ5IDExLjcxMzdMNy43ODQ4OCA1LjM4MDM2TDcgNkw2LjIxNTEyIDYuNjE5NjRMMTEuMjE1MSAxMi45NTNMMTIgMTIuMzMzM1oiIGZpbGw9IiNEMzVCNDAiLz4KPHBhdGggaWQ9IlZlY3RvciAzIiBkPSJNMTEgMTIuMzMzM0MxMSAxMi44ODU2IDExLjQ0NzcgMTMuMzMzMyAxMiAxMy4zMzMzQzEyLjU1MjMgMTMuMzMzMyAxMyAxMi44ODU2IDEzIDEyLjMzMzNIMTJIMTFaTTEyIDEyLjMzMzNIMTNWM0gxMkgxMVYxMi4zMzMzSDEyWiIgZmlsbD0iIzJBMkEyOSIvPgo8L2c+Cjwvc3ZnPgo=" alt="" style="left:40.7px;top:326.7px;width:22.2px;height:22.2px">
-        <p class="a xb trim" style="left:74px;top:329.5px;font-size:22.2px;line-height:1.2;color:var(--ink)">PM 11:00</p>
-        <p class="a b trim" style="left:74px;top:363.8px;font-size:16.7px;line-height:1.2;color:var(--ink)">잠드는 순간을 위해</p>
-        <p class="a trim" style="left:74px;top:386.9px;font-size:16.7px;line-height:1.2;color:var(--ink)">제품을 바르고 잠자리에 드는 순간의<br>감촉과 향을 설계</p>
-        <div class="a glass" style="left:24px;top:446.8px;width:342px;height:128.8px;border-radius:11px"></div>
-        <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCAyIj4KPHBhdGggaWQ9IkVsbGlwc2UgNCIgZD0iTTIzIDEyQzIzIDE4LjA3NTEgMTguMDc1MSAyMyAxMiAyM0M1LjkyNDg3IDIzIDEgMTguMDc1MSAxIDEyQzEgNS45MjQ4NyA1LjkyNDg3IDEgMTIgMUMxOC4wNzUxIDEgMjMgNS45MjQ4NyAyMyAxMloiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3IgNCIgZD0iTTEyIDExQzExLjQ0NzcgMTEgMTEgMTEuNDQ3NyAxMSAxMkMxMSAxMi41NTIzIDExLjQ0NzcgMTMgMTIgMTNWMTJWMTFaTTEyIDEyVjEzSDIwVjEyVjExSDEyVjEyWiIgZmlsbD0iI0QzNUI0MCIvPgo8cGF0aCBpZD0iVmVjdG9yIDMiIGQ9Ik0xMSAxMi4zMzMzQzExIDEyLjg4NTYgMTEuNDQ3NyAxMy4zMzMzIDEyIDEzLjMzMzNDMTIuNTUyMyAxMy4zMzMzIDEzIDEyLjg4NTYgMTMgMTIuMzMzM0gxMkgxMVpNMTIgMTIuMzMzM0gxM1YzSDEySDExVjEyLjMzMzNIMTJaIiBmaWxsPSIjMkEyQTI5Ii8+CjwvZz4KPC9zdmc+Cg==" alt="" style="left:40.7px;top:463.5px;width:22.2px;height:22.2px">
-        <p class="a xb trim" style="left:74px;top:466.3px;font-size:22.2px;line-height:1.2;color:var(--ink)">AM 03:00</p>
-        <p class="a b trim" style="left:74px;top:500.6px;font-size:16.7px;line-height:1.2;color:var(--ink)">덧바를 수 없는 잠든 사이</p>
-        <p class="a trim" style="left:74px;top:523.8px;font-size:16.7px;line-height:1.2;color:var(--ink)">다시 덧바를 수 없는 밤사이,<br>수분 공급과 유지에 집중한 설계</p>
-        <div class="a glass" style="left:24px;top:583.7px;width:342px;height:128.8px;border-radius:11px"></div>
-        <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCAzIj4KPHBhdGggaWQ9IkVsbGlwc2UgNCIgZD0iTTIzIDEyQzIzIDE4LjA3NTEgMTguMDc1MSAyMyAxMiAyM0M1LjkyNDg3IDIzIDEgMTguMDc1MSAxIDEyQzEgNS45MjQ4NyA1LjkyNDg3IDEgMTIgMUMxOC4wNzUxIDEgMjMgNS45MjQ4NyAyMyAxMloiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3IgNCIgZD0iTTEyLjg1NzUgMTIuODQ3OUMxMy4xNDE2IDEyLjM3NDMgMTIuOTg4MSAxMS43NiAxMi41MTQ1IDExLjQ3NTlDMTIuMDQwOSAxMS4xOTE3IDExLjQyNjcgMTEuMzQ1MyAxMS4xNDI1IDExLjgxODlMMTIgMTIuMzMzNEwxMi44NTc1IDEyLjg0NzlaTTEyIDEyLjMzMzRMMTEuMTQyNSAxMS44MTg5TDcuMTQyNTEgMTguNDg1NUw4IDE5TDguODU3NDkgMTkuNTE0NUwxMi44NTc1IDEyLjg0NzlMMTIgMTIuMzMzNFoiIGZpbGw9IiNEMzVCNDAiLz4KPHBhdGggaWQ9IlZlY3RvciAzIiBkPSJNMTEgMTIuMzMzM0MxMSAxMi44ODU2IDExLjQ0NzcgMTMuMzMzMyAxMiAxMy4zMzMzQzEyLjU1MjMgMTMuMzMzMyAxMyAxMi44ODU2IDEzIDEyLjMzMzNIMTJIMTFaTTEyIDEyLjMzMzNIMTNWM0gxMkgxMVYxMi4zMzMzSDEyWiIgZmlsbD0iIzJBMkEyOSIvPgo8L2c+Cjwvc3ZnPgo=" alt="" style="left:40.7px;top:600.3px;width:22.2px;height:22.2px">
-        <p class="a xb trim" style="left:74px;top:603.1px;font-size:22.2px;line-height:1.2;color:var(--ink)">AM 07:00</p>
-        <p class="a b trim" style="left:74px;top:637.4px;font-size:16.7px;line-height:1.2;color:var(--ink)">아침촉촉 기상</p>
-        <p class="a trim" style="left:74px;top:660.6px;font-size:16.7px;line-height:1.2;color:var(--ink)">촉촉하게 정돈된<br>아침의 피부결까지 고려한 설계</p>
-        <p class="a lt wrap" style="left:24px;top:724.5px;width:342px;font-size:12px;line-height:17px">※ 11 PM · 3 AM · 7 AM은 밤의 사용 흐름을 표현한<br>상징적인 시간이며, 성분의 작용 시점을 의미하지 않습니다.</p>
-      </div>
     </section>
 
     <!-- ===================== 5 · 03 텍스처 ===================== -->
@@ -285,22 +228,6 @@
           <p style="font-size:18px;line-height:28px;color:rgba(42,42,41,.4)">youm****</p>
           <p style="margin-top:10px;font-size:18px;line-height:28px">밤에 바르고 잠들어도 오전까지 촉촉한 느낌이에요.<br>야외 활동이 잦은데, 덕분에 피부가 당기지 않게<br>되어서 너무 좋아요!</p>
           <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjEyMCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDEyMCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IiYjMjM1OyYjMTc5OyYjMTMyOyYjMjM2OyYjMTYwOyYjMTQ0OyI+CjxwYXRoIGlkPSJTdGFyIDEiIGQ9Ik0xMS4wNDg5IDIuOTI3MDVDMTEuMzQ4MyAyLjAwNTc0IDEyLjY1MTcgMi4wMDU3NCAxMi45NTExIDIuOTI3MDVMMTQuNDY5NyA3LjYwMDgxQzE0LjYwMzUgOC4wMTI4NCAxNC45ODc1IDguMjkxOCAxNS40MjA3IDguMjkxOEgyMC4zMzVDMjEuMzAzNyA4LjI5MTggMjEuNzA2NSA5LjUzMTQxIDIwLjkyMjggMTAuMTAwOEwxNi45NDcgMTIuOTg5NEMxNi41OTY2IDEzLjI0NCAxNi40NDk5IDEzLjY5NTQgMTYuNTgzOCAxNC4xMDc0TDE4LjEwMjQgMTguNzgxMkMxOC40MDE3IDE5LjcwMjUgMTcuMzQ3MiAyMC40Njg2IDE2LjU2MzUgMTkuODk5MkwxMi41ODc4IDE3LjAxMDZDMTIuMjM3MyAxNi43NTYgMTEuNzYyNyAxNi43NTYgMTEuNDEyMiAxNy4wMTA2TDcuNDM2NDggMTkuODk5MkM2LjY1Mjc2IDIwLjQ2ODYgNS41OTgyOCAxOS43MDI1IDUuODk3NjMgMTguNzgxMkw3LjQxNjIzIDE0LjEwNzRDNy41NTAxMSAxMy42OTU0IDcuNDAzNDUgMTMuMjQ0IDcuMDUyOTYgMTIuOTg5NEwzLjA3NzIyIDEwLjEwMDhDMi4yOTM1MSA5LjUzMTQxIDIuNjk2MjggOC4yOTE4IDMuNjY1MDEgOC4yOTE4SDguNTc5MjlDOS4wMTI1MiA4LjI5MTggOS4zOTY0NyA4LjAxMjg0IDkuNTMwMzUgNy42MDA4MUwxMS4wNDg5IDIuOTI3MDVaIiBmaWxsPSIjRDM1QjQwIi8+CjxwYXRoIGlkPSJTdGFyIDIiIGQ9Ik0zNS4wNDg5IDIuOTI3MDVDMzUuMzQ4MyAyLjAwNTc0IDM2LjY1MTcgMi4wMDU3NCAzNi45NTExIDIuOTI3MDVMMzguNDY5NyA3LjYwMDgxQzM4LjYwMzUgOC4wMTI4NCAzOC45ODc1IDguMjkxOCAzOS40MjA3IDguMjkxOEg0NC4zMzVDNDUuMzAzNyA4LjI5MTggNDUuNzA2NSA5LjUzMTQxIDQ0LjkyMjggMTAuMTAwOEw0MC45NDcgMTIuOTg5NEM0MC41OTY2IDEzLjI0NCA0MC40NDk5IDEzLjY5NTQgNDAuNTgzOCAxNC4xMDc0TDQyLjEwMjQgMTguNzgxMkM0Mi40MDE3IDE5LjcwMjUgNDEuMzQ3MiAyMC40Njg2IDQwLjU2MzUgMTkuODk5MkwzNi41ODc4IDE3LjAxMDZDMzYuMjM3MyAxNi43NTYgMzUuNzYyNyAxNi43NTYgMzUuNDEyMiAxNy4wMTA2TDMxLjQzNjUgMTkuODk5MkMzMC42NTI4IDIwLjQ2ODYgMjkuNTk4MyAxOS43MDI1IDI5Ljg5NzYgMTguNzgxMkwzMS40MTYyIDE0LjEwNzRDMzEuNTUwMSAxMy42OTU0IDMxLjQwMzQgMTMuMjQ0IDMxLjA1MyAxMi45ODk0TDI3LjA3NzIgMTAuMTAwOEMyNi4yOTM1IDkuNTMxNDEgMjYuNjk2MyA4LjI5MTggMjcuNjY1IDguMjkxOEgzMi41NzkzQzMzLjAxMjUgOC4yOTE4IDMzLjM5NjUgOC4wMTI4NCAzMy41MzAzIDcuNjAwODFMMzUuMDQ4OSAyLjkyNzA1WiIgZmlsbD0iI0QzNUI0MCIvPgo8cGF0aCBpZD0iU3RhciAzIiBkPSJNNTkuMDQ4OSAyLjkyNzA1QzU5LjM0ODMgMi4wMDU3NCA2MC42NTE3IDIuMDA1NzQgNjAuOTUxMSAyLjkyNzA1TDYyLjQ2OTcgNy42MDA4MUM2Mi42MDM1IDguMDEyODQgNjIuOTg3NSA4LjI5MTggNjMuNDIwNyA4LjI5MThINjguMzM1QzY5LjMwMzcgOC4yOTE4IDY5LjcwNjUgOS41MzE0MSA2OC45MjI4IDEwLjEwMDhMNjQuOTQ3IDEyLjk4OTRDNjQuNTk2NiAxMy4yNDQgNjQuNDQ5OSAxMy42OTU0IDY0LjU4MzggMTQuMTA3NEw2Ni4xMDI0IDE4Ljc4MTJDNjYuNDAxNyAxOS43MDI1IDY1LjM0NzIgMjAuNDY4NiA2NC41NjM1IDE5Ljg5OTJMNjAuNTg3OCAxNy4wMTA2QzYwLjIzNzMgMTYuNzU2IDU5Ljc2MjcgMTYuNzU2IDU5LjQxMjIgMTcuMDEwNkw1NS40MzY1IDE5Ljg5OTJDNTQuNjUyOCAyMC40Njg2IDUzLjU5ODMgMTkuNzAyNSA1My44OTc2IDE4Ljc4MTJMNTUuNDE2MiAxNC4xMDc0QzU1LjU1MDEgMTMuNjk1NCA1NS40MDM0IDEzLjI0NCA1NS4wNTMgMTIuOTg5NEw1MS4wNzcyIDEwLjEwMDhDNTAuMjkzNSA5LjUzMTQxIDUwLjY5NjMgOC4yOTE4IDUxLjY2NSA4LjI5MThINTYuNTc5M0M1Ny4wMTI1IDguMjkxOCA1Ny4zOTY1IDguMDEyODQgNTcuNTMwMyA3LjYwMDgxTDU5LjA0ODkgMi45MjcwNVoiIGZpbGw9IiNEMzVCNDAiLz4KPHBhdGggaWQ9IlN0YXIgNCIgZD0iTTgzLjA0ODkgMi45MjcwNUM4My4zNDgzIDIuMDA1NzQgODQuNjUxNyAyLjAwNTc0IDg0Ljk1MTEgMi45MjcwNUw4Ni40Njk3IDcuNjAwODFDODYuNjAzNSA4LjAxMjg0IDg2Ljk4NzUgOC4yOTE4IDg3LjQyMDcgOC4yOTE4SDkyLjMzNUM5My4zMDM3IDguMjkxOCA5My43MDY1IDkuNTMxNDEgOTIuOTIyOCAxMC4xMDA4TDg4Ljk0NyAxMi45ODk0Qzg4LjU5NjYgMTMuMjQ0IDg4LjQ0OTkgMTMuNjk1NCA4OC41ODM4IDE0LjEwNzRMOTAuMTAyNCAxOC43ODEyQzkwLjQwMTcgMTkuNzAyNSA4OS4zNDcyIDIwLjQ2ODYgODguNTYzNSAxOS44OTkyTDg0LjU4NzggMTcuMDEwNkM4NC4yMzczIDE2Ljc1NiA4My43NjI3IDE2Ljc1NiA4My40MTIyIDE3LjAxMDZMNzkuNDM2NSAxOS44OTkyQzc4LjY1MjggMjAuNDY4NiA3Ny41OTgzIDE5LjcwMjUgNzcuODk3NiAxOC43ODEyTDc5LjQxNjIgMTQuMTA3NEM3OS41NTAxIDEzLjY5NTQgNzkuNDAzNCAxMy4yNDQgNzkuMDUzIDEyLjk4OTRMNzUuMDc3MiAxMC4xMDA4Qzc0LjI5MzUgOS41MzE0MSA3NC42OTYzIDguMjkxOCA3NS42NjUgOC4yOTE4SDgwLjU3OTNDODEuMDEyNSA4LjI5MTggODEuMzk2NSA4LjAxMjg0IDgxLjUzMDMgNy42MDA4MUw4My4wNDg5IDIuOTI3MDVaIiBmaWxsPSIjRDM1QjQwIi8+CjxwYXRoIGlkPSJTdGFyIDUiIGQ9Ik0xMDcuMDQ5IDIuOTI3MDVDMTA3LjM0OCAyLjAwNTc0IDEwOC42NTIgMi4wMDU3NCAxMDguOTUxIDIuOTI3MDVMMTEwLjQ3IDcuNjAwODFDMTEwLjYwNCA4LjAxMjg0IDExMC45ODcgOC4yOTE4IDExMS40MjEgOC4yOTE4SDExNi4zMzVDMTE3LjMwNCA4LjI5MTggMTE3LjcwNiA5LjUzMTQxIDExNi45MjMgMTAuMTAwOEwxMTIuOTQ3IDEyLjk4OTRDMTEyLjU5NyAxMy4yNDQgMTEyLjQ1IDEzLjY5NTQgMTEyLjU4NCAxNC4xMDc0TDExNC4xMDIgMTguNzgxMkMxMTQuNDAyIDE5LjcwMjUgMTEzLjM0NyAyMC40Njg2IDExMi41NjQgMTkuODk5MkwxMDguNTg4IDE3LjAxMDZDMTA4LjIzNyAxNi43NTYgMTA3Ljc2MyAxNi43NTYgMTA3LjQxMiAxNy4wMTA2TDEwMy40MzYgMTkuODk5MkMxMDIuNjUzIDIwLjQ2ODYgMTAxLjU5OCAxOS43MDI1IDEwMS44OTggMTguNzgxMkwxMDMuNDE2IDE0LjEwNzRDMTAzLjU1IDEzLjY5NTQgMTAzLjQwMyAxMy4yNDQgMTAzLjA1MyAxMi45ODk0TDk5LjA3NzIgMTAuMTAwOEM5OC4yOTM1IDkuNTMxNDEgOTguNjk2MyA4LjI5MTggOTkuNjY1IDguMjkxOEgxMDQuNTc5QzEwNS4wMTMgOC4yOTE4IDEwNS4zOTYgOC4wMTI4NCAxMDUuNTMgNy42MDA4MUwxMDcuMDQ5IDIuOTI3MDVaIiBmaWxsPSIjRDM1QjQwIi8+CjwvZz4KPC9zdmc+Cg==" alt="별점 5점" style="left:260px;top:22px;width:120px;height:24px">
-        </div>
-      </div>
-      <div class="stage m">
-        <p class="a" style="left:24px;top:86px;font-size:14px;line-height:normal"><span class="mono">01. </span>Texture</p>
-        <p class="a b" style="right:24px;top:84px;font-size:16px;line-height:normal">“ LIGHT GEL-CREAM “</p>
-        <div class="a media" data-vimeo="1217189885" data-ratio="1.7778" style="left:24px;top:116px;width:342px;height:200px;border-radius:12px;background-image:url(https://i.vimeocdn.com/video/2188812504-83314b1905a3b2a4234b66c86f2c7c4c4ddc4cee17474fc11246d96b5c48b05a-d_1280?region=us)"></div>
-        <p class="a xb tr" style="left:24px;top:340px;font-size:20px;line-height:29px">무거움은 덜고, 촉촉함은 남기도록.</p>
-        <p class="a wrap" style="left:24px;top:381px;width:342px;font-size:15px;line-height:22px">나이트크림은 흔히 무겁고 리치한 제형을 떠올리기 쉽습니다. 하지만 촉촉함이 반드시 무거운 제형에서 오는 것은 아닙니다.<br><br>나잇나잇 크림은 수분감 있는 젤-크림 제형으로 부드럽게 펴 발리고, 번들거림을 줄인 산뜻한 마무리감을 지향합니다.</p>
-        <p class="a" style="left:24px;top:533px;font-size:18px;line-height:24px">발림성</p>
-        <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9Ijk2IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA5NiA4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iJiMyMzU7JiMxNzY7JiMxNTY7JiMyMzU7JiMxNjY7JiMxODg7JiMyMzY7JiMxMzI7JiMxNzc7ICYjMjM2OyYjMTYwOyYjMTQ0OyYjMjM2OyYjMTM2OyYjMTUyOyI+CjxjaXJjbGUgaWQ9Ik92YWwiIGN4PSI0IiBjeT0iNCIgcj0iNCIgZmlsbD0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDIiIGN4PSIyNiIgY3k9IjQiIHI9IjQiIGZpbGw9IiNEMzVCNDAiLz4KPGNpcmNsZSBpZD0iT3ZhbCAzIiBjeD0iNDgiIGN5PSI0IiByPSI0IiBmaWxsPSIjRDM1QjQwIi8+CjxjaXJjbGUgaWQ9Ik92YWwgNCIgY3g9IjcwIiBjeT0iNCIgcj0iNCIgZmlsbD0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDUiIGN4PSI5MiIgY3k9IjQiIHI9IjQiIGZpbGw9IiNEMzVCNDAiLz4KPC9nPgo8L3N2Zz4K" alt="발림성 5점 중 5점" style="left:91px;top:541px;width:96px;height:8px">
-        <p class="a" style="left:24px;top:567px;font-size:18px;line-height:24px">끈적임</p>
-        <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9Ijk2LjUiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDk2LjUgOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IiYjMjM1OyYjMTI5OyYjMTM2OyYjMjM2OyYjMTYwOyYjMTI5OyYjMjM2OyYjMTU4OyYjMTMyOyAmIzIzNjsmIzE2MDsmIzE0NDsmIzIzNjsmIzEzNjsmIzE1MjsiPgo8Y2lyY2xlIGlkPSJPdmFsIiBjeD0iNCIgY3k9IjQuNSIgcj0iNCIgZmlsbD0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDYiIGN4PSIyNiIgY3k9IjQuNSIgcj0iNCIgc3Ryb2tlPSIjRDM1QjQwIi8+CjxjaXJjbGUgaWQ9Ik92YWwgNyIgY3g9IjQ4IiBjeT0iNC41IiByPSI0IiBzdHJva2U9IiNEMzVCNDAiLz4KPGNpcmNsZSBpZD0iT3ZhbCA4IiBjeD0iNzAiIGN5PSI0LjUiIHI9IjQiIHN0cm9rZT0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDkiIGN4PSI5MiIgY3k9IjQuNSIgcj0iNCIgc3Ryb2tlPSIjRDM1QjQwIi8+CjwvZz4KPC9zdmc+Cg==" alt="끈적임 5점 중 1점" style="left:91px;top:574.3px;width:96.5px;height:9px">
-        <div class="a" style="left:24px;top:615px;width:342px;padding:15.8px 23.8px 19px 19px;border-radius:9.5px;background:#fff;filter:drop-shadow(0 6.3px 5.2px rgba(0,0,0,.1))">
-          <p style="font-size:14.25px;line-height:22.2px;color:rgba(42,42,41,.4)">youm****</p>
-          <p style="margin-top:7.9px;font-size:14.25px;line-height:22.2px">밤에 바르고 잠들어도 오전까지 촉촉한 느낌이에요.<br>야외 활동이 잦은데, 덕분에 피부가 당기지 않게<br>되어서 너무 좋아요!</p>
-          <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjEyMCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDEyMCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IiYjMjM1OyYjMTc5OyYjMTMyOyYjMjM2OyYjMTYwOyYjMTQ0OyI+CjxwYXRoIGlkPSJTdGFyIDEiIGQ9Ik0xMS4wNDg5IDIuOTI3MDVDMTEuMzQ4MyAyLjAwNTc0IDEyLjY1MTcgMi4wMDU3NCAxMi45NTExIDIuOTI3MDVMMTQuNDY5NyA3LjYwMDgxQzE0LjYwMzUgOC4wMTI4NCAxNC45ODc1IDguMjkxOCAxNS40MjA3IDguMjkxOEgyMC4zMzVDMjEuMzAzNyA4LjI5MTggMjEuNzA2NSA5LjUzMTQxIDIwLjkyMjggMTAuMTAwOEwxNi45NDcgMTIuOTg5NEMxNi41OTY2IDEzLjI0NCAxNi40NDk5IDEzLjY5NTQgMTYuNTgzOCAxNC4xMDc0TDE4LjEwMjQgMTguNzgxMkMxOC40MDE3IDE5LjcwMjUgMTcuMzQ3MiAyMC40Njg2IDE2LjU2MzUgMTkuODk5MkwxMi41ODc4IDE3LjAxMDZDMTIuMjM3MyAxNi43NTYgMTEuNzYyNyAxNi43NTYgMTEuNDEyMiAxNy4wMTA2TDcuNDM2NDggMTkuODk5MkM2LjY1Mjc2IDIwLjQ2ODYgNS41OTgyOCAxOS43MDI1IDUuODk3NjMgMTguNzgxMkw3LjQxNjIzIDE0LjEwNzRDNy41NTAxMSAxMy42OTU0IDcuNDAzNDUgMTMuMjQ0IDcuMDUyOTYgMTIuOTg5NEwzLjA3NzIyIDEwLjEwMDhDMi4yOTM1MSA5LjUzMTQxIDIuNjk2MjggOC4yOTE4IDMuNjY1MDEgOC4yOTE4SDguNTc5MjlDOS4wMTI1MiA4LjI5MTggOS4zOTY0NyA4LjAxMjg0IDkuNTMwMzUgNy42MDA4MUwxMS4wNDg5IDIuOTI3MDVaIiBmaWxsPSIjRDM1QjQwIi8+CjxwYXRoIGlkPSJTdGFyIDIiIGQ9Ik0zNS4wNDg5IDIuOTI3MDVDMzUuMzQ4MyAyLjAwNTc0IDM2LjY1MTcgMi4wMDU3NCAzNi45NTExIDIuOTI3MDVMMzguNDY5NyA3LjYwMDgxQzM4LjYwMzUgOC4wMTI4NCAzOC45ODc1IDguMjkxOCAzOS40MjA3IDguMjkxOEg0NC4zMzVDNDUuMzAzNyA4LjI5MTggNDUuNzA2NSA5LjUzMTQxIDQ0LjkyMjggMTAuMTAwOEw0MC45NDcgMTIuOTg5NEM0MC41OTY2IDEzLjI0NCA0MC40NDk5IDEzLjY5NTQgNDAuNTgzOCAxNC4xMDc0TDQyLjEwMjQgMTguNzgxMkM0Mi40MDE3IDE5LjcwMjUgNDEuMzQ3MiAyMC40Njg2IDQwLjU2MzUgMTkuODk5MkwzNi41ODc4IDE3LjAxMDZDMzYuMjM3MyAxNi43NTYgMzUuNzYyNyAxNi43NTYgMzUuNDEyMiAxNy4wMTA2TDMxLjQzNjUgMTkuODk5MkMzMC42NTI4IDIwLjQ2ODYgMjkuNTk4MyAxOS43MDI1IDI5Ljg5NzYgMTguNzgxMkwzMS40MTYyIDE0LjEwNzRDMzEuNTUwMSAxMy42OTU0IDMxLjQwMzQgMTMuMjQ0IDMxLjA1MyAxMi45ODk0TDI3LjA3NzIgMTAuMTAwOEMyNi4yOTM1IDkuNTMxNDEgMjYuNjk2MyA4LjI5MTggMjcuNjY1IDguMjkxOEgzMi41NzkzQzMzLjAxMjUgOC4yOTE4IDMzLjM5NjUgOC4wMTI4NCAzMy41MzAzIDcuNjAwODFMMzUuMDQ4OSAyLjkyNzA1WiIgZmlsbD0iI0QzNUI0MCIvPgo8cGF0aCBpZD0iU3RhciAzIiBkPSJNNTkuMDQ4OSAyLjkyNzA1QzU5LjM0ODMgMi4wMDU3NCA2MC42NTE3IDIuMDA1NzQgNjAuOTUxMSAyLjkyNzA1TDYyLjQ2OTcgNy42MDA4MUM2Mi42MDM1IDguMDEyODQgNjIuOTg3NSA4LjI5MTggNjMuNDIwNyA4LjI5MThINjguMzM1QzY5LjMwMzcgOC4yOTE4IDY5LjcwNjUgOS41MzE0MSA2OC45MjI4IDEwLjEwMDhMNjQuOTQ3IDEyLjk4OTRDNjQuNTk2NiAxMy4yNDQgNjQuNDQ5OSAxMy42OTU0IDY0LjU4MzggMTQuMTA3NEw2Ni4xMDI0IDE4Ljc4MTJDNjYuNDAxNyAxOS43MDI1IDY1LjM0NzIgMjAuNDY4NiA2NC41NjM1IDE5Ljg5OTJMNjAuNTg3OCAxNy4wMTA2QzYwLjIzNzMgMTYuNzU2IDU5Ljc2MjcgMTYuNzU2IDU5LjQxMjIgMTcuMDEwNkw1NS40MzY1IDE5Ljg5OTJDNTQuNjUyOCAyMC40Njg2IDUzLjU5ODMgMTkuNzAyNSA1My44OTc2IDE4Ljc4MTJMNTUuNDE2MiAxNC4xMDc0QzU1LjU1MDEgMTMuNjk1NCA1NS40MDM0IDEzLjI0NCA1NS4wNTMgMTIuOTg5NEw1MS4wNzcyIDEwLjEwMDhDNTAuMjkzNSA5LjUzMTQxIDUwLjY5NjMgOC4yOTE4IDUxLjY2NSA4LjI5MThINTYuNTc5M0M1Ny4wMTI1IDguMjkxOCA1Ny4zOTY1IDguMDEyODQgNTcuNTMwMyA3LjYwMDgxTDU5LjA0ODkgMi45MjcwNVoiIGZpbGw9IiNEMzVCNDAiLz4KPHBhdGggaWQ9IlN0YXIgNCIgZD0iTTgzLjA0ODkgMi45MjcwNUM4My4zNDgzIDIuMDA1NzQgODQuNjUxNyAyLjAwNTc0IDg0Ljk1MTEgMi45MjcwNUw4Ni40Njk3IDcuNjAwODFDODYuNjAzNSA4LjAxMjg0IDg2Ljk4NzUgOC4yOTE4IDg3LjQyMDcgOC4yOTE4SDkyLjMzNUM5My4zMDM3IDguMjkxOCA5My43MDY1IDkuNTMxNDEgOTIuOTIyOCAxMC4xMDA4TDg4Ljk0NyAxMi45ODk0Qzg4LjU5NjYgMTMuMjQ0IDg4LjQ0OTkgMTMuNjk1NCA4OC41ODM4IDE0LjEwNzRMOTAuMTAyNCAxOC43ODEyQzkwLjQwMTcgMTkuNzAyNSA4OS4zNDcyIDIwLjQ2ODYgODguNTYzNSAxOS44OTkyTDg0LjU4NzggMTcuMDEwNkM4NC4yMzczIDE2Ljc1NiA4My43NjI3IDE2Ljc1NiA4My40MTIyIDE3LjAxMDZMNzkuNDM2NSAxOS44OTkyQzc4LjY1MjggMjAuNDY4NiA3Ny41OTgzIDE5LjcwMjUgNzcuODk3NiAxOC43ODEyTDc5LjQxNjIgMTQuMTA3NEM3OS41NTAxIDEzLjY5NTQgNzkuNDAzNCAxMy4yNDQgNzkuMDUzIDEyLjk4OTRMNzUuMDc3MiAxMC4xMDA4Qzc0LjI5MzUgOS41MzE0MSA3NC42OTYzIDguMjkxOCA3NS42NjUgOC4yOTE4SDgwLjU3OTNDODEuMDEyNSA4LjI5MTggODEuMzk2NSA4LjAxMjg0IDgxLjUzMDMgNy42MDA4MUw4My4wNDg5IDIuOTI3MDVaIiBmaWxsPSIjRDM1QjQwIi8+CjxwYXRoIGlkPSJTdGFyIDUiIGQ9Ik0xMDcuMDQ5IDIuOTI3MDVDMTA3LjM0OCAyLjAwNTc0IDEwOC42NTIgMi4wMDU3NCAxMDguOTUxIDIuOTI3MDVMMTEwLjQ3IDcuNjAwODFDMTEwLjYwNCA4LjAxMjg0IDExMC45ODcgOC4yOTE4IDExMS40MjEgOC4yOTE4SDExNi4zMzVDMTE3LjMwNCA4LjI5MTggMTE3LjcwNiA5LjUzMTQxIDExNi45MjMgMTAuMTAwOEwxMTIuOTQ3IDEyLjk4OTRDMTEyLjU5NyAxMy4yNDQgMTEyLjQ1IDEzLjY5NTQgMTEyLjU4NCAxNC4xMDc0TDExNC4xMDIgMTguNzgxMkMxMTQuNDAyIDE5LjcwMjUgMTEzLjM0NyAyMC40Njg2IDExMi41NjQgMTkuODk5MkwxMDguNTg4IDE3LjAxMDZDMTA4LjIzNyAxNi43NTYgMTA3Ljc2MyAxNi43NTYgMTA3LjQxMiAxNy4wMTA2TDEwMy40MzYgMTkuODk5MkMxMDIuNjUzIDIwLjQ2ODYgMTAxLjU5OCAxOS43MDI1IDEwMS44OTggMTguNzgxMkwxMDMuNDE2IDE0LjEwNzRDMTAzLjU1IDEzLjY5NTQgMTAzLjQwMyAxMy4yNDQgMTAzLjA1MyAxMi45ODk0TDk5LjA3NzIgMTAuMTAwOEM5OC4yOTM1IDkuNTMxNDEgOTguNjk2MyA4LjI5MTggOTkuNjY1IDguMjkxOEgxMDQuNTc5QzEwNS4wMTMgOC4yOTE4IDEwNS4zOTYgOC4wMTI4NCAxMDUuNTMgNy42MDA4MUwxMDcuMDQ5IDIuOTI3MDVaIiBmaWxsPSIjRDM1QjQwIi8+CjwvZz4KPC9zdmc+Cg==" alt="별점 5점" style="left:205.8px;top:17.4px;width:95px;height:19px">
         </div>
       </div>
     </section>
@@ -323,27 +250,11 @@
         <p class="a" style="left:783px;top:737px;font-size:18px;line-height:28px"><span class="b">BASE</span> | 머스크 ∙ 엠버 ∙ 시더우드 ∙ 베티버 ∙ 패출리 ∙ 톤카</p>
         <p class="a wrap" style="left:783px;top:820px;width:432px;font-size:16px;line-height:26px;color:rgba(42,42,41,.6)">나잇나잇 크림의 '슬립 인 더포레스트향'은 잠들기 전의 감각을 고려해 개발한, 바이도즈 독점 공급 향료로 완성했습니다.</p>
       </div>
-      <div class="stage m">
-        <p class="a" style="left:24px;top:86px;font-size:14px;line-height:normal"><span class="mono">02. </span>Scent</p>
-        <p class="a b" style="right:24px;top:84px;font-size:16px;line-height:normal">“ Sleep in the forest “</p>
-        <div class="a media" data-vimeo="1217189884" data-ratio="0.8889" style="left:24px;top:116px;width:342px;height:200px;border-radius:12px;background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/a63c5cc1b00d4.jpg)"></div>
-        <p class="a xb tr wrap" style="left:24px;top:340px;width:342px;font-size:20px;line-height:29px">잠들기 전 편안함까지 고려한 '좋은 향'</p>
-        <p class="a wrap" style="left:24px;top:379px;width:342px;font-size:15px;line-height:22px"><span class="b">슬립 인 더포레스트</span><br>비 갠 숲속을 걷는 듯 촉촉하면서도 포근한 향.<br>라벤더 줄기를 손끝에 문지른 듯한 싱그러운 허브와 비에 젖은 흙내음, 이끼 낀 나무껍질의 분위기를 담았습니다.</p>
-        <p class="a sb" style="left:24px;top:485px;font-size:17px;line-height:24px">조향 설계</p>
-        <div class="a" style="left:24px;top:517px;width:342px;height:1px;background:rgba(42,42,41,.4)"></div>
-        <p class="a b" style="left:24px;top:528px;font-size:15px;line-height:23px">상쾌하고 시원하게 시작합니다</p>
-        <p class="a" style="left:24px;top:553px;font-size:13px;line-height:20px"><span class="b">TOP</span> | 라반딘 ∙ 베르가못 ∙ 오렌지 ∙ 자몽 ∙ 클라리 세이지</p>
-        <p class="a b" style="left:24px;top:583px;font-size:15px;line-height:23px">은은하고 부드럽게 이어집니다</p>
-        <p class="a" style="left:24px;top:608px;font-size:13px;line-height:20px"><span class="b">MIDDLE</span> | 자스민 ∙ 라벤더 ∙ 로즈마리 ∙ 네롤리 ∙ 핑크 페퍼</p>
-        <p class="a b" style="left:24px;top:638px;font-size:15px;line-height:23px">깊고 차분하게 남습니다</p>
-        <p class="a" style="left:24px;top:663px;font-size:13px;line-height:20px"><span class="b">BASE</span> | 머스크 ∙ 엠버 ∙ 시더우드 ∙ 베티버 ∙ 패출리 ∙ 톤카</p>
-        <p class="a wrap" style="left:24px;top:695px;width:342px;font-size:13px;line-height:21px;color:rgba(42,42,41,.6)">나잇나잇 크림의 '슬립 인 더포레스트향'은 잠들기 전의 감각을 고려해 개발한, 바이도즈 독점 공급 향료로 완성했습니다.</p>
-      </div>
     </section>
 
     <!-- ===================== 7 · 03 AromaWellness (확인서 외부 사용 확인 완료) ===================== -->
     <section class="sl" id="aroma" data-title="03 AromaWellness" data-sec="3" data-next="성분 설계"
-             style="background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/0a3ffe57f296c.jpg)" data-mbg="0% center">
+             style="background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/0a3ffe57f296c.jpg)">
       <div class="stage d">
         <p class="a h24" style="left:60px;top:132px">「Aroma Wellness」<br>좋은 향을 넘어, 잠들기 전의 편안함까지.</p>
         <p class="a p18" style="left:60px;top:226px">차분한 마음은 '좋은 잠'을, 좋은 잠은 '좋은 피부'를 만든다는 믿음으로,<br>나잇나잇 크림은 좋은 향을 넘어, 잠들기 전 심리 상태를 고려한 향을 담았습니다.<br><br>CPL Aromas의 「AromaWellness」는 향과 감정의 연결을 탐구하는<br>향 연구 플랫폼입니다. 향에 대한 사람의 행동과 생리적 반응, 주관적 인식을<br>다양한 평가 방법으로 살펴봅니다.</p>
@@ -362,23 +273,6 @@
      입증하는 자료는 아닙니다.</p>
           <p class="a" style="left:28px;top:264px;font-size:12px;line-height:18px">GW ONE RELAX SC 관련 기술 적합성 확인서<br>완제품의 수면·이완 효과 인증서가 아닙니다.</p>
           <img class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/d18b8fab6ec71.jpg" alt="GW ONE RELAX SC 기술 적합성 확인서" style="left:523px;top:24px;width:196px;height:276px">
-        </div>
-      </div>
-      <div class="stage m">
-        <p class="a xb wrap" style="left:24px;top:84px;width:342px;font-size:20px;line-height:28px">「Aroma Wellness」<br>좋은 향을 넘어, 잠들기 전의 편안함까지.</p>
-        <p class="a wrap" style="left:24px;top:152px;width:342px;font-size:14px;line-height:20px">차분한 마음은 '좋은 잠'을, 좋은 잠은 '좋은 피부'를 만든다는 믿음으로, 나잇나잇 크림은 좋은 향을 넘어, 잠들기 전 심리 상태를 고려한 향을 담았습니다.<br><br>CPL Aromas의 「AromaWellness」는 향과 감정의 연결을 탐구하는 향 연구 플랫폼입니다. 향에 대한 사람의 행동과 생리적 반응, 주관적 인식을 다양한 평가 방법으로 살펴봅니다.</p>
-        <p class="a b pre" style="left:24px;top:330px;font-size:15px;line-height:24px;color:#000"><span class="mono">01</span> 행동 반응</p>
-        <p class="a" style="left:120px;top:330px;font-size:15px;line-height:24px;color:#000">표정 변화 · 시선 추적</p>
-        <p class="a b pre" style="left:24px;top:360px;font-size:15px;line-height:24px;color:#000"><span class="mono">02</span>  생리 반응</p>
-        <p class="a" style="left:120px;top:360px;font-size:15px;line-height:24px;color:#000">심박 · 뇌파 · <mark>피부 전도도(GSR)</mark></p>
-        <p class="a b pre" style="left:24px;top:390px;font-size:15px;line-height:24px;color:#000"><span class="mono">03</span>  주관 반응</p>
-        <p class="a" style="left:120px;top:390px;font-size:15px;line-height:24px;color:#000"><mark>설문평가</mark></p>
-        <div class="a cert" style="left:24px;top:432px;width:342px;height:320px;border-radius:12px;background:rgba(243,243,233,.55);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)">
-          <p class="a xb wrap" style="left:16px;top:18px;width:200px;font-size:15px;line-height:20px">CPL Aromas - 「Aroma Wellness」</p>
-          <p class="a wrap" style="left:16px;top:62px;width:206px;font-size:13px;line-height:19px">이 향료 GW ONE RELAX SC는 AromaWellness Relaxation 향료를 포함하며, CPL Aromas의 <span class="b">기술 적합성 확인서</span>를 받았습니다.</p>
-          <img class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/d18b8fab6ec71.jpg" alt="GW ONE RELAX SC 기술 적합성 확인서" style="left:232px;top:16px;width:94px;height:132px">
-          <p class="a wrap" style="left:16px;top:180px;width:310px;font-size:10.5px;line-height:16px;opacity:.6">※ Certificate of Technology Compliance · 15 December 2025<br>※ 확인 범위는 Relaxation 향료의 포함 사실과 해당 평가 방식입니다. GW ONE RELAX SC 전체의 별도 시험이나 완제품의 이완·수면 효과를 입증하는 자료는 아닙니다.</p>
-          <p class="a wrap" style="left:16px;top:270px;width:310px;font-size:10.5px;line-height:16px">GW ONE RELAX SC 관련 기술 적합성 확인서<br>완제품의 수면·이완 효과 인증서가 아닙니다.</p>
         </div>
       </div>
     </section>
@@ -408,25 +302,6 @@
         <p class="a pill chip c-green" style="right:746px;top:759px">비피다발효여과물</p>
         <p class="a pill chip c-green" style="right:746px;top:809px">갈락토미세스발효여과물</p>
       </div>
-      <div class="stage m">
-        <p class="a xb" style="left:24px;top:84px;font-size:20px;line-height:28px">피부의 회복 환경을 생각한 성분 설계</p>
-        <p class="a" style="left:24px;top:124px;font-size:14px;line-height:20px">자는 동안 피부가 회복하는 데 중요한<br>수분을 채우고 지키는 성분을 조합했습니다.<br>여기에 아침 피부결과 컨디션까지 고려한<br>두 가지 발효 성분을 더했습니다.</p>
-        <a class="a card mcard" href="#hydration" style="left:24px;top:232px;width:342px;height:136px">
-          <span class="a b tr" style="left:16px;top:18px;font-size:18px;line-height:22px"><span class="mono">01</span>&nbsp; Hydration</span>
-          <span class="a" style="left:16px;top:46px;font-size:15px;line-height:20px">수분. 피부 회복의 시작점</span>
-          <span class="a mchips" style="left:16px;top:82px"><span class="pill chip c-blue">히알루론산 5종</span><span class="pill chip c-blue">AQUAXYL™ 자일리톨계 3종</span></span>
-        </a>
-        <a class="a card mcard" href="#barrier" style="left:24px;top:380px;width:342px;height:136px">
-          <span class="a b tr" style="left:16px;top:18px;font-size:18px;line-height:22px"><span class="mono">02</span>&nbsp; Barrier</span>
-          <span class="a" style="left:16px;top:46px;font-size:15px;line-height:20px">채운 수분을 지키는 이중 보호 설계</span>
-          <span class="a mchips" style="left:16px;top:82px"><span class="pill chip c-yellow">엑토인</span><span class="pill chip c-yellow">세라마이드 5종</span></span>
-        </a>
-        <a class="a card mcard" href="#condition" style="left:24px;top:528px;width:342px;height:136px">
-          <span class="a b tr" style="left:16px;top:18px;font-size:18px;line-height:22px"><span class="mono">03</span>&nbsp; Condition</span>
-          <span class="a" style="left:16px;top:46px;font-size:15px;line-height:20px">아침 피부결까지 생각한 발효 케어</span>
-          <span class="a mchips" style="left:16px;top:82px"><span class="pill chip c-green">비피다발효여과물</span><span class="pill chip c-green">갈락토미세스발효여과물</span></span>
-        </a>
-      </div>
     </section>
 
     <!-- ===================== 9 · 04 Hydration ===================== -->
@@ -450,24 +325,6 @@
         <p class="a p16" style="left:72px;top:778px">나잇나잇 크림은 수분을 채우는 데서 그치지 않고,<br>수분이 고르게 오가고 머무는 환경까지 고려하기 위해 두 원료를 함께 배합했습니다.</p>
         <p class="a red" style="left:72px;top:861px;font-size:16px;line-height:26px">※ AQUAXYL™의 특성은 원료사 자료 기준이며, 나잇나잇 크림 완제품의 시험 결과가 아닙니다.</p>
       </div>
-      <div class="stage m">
-        <p class="a b tr" style="left:24px;top:84px;font-size:20px;line-height:24px"><span class="mono">01</span>&nbsp; Hydration</p>
-        <p class="a" style="left:24px;top:114px;font-size:15px;line-height:20px">수분. 피부 회복의 시작점</p>
-        <div class="a mcol" style="left:24px;top:148px;width:342px">
-          <div class="card mbox">
-            <p class="pill chip mchip b c-blue">히알루론산 5종</p>
-            <p class="mtitle md">수분 공급과 보습막</p>
-            <p class="mbody">물 분자를 끌어당기는 히알루론산은 대표적인 보습 성분입니다. 기본 형태부터 잘게 분해된 형태, 그물처럼 연결된 형태까지 서로 다른 구조의 히알루론산 5종을 조합했습니다. 각기 다른 특성의 히알루론산이 피부에 수분을 공급하고, 피부 표면에 촉촉한 보습막을 형성하도록 고려했습니다.</p>
-          </div>
-          <div class="card mbox">
-            <p class="pill chip mchip b c-blue">AQUAXYL™ 자일리톨계 3종</p>
-            <p class="mtitle md">수분 이동과 저장 환경</p>
-            <p class="mbody">자일리톨·자일리틸글루코사이드·무수자일리톨로 구성된 보습 복합체 AQUAXYL™을 사용했습니다. AQUAXYL™은 표피 내 수분 이동과 수분 저장을 돕는 특성을 지닌 보습 원료입니다. 히알루론산이 물 분자를 끌어당겨 붙잡는다면, AQUAXYL™은 피부 안에서 수분이 오가고 유지되는 환경에 주목한 성분입니다.</p>
-          </div>
-          <p class="mfoot">나잇나잇 크림은 수분을 채우는 데서 그치지 않고, 수분이 고르게 오가고 머무는 환경까지 고려하기 위해 두 원료를 함께 배합했습니다.</p>
-          <p class="mnote red">※ AQUAXYL™의 특성은 원료사 자료 기준이며, 나잇나잇 크림 완제품의 시험 결과가 아닙니다.</p>
-        </div>
-      </div>
     </section>
 
     <!-- ===================== 10 · 04 Barrier ===================== -->
@@ -489,24 +346,6 @@
         <p class="a p16 wrap" style="left:548px;top:435px;width:404px">세라마이드는 피부 각질층에서 세포 사이를 채우는 주요 지질<br>성분 중 하나입니다. 5종 세라마이드를 조합해 피부 장벽에<br>필요한 지질을 보완하고, 수분 손실을 줄이는 장벽 케어를 고려했습니다.</p>
         <img class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/3317b57113135.png" alt="" style="left:844px;top:603px;width:108px;height:120px;object-position:bottom">
         <p class="a p16" style="left:72px;top:778px">엑토인이 수분 환경의 안정화와 보호에 주목한 성분이라면, 세라마이드는 피부 장벽을 구성하는 지질에 집중한 성분입니다.<br>서로 다른 역할의 두 성분을 함께 배합해, 채운 수분을 지키기 위한 보습 환경을 생각했습니다.</p>
-      </div>
-      <div class="stage m">
-        <p class="a b tr" style="left:24px;top:84px;font-size:20px;line-height:24px"><span class="mono">02</span>&nbsp; Barrier</p>
-        <p class="a" style="left:24px;top:114px;font-size:15px;line-height:20px">채운 수분을 지키는 이중 보호 설계</p>
-        <div class="a mcol" style="left:24px;top:148px;width:342px">
-          <div class="card mbox">
-            <p class="pill chip mchip c-yellow">엑토인</p>
-            <p class="mtitle md">극한 환경에서 찾은 피부 보호</p>
-            <p class="mbody">높은 염도와 건조함 등 극한 환경에 서식하는 일부 미생물이 스스로를 보호하기 위해 만들어내는 물질입니다. 엑토인은 주변의 물 분자와 상호작용해 단백질과 세포막 주변의 수분 환경을 안정화하는 특성을 지니고 있습니다. 피부의 수분 유지와 장벽 보호를 위한 성분으로 활용되며, <span class="red">엑토인을 함유한 제형의 피부 적용 연구*</span> 에서도 보습 및 수분 손실 개선 가능성이 보고되었습니다. <span class="b">단순히 수분을 공급하는 것을 넘어, 건조함과 외부 환경 스트레스까지 고려한 보습 설계</span>를 위해 엑토인을 선택했습니다.</p>
-            <p class="mnote red">* 원료·제형 연구 기준이며, 나잇나잇 크림 완제품의 시험 결과가 아닙니다.</p>
-          </div>
-          <div class="card mbox">
-            <p class="pill chip mchip c-yellow">세라마이드 5종</p>
-            <p class="mtitle md">피부 장벽의 지질 보완</p>
-            <p class="mbody">세라마이드는 피부 각질층에서 세포 사이를 채우는 주요 지질 성분 중 하나입니다. 5종 세라마이드를 조합해 피부 장벽에 필요한 지질을 보완하고, 수분 손실을 줄이는 장벽 케어를 고려했습니다.</p>
-          </div>
-          <p class="mfoot">엑토인이 수분 환경의 안정화와 보호에 주목한 성분이라면, 세라마이드는 피부 장벽을 구성하는 지질에 집중한 성분입니다. 서로 다른 역할의 두 성분을 함께 배합해, 채운 수분을 지키기 위한 보습 환경을 생각했습니다.</p>
-        </div>
       </div>
     </section>
 
@@ -531,24 +370,6 @@
         <p class="a p16" style="left:72px;top:778px">수분을 채우고 지키는 보습·장벽 설계에 두 가지 발효 성분의 컨디셔닝 특성을 더해,<br>다음 날 아침의 피부결과 컨디션까지 생각했습니다.</p>
         <p class="a red" style="left:72px;top:861px;font-size:16px;line-height:26px">※ 발효 성분의 특성과 연구 배경에 대한 설명입니다. 연구에 사용된 원료·제형의 결과를 완제품의 시험 결과로 제시하지 않습니다.</p>
       </div>
-      <div class="stage m">
-        <p class="a b tr" style="left:24px;top:84px;font-size:20px;line-height:24px"><span class="mono">03</span>&nbsp; Condition</p>
-        <p class="a" style="left:24px;top:114px;font-size:15px;line-height:20px">아침 피부결까지 생각한 발효 케어</p>
-        <div class="a mcol" style="left:24px;top:148px;width:342px">
-          <div class="card mbox">
-            <p class="pill chip mchip b c-green">비피다발효여과물</p>
-            <p class="mtitle md">수분 유지와 피부 컨디셔닝</p>
-            <p class="mbody">비피다균의 발효 과정에서 얻은 여과물입니다. 발효 과정에서 얻는 수용성 성분을 담은 원료로, 피부의 수분 유지와 컨디셔닝을 위해 활용됩니다. 나잇나잇 크림은 이러한 원료 특성에 주목해, <span class="b">하루 동안 외부 환경에 노출된 피부의 컨디션</span>까지 고려하여 비피다발효여과물을 선택했습니다.</p>
-          </div>
-          <div class="card mbox">
-            <p class="pill chip mchip b c-green">갈락토미세스발효여과물</p>
-            <p class="mtitle md">보습과 부드러운 피부결 관리</p>
-            <p class="mbody">갈락토미세스의 발효 과정에서 얻은 여과물입니다. 피부 보습과 피부결 관리를 위한 컨디셔닝 원료로 활용되며, 관련 원료를 함유한 제형 연구에서는 피부 거칠기 개선이 보고되었습니다. 나잇나잇 크림은 이러한 원료의 활용 배경을 바탕으로, <span class="b">건조함으로 거칠어지기 쉬운 피부를 촉촉하고 부드럽게 관리하는 나이트케어를 위해</span> 갈락토미세스발효여과물을 선택했습니다.</p>
-          </div>
-          <p class="mfoot">수분을 채우고 지키는 보습·장벽 설계에 두 가지 발효 성분의 컨디셔닝 특성을 더해, 다음 날 아침의 피부결과 컨디션까지 생각했습니다.</p>
-          <p class="mnote red">※ 발효 성분의 특성과 연구 배경에 대한 설명입니다. 연구에 사용된 원료·제형의 결과를 완제품의 시험 결과로 제시하지 않습니다.</p>
-        </div>
-      </div>
     </section>
 
     <!-- ===================== 12 · 05 제품 정보 ===================== -->
@@ -568,37 +389,180 @@
         </div>
         <p class="a red p16" style="left:657px;top:791px">전성분·제조/책임판매 정보·박스 입수 등 상세 정보와 공급가·MOQ·납기는<br>필요 시 별도 자료로 제공합니다.</p>
       </div>
-      <div class="stage m">
-        <img class="a fill" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/94d3abb072d92.png" alt="" style="left:168px;top:76px;width:54px;height:210px;object-position:bottom">
-        <div class="a spec spec-m" style="left:24px;top:304px;width:342px">
-          <div><p>제품명</p><p>byDose NIGHT NIGHT CREAM<br>(나잇나잇 크림)</p></div>
-          <div><p>용량</p><p>50 mL</p></div>
-          <div><p>제품 유형 / 제형</p><p>나이트 크림 / 젤-크림 타입</p></div>
-          <div><p>피부 타입</p><p>모든 피부용</p></div>
-          <div><p>용기</p><p>에어리스 펌프</p></div>
-          <div><p>사용법</p><p>적당량을 얼굴 전체에 부드럽게 펴 바릅니다.</p></div>
-          <div><p>제조국</p><p>대한민국</p></div>
-          <div><p>소비자가</p><p>28,900원</p></div>
-          <div><p>홈페이지 / 문의</p><p><a class="u" href="https://bydose.kr" target="_blank" rel="noopener">bydose.kr</a> · <a class="u" href="mailto:hogan@bydose.kr">hogan@bydose.kr</a></p></div>
-        </div>
-        <p class="a red wrap" style="left:24px;top:716px;width:342px;font-size:12px;line-height:18px">전성분·제조/책임판매 정보·박스 입수 등 상세 정보와 공급가·MOQ·납기는 필요 시 별도 자료로 제공합니다.</p>
-      </div>
     </section>
 
     <!-- ===================== 13 · 마무리 ===================== -->
-    <section class="sl" id="contact" data-title="문의" data-sec="0" data-msec="5" data-next="">
+    <section class="sl" id="contact" data-title="문의" data-sec="0" data-next="">
       <div class="stage d">
         <p class="a" style="left:50%;top:419px;transform:translateX(-50%);text-align:center;font-size:18px;line-height:24px">읽어주셔서 감사합니다.<br>샘플 검토와 거래 조건 문의는 아래로 연락 주세요.</p>
         <a class="a pill sb" href="mailto:hogan@bydose.kr" style="left:50%;top:491px;transform:translateX(-50%);height:42px;padding:0 16px;border-radius:36px;background:var(--ink);color:var(--cream);font-size:18px;line-height:26px">hogan@bydose.kr</a>
         <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjYwIiBoZWlnaHQ9IjMwIiB2aWV3Qm94PSIwIDAgNjAgMzAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJhIiBjbGlwLXBhdGg9InVybCgjY2xpcDBfMF8xNykiPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNNTcuNTQ0MiAzLjkwMjk4TDU3Ljc2IDQuNDgxODFMNTcuOTc1NyAzLjkwMjk4QzU4LjIyNDYgMy4yNDE0NiA1OC43NTU1IDIuNzEyMjQgNTkuNDE5MiAyLjQ2NDE3TDYwIDIuMjQ5MTdMNTkuNDE5MiAyLjAzNDE4QzU4Ljc1NTUgMS43ODYxMSA1OC4yMjQ2IDEuMjU2ODkgNTcuOTc1NyAwLjU5NTM2OUw1Ny43NiAwLjAxNjUzOEw1Ny41NDQyIDAuNTk1MzY5QzU3LjI5NTQgMS4yNTY4OSA1Ni43NjQ0IDEuNzg2MTEgNTYuMTAwNyAyLjAzNDE4TDU1LjUxOTkgMi4yNDkxN0w1Ni4xMDA3IDIuNDY0MTdDNTYuNzY0NCAyLjcxMjI0IDU3LjI5NTQgMy4yNDE0NiA1Ny41NDQyIDMuOTAyOThaIiBmaWxsPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3JfMiIgZD0iTTU4LjY3MjYgMjAuNjg5MUM1Ny45MjU5IDIwLjUwNzIgNTYuOTMwMyAyMC40NTc2IDU1LjY2OTIgMjAuNjcyNUM1My40NDU4IDIxLjAzNjQgNTEuNTA0NCAyMS43MzEgNTAuNTkxOCAyMS4yMzQ4QzUwLjIxMDIgMjEuMDM2NCA0OS45Nzc5IDIwLjczODcgNDkuODExOSAyMC40MjQ1QzUwLjM1OTUgMTkuNDk4MyA1MC41NDIgMTguNjU0OSA1MC42MjUgMTguMTU4OEM1MC44OTA1IDE2LjY3MDMgNDkuNzI5IDE1LjE5ODUgNDkuNzI5IDE1LjE5ODVDNDkuNzI5IDE1LjE5ODUgNTAuMDQ0MyAxNC42MTk2IDUwLjgwNzUgMTQuNzE4OUM1My4zOTYgMTUuMDgyNyA1NC4xNTkzIDEyLjkzMjcgNTQuMTA5NSAxMi4zODdDNTQuMDU5NyAxMS44NDEyIDUzLjIzMDEgMTEuMjk1NSA1Mi4xNjgxIDEwLjI1MzZDNDkuMzYzOSA2LjgxMzY3IDQ3Ljg3MDYgNy43Mzk4IDQ3LjA5MDcgNy45NTQ4QzQ2LjU1OTcgNy45NTQ4IDQ2LjI0NDUgNy41NzQ0MiA0Ni4wOTUxIDcuMzA5ODFDNDUuNTgwOCA0Ljg0NTY0IDQ0LjEyMDYgNC4yNTAyOCA0Mi4yNjIyIDMuNzcwNjdDNDAuMjA0NiAzLjI0MTQ2IDM4LjY2MTUgMS40MDU3MyAzNy44MzE5IDAuNTk1MzY5QzM3LjAxODggLTAuMjE0OTk0IDM1Ljk5IC0wLjA2NjE1MjEgMzUuNTc1MiAwLjM2MzgzN0MzNS4xNDM4IDAuNzkzODI2IDM1LjA2MDggMS4zMzk1OCAzNS40NTkxIDIuMDM0MThDMzUuODQwNyAyLjc0NTMxIDM3LjM4MzkgNC41ODEwNCAzOS41OTA3IDQuNjYzNzNDNDEuNzgxIDQuNzI5ODggNDIuOTkyMyA1LjE5Mjk0IDQzLjU4OTYgNS44Mzc5M0M0NC4yMDM1IDYuNDk5NDUgNDQuMTM3MiA3LjEyNzg5IDQ0LjEzNzIgNy4xMjc4OUM0Mi43NzY2IDUuNDA3OTQgMzkuOTM5MiA1LjQ3NDA5IDM4Ljg2MDYgNS43MDU2MkMzNy43OTg3IDUuOTM3MTYgMzQuMzQ3MyA2LjgxMzY3IDMzLjA1MzEgNi4wMzYzOEMzMS43NTg5IDUuMjU5MSAzMC4yNjU1IDUuMjc1NjMgMjkuNjE4NCA2LjQxNjc2QzI5LjEwNCA3LjMyNjM1IDI5LjMwMzEgOC4wMzc0OSAzMC4yODIxIDguNzY1MTZDMzIuMTIzOSAxMC4zMTk3IDM2LjE4OTIgOC44MzEzMSAzOC41OTUxIDguMDIwOTVDMzkuNzA2OSA3LjY1NzExIDQwLjkwMTYgNy41NDEzNSA0Mi4wMjk5IDcuODIyNDlDNDQuMjIwMSA4LjM2ODI1IDQ0LjkxNyA5LjY0MTY4IDQ0LjkxNyAxMC43MTY2QzQ0LjU4NTIgMTEuODU3OCA0My44MjE5IDEyLjg1MDEgNDIuNzYgMTMuMzk1OEM0MC40NTM1IDE0LjYwMzEgMzYuMzM4NSAxNS43MTExIDMyLjk3MDEgMTMuNTYxMkMyOS4yMjAxIDExLjE0NjYgMjYuMDAxMSAxMS4xMzAxIDIzLjUxMjIgMTEuODI0N0MyMy4wOTczIDEwLjg4MiAyMi4wNjg2IDEwLjI3MDEgMjAuOTIzNyAxMC41MDE3QzIwLjA3NzQgMTAuNjY3IDE5LjM5NzEgMTEuMzQ1MSAxOS4xODE0IDEyLjE4ODVDMTguOTk4OSAxMi45MzI3IDE5LjE5OCAxMy42MjczIDE5LjYxMjggMTQuMTRDMTguNjAwNyAxNS40NDY1IDE4LjI2ODggMTYuODY4OCAxOC4yNjg4IDE2Ljg2ODhDMTcuMjczMiAxNi44Njg4IDE0LjczNDUgMTUuOTI2MSAxMy45MDQ5IDE1LjM2MzhDMTMuMzI0MSAxNC45ODM1IDEyLjAyOTkgMTQuMzU1IDExLjAzNDMgMTUuODZDMTAuMzIwOCAxNi45NTE1IDguNDI5MiAxOC4yOTExIDcuNDE3MDMgMTguOTY5MUM3LjAwMjIxIDE5LjI1MDMgNi41MDQ0MiAxOS4zODI2IDYuMDA2NjQgMTkuMzY2TDIuMDc0MTIgMTkuMjAwN0MxLjM3NzIxIDE5LjE2NzYgMC44Mjk2NDYgMTkuNzc5NSAwLjkxMjYxMSAyMC40NzQxQzEuMDI4NzYgMjEuMzUwNiAxLjU1OTczIDIyLjI2MDIgMi44NTM5OCAyMi4yNjAyQzcuMDAyMjEgMjIuMjYwMiA4LjgxMDg0IDE5LjY4MDMgOC44MTA4NCAxOS42ODAzQzcuNzQ4ODkgMjIuMjQzNyA1LjE0MzgxIDI0LjcwNzggNS4xNDM4MSAyNC43MDc4TDEuMDQ1MzUgMjQuODU2N0MwLjM4MTYzNyAyNC44ODk3IC0wLjEzMjc0MyAyNS40ODUxIC0wLjAxNjU5MjkgMjYuMTMwMUMwLjE2NTkyOSAyNy4xNTU1IDAuNjYzNzE3IDI3LjQyMDEgMS42NTkyOSAyNy42NTE2QzUuMzkyNyAyOC40Mjg5IDkuMDc2MzMgMjMuNDM0NCA5LjYyMzg5IDIyLjgyMjVDMTAuMTcxNSAyMi4yMTA2IDEwLjU4NjMgMjEuNDQ5OCAxMS4zNjYyIDIxLjQ0OThDMTIuMTQ2IDIxLjQ0OTggMTIuNTI3NyAyMS42MzE4IDEzLjMyNDEgMjEuOTc5MUMxNy41ODg1IDI0LjA2MjggMjAuNDA5MyAyNS4yNzAxIDIyLjkxNDggMjQuNzA3OEMyNS40MjA0IDI0LjE2MjEgMjUuMjM3OCAxOC44Njk5IDI5LjE1MzggMTkuMDY4NEMzMy4wNjk3IDE5LjI1MDMgMzQuNTk2MiAyNC41NDI1IDM5LjI1ODkgMjQuNTQyNUM0MC41Njk3IDI0LjU0MjUgNDEuNzE0NiAyNC40NTk4IDQyLjc0MzQgMjQuMzEwOUM0NC4xMDQgMjkuNzg1IDQ4LjczMzQgMjcuNzE3OCA1MS42MjA2IDI3Ljc1MDhDNTMuMjc5OSAyNy43Njc0IDU0LjIyNTcgMjguNjkzNSA1NC43MjM1IDI5LjUwMzlDNTUuMTU0OSAzMC4yMTUgNTYuMjY2NiAzMC4xODE5IDU2LjYzMTYgMjkuNDIxMkM1Ny4wNzk2IDI4LjQ5NSA1Ni44MTQyIDI3LjM1MzkgNTUuOTM0NyAyNi44NDEyQzU1LjIyMTIgMjYuNDI3OCA1NC4yMDkxIDI2LjA4MDUgNTIuODQ4NSAyNS45MTUxQzUwLjQ0MjUgMjUuNjM0IDQ4LjIzNTYgMjUuNzY2MyA0Ny40MzkyIDI0Ljk3MjRDNDYuODU4NCAyNC4zOTM2IDQ2LjgwODYgMjMuNjQ5NCA0Ni44MjUyIDIzLjA3MDZDNDYuODc1IDIzLjAzNzUgNDYuOTI0OCAyMy4wMjA5IDQ2Ljk3NDYgMjIuOTg3OUM0OS41MTMzIDI1LjgxNTkgNTIuNjY1OSAyMy4yNjkgNTUuMDA1NSAyMi42MDc1QzU2LjQ5ODkgMjIuMTk0IDU3LjU3NzQgMjIuNzcyOSA1OC4yMjQ2IDIzLjM2ODJDNTguODA1MyAyMy44OTc1IDU5Ljc2NzcgMjMuNTY2NyA1OS45MTcgMjIuODA2QzYwLjA4MyAyMS44NjMzIDU5LjUzNTQgMjAuOTA0MSA1OC42MjI4IDIwLjY4OTFINTguNjcyNlpNMTcuNjU0OSAyMC40OTA2QzE3LjY1NDkgMjAuNDkwNiAxNC4xMDQgMjAuOTIwNiAxMS42NjQ4IDE4LjMyNDFDMTEuNjY0OCAxOC4zMjQxIDEzLjE0MTYgMTcuNTQ2OSAxNS41MTQ0IDE4LjQ1NjVDMTcuODcwNiAxOS4zODI2IDE3LjY1NDkgMjAuNDkwNiAxNy42NTQ5IDIwLjQ5MDZaIiBmaWxsPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3JfMyIgZD0iTTAgMTAuNTAxN0gzLjE1MjY1VjExLjA4MDVIMS45MjQ3OFYxNC40NzA4SDEuMjI3ODhWMTEuMDgwNUgwVjEwLjUwMTdaIiBmaWxsPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3JfNCIgZD0iTTQuNTI5ODcgMTAuNTAxN0w1LjU3NTIyIDEzLjU5NDNINS41OTE4MUw2LjY3MDM1IDEwLjUwMTdINy42MTYxNVYxNC40ODczSDYuOTM1ODRWMTEuNTkzMkw1LjkyMzY3IDE0LjQ4NzNINS4yMjY3N0w0LjI0Nzc5IDExLjU5MzJWMTQuNDg3M0gzLjU2NzQ4VjEwLjUwMTdINC41Mjk4N1oiIGZpbGw9IiMyQTJBMjkiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMF8wXzE3Ij4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjMwIiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=" alt="byDose" style="left:690px;top:557px;width:60px;height:30px">
       </div>
-      <div class="stage m">
-        <p class="a" style="left:50%;top:330px;transform:translateX(-50%);text-align:center;font-size:15px;line-height:22px">읽어주셔서 감사합니다.<br>샘플 검토와 거래 조건 문의는 아래로 연락 주세요.</p>
-        <a class="a pill sb" href="mailto:hogan@bydose.kr" style="left:50%;top:394px;transform:translateX(-50%);height:42px;padding:0 16px;border-radius:36px;background:var(--ink);color:var(--cream);font-size:16px;line-height:24px">hogan@bydose.kr</a>
-        <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjYwIiBoZWlnaHQ9IjMwIiB2aWV3Qm94PSIwIDAgNjAgMzAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJhIiBjbGlwLXBhdGg9InVybCgjY2xpcDBfMF8xNykiPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNNTcuNTQ0MiAzLjkwMjk4TDU3Ljc2IDQuNDgxODFMNTcuOTc1NyAzLjkwMjk4QzU4LjIyNDYgMy4yNDE0NiA1OC43NTU1IDIuNzEyMjQgNTkuNDE5MiAyLjQ2NDE3TDYwIDIuMjQ5MTdMNTkuNDE5MiAyLjAzNDE4QzU4Ljc1NTUgMS43ODYxMSA1OC4yMjQ2IDEuMjU2ODkgNTcuOTc1NyAwLjU5NTM2OUw1Ny43NiAwLjAxNjUzOEw1Ny41NDQyIDAuNTk1MzY5QzU3LjI5NTQgMS4yNTY4OSA1Ni43NjQ0IDEuNzg2MTEgNTYuMTAwNyAyLjAzNDE4TDU1LjUxOTkgMi4yNDkxN0w1Ni4xMDA3IDIuNDY0MTdDNTYuNzY0NCAyLjcxMjI0IDU3LjI5NTQgMy4yNDE0NiA1Ny41NDQyIDMuOTAyOThaIiBmaWxsPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3JfMiIgZD0iTTU4LjY3MjYgMjAuNjg5MUM1Ny45MjU5IDIwLjUwNzIgNTYuOTMwMyAyMC40NTc2IDU1LjY2OTIgMjAuNjcyNUM1My40NDU4IDIxLjAzNjQgNTEuNTA0NCAyMS43MzEgNTAuNTkxOCAyMS4yMzQ4QzUwLjIxMDIgMjEuMDM2NCA0OS45Nzc5IDIwLjczODcgNDkuODExOSAyMC40MjQ1QzUwLjM1OTUgMTkuNDk4MyA1MC41NDIgMTguNjU0OSA1MC42MjUgMTguMTU4OEM1MC44OTA1IDE2LjY3MDMgNDkuNzI5IDE1LjE5ODUgNDkuNzI5IDE1LjE5ODVDNDkuNzI5IDE1LjE5ODUgNTAuMDQ0MyAxNC42MTk2IDUwLjgwNzUgMTQuNzE4OUM1My4zOTYgMTUuMDgyNyA1NC4xNTkzIDEyLjkzMjcgNTQuMTA5NSAxMi4zODdDNTQuMDU5NyAxMS44NDEyIDUzLjIzMDEgMTEuMjk1NSA1Mi4xNjgxIDEwLjI1MzZDNDkuMzYzOSA2LjgxMzY3IDQ3Ljg3MDYgNy43Mzk4IDQ3LjA5MDcgNy45NTQ4QzQ2LjU1OTcgNy45NTQ4IDQ2LjI0NDUgNy41NzQ0MiA0Ni4wOTUxIDcuMzA5ODFDNDUuNTgwOCA0Ljg0NTY0IDQ0LjEyMDYgNC4yNTAyOCA0Mi4yNjIyIDMuNzcwNjdDNDAuMjA0NiAzLjI0MTQ2IDM4LjY2MTUgMS40MDU3MyAzNy44MzE5IDAuNTk1MzY5QzM3LjAxODggLTAuMjE0OTk0IDM1Ljk5IC0wLjA2NjE1MjEgMzUuNTc1MiAwLjM2MzgzN0MzNS4xNDM4IDAuNzkzODI2IDM1LjA2MDggMS4zMzk1OCAzNS40NTkxIDIuMDM0MThDMzUuODQwNyAyLjc0NTMxIDM3LjM4MzkgNC41ODEwNCAzOS41OTA3IDQuNjYzNzNDNDEuNzgxIDQuNzI5ODggNDIuOTkyMyA1LjE5Mjk0IDQzLjU4OTYgNS44Mzc5M0M0NC4yMDM1IDYuNDk5NDUgNDQuMTM3MiA3LjEyNzg5IDQ0LjEzNzIgNy4xMjc4OUM0Mi43NzY2IDUuNDA3OTQgMzkuOTM5MiA1LjQ3NDA5IDM4Ljg2MDYgNS43MDU2MkMzNy43OTg3IDUuOTM3MTYgMzQuMzQ3MyA2LjgxMzY3IDMzLjA1MzEgNi4wMzYzOEMzMS43NTg5IDUuMjU5MSAzMC4yNjU1IDUuMjc1NjMgMjkuNjE4NCA2LjQxNjc2QzI5LjEwNCA3LjMyNjM1IDI5LjMwMzEgOC4wMzc0OSAzMC4yODIxIDguNzY1MTZDMzIuMTIzOSAxMC4zMTk3IDM2LjE4OTIgOC44MzEzMSAzOC41OTUxIDguMDIwOTVDMzkuNzA2OSA3LjY1NzExIDQwLjkwMTYgNy41NDEzNSA0Mi4wMjk5IDcuODIyNDlDNDQuMjIwMSA4LjM2ODI1IDQ0LjkxNyA5LjY0MTY4IDQ0LjkxNyAxMC43MTY2QzQ0LjU4NTIgMTEuODU3OCA0My44MjE5IDEyLjg1MDEgNDIuNzYgMTMuMzk1OEM0MC40NTM1IDE0LjYwMzEgMzYuMzM4NSAxNS43MTExIDMyLjk3MDEgMTMuNTYxMkMyOS4yMjAxIDExLjE0NjYgMjYuMDAxMSAxMS4xMzAxIDIzLjUxMjIgMTEuODI0N0MyMy4wOTczIDEwLjg4MiAyMi4wNjg2IDEwLjI3MDEgMjAuOTIzNyAxMC41MDE3QzIwLjA3NzQgMTAuNjY3IDE5LjM5NzEgMTEuMzQ1MSAxOS4xODE0IDEyLjE4ODVDMTguOTk4OSAxMi45MzI3IDE5LjE5OCAxMy42MjczIDE5LjYxMjggMTQuMTRDMTguNjAwNyAxNS40NDY1IDE4LjI2ODggMTYuODY4OCAxOC4yNjg4IDE2Ljg2ODhDMTcuMjczMiAxNi44Njg4IDE0LjczNDUgMTUuOTI2MSAxMy45MDQ5IDE1LjM2MzhDMTMuMzI0MSAxNC45ODM1IDEyLjAyOTkgMTQuMzU1IDExLjAzNDMgMTUuODZDMTAuMzIwOCAxNi45NTE1IDguNDI5MiAxOC4yOTExIDcuNDE3MDMgMTguOTY5MUM3LjAwMjIxIDE5LjI1MDMgNi41MDQ0MiAxOS4zODI2IDYuMDA2NjQgMTkuMzY2TDIuMDc0MTIgMTkuMjAwN0MxLjM3NzIxIDE5LjE2NzYgMC44Mjk2NDYgMTkuNzc5NSAwLjkxMjYxMSAyMC40NzQxQzEuMDI4NzYgMjEuMzUwNiAxLjU1OTczIDIyLjI2MDIgMi44NTM5OCAyMi4yNjAyQzcuMDAyMjEgMjIuMjYwMiA4LjgxMDg0IDE5LjY4MDMgOC44MTA4NCAxOS42ODAzQzcuNzQ4ODkgMjIuMjQzNyA1LjE0MzgxIDI0LjcwNzggNS4xNDM4MSAyNC43MDc4TDEuMDQ1MzUgMjQuODU2N0MwLjM4MTYzNyAyNC44ODk3IC0wLjEzMjc0MyAyNS40ODUxIC0wLjAxNjU5MjkgMjYuMTMwMUMwLjE2NTkyOSAyNy4xNTU1IDAuNjYzNzE3IDI3LjQyMDEgMS42NTkyOSAyNy42NTE2QzUuMzkyNyAyOC40Mjg5IDkuMDc2MzMgMjMuNDM0NCA5LjYyMzg5IDIyLjgyMjVDMTAuMTcxNSAyMi4yMTA2IDEwLjU4NjMgMjEuNDQ5OCAxMS4zNjYyIDIxLjQ0OThDMTIuMTQ2IDIxLjQ0OTggMTIuNTI3NyAyMS42MzE4IDEzLjMyNDEgMjEuOTc5MUMxNy41ODg1IDI0LjA2MjggMjAuNDA5MyAyNS4yNzAxIDIyLjkxNDggMjQuNzA3OEMyNS40MjA0IDI0LjE2MjEgMjUuMjM3OCAxOC44Njk5IDI5LjE1MzggMTkuMDY4NEMzMy4wNjk3IDE5LjI1MDMgMzQuNTk2MiAyNC41NDI1IDM5LjI1ODkgMjQuNTQyNUM0MC41Njk3IDI0LjU0MjUgNDEuNzE0NiAyNC40NTk4IDQyLjc0MzQgMjQuMzEwOUM0NC4xMDQgMjkuNzg1IDQ4LjczMzQgMjcuNzE3OCA1MS42MjA2IDI3Ljc1MDhDNTMuMjc5OSAyNy43Njc0IDU0LjIyNTcgMjguNjkzNSA1NC43MjM1IDI5LjUwMzlDNTUuMTU0OSAzMC4yMTUgNTYuMjY2NiAzMC4xODE5IDU2LjYzMTYgMjkuNDIxMkM1Ny4wNzk2IDI4LjQ5NSA1Ni44MTQyIDI3LjM1MzkgNTUuOTM0NyAyNi44NDEyQzU1LjIyMTIgMjYuNDI3OCA1NC4yMDkxIDI2LjA4MDUgNTIuODQ4NSAyNS45MTUxQzUwLjQ0MjUgMjUuNjM0IDQ4LjIzNTYgMjUuNzY2MyA0Ny40MzkyIDI0Ljk3MjRDNDYuODU4NCAyNC4zOTM2IDQ2LjgwODYgMjMuNjQ5NCA0Ni44MjUyIDIzLjA3MDZDNDYuODc1IDIzLjAzNzUgNDYuOTI0OCAyMy4wMjA5IDQ2Ljk3NDYgMjIuOTg3OUM0OS41MTMzIDI1LjgxNTkgNTIuNjY1OSAyMy4yNjkgNTUuMDA1NSAyMi42MDc1QzU2LjQ5ODkgMjIuMTk0IDU3LjU3NzQgMjIuNzcyOSA1OC4yMjQ2IDIzLjM2ODJDNTguODA1MyAyMy44OTc1IDU5Ljc2NzcgMjMuNTY2NyA1OS45MTcgMjIuODA2QzYwLjA4MyAyMS44NjMzIDU5LjUzNTQgMjAuOTA0MSA1OC42MjI4IDIwLjY4OTFINTguNjcyNlpNMTcuNjU0OSAyMC40OTA2QzE3LjY1NDkgMjAuNDkwNiAxNC4xMDQgMjAuOTIwNiAxMS42NjQ4IDE4LjMyNDFDMTEuNjY0OCAxOC4zMjQxIDEzLjE0MTYgMTcuNTQ2OSAxNS41MTQ0IDE4LjQ1NjVDMTcuODcwNiAxOS4zODI2IDE3LjY1NDkgMjAuNDkwNiAxNy42NTQ5IDIwLjQ5MDZaIiBmaWxsPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3JfMyIgZD0iTTAgMTAuNTAxN0gzLjE1MjY1VjExLjA4MDVIMS45MjQ3OFYxNC40NzA4SDEuMjI3ODhWMTEuMDgwNUgwVjEwLjUwMTdaIiBmaWxsPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3JfNCIgZD0iTTQuNTI5ODcgMTAuNTAxN0w1LjU3NTIyIDEzLjU5NDNINS41OTE4MUw2LjY3MDM1IDEwLjUwMTdINy42MTYxNVYxNC40ODczSDYuOTM1ODRWMTEuNTkzMkw1LjkyMzY3IDE0LjQ4NzNINS4yMjY3N0w0LjI0Nzc5IDExLjU5MzJWMTQuNDg3M0gzLjU2NzQ4VjEwLjUwMTdINC41Mjk4N1oiIGZpbGw9IiMyQTJBMjkiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMF8wXzE3Ij4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjMwIiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=" alt="byDose" style="left:165px;top:456px;width:60px;height:30px">
+    </section>
+
+  </div>
+
+  <!-- ===================== 모바일: 세로로 내려 읽는 한 페이지 =====================
+       글씨를 크게(본문 17px 기준, 아이폰 '글자 크기' 설정을 따라감) 쓰려고 장 넘김 대신 스크롤로 구성.
+       문구는 PC(피그마)와 같다. 섹션 id 는 PC 장 id 앞에 m- 를 붙인 것(#scent → #m-scent). -->
+  <div class="mpage" id="bdkM">
+    <header class="mh">
+      <button type="button" class="mh-btn" data-lang="1" aria-label="언어 선택" aria-haspopup="true"><img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJpY19sYW5ndWFnZSI+CjxwYXRoIGlkPSJFbGxpcHNlIDUiIGQ9Ik0yMyAxMkMyMyAxOC4wNzUxIDE4LjA3NTEgMjMgMTIgMjNDNS45MjQ4NyAyMyAxIDE4LjA3NTEgMSAxMkMxIDUuOTI0ODcgNS45MjQ4NyAxIDEyIDFDMTguMDc1MSAxIDIzIDUuOTI0ODcgMjMgMTJaIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZT0iIzJBMkEyOSIvPgo8bWFzayBpZD0ic3Ryb2tlMF8wXzQiIGZpbGw9IndoaXRlIj4KPHBhdGggZD0iTTE5IDEyQzE5IDE4LjYyNzQgMTUuODY2IDI0IDEyIDI0QzguMTM0MDEgMjQgNSAxOC42Mjc0IDUgMTJDNSA1LjM3MjU4IDguMTM0MDEgMCAxMiAwQzE1Ljg2NiAwIDE5IDUuMzcyNTggMTkgMTJaIi8+CjwvbWFzaz4KPHBhdGggaWQ9IkVsbGlwc2UgNiIgZD0iTTE5IDEyQzE5IDE4LjYyNzQgMTUuODY2IDI0IDEyIDI0QzguMTM0MDEgMjQgNSAxOC42Mjc0IDUgMTJDNSA1LjM3MjU4IDguMTM0MDEgMCAxMiAwQzE1Ljg2NiAwIDE5IDUuMzcyNTggMTkgMTJaIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZT0iIzJBMkEyOSIgbWFzaz0idXJsKCNzdHJva2UwXzBfNCkiLz4KPHBhdGggaWQ9IlZlY3RvciA1IiBkPSJNMTIgMlYyMiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2U9IiMyQTJBMjkiLz4KPHBhdGggaWQ9IlZlY3RvciA2IiBkPSJNMjIuMDA1IDExLjk5NUwyLjAwNSAxMS45OTUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3IgNyIgZD0iTTIyLjAwNSA3TDIuMDA1IDciIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3IgOCIgZD0iTTIyLjAwNSAxN0wyLjAwNSAxNyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2U9IiMyQTJBMjkiLz4KPC9nPgo8L3N2Zz4K" alt="" width="24" height="24"><img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjEyLjAyMDgiIGhlaWdodD0iMTIuMDIwOCIgdmlld0JveD0iMCAwIDEyLjAyMDggMTIuMDIwOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9ImhhbmRsZV9sYW5ndWFnZSI+CjxwYXRoIGlkPSJWZWN0b3IgOSIgZD0iTTAuMzUzNTUzIDUuNjU2ODVMNi4wMTA0MSAxMS4zMTM3TDExLjY2NzMgNS42NTY4NSIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjwvZz4KPC9zdmc+Cg==" alt="" width="11" height="11" style="margin-left:6px"></button>
+      <div class="lang-menu m-lang" role="menu"><button type="button" role="menuitemradio" aria-checked="true" data-code="KOR"><span>🇰🇷</span><span>KOR 한국어</span></button><button type="button" role="menuitemradio" aria-checked="false" data-code="ENG"><span>🇺🇸</span><span>ENG 영어</span></button><button type="button" role="menuitemradio" aria-checked="false" data-code="JPN"><span>🇯🇵</span><span>JPN 일본어</span></button><button type="button" role="menuitemradio" aria-checked="false" data-code="CHN"><span>🇨🇳</span><span>CHN 중국</span></button><button type="button" role="menuitemradio" aria-checked="false" data-code="MNG"><span>🇲🇳</span><span>MNG  몽골</span></button><button type="button" role="menuitemradio" aria-checked="false" data-code="RUS"><span>🇷🇺</span><span>RUS 러시아</span></button></div>
+      <img class="mh-logo" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjcyIiBoZWlnaHQ9IjE4IiB2aWV3Qm94PSIwIDAgNzIgMTgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJsb2dvIiBjbGlwLXBhdGg9InVybCgjY2xpcDBfMF8xOSkiPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNNTQuMjU4OSA2LjQzMzU0TDUxLjg5NDcgNS44NDc3N0M1MC41NzU5IDUuNTEwMiA0OS45MjEzIDQuOTA0NTggNDkuOTIxMyAzLjk5MTE4QzQ5LjkyMTMgMi43NDAyMSA1MC44Mjk5IDIuMDI1MzcgNTIuNDQxOCAyLjAyNTM3QzU0LjA1MzcgMi4wMjUzNyA1NC45MTM0IDIuODg5MTMgNTQuOTYyMyA0LjIzOTM4SDU3LjQzMzlDNTcuMzg1MSAxLjY2Nzk1IDU1LjQ2MDUgMCA1Mi41Mjk3IDBDNDkuNTk4OSAwIDQ3LjQ3OSAxLjU3ODYgNDcuNDc5IDQuMDcwNkM0Ny40NzkgNi4wNjYxOSA0OC42MDI0IDcuMjU3NTggNTAuOTk1OSA3Ljg0MzM1TDUzLjM2MDEgOC4zOTkzNEM1NC43NTcxIDguNzU2NzYgNTUuMTk2NyA5LjMxMjc0IDU1LjE5NjcgMTAuMjI2MUM1NS4xOTY3IDExLjQ3NzEgNTQuMTUxNCAxMi4yMjE3IDUyLjM0NDEgMTIuMjIxN0M1MC42NDQyIDEyLjIyMTcgNDkuNTk4OSAxMS4zODc4IDQ5LjU5ODkgMTAuMDA3N0g0Ny4xMjczQzQ3LjEyNzMgMTIuNTg5MSA0OS4xMyAxNC4yNzY5IDUyLjI4NTUgMTQuMjc2OUM1NS40NDEgMTQuMjc2OSA1Ny42NTg2IDEyLjYzODcgNTcuNjU4NiAxMC4wNjczQzU3LjY1ODYgOC4wNDE5MiA1Ni41MzUxIDYuOTg5NTIgNTQuMjU4OSA2LjQzMzU0WiIgZmlsbD0iIzJBMkEyOSIvPgo8cGF0aCBpZD0iVmVjdG9yXzIiIGQ9Ik0yMy4xMjQgMEgxOC43Mzc2VjE0LjI3NjlIMjMuMTI0QzI3LjAwMjQgMTQuMjc2OSAzMC4xNDgyIDExLjA4IDMwLjE0ODIgNy4xMzg0NEMzMC4xNDgyIDMuMTk2OTEgMjcuMDAyNCAwIDIzLjEyNCAwWk0yOC4wOTY2IDcuMTM4NDRDMjguMDk2NiA5LjkyODMgMjUuODY5MiAxMi4xOTE5IDIzLjEyNCAxMi4xOTE5SDIwLjc3OTRWMi4wODQ5NEgyMy4xMjRDMjUuODY5MiAyLjA4NDk0IDI4LjA5NjYgNC4zNDg1OSAyOC4wOTY2IDcuMTM4NDRaIiBmaWxsPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3JfMyIgZD0iTTM4LjYzNzcgMEMzNC43NTkzIDAgMzEuNjEzNiAzLjE5NjkxIDMxLjYxMzYgNy4xMzg0NEMzMS42MTM2IDExLjA4IDM0Ljc1OTMgMTQuMjc2OSAzOC42Mzc3IDE0LjI3NjlDNDIuNTE2MSAxNC4yNzY5IDQ1LjY2MTkgMTEuMDggNDUuNjYxOSA3LjEzODQ0QzQ1LjY2MTkgMy4xOTY5MSA0Mi41MTYxIDAgMzguNjM3NyAwWk00My4zMTcyIDcuMTM4NDRDNDMuMzE3MiA5LjkyODMgNDEuMjE2OCAxMi4xOTE5IDM4LjYzNzcgMTIuMTkxOUMzNi4wNDg4IDEyLjE5MTkgMzMuOTU4MiA5LjkyODMgMzMuOTU4MiA3LjEzODQ0QzMzLjk1ODIgNC4zNDg1OSAzNi4wNTg2IDIuMDg0OTQgMzguNjM3NyAyLjA4NDk0QzQxLjIyNjYgMi4wODQ5NCA0My4zMTcyIDQuMzQ4NTkgNDMuMzE3MiA3LjEzODQ0WiIgZmlsbD0iIzJBMkEyOSIvPgo8cGF0aCBpZD0iVmVjdG9yXzQiIGQ9Ik02OS41ODcgOS43Mjk3M0M2OS4xNDc0IDExLjI3ODUgNjcuODI4NSAxMi4xMTI1IDY1LjgzNTUgMTIuMTEyNUM2My4yODU4IDEyLjExMjUgNjEuODEwNiAxMC41MzM5IDYxLjYxNTIgNy42NzQ1N0w3MS45NzA3IDcuNjQ0NzlWNi42NzE4MUM3MS45NzA3IDIuNjYwNzggNjkuNDc5NSAwIDY1LjY2OTUgMEM2MS44NTk0IDAgNTkuMTI0IDIuOTM4NzggNTkuMTI0IDcuMTc4MTZDNTkuMTI0IDExLjQxNzUgNjEuODM5OSAxNC4yNzY5IDY1Ljc4NjcgMTQuMjc2OUM2OS4wOTg1IDE0LjI3NjkgNzEuMzQ1NSAxMi42Mzg3IDcyLjAwOTggOS43Mjk3M0g2OS41OTY3SDY5LjU4N1pNNjUuNjY5NSAyLjE5NDE1QzY3Ljk0NTcgMi4xOTQxNSA2OS4zOTE2IDMuNjkzMzMgNjkuMzkxNiA1LjkzNzEySDYxLjY2NEM2MS45OTYyIDMuNTU0MzMgNjMuNDIyNSAyLjE5NDE1IDY1LjY1OTcgMi4xOTQxNUg2NS42Njk1WiIgZmlsbD0iIzJBMkEyOSIvPgo8cGF0aCBpZD0iVmVjdG9yXzUiIGQ9Ik03LjkwMzM5IDkuNzI5NzNDNy45MDMzOSA2LjQ5MzExIDYuNDY3MyA0Ljg5NDY1IDQuNzg2OTcgNC44OTQ2NUMzLjEwNjY1IDQuODk0NjUgMi41NDAwMyA2LjI2NDc1IDIuNTQwMDMgNi4yNjQ3NUMyLjU2OTMzIDUuNzE4NyAyLjcxNTg4IDAuNzI0NzY2IDIuNjc2OCAwLjM5NzEzMkMyLjYzNzcyIDAuMDY5NDk4MSAyLjAzMjAyIC0wLjAzOTcxMzIgMS40NTU2MyAwLjAwOTkyODNDMS40NTU2MyAwLjAwOTkyODMgMC44NDAxNjMgMC4wNTk1Njk4IDAuNDI5ODUxIDAuMjM4Mjc5QzAuMjQ0MjMzIDAuMzE3NzA1IDAuMDk3NjkzMyAwLjQ2NjYzIDAuMDI5MzA4IDAuNjU1MjY4Qy0wLjA1ODYxNiAwLjg4MzYxOCAwLjAyOTMwOCAxLjAyMjYxIDAuMzYxNDY1IDEuMDAyNzZDMS4zNjc3MSAwLjk0MzE4OCAxLjM4NzI1IDEuMzcwMSAxLjQ3NTE3IDEuOTE2MTZDMS41NjMwOSAyLjQ2MjIyIDEuNDg0OTQgMy42NDM2OCAxLjQ4NDk0IDguNzM2OUMxLjQ4NDk0IDEyLjg3NyAxLjEyMzQ3IDEzLjcwMSAwLjk4NjcwMyAxMy44NTk5QzAuOTQ3NjI1IDEzLjg5OTYgMC45NDc2MjUgMTMuOTY5MSAwLjk4NjcwMyAxNC4wMDg4QzEuMTIzNDcgMTQuMTU3OCAxLjQ5NDcxIDE0LjI3NjkgMS42NDEyNSAxNC4yNzY5QzEuOTI0NTYgMTQuMjc2OSAyLjQxMzAzIDEzLjM1MzYgMi40MTMwMyAxMy4zNTM2QzIuNzA2MTEgMTMuNjUxNCAzLjI5MjI3IDE0LjI3NjkgNC42Nzk1MSAxNC4yNzY5QzYuMDY2NzYgMTQuMjc2OSA3Ljg5MzYyIDEyLjk1NjQgNy44OTM2MiA5LjcyOTczSDcuOTAzMzlaTTQuNjUwMiAxMy4yMjQ1QzMuODY4NjYgMTMuMjI0NSAzLjM2MDY1IDEyLjg2NzEgMy4wMjg0OSAxMi40Njk5QzIuNjc2OCAxMi4wNTMgMi41MTA3MiAxMS41MDY5IDIuNTEwNzIgMTAuOTYwOFY4LjEwMTQ5QzIuNTEwNzIgNy4yMzc3MyAzLjMyMTU3IDUuODg3NDggNC42MTExMyA1Ljg4NzQ4QzUuOTAwNjggNS44ODc0OCA2LjcwMTc2IDcuMzU2ODcgNi43MDE3NiA5LjIyMzM5QzYuNzAxNzYgMTEuMDg5OSA2LjIxMzMgMTMuMjI0NSA0LjY1OTk3IDEzLjIyNDVINC42NTAyWiIgZmlsbD0iIzJBMkEyOSIvPgo8cGF0aCBpZD0iVmVjdG9yXzYiIGQ9Ik0xNi40NzExIDQuOTM0MzZDMTYuMzE0OCA0LjkyNDQzIDE2LjAzMTUgNC45MTQ1MSAxNS41MjM1IDQuOTE0NTFIMTMuOTk5NUMxMy45OTk1IDQuOTE0NTEgMTMuNzg0NSA0Ljg4NDcyIDEzLjY5NjYgNS4xNDI4NkMxMy42MjgyIDUuMzUxMzUgMTMuNzc0OCA1LjU2OTc3IDEzLjk4OTcgNS41ODk2M0MxNC4wNDgzIDUuNTg5NjMgMTQuMTA2OSA1LjYwOTQ5IDE0LjE4NTEgNS42MjkzNEMxNC42MjQ3IDUuNzY4MzQgMTQuNTg1NiA2LjAxNjU1IDE0LjM1MTIgNi43MTE1M0wxMi41MDQ3IDEyLjE2MjJDMTIuNTA0NyAxMi4xNjIyIDEwLjM1NTUgNi40OTMxMSAxMC4zMDY2IDYuMzQ0MThDMTAuMjY3NiA2LjIwNTE4IDkuOTE1ODggNS41Nzk3IDEwLjk5MDUgNS41NTk4NUMxMS4xMTc1IDUuNTU5ODUgMTEuMjI1IDUuNDcwNDkgMTEuMjQ0NSA1LjM0MTQyQzExLjI0NDUgNS4yODE4NSAxMS4yNjQgNS4yMjIyOCAxMS4yNjQgNS4xNTI3OUMxMS4yNjQgNS4wMTM3OSAxMS4xNjYzIDQuODk0NjUgMTEuMDE5OCA0Ljg5NDY1SDguMzAzOTRDOC4zMDM5NCA0Ljg5NDY1IDguMDMwMzkgNC44NzQ3OSA3Ljk5MTMyIDUuMTAzMTRDNy45OTEzMiA1LjEwMzE0IDcuOTkxMzIgNS4xMDMxNCA3Ljk5MTMyIDUuMTEzMDdDNy44OTM2MiA1LjQ5MDM1IDguMTA4NTUgNS42MjkzNCA4LjMyMzQ3IDUuNjM5MjdDOC40NzAwMSA1LjYzOTI3IDguNjE2NTUgNS42Nzg5OSA4Ljc0MzU2IDUuNzk4MTJDOC44NjA3OSA1LjkwNzM0IDkuMDg1NDggNi4xNTU1NCA5LjYzMjU2IDcuNTM1NThDMTAuMTg5NCA4LjkyNTU0IDEyLjAxNjMgMTMuNTEyNCAxMi4wMTYzIDEzLjUxMjRDMTIuMDE2MyAxMy41MTI0IDExLjczMyAxNS4yMyAxMC4xNjAxIDE2LjM1MTlDOC41ODcyNSAxNy40NzM4IDcuNjY4OTMgMTcuMTU2MSA3LjUxMjYyIDE2LjU0MDVDNy4zNTYzMSAxNS45MjUgNi42NTI5MiAxNS44NjU0IDYuMzUwMDcgMTYuMjgyNEM2LjA0NzIyIDE2LjcwOTMgNi4xNDQ5MSAxNy4xMDY1IDYuMzUwMDcgMTcuMzE0OUM2LjU1NTIyIDE3LjUxMzUgNy4wNDM2OSAxNy45MjA2IDcuNjY4OTMgMTcuOTYwM0M4LjQ3MDAxIDE4LjAxOTkgMTEuMTk1NyAxOC4xODg2IDEyLjgyNzEgMTMuNTIyM0MxMi44MjcxIDEzLjUyMjMgMTQuOTQ3MSA3LjQ1NjE1IDE1LjAyNTIgNy4yMjc4QzE1LjEwMzQgNy4wMDkzOCAxNS4zMTgzIDUuNjU5MTMgMTYuNDgwOSA1LjU1OTg1QzE2LjU1OSA1LjU1OTg1IDE2LjYyNzQgNS40OTAzNSAxNi42NTY3IDUuNDEwOTJDMTYuNjg2IDUuMzMxNDkgMTYuNzA1NiA1LjIzMjIxIDE2LjY5NTggNS4xMzI5M0MxNi42OTU4IDUuMDEzNzkgMTYuNTk4MSA0LjkyNDQzIDE2LjQ4MDkgNC45MTQ1MUwxNi40NzExIDQuOTM0MzZaIiBmaWxsPSIjMkEyQTI5Ii8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfMF8xOSI+CjxyZWN0IHdpZHRoPSI3MiIgaGVpZ2h0PSIxOCIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K" alt="byDose" width="72" height="18">
+      <button type="button" class="mh-btn" data-pdf="1" aria-label="PDF로 저장"><img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjIzLjUiIHZpZXdCb3g9IjAgMCAyNCAyMy41IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iRG93bmxvYWQgSWNvbiI+CjxwYXRoIGlkPSJWZWN0b3IgMTAiIGQ9Ik0xIDEyVjIyLjVIMjNWMTIiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3IgMTEiIGQ9Ik0xMS41IDBWMTYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxnIGlkPSJEb3dubG9hZCBJbmRpY2F0b3IiPgo8cGF0aCBpZD0iVmVjdG9yIDEyIiBkPSJNOCAxMi4yOTI5TDEyLjI0MjYgMTYuNTM1NSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2U9IiMyQTJBMjkiLz4KPHBhdGggaWQ9IlZlY3RvciAxMyIgZD0iTTE1LjA3MSAxMi4yOTI5TDEwLjgyODQgMTYuNTM1NSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2U9IiMyQTJBMjkiLz4KPC9nPgo8L2c+Cjwvc3ZnPgo=" alt="" width="22" height="23"></button>
+    </header>
+
+    <!-- 표지 -->
+    <section class="ms" id="m-cover" data-sec="0">
+      <p class="m-title">“ NIGHT NIGHT CREAM “</p>
+      <p class="m-kw">LIGHT GEL-CREAM · AROMAWELLNESS SCENT · MOISTURE &amp; BARRIER</p>
+      <img class="m-hero" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/2c20ce999c4f0.jpg" alt="나잇나잇 크림 50mL 에어리스 펌프 용기">
+    </section>
+
+    <!-- 01 제품 소개 -->
+    <section class="ms" id="m-intro" data-sec="1">
+      <p class="m-k"><span class="mono">01</span> 제품 소개</p>
+      <img class="m-cut" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/94d3abb072d92.png" alt="나잇나잇 크림 본품">
+      <p class="m-h tr">GOOD NIGHT = GOOD SKIN</p>
+      <p>나잇나잇 크림은 잠들기 전의 감각적인 경험부터, 밤사이 피부가 스스로 회복할 수 있는 환경까지 고려한 ‘아침촉촉’ 나이트크림입니다.</p>
+      <hr class="m-rule">
+      <p class="b">나잇나잇 크림 50 mL</p>
+      <p class="m-tags"><span class="tag">가벼운 젤-크림 타입</span><span class="tag">「AromaWellness」 조향</span><span class="tag">보습·장벽 케어</span></p>
+    </section>
+
+    <!-- 02 밤을 위한 설계 -->
+    <section class="ms dark" id="m-why" data-sec="2" style="background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/dad4e3c621c98.jpg)">
+      <p class="m-k"><span class="mono">02</span> 밤을 위한 설계</p>
+      <p class="m-h">좋은 피부를 위한 좋은 밤</p>
+      <p>피부는 밤에도 회복과 유지 활동을 이어갑니다. 그리고 수면은 건강한 피부를 위해 중요한 요소입니다. 바이도즈는 여기서 출발했습니다.</p>
+      <p><span class="u">좋은 잠의 결과가 좋은 피부로 이어지는 화장품.</span><br>나잇나잇 크림의 시작이었습니다.</p>
+      <div class="m-view"><span class="badge">For a Good Night</span><p class="m-h2">잠들기 전 경험과 분위기</p><p>하루의 마지막 스킨케어가 편안한 밤에 어울리도록, 피부에 남는 감촉과 향까지 고려했습니다.</p></div>
+      <div class="m-view"><span class="badge">For a Good Skin</span><p class="m-h2">밤사이 피부 회복을 위한 환경</p><p>피부가 밤을 보내는 동안 수분을 공급하고 유지하도록, 보습과 장벽 케어를 설계했습니다.</p></div>
+    </section>
+
+    <section class="ms dark" id="m-sequence" data-sec="2" style="background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/a4734845a1b52.jpg)">
+      <p class="m-h">굿나잇 시퀀스™<br><span class="rg">피부 회복을 돕는 설계</span></p>
+      <p>잠들기 전의 경험부터, 덧바를 수 없는 밤사이의 보습, 그리고 다음 날 아침의 피부 컨디션까지.</p>
+      <p>나잇나잇 크림은 이 흐름(시퀀스)전체를 ‘나이트 케어’로 생각했습니다.</p>
+      <div class="m-time"><img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCAxIj4KPHBhdGggaWQ9IkVsbGlwc2UgNCIgZD0iTTIzIDEyQzIzIDE4LjA3NTEgMTguMDc1MSAyMyAxMiAyM0M1LjkyNDg3IDIzIDEgMTguMDc1MSAxIDEyQzEgNS45MjQ4NyA1LjkyNDg3IDEgMTIgMUMxOC4wNzUxIDEgMjMgNS45MjQ4NyAyMyAxMloiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3IgNCIgZD0iTTExLjIxNTEgMTIuOTUzQzExLjU1NzMgMTMuMzg2NSAxMi4xODYyIDEzLjQ2MDQgMTIuNjE5NiAxMy4xMTgyQzEzLjA1MzEgMTIuNzc2IDEzLjEyNzEgMTIuMTQ3MiAxMi43ODQ5IDExLjcxMzdMMTIgMTIuMzMzM0wxMS4yMTUxIDEyLjk1M1pNMTIgMTIuMzMzM0wxMi43ODQ5IDExLjcxMzdMNy43ODQ4OCA1LjM4MDM2TDcgNkw2LjIxNTEyIDYuNjE5NjRMMTEuMjE1MSAxMi45NTNMMTIgMTIuMzMzM1oiIGZpbGw9IiNEMzVCNDAiLz4KPHBhdGggaWQ9IlZlY3RvciAzIiBkPSJNMTEgMTIuMzMzM0MxMSAxMi44ODU2IDExLjQ0NzcgMTMuMzMzMyAxMiAxMy4zMzMzQzEyLjU1MjMgMTMuMzMzMyAxMyAxMi44ODU2IDEzIDEyLjMzMzNIMTJIMTFaTTEyIDEyLjMzMzNIMTNWM0gxMkgxMVYxMi4zMzMzSDEyWiIgZmlsbD0iIzJBMkEyOSIvPgo8L2c+Cjwvc3ZnPgo=" alt="" width="24" height="24"><div><p class="m-t xb">PM 11:00</p><p class="b">잠드는 순간을 위해</p><p>제품을 바르고 잠자리에 드는 순간의 감촉과 향을 설계</p></div></div>
+      <div class="m-time"><img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCAyIj4KPHBhdGggaWQ9IkVsbGlwc2UgNCIgZD0iTTIzIDEyQzIzIDE4LjA3NTEgMTguMDc1MSAyMyAxMiAyM0M1LjkyNDg3IDIzIDEgMTguMDc1MSAxIDEyQzEgNS45MjQ4NyA1LjkyNDg3IDEgMTIgMUMxOC4wNzUxIDEgMjMgNS45MjQ4NyAyMyAxMloiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3IgNCIgZD0iTTEyIDExQzExLjQ0NzcgMTEgMTEgMTEuNDQ3NyAxMSAxMkMxMSAxMi41NTIzIDExLjQ0NzcgMTMgMTIgMTNWMTJWMTFaTTEyIDEyVjEzSDIwVjEyVjExSDEyVjEyWiIgZmlsbD0iI0QzNUI0MCIvPgo8cGF0aCBpZD0iVmVjdG9yIDMiIGQ9Ik0xMSAxMi4zMzMzQzExIDEyLjg4NTYgMTEuNDQ3NyAxMy4zMzMzIDEyIDEzLjMzMzNDMTIuNTUyMyAxMy4zMzMzIDEzIDEyLjg4NTYgMTMgMTIuMzMzM0gxMkgxMVpNMTIgMTIuMzMzM0gxM1YzSDEySDExVjEyLjMzMzNIMTJaIiBmaWxsPSIjMkEyQTI5Ii8+CjwvZz4KPC9zdmc+Cg==" alt="" width="24" height="24"><div><p class="m-t xb">AM 03:00</p><p class="b">덧바를 수 없는 잠든 사이</p><p>다시 덧바를 수 없는 밤사이, 수분 공급과 유지에 집중한 설계</p></div></div>
+      <div class="m-time"><img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCAzIj4KPHBhdGggaWQ9IkVsbGlwc2UgNCIgZD0iTTIzIDEyQzIzIDE4LjA3NTEgMTguMDc1MSAyMyAxMiAyM0M1LjkyNDg3IDIzIDEgMTguMDc1MSAxIDEyQzEgNS45MjQ4NyA1LjkyNDg3IDEgMTIgMUMxOC4wNzUxIDEgMjMgNS45MjQ4NyAyMyAxMloiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3IgNCIgZD0iTTEyLjg1NzUgMTIuODQ3OUMxMy4xNDE2IDEyLjM3NDMgMTIuOTg4MSAxMS43NiAxMi41MTQ1IDExLjQ3NTlDMTIuMDQwOSAxMS4xOTE3IDExLjQyNjcgMTEuMzQ1MyAxMS4xNDI1IDExLjgxODlMMTIgMTIuMzMzNEwxMi44NTc1IDEyLjg0NzlaTTEyIDEyLjMzMzRMMTEuMTQyNSAxMS44MTg5TDcuMTQyNTEgMTguNDg1NUw4IDE5TDguODU3NDkgMTkuNTE0NUwxMi44NTc1IDEyLjg0NzlMMTIgMTIuMzMzNFoiIGZpbGw9IiNEMzVCNDAiLz4KPHBhdGggaWQ9IlZlY3RvciAzIiBkPSJNMTEgMTIuMzMzM0MxMSAxMi44ODU2IDExLjQ0NzcgMTMuMzMzMyAxMiAxMy4zMzMzQzEyLjU1MjMgMTMuMzMzMyAxMyAxMi44ODU2IDEzIDEyLjMzMzNIMTJIMTFaTTEyIDEyLjMzMzNIMTNWM0gxMkgxMVYxMi4zMzMzSDEyWiIgZmlsbD0iIzJBMkEyOSIvPgo8L2c+Cjwvc3ZnPgo=" alt="" width="24" height="24"><div><p class="m-t xb">AM 07:00</p><p class="b">아침촉촉 기상</p><p>촉촉하게 정돈된 아침의 피부결까지 고려한 설계</p></div></div>
+      <p class="m-note">※ 11 PM · 3 AM · 7 AM은 밤의 사용 흐름을 표현한 상징적인 시간이며, 성분의 작용 시점을 의미하지 않습니다.</p>
+    </section>
+
+    <!-- 03 감촉과 향 -->
+    <section class="ms" id="m-texture" data-sec="3">
+      <p class="m-k"><span class="mono">03</span> 감촉과 향</p>
+      <p class="m-sub"><span class="mono">01. </span>Texture <b>“ LIGHT GEL-CREAM “</b></p>
+      <div class="media m-media" data-vimeo="1217189885" data-ratio="1.7778" style="background-image:url(https://i.vimeocdn.com/video/2188812504-83314b1905a3b2a4234b66c86f2c7c4c4ddc4cee17474fc11246d96b5c48b05a-d_1280?region=us)"></div>
+      <p class="m-h">무거움은 덜고, 촉촉함은 남기도록.</p>
+      <p>나이트크림은 흔히 무겁고 리치한 제형을 떠올리기 쉽습니다. 하지만 촉촉함이 반드시 무거운 제형에서 오는 것은 아닙니다.</p>
+      <p>나잇나잇 크림은 수분감 있는 젤-크림 제형으로 부드럽게 펴 발리고, 번들거림을 줄인 산뜻한 마무리감을 지향합니다.</p>
+      <p class="m-rate">발림성 <img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9Ijk2IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA5NiA4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iJiMyMzU7JiMxNzY7JiMxNTY7JiMyMzU7JiMxNjY7JiMxODg7JiMyMzY7JiMxMzI7JiMxNzc7ICYjMjM2OyYjMTYwOyYjMTQ0OyYjMjM2OyYjMTM2OyYjMTUyOyI+CjxjaXJjbGUgaWQ9Ik92YWwiIGN4PSI0IiBjeT0iNCIgcj0iNCIgZmlsbD0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDIiIGN4PSIyNiIgY3k9IjQiIHI9IjQiIGZpbGw9IiNEMzVCNDAiLz4KPGNpcmNsZSBpZD0iT3ZhbCAzIiBjeD0iNDgiIGN5PSI0IiByPSI0IiBmaWxsPSIjRDM1QjQwIi8+CjxjaXJjbGUgaWQ9Ik92YWwgNCIgY3g9IjcwIiBjeT0iNCIgcj0iNCIgZmlsbD0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDUiIGN4PSI5MiIgY3k9IjQiIHI9IjQiIGZpbGw9IiNEMzVCNDAiLz4KPC9nPgo8L3N2Zz4K" alt="5점 중 5점" width="120" height="10"></p>
+      <p class="m-rate">끈적임 <img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9Ijk2LjUiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDk2LjUgOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IiYjMjM1OyYjMTI5OyYjMTM2OyYjMjM2OyYjMTYwOyYjMTI5OyYjMjM2OyYjMTU4OyYjMTMyOyAmIzIzNjsmIzE2MDsmIzE0NDsmIzIzNjsmIzEzNjsmIzE1MjsiPgo8Y2lyY2xlIGlkPSJPdmFsIiBjeD0iNCIgY3k9IjQuNSIgcj0iNCIgZmlsbD0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDYiIGN4PSIyNiIgY3k9IjQuNSIgcj0iNCIgc3Ryb2tlPSIjRDM1QjQwIi8+CjxjaXJjbGUgaWQ9Ik92YWwgNyIgY3g9IjQ4IiBjeT0iNC41IiByPSI0IiBzdHJva2U9IiNEMzVCNDAiLz4KPGNpcmNsZSBpZD0iT3ZhbCA4IiBjeD0iNzAiIGN5PSI0LjUiIHI9IjQiIHN0cm9rZT0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDkiIGN4PSI5MiIgY3k9IjQuNSIgcj0iNCIgc3Ryb2tlPSIjRDM1QjQwIi8+CjwvZz4KPC9zdmc+Cg==" alt="5점 중 1점" width="120" height="11"></p>
+      <div class="m-review"><p class="m-who">youm****</p><img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjEyMCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDEyMCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IiYjMjM1OyYjMTc5OyYjMTMyOyYjMjM2OyYjMTYwOyYjMTQ0OyI+CjxwYXRoIGlkPSJTdGFyIDEiIGQ9Ik0xMS4wNDg5IDIuOTI3MDVDMTEuMzQ4MyAyLjAwNTc0IDEyLjY1MTcgMi4wMDU3NCAxMi45NTExIDIuOTI3MDVMMTQuNDY5NyA3LjYwMDgxQzE0LjYwMzUgOC4wMTI4NCAxNC45ODc1IDguMjkxOCAxNS40MjA3IDguMjkxOEgyMC4zMzVDMjEuMzAzNyA4LjI5MTggMjEuNzA2NSA5LjUzMTQxIDIwLjkyMjggMTAuMTAwOEwxNi45NDcgMTIuOTg5NEMxNi41OTY2IDEzLjI0NCAxNi40NDk5IDEzLjY5NTQgMTYuNTgzOCAxNC4xMDc0TDE4LjEwMjQgMTguNzgxMkMxOC40MDE3IDE5LjcwMjUgMTcuMzQ3MiAyMC40Njg2IDE2LjU2MzUgMTkuODk5MkwxMi41ODc4IDE3LjAxMDZDMTIuMjM3MyAxNi43NTYgMTEuNzYyNyAxNi43NTYgMTEuNDEyMiAxNy4wMTA2TDcuNDM2NDggMTkuODk5MkM2LjY1Mjc2IDIwLjQ2ODYgNS41OTgyOCAxOS43MDI1IDUuODk3NjMgMTguNzgxMkw3LjQxNjIzIDE0LjEwNzRDNy41NTAxMSAxMy42OTU0IDcuNDAzNDUgMTMuMjQ0IDcuMDUyOTYgMTIuOTg5NEwzLjA3NzIyIDEwLjEwMDhDMi4yOTM1MSA5LjUzMTQxIDIuNjk2MjggOC4yOTE4IDMuNjY1MDEgOC4yOTE4SDguNTc5MjlDOS4wMTI1MiA4LjI5MTggOS4zOTY0NyA4LjAxMjg0IDkuNTMwMzUgNy42MDA4MUwxMS4wNDg5IDIuOTI3MDVaIiBmaWxsPSIjRDM1QjQwIi8+CjxwYXRoIGlkPSJTdGFyIDIiIGQ9Ik0zNS4wNDg5IDIuOTI3MDVDMzUuMzQ4MyAyLjAwNTc0IDM2LjY1MTcgMi4wMDU3NCAzNi45NTExIDIuOTI3MDVMMzguNDY5NyA3LjYwMDgxQzM4LjYwMzUgOC4wMTI4NCAzOC45ODc1IDguMjkxOCAzOS40MjA3IDguMjkxOEg0NC4zMzVDNDUuMzAzNyA4LjI5MTggNDUuNzA2NSA5LjUzMTQxIDQ0LjkyMjggMTAuMTAwOEw0MC45NDcgMTIuOTg5NEM0MC41OTY2IDEzLjI0NCA0MC40NDk5IDEzLjY5NTQgNDAuNTgzOCAxNC4xMDc0TDQyLjEwMjQgMTguNzgxMkM0Mi40MDE3IDE5LjcwMjUgNDEuMzQ3MiAyMC40Njg2IDQwLjU2MzUgMTkuODk5MkwzNi41ODc4IDE3LjAxMDZDMzYuMjM3MyAxNi43NTYgMzUuNzYyNyAxNi43NTYgMzUuNDEyMiAxNy4wMTA2TDMxLjQzNjUgMTkuODk5MkMzMC42NTI4IDIwLjQ2ODYgMjkuNTk4MyAxOS43MDI1IDI5Ljg5NzYgMTguNzgxMkwzMS40MTYyIDE0LjEwNzRDMzEuNTUwMSAxMy42OTU0IDMxLjQwMzQgMTMuMjQ0IDMxLjA1MyAxMi45ODk0TDI3LjA3NzIgMTAuMTAwOEMyNi4yOTM1IDkuNTMxNDEgMjYuNjk2MyA4LjI5MTggMjcuNjY1IDguMjkxOEgzMi41NzkzQzMzLjAxMjUgOC4yOTE4IDMzLjM5NjUgOC4wMTI4NCAzMy41MzAzIDcuNjAwODFMMzUuMDQ4OSAyLjkyNzA1WiIgZmlsbD0iI0QzNUI0MCIvPgo8cGF0aCBpZD0iU3RhciAzIiBkPSJNNTkuMDQ4OSAyLjkyNzA1QzU5LjM0ODMgMi4wMDU3NCA2MC42NTE3IDIuMDA1NzQgNjAuOTUxMSAyLjkyNzA1TDYyLjQ2OTcgNy42MDA4MUM2Mi42MDM1IDguMDEyODQgNjIuOTg3NSA4LjI5MTggNjMuNDIwNyA4LjI5MThINjguMzM1QzY5LjMwMzcgOC4yOTE4IDY5LjcwNjUgOS41MzE0MSA2OC45MjI4IDEwLjEwMDhMNjQuOTQ3IDEyLjk4OTRDNjQuNTk2NiAxMy4yNDQgNjQuNDQ5OSAxMy42OTU0IDY0LjU4MzggMTQuMTA3NEw2Ni4xMDI0IDE4Ljc4MTJDNjYuNDAxNyAxOS43MDI1IDY1LjM0NzIgMjAuNDY4NiA2NC41NjM1IDE5Ljg5OTJMNjAuNTg3OCAxNy4wMTA2QzYwLjIzNzMgMTYuNzU2IDU5Ljc2MjcgMTYuNzU2IDU5LjQxMjIgMTcuMDEwNkw1NS40MzY1IDE5Ljg5OTJDNTQuNjUyOCAyMC40Njg2IDUzLjU5ODMgMTkuNzAyNSA1My44OTc2IDE4Ljc4MTJMNTUuNDE2MiAxNC4xMDc0QzU1LjU1MDEgMTMuNjk1NCA1NS40MDM0IDEzLjI0NCA1NS4wNTMgMTIuOTg5NEw1MS4wNzcyIDEwLjEwMDhDNTAuMjkzNSA5LjUzMTQxIDUwLjY5NjMgOC4yOTE4IDUxLjY2NSA4LjI5MThINTYuNTc5M0M1Ny4wMTI1IDguMjkxOCA1Ny4zOTY1IDguMDEyODQgNTcuNTMwMyA3LjYwMDgxTDU5LjA0ODkgMi45MjcwNVoiIGZpbGw9IiNEMzVCNDAiLz4KPHBhdGggaWQ9IlN0YXIgNCIgZD0iTTgzLjA0ODkgMi45MjcwNUM4My4zNDgzIDIuMDA1NzQgODQuNjUxNyAyLjAwNTc0IDg0Ljk1MTEgMi45MjcwNUw4Ni40Njk3IDcuNjAwODFDODYuNjAzNSA4LjAxMjg0IDg2Ljk4NzUgOC4yOTE4IDg3LjQyMDcgOC4yOTE4SDkyLjMzNUM5My4zMDM3IDguMjkxOCA5My43MDY1IDkuNTMxNDEgOTIuOTIyOCAxMC4xMDA4TDg4Ljk0NyAxMi45ODk0Qzg4LjU5NjYgMTMuMjQ0IDg4LjQ0OTkgMTMuNjk1NCA4OC41ODM4IDE0LjEwNzRMOTAuMTAyNCAxOC43ODEyQzkwLjQwMTcgMTkuNzAyNSA4OS4zNDcyIDIwLjQ2ODYgODguNTYzNSAxOS44OTkyTDg0LjU4NzggMTcuMDEwNkM4NC4yMzczIDE2Ljc1NiA4My43NjI3IDE2Ljc1NiA4My40MTIyIDE3LjAxMDZMNzkuNDM2NSAxOS44OTkyQzc4LjY1MjggMjAuNDY4NiA3Ny41OTgzIDE5LjcwMjUgNzcuODk3NiAxOC43ODEyTDc5LjQxNjIgMTQuMTA3NEM3OS41NTAxIDEzLjY5NTQgNzkuNDAzNCAxMy4yNDQgNzkuMDUzIDEyLjk4OTRMNzUuMDc3MiAxMC4xMDA4Qzc0LjI5MzUgOS41MzE0MSA3NC42OTYzIDguMjkxOCA3NS42NjUgOC4yOTE4SDgwLjU3OTNDODEuMDEyNSA4LjI5MTggODEuMzk2NSA4LjAxMjg0IDgxLjUzMDMgNy42MDA4MUw4My4wNDg5IDIuOTI3MDVaIiBmaWxsPSIjRDM1QjQwIi8+CjxwYXRoIGlkPSJTdGFyIDUiIGQ9Ik0xMDcuMDQ5IDIuOTI3MDVDMTA3LjM0OCAyLjAwNTc0IDEwOC42NTIgMi4wMDU3NCAxMDguOTUxIDIuOTI3MDVMMTEwLjQ3IDcuNjAwODFDMTEwLjYwNCA4LjAxMjg0IDExMC45ODcgOC4yOTE4IDExMS40MjEgOC4yOTE4SDExNi4zMzVDMTE3LjMwNCA4LjI5MTggMTE3LjcwNiA5LjUzMTQxIDExNi45MjMgMTAuMTAwOEwxMTIuOTQ3IDEyLjk4OTRDMTEyLjU5NyAxMy4yNDQgMTEyLjQ1IDEzLjY5NTQgMTEyLjU4NCAxNC4xMDc0TDExNC4xMDIgMTguNzgxMkMxMTQuNDAyIDE5LjcwMjUgMTEzLjM0NyAyMC40Njg2IDExMi41NjQgMTkuODk5MkwxMDguNTg4IDE3LjAxMDZDMTA4LjIzNyAxNi43NTYgMTA3Ljc2MyAxNi43NTYgMTA3LjQxMiAxNy4wMTA2TDEwMy40MzYgMTkuODk5MkMxMDIuNjUzIDIwLjQ2ODYgMTAxLjU5OCAxOS43MDI1IDEwMS44OTggMTguNzgxMkwxMDMuNDE2IDE0LjEwNzRDMTAzLjU1IDEzLjY5NTQgMTAzLjQwMyAxMy4yNDQgMTAzLjA1MyAxMi45ODk0TDk5LjA3NzIgMTAuMTAwOEM5OC4yOTM1IDkuNTMxNDEgOTguNjk2MyA4LjI5MTggOTkuNjY1IDguMjkxOEgxMDQuNTc5QzEwNS4wMTMgOC4yOTE4IDEwNS4zOTYgOC4wMTI4NCAxMDUuNTMgNy42MDA4MUwxMDcuMDQ5IDIuOTI3MDVaIiBmaWxsPSIjRDM1QjQwIi8+CjwvZz4KPC9zdmc+Cg==" alt="별점 5점" width="110" height="22"><p>밤에 바르고 잠들어도 오전까지 촉촉한 느낌이에요. 야외 활동이 잦은데, 덕분에 피부가 당기지 않게 되어서 너무 좋아요!</p></div>
+    </section>
+
+    <section class="ms" id="m-scent" data-sec="3">
+      <p class="m-sub"><span class="mono">02. </span>Scent <b>“ Sleep in the forest “</b></p>
+      <div class="media m-media" data-vimeo="1217189884" data-ratio="0.8889" style="background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/a63c5cc1b00d4.jpg)"></div>
+      <p class="m-h">잠들기 전 편안함까지 고려한 '좋은 향'</p>
+      <p><b>슬립 인 더포레스트</b><br>비 갠 숲속을 걷는 듯 촉촉하면서도 포근한 향. 라벤더 줄기를 손끝에 문지른 듯한 싱그러운 허브와 비에 젖은 흙내음, 이끼 낀 나무껍질의 분위기를 담았습니다.</p>
+      <p class="m-h2 m-ruled">조향 설계</p>
+      <div class="m-note-row"><p class="b">상쾌하고 시원하게 시작합니다</p><p><b>TOP</b> | 라반딘 ∙ 베르가못 ∙ 오렌지 ∙ 자몽 ∙ 클라리 세이지</p></div>
+      <div class="m-note-row"><p class="b">은은하고 부드럽게 이어집니다</p><p><b>MIDDLE</b> | 자스민 ∙ 라벤더 ∙ 로즈마리 ∙ 네롤리 ∙ 핑크 페퍼</p></div>
+      <div class="m-note-row"><p class="b">깊고 차분하게 남습니다</p><p><b>BASE</b> | 머스크 ∙ 엠버 ∙ 시더우드 ∙ 베티버 ∙ 패출리 ∙ 톤카</p></div>
+      <p class="m-note">나잇나잇 크림의 '슬립 인 더포레스트향'은 잠들기 전의 감각을 고려해 개발한, 바이도즈 독점 공급 향료로 완성했습니다.</p>
+    </section>
+
+    <section class="ms light-photo" id="m-aroma" data-sec="3" style="background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/0a3ffe57f296c.jpg)">
+      <p class="m-h">「Aroma Wellness」<br>좋은 향을 넘어, 잠들기 전의 편안함까지.</p>
+      <p>차분한 마음은 '좋은 잠'을, 좋은 잠은 '좋은 피부'를 만든다는 믿음으로, 나잇나잇 크림은 좋은 향을 넘어, 잠들기 전 심리 상태를 고려한 향을 담았습니다.</p>
+      <p>CPL Aromas의 「AromaWellness」는 향과 감정의 연결을 탐구하는 향 연구 플랫폼입니다. 향에 대한 사람의 행동과 생리적 반응, 주관적 인식을 다양한 평가 방법으로 살펴봅니다.</p>
+      <dl class="m-eval">
+        <div><dt><span class="mono">01</span> 행동 반응</dt><dd>표정 변화 · 시선 추적</dd></div>
+        <div><dt><span class="mono">02</span> 생리 반응</dt><dd>심박 · 뇌파 · <mark>피부 전도도(GSR)</mark></dd></div>
+        <div><dt><span class="mono">03</span> 주관 반응</dt><dd><mark>설문평가</mark></dd></div>
+      </dl>
+      <div class="m-cert">
+        <p class="m-h2 xb">CPL Aromas - 「Aroma Wellness」</p>
+        <p>이 향료 GW ONE RELAX SC는 AromaWellness Relaxation 향료를 포함하며, CPL Aromas의 <b>기술 적합성 확인서</b>를 받았습니다.</p>
+        <img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/d18b8fab6ec71.jpg" alt="GW ONE RELAX SC 기술 적합성 확인서">
+        <p class="m-note">※ Certificate of Technology Compliance · 15 December 2025<br>※ 확인 범위는 Relaxation 향료의 포함 사실과 해당 평가 방식입니다. GW ONE RELAX SC 전체의 별도 시험이나 완제품의 이완·수면 효과를 입증하는 자료는 아닙니다.</p>
+        <p class="m-note">GW ONE RELAX SC 관련 기술 적합성 확인서<br>완제품의 수면·이완 효과 인증서가 아닙니다.</p>
       </div>
     </section>
 
+    <!-- 04 성분 설계 -->
+    <section class="ms" id="m-formula" data-sec="4">
+      <p class="m-k"><span class="mono">04</span> 성분 설계</p>
+      <p class="m-h">피부의 회복 환경을 생각한 성분 설계</p>
+      <p>자는 동안 피부가 회복하는 데 중요한 수분을 채우고 지키는 성분을 조합했습니다. 여기에 아침 피부결과 컨디션까지 고려한 두 가지 발효 성분을 더했습니다.</p>
+      <a class="m-card" href="#m-hydration"><p class="m-h2 b"><span class="mono">01</span>&nbsp; Hydration</p><p>수분. 피부 회복의 시작점</p><p class="m-chips"><span class="chip c-blue">히알루론산 5종</span><span class="chip c-blue">AQUAXYL™ 자일리톨계 3종</span></p></a>
+      <a class="m-card" href="#m-barrier"><p class="m-h2 b"><span class="mono">02</span>&nbsp; Barrier</p><p>채운 수분을 지키는 이중 보호 설계</p><p class="m-chips"><span class="chip c-yellow">엑토인</span><span class="chip c-yellow">세라마이드 5종</span></p></a>
+      <a class="m-card" href="#m-condition"><p class="m-h2 b"><span class="mono">03</span>&nbsp; Condition</p><p>아침 피부결까지 생각한 발효 케어</p><p class="m-chips"><span class="chip c-green">비피다발효여과물</span><span class="chip c-green">갈락토미세스발효여과물</span></p></a>
+    </section>
+
+    <section class="ms" id="m-hydration" data-sec="4">
+      <p class="m-h b"><span class="mono">01</span>&nbsp; Hydration</p>
+      <p class="m-lead">수분. 피부 회복의 시작점</p>
+      <div class="m-ing"><span class="chip c-blue b">히알루론산 5종</span><p class="m-h2">수분 공급과 보습막</p><p>물 분자를 끌어당기는 히알루론산은 대표적인 보습 성분입니다. 기본 형태부터 잘게 분해된 형태, 그물처럼 연결된 형태까지 서로 다른 구조의 히알루론산 5종을 조합했습니다. 각기 다른 특성의 히알루론산이 피부에 수분을 공급하고, 피부 표면에 촉촉한 보습막을 형성하도록 고려했습니다.</p></div>
+      <div class="m-ing"><span class="chip c-blue b">AQUAXYL™ 자일리톨계 3종</span><p class="m-h2">수분 이동과 저장 환경</p><p>자일리톨·자일리틸글루코사이드·무수자일리톨로 구성된 보습 복합체 AQUAXYL™을 사용했습니다. AQUAXYL™은 표피 내 수분 이동과 수분 저장을 돕는 특성을 지닌 보습 원료입니다.</p><p>히알루론산이 물 분자를 끌어당겨 붙잡는다면, AQUAXYL™은 피부 안에서 수분이 오가고 유지되는 환경에 주목한 성분입니다.</p></div>
+      <p class="m-sum">나잇나잇 크림은 수분을 채우는 데서 그치지 않고, 수분이 고르게 오가고 머무는 환경까지 고려하기 위해 두 원료를 함께 배합했습니다.</p>
+      <p class="m-note red">※ AQUAXYL™의 특성은 원료사 자료 기준이며, 나잇나잇 크림 완제품의 시험 결과가 아닙니다.</p>
+    </section>
+
+    <section class="ms" id="m-barrier" data-sec="4">
+      <p class="m-h b"><span class="mono">02</span>&nbsp; Barrier</p>
+      <p class="m-lead">채운 수분을 지키는 이중 보호 설계</p>
+      <div class="m-ing"><span class="chip c-yellow">엑토인</span><p class="m-h2">극한 환경에서 찾은 피부 보호</p><p>높은 염도와 건조함 등 극한 환경에 서식하는 일부 미생물이 스스로를 보호하기 위해 만들어내는 물질입니다. 엑토인은 주변의 물 분자와 상호작용해 단백질과 세포막 주변의 수분 환경을 안정화하는 특성을 지니고 있습니다.</p><p>피부의 수분 유지와 장벽 보호를 위한 성분으로 활용되며, <span class="red">엑토인을 함유한 제형의 피부 적용 연구*</span> 에서도 보습 및 수분 손실 개선 가능성이 보고되었습니다. <b>단순히 수분을 공급하는 것을 넘어, 건조함과 외부 환경 스트레스까지 고려한 보습 설계</b>를 위해 엑토인을 선택했습니다.</p><p class="m-note red">* 원료·제형 연구 기준이며, 나잇나잇 크림 완제품의 시험 결과가 아닙니다.</p></div>
+      <div class="m-ing"><span class="chip c-yellow">세라마이드 5종</span><p class="m-h2">피부 장벽의 지질 보완</p><p>세라마이드는 피부 각질층에서 세포 사이를 채우는 주요 지질 성분 중 하나입니다. 5종 세라마이드를 조합해 피부 장벽에 필요한 지질을 보완하고, 수분 손실을 줄이는 장벽 케어를 고려했습니다.</p></div>
+      <p class="m-sum">엑토인이 수분 환경의 안정화와 보호에 주목한 성분이라면, 세라마이드는 피부 장벽을 구성하는 지질에 집중한 성분입니다. 서로 다른 역할의 두 성분을 함께 배합해, 채운 수분을 지키기 위한 보습 환경을 생각했습니다.</p>
+    </section>
+
+    <section class="ms" id="m-condition" data-sec="4">
+      <p class="m-h b"><span class="mono">03</span>&nbsp; Condition</p>
+      <p class="m-lead">아침 피부결까지 생각한 발효 케어</p>
+      <div class="m-ing"><span class="chip c-green b">비피다발효여과물</span><p class="m-h2">수분 유지와 피부 컨디셔닝</p><p>비피다균의 발효 과정에서 얻은 여과물입니다. 발효 과정에서 얻는 수용성 성분을 담은 원료로, 피부의 수분 유지와 컨디셔닝을 위해 활용됩니다. 나잇나잇 크림은 이러한 원료 특성에 주목해, <b>하루 동안 외부 환경에 노출된 피부의 컨디션</b>까지 고려하여 비피다발효여과물을 선택했습니다.</p></div>
+      <div class="m-ing"><span class="chip c-green b">갈락토미세스발효여과물</span><p class="m-h2">보습과 부드러운 피부결 관리</p><p>갈락토미세스의 발효 과정에서 얻은 여과물입니다. 피부 보습과 피부결 관리를 위한 컨디셔닝 원료로 활용되며, 관련 원료를 함유한 제형 연구에서는 피부 거칠기 개선이 보고되었습니다. 나잇나잇 크림은 이러한 원료의 활용 배경을 바탕으로, <b>건조함으로 거칠어지기 쉬운 피부를 촉촉하고 부드럽게 관리하는 나이트케어를 위해</b> 갈락토미세스발효여과물을 선택했습니다.</p></div>
+      <p class="m-sum">수분을 채우고 지키는 보습·장벽 설계에 두 가지 발효 성분의 컨디셔닝 특성을 더해, 다음 날 아침의 피부결과 컨디션까지 생각했습니다.</p>
+      <p class="m-note red">※ 발효 성분의 특성과 연구 배경에 대한 설명입니다. 연구에 사용된 원료·제형의 결과를 완제품의 시험 결과로 제시하지 않습니다.</p>
+    </section>
+
+    <!-- 05 제품 정보 -->
+    <section class="ms" id="m-info" data-sec="5">
+      <p class="m-k"><span class="mono">05</span> 제품 정보</p>
+      <img class="m-cut" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/94d3abb072d92.png" alt="나잇나잇 크림 본품">
+      <dl class="m-spec">
+        <div><dt>제품명</dt><dd>byDose NIGHT NIGHT CREAM (나잇나잇 크림)</dd></div>
+        <div><dt>용량</dt><dd>50 mL</dd></div>
+        <div><dt>제품 유형 / 제형</dt><dd>나이트 크림 / 젤-크림 타입</dd></div>
+        <div><dt>피부 타입</dt><dd>모든 피부용</dd></div>
+        <div><dt>용기</dt><dd>에어리스 펌프</dd></div>
+        <div><dt>사용법</dt><dd>적당량을 얼굴 전체에 부드럽게 펴 바릅니다.</dd></div>
+        <div><dt>제조국</dt><dd>대한민국</dd></div>
+        <div><dt>소비자가</dt><dd>28,900원</dd></div>
+        <div><dt>홈페이지 / 문의</dt><dd><a class="u" href="https://bydose.kr" target="_blank" rel="noopener">bydose.kr</a> · <a class="u" href="mailto:hogan@bydose.kr">hogan@bydose.kr</a></dd></div>
+      </dl>
+      <p class="m-note red">전성분·제조/책임판매 정보·박스 입수 등 상세 정보와 공급가·MOQ·납기는 필요 시 별도 자료로 제공합니다.</p>
+    </section>
+
+    <!-- 문의 -->
+    <section class="ms m-end" id="m-contact" data-sec="5">
+      <p>읽어주셔서 감사합니다.<br>샘플 검토와 거래 조건 문의는 아래로 연락 주세요.</p>
+      <a class="m-mail" href="mailto:hogan@bydose.kr">hogan@bydose.kr</a>
+      <img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjYwIiBoZWlnaHQ9IjMwIiB2aWV3Qm94PSIwIDAgNjAgMzAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJhIiBjbGlwLXBhdGg9InVybCgjY2xpcDBfMF8xNykiPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNNTcuNTQ0MiAzLjkwMjk4TDU3Ljc2IDQuNDgxODFMNTcuOTc1NyAzLjkwMjk4QzU4LjIyNDYgMy4yNDE0NiA1OC43NTU1IDIuNzEyMjQgNTkuNDE5MiAyLjQ2NDE3TDYwIDIuMjQ5MTdMNTkuNDE5MiAyLjAzNDE4QzU4Ljc1NTUgMS43ODYxMSA1OC4yMjQ2IDEuMjU2ODkgNTcuOTc1NyAwLjU5NTM2OUw1Ny43NiAwLjAxNjUzOEw1Ny41NDQyIDAuNTk1MzY5QzU3LjI5NTQgMS4yNTY4OSA1Ni43NjQ0IDEuNzg2MTEgNTYuMTAwNyAyLjAzNDE4TDU1LjUxOTkgMi4yNDkxN0w1Ni4xMDA3IDIuNDY0MTdDNTYuNzY0NCAyLjcxMjI0IDU3LjI5NTQgMy4yNDE0NiA1Ny41NDQyIDMuOTAyOThaIiBmaWxsPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3JfMiIgZD0iTTU4LjY3MjYgMjAuNjg5MUM1Ny45MjU5IDIwLjUwNzIgNTYuOTMwMyAyMC40NTc2IDU1LjY2OTIgMjAuNjcyNUM1My40NDU4IDIxLjAzNjQgNTEuNTA0NCAyMS43MzEgNTAuNTkxOCAyMS4yMzQ4QzUwLjIxMDIgMjEuMDM2NCA0OS45Nzc5IDIwLjczODcgNDkuODExOSAyMC40MjQ1QzUwLjM1OTUgMTkuNDk4MyA1MC41NDIgMTguNjU0OSA1MC42MjUgMTguMTU4OEM1MC44OTA1IDE2LjY3MDMgNDkuNzI5IDE1LjE5ODUgNDkuNzI5IDE1LjE5ODVDNDkuNzI5IDE1LjE5ODUgNTAuMDQ0MyAxNC42MTk2IDUwLjgwNzUgMTQuNzE4OUM1My4zOTYgMTUuMDgyNyA1NC4xNTkzIDEyLjkzMjcgNTQuMTA5NSAxMi4zODdDNTQuMDU5NyAxMS44NDEyIDUzLjIzMDEgMTEuMjk1NSA1Mi4xNjgxIDEwLjI1MzZDNDkuMzYzOSA2LjgxMzY3IDQ3Ljg3MDYgNy43Mzk4IDQ3LjA5MDcgNy45NTQ4QzQ2LjU1OTcgNy45NTQ4IDQ2LjI0NDUgNy41NzQ0MiA0Ni4wOTUxIDcuMzA5ODFDNDUuNTgwOCA0Ljg0NTY0IDQ0LjEyMDYgNC4yNTAyOCA0Mi4yNjIyIDMuNzcwNjdDNDAuMjA0NiAzLjI0MTQ2IDM4LjY2MTUgMS40MDU3MyAzNy44MzE5IDAuNTk1MzY5QzM3LjAxODggLTAuMjE0OTk0IDM1Ljk5IC0wLjA2NjE1MjEgMzUuNTc1MiAwLjM2MzgzN0MzNS4xNDM4IDAuNzkzODI2IDM1LjA2MDggMS4zMzk1OCAzNS40NTkxIDIuMDM0MThDMzUuODQwNyAyLjc0NTMxIDM3LjM4MzkgNC41ODEwNCAzOS41OTA3IDQuNjYzNzNDNDEuNzgxIDQuNzI5ODggNDIuOTkyMyA1LjE5Mjk0IDQzLjU4OTYgNS44Mzc5M0M0NC4yMDM1IDYuNDk5NDUgNDQuMTM3MiA3LjEyNzg5IDQ0LjEzNzIgNy4xMjc4OUM0Mi43NzY2IDUuNDA3OTQgMzkuOTM5MiA1LjQ3NDA5IDM4Ljg2MDYgNS43MDU2MkMzNy43OTg3IDUuOTM3MTYgMzQuMzQ3MyA2LjgxMzY3IDMzLjA1MzEgNi4wMzYzOEMzMS43NTg5IDUuMjU5MSAzMC4yNjU1IDUuMjc1NjMgMjkuNjE4NCA2LjQxNjc2QzI5LjEwNCA3LjMyNjM1IDI5LjMwMzEgOC4wMzc0OSAzMC4yODIxIDguNzY1MTZDMzIuMTIzOSAxMC4zMTk3IDM2LjE4OTIgOC44MzEzMSAzOC41OTUxIDguMDIwOTVDMzkuNzA2OSA3LjY1NzExIDQwLjkwMTYgNy41NDEzNSA0Mi4wMjk5IDcuODIyNDlDNDQuMjIwMSA4LjM2ODI1IDQ0LjkxNyA5LjY0MTY4IDQ0LjkxNyAxMC43MTY2QzQ0LjU4NTIgMTEuODU3OCA0My44MjE5IDEyLjg1MDEgNDIuNzYgMTMuMzk1OEM0MC40NTM1IDE0LjYwMzEgMzYuMzM4NSAxNS43MTExIDMyLjk3MDEgMTMuNTYxMkMyOS4yMjAxIDExLjE0NjYgMjYuMDAxMSAxMS4xMzAxIDIzLjUxMjIgMTEuODI0N0MyMy4wOTczIDEwLjg4MiAyMi4wNjg2IDEwLjI3MDEgMjAuOTIzNyAxMC41MDE3QzIwLjA3NzQgMTAuNjY3IDE5LjM5NzEgMTEuMzQ1MSAxOS4xODE0IDEyLjE4ODVDMTguOTk4OSAxMi45MzI3IDE5LjE5OCAxMy42MjczIDE5LjYxMjggMTQuMTRDMTguNjAwNyAxNS40NDY1IDE4LjI2ODggMTYuODY4OCAxOC4yNjg4IDE2Ljg2ODhDMTcuMjczMiAxNi44Njg4IDE0LjczNDUgMTUuOTI2MSAxMy45MDQ5IDE1LjM2MzhDMTMuMzI0MSAxNC45ODM1IDEyLjAyOTkgMTQuMzU1IDExLjAzNDMgMTUuODZDMTAuMzIwOCAxNi45NTE1IDguNDI5MiAxOC4yOTExIDcuNDE3MDMgMTguOTY5MUM3LjAwMjIxIDE5LjI1MDMgNi41MDQ0MiAxOS4zODI2IDYuMDA2NjQgMTkuMzY2TDIuMDc0MTIgMTkuMjAwN0MxLjM3NzIxIDE5LjE2NzYgMC44Mjk2NDYgMTkuNzc5NSAwLjkxMjYxMSAyMC40NzQxQzEuMDI4NzYgMjEuMzUwNiAxLjU1OTczIDIyLjI2MDIgMi44NTM5OCAyMi4yNjAyQzcuMDAyMjEgMjIuMjYwMiA4LjgxMDg0IDE5LjY4MDMgOC44MTA4NCAxOS42ODAzQzcuNzQ4ODkgMjIuMjQzNyA1LjE0MzgxIDI0LjcwNzggNS4xNDM4MSAyNC43MDc4TDEuMDQ1MzUgMjQuODU2N0MwLjM4MTYzNyAyNC44ODk3IC0wLjEzMjc0MyAyNS40ODUxIC0wLjAxNjU5MjkgMjYuMTMwMUMwLjE2NTkyOSAyNy4xNTU1IDAuNjYzNzE3IDI3LjQyMDEgMS42NTkyOSAyNy42NTE2QzUuMzkyNyAyOC40Mjg5IDkuMDc2MzMgMjMuNDM0NCA5LjYyMzg5IDIyLjgyMjVDMTAuMTcxNSAyMi4yMTA2IDEwLjU4NjMgMjEuNDQ5OCAxMS4zNjYyIDIxLjQ0OThDMTIuMTQ2IDIxLjQ0OTggMTIuNTI3NyAyMS42MzE4IDEzLjMyNDEgMjEuOTc5MUMxNy41ODg1IDI0LjA2MjggMjAuNDA5MyAyNS4yNzAxIDIyLjkxNDggMjQuNzA3OEMyNS40MjA0IDI0LjE2MjEgMjUuMjM3OCAxOC44Njk5IDI5LjE1MzggMTkuMDY4NEMzMy4wNjk3IDE5LjI1MDMgMzQuNTk2MiAyNC41NDI1IDM5LjI1ODkgMjQuNTQyNUM0MC41Njk3IDI0LjU0MjUgNDEuNzE0NiAyNC40NTk4IDQyLjc0MzQgMjQuMzEwOUM0NC4xMDQgMjkuNzg1IDQ4LjczMzQgMjcuNzE3OCA1MS42MjA2IDI3Ljc1MDhDNTMuMjc5OSAyNy43Njc0IDU0LjIyNTcgMjguNjkzNSA1NC43MjM1IDI5LjUwMzlDNTUuMTU0OSAzMC4yMTUgNTYuMjY2NiAzMC4xODE5IDU2LjYzMTYgMjkuNDIxMkM1Ny4wNzk2IDI4LjQ5NSA1Ni44MTQyIDI3LjM1MzkgNTUuOTM0NyAyNi44NDEyQzU1LjIyMTIgMjYuNDI3OCA1NC4yMDkxIDI2LjA4MDUgNTIuODQ4NSAyNS45MTUxQzUwLjQ0MjUgMjUuNjM0IDQ4LjIzNTYgMjUuNzY2MyA0Ny40MzkyIDI0Ljk3MjRDNDYuODU4NCAyNC4zOTM2IDQ2LjgwODYgMjMuNjQ5NCA0Ni44MjUyIDIzLjA3MDZDNDYuODc1IDIzLjAzNzUgNDYuOTI0OCAyMy4wMjA5IDQ2Ljk3NDYgMjIuOTg3OUM0OS41MTMzIDI1LjgxNTkgNTIuNjY1OSAyMy4yNjkgNTUuMDA1NSAyMi42MDc1QzU2LjQ5ODkgMjIuMTk0IDU3LjU3NzQgMjIuNzcyOSA1OC4yMjQ2IDIzLjM2ODJDNTguODA1MyAyMy44OTc1IDU5Ljc2NzcgMjMuNTY2NyA1OS45MTcgMjIuODA2QzYwLjA4MyAyMS44NjMzIDU5LjUzNTQgMjAuOTA0MSA1OC42MjI4IDIwLjY4OTFINTguNjcyNlpNMTcuNjU0OSAyMC40OTA2QzE3LjY1NDkgMjAuNDkwNiAxNC4xMDQgMjAuOTIwNiAxMS42NjQ4IDE4LjMyNDFDMTEuNjY0OCAxOC4zMjQxIDEzLjE0MTYgMTcuNTQ2OSAxNS41MTQ0IDE4LjQ1NjVDMTcuODcwNiAxOS4zODI2IDE3LjY1NDkgMjAuNDkwNiAxNy42NTQ5IDIwLjQ5MDZaIiBmaWxsPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3JfMyIgZD0iTTAgMTAuNTAxN0gzLjE1MjY1VjExLjA4MDVIMS45MjQ3OFYxNC40NzA4SDEuMjI3ODhWMTEuMDgwNUgwVjEwLjUwMTdaIiBmaWxsPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3JfNCIgZD0iTTQuNTI5ODcgMTAuNTAxN0w1LjU3NTIyIDEzLjU5NDNINS41OTE4MUw2LjY3MDM1IDEwLjUwMTdINy42MTYxNVYxNC40ODczSDYuOTM1ODRWMTEuNTkzMkw1LjkyMzY3IDE0LjQ4NzNINS4yMjY3N0w0LjI0Nzc5IDExLjU5MzJWMTQuNDg3M0gzLjU2NzQ4VjEwLjUwMTdINC41Mjk4N1oiIGZpbGw9IiMyQTJBMjkiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMF8wXzE3Ij4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjMwIiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=" alt="byDose" width="60" height="30">
+    </section>
+
+    <nav class="mtabs" aria-label="목차">
+      <i class="mbar" id="bdkMBar"></i>
+      <a href="#m-intro" data-t="1"><span class="mono">01</span>제품소개</a>
+      <a href="#m-why" data-t="2"><span class="mono">02</span>밤을 위한 설계</a>
+      <a href="#m-texture" data-t="3"><span class="mono">03</span>감촉과 향</a>
+      <a href="#m-formula" data-t="4"><span class="mono">04</span>성분 설계</a>
+      <a href="#m-info" data-t="5"><span class="mono">05</span>제품 정보</a>
+    </nav>
   </div>
 </div>
 
@@ -609,22 +573,122 @@
 #bdk .spec > div::after{content:"";position:absolute;left:1px;right:0;top:42px;height:1px;background:var(--ink)}
 #bdk .spec > div p:first-child{padding-top:3px;font-size:12px;line-height:12px;font-weight:700;letter-spacing:.03em}
 #bdk .spec > div p:last-child{font-size:18px;line-height:18px;white-space:pre}
-#bdk .spec-m > div{grid-template-columns:96px 1fr;height:auto;padding:11px 0;border-bottom:1px solid var(--ink)}
-#bdk .spec-m > div::after{display:none}
-#bdk .spec-m > div p:first-child{font-size:11px;line-height:14px}
-#bdk .spec-m > div p:last-child{font-size:14px;line-height:19px;white-space:normal;word-break:keep-all}
 
-/* 모바일 성분 카드 (M8~M11) — 위에서부터 흘러 내려가는 세로 칸 */
-#bdk .mchips{display:flex;flex-wrap:wrap;gap:6px;white-space:normal;width:310px}
-#bdk .mcard .chip,#bdk .mchip{height:30px;padding:0 12px;border-radius:30px;font-size:13px;line-height:18px}
-#bdk .mcol{display:flex;flex-direction:column;gap:12px;white-space:normal}
-#bdk .mbox{position:relative;padding:16px 16px 18px}
-#bdk .mchip{display:inline-flex;font-weight:700}
-#bdk .mtitle{margin-top:12px;font-size:17px;line-height:22px;letter-spacing:.03em}
-#bdk .mbody{margin-top:8px;font-size:13px;line-height:19px;word-break:keep-all}
-#bdk .mnote{margin-top:8px;font-size:12px;line-height:17px;word-break:keep-all}
-#bdk .mfoot{font-size:13px;line-height:19px;word-break:keep-all;padding:0 4px}
-#bdk .mcol > .mnote{padding:0 4px;margin-top:-4px}
+/* ============================================================
+   모바일 — 세로로 내려 읽는 한 페이지
+   글자는 em 단위: 기본 17px, 아이폰 '설정 > 디스플레이 > 텍스트 크기'를 따라 커진다(-apple-system-body).
+   ============================================================ */
+#bdk .mpage{display:none}
+#bdk.is-m .track{display:none}
+#bdk.is-m .mpage{
+  display:block;position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+  background:var(--cream);color:var(--ink);
+  font-size:17px;font:-apple-system-body;font-family:var(--f);line-height:1.7;letter-spacing:0;
+  -webkit-text-size-adjust:100%;text-size-adjust:100%;word-break:keep-all;overflow-wrap:break-word;
+  padding-bottom:calc(68px + env(safe-area-inset-bottom,0px));
+}
+#bdk .mpage p+p{margin-top:.75em}
+#bdk .mpage img{max-width:100%}
+#bdk .mpage .b{font-weight:700}
+
+/* 머리말: 언어 · 로고 · PDF */
+#bdk .mh{position:relative;display:flex;align-items:center;justify-content:space-between;padding:6px 8px}
+#bdk .mh-btn{display:flex;align-items:center;justify-content:center;min-width:48px;height:48px;padding:0 6px}
+#bdk .mh-logo{width:72px;height:18px}
+#bdk .m-lang{left:8px;top:54px}
+
+/* 섹션 */
+#bdk .ms{position:relative;padding:2.4em 22px 2.6em;scroll-margin-top:0}
+#bdk .ms+.ms:not(.dark):not(.light-photo){border-top:1px solid rgba(42,42,41,.12)}
+#bdk .m-k{font-size:.82em;font-weight:500;color:var(--red);letter-spacing:.03em;margin-bottom:.9em}
+#bdk .m-k .mono{font-weight:700;margin-right:.35em}
+#bdk .m-h{font-size:1.5em;line-height:1.35;font-weight:800;margin:.1em 0 .6em}
+#bdk .m-h .rg{font-weight:400}
+#bdk .m-h2{font-size:1.12em;line-height:1.4;font-weight:600;margin:.2em 0 .35em}
+#bdk .m-lead{font-size:1.05em;margin:-.3em 0 1.2em;color:rgba(42,42,41,.8)}
+#bdk .m-note{font-size:.86em;line-height:1.6;color:rgba(42,42,41,.72);margin-top:1em}
+#bdk .m-note.red,#bdk .mpage .red{color:var(--red)}
+#bdk .m-sub{font-size:.95em;margin-bottom:.9em}
+#bdk .m-sub b{float:right;font-weight:700}
+#bdk .m-rule{border:0;border-top:1px solid var(--ink);margin:1.2em 0 1em}
+
+/* 표지 */
+#bdk #m-cover{padding-top:1.2em}
+#bdk .m-title{font-size:1.55em;font-weight:700;line-height:1.3}
+#bdk .m-kw{font-size:.78em;font-weight:700;letter-spacing:.02em;margin:.6em 0 1.2em!important}
+#bdk .m-hero{display:block;width:100%;aspect-ratio:342/440;object-fit:cover;border-radius:28px}
+
+/* 01 */
+#bdk .m-cut{display:block;width:74px;height:300px;margin:0 auto 1.6em;object-fit:fill}
+#bdk .m-tags{display:flex;flex-wrap:wrap;gap:.5em;margin-top:.9em!important}
+#bdk .mpage .tag{display:inline-flex;font-size:.92em;line-height:1.4;padding:.5em 1.1em;border-radius:2em;background:rgba(0,0,0,.08);letter-spacing:0}
+
+/* 어두운 사진 배경 섹션 (02) — 사진 위에 어두운 막을 덮어 글자를 또렷하게 */
+#bdk .ms.dark{color:var(--cream);background:#1d1916 center/cover no-repeat;isolation:isolate}
+#bdk .ms.dark::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(18,14,11,.72),rgba(18,14,11,.55) 60%,rgba(18,14,11,.72))}
+#bdk .ms.dark .m-note{color:rgba(243,243,233,.85)}
+#bdk .m-view{margin-top:1.8em}
+#bdk .mpage .badge{display:inline-flex;height:auto;font-size:.88em;line-height:1.4;padding:.25em .8em;border-radius:1em}
+#bdk .m-view .m-h2{color:#fff;margin-top:.5em}
+#bdk .m-time{display:flex;gap:.7em;margin-top:.8em;padding:1em 1.05em;border-radius:14px;background:rgba(243,243,233,.9);color:var(--ink)}
+#bdk .m-time img{flex:none;width:24px;height:24px;margin-top:.25em}
+#bdk .m-time p+p{margin-top:.15em}
+#bdk .m-t{font-size:1.3em;line-height:1.3}
+#bdk #m-sequence .m-time:first-of-type{margin-top:1.4em}
+
+/* 03 */
+#bdk .m-media{position:relative;width:100%;aspect-ratio:342/240;border-radius:14px;margin-bottom:1.4em}
+#bdk #m-scent .m-media{aspect-ratio:1/1}
+#bdk .m-rate{display:flex;align-items:center;gap:1em;font-size:1.05em;margin-top:.6em}
+#bdk .m-rate img{width:120px;height:auto}
+#bdk .m-review{position:relative;margin-top:1.4em;padding:1.1em 1.2em 1.2em;border-radius:14px;background:#fff;box-shadow:0 6px 14px rgba(0,0,0,.08)}
+#bdk .m-review img{position:absolute;right:1.1em;top:1.15em;width:110px;height:auto}
+#bdk .m-who{color:rgba(42,42,41,.45)}
+#bdk .m-ruled{margin-top:1.6em!important;padding-bottom:.5em;border-bottom:1px solid rgba(42,42,41,.4)}
+#bdk .m-note-row{margin-top:.9em}
+#bdk .m-note-row p+p{margin-top:.1em}
+
+/* 03 AromaWellness — 밝은 사진 위에 크림색 막 */
+#bdk .ms.light-photo{background:center/cover no-repeat;isolation:isolate}
+#bdk .ms.light-photo::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(243,243,233,.9),rgba(243,243,233,.82) 60%,rgba(243,243,233,.9))}
+#bdk .m-eval{margin:1.3em 0 0}
+#bdk .m-eval div{display:grid;grid-template-columns:6.3em 1fr;gap:.4em;padding:.35em 0}
+#bdk .m-eval dt{font-weight:700}
+#bdk .m-eval dd{margin:0}
+#bdk .mpage mark{padding:.05em .3em}
+#bdk .m-cert{margin-top:1.6em;padding:1.2em;border-radius:14px;background:rgba(255,255,255,.7)}
+#bdk .m-cert img{display:block;width:62%;margin:1em auto 0;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+
+/* 04 */
+#bdk .m-card{display:block;margin-top:.9em;padding:1.1em 1.2em;border-radius:14px;background:rgba(255,255,255,.65)}
+#bdk .m-card .m-h2{margin:0 0 .2em}
+#bdk .m-chips{display:flex;flex-wrap:wrap;gap:.45em;margin-top:.8em!important}
+#bdk .mpage .chip{display:inline-flex;height:auto;font-size:.88em;line-height:1.4;padding:.45em .95em;border-radius:2em;font-weight:600}
+#bdk .mpage .chip.b{font-weight:700}
+#bdk .m-ing{margin-top:1.3em;padding-top:1.3em;border-top:1px solid rgba(42,42,41,.15)}
+#bdk .m-ing .m-h2{margin-top:.6em}
+#bdk .m-sum{margin-top:1.6em!important;padding:1.1em 1.2em;border-radius:14px;background:rgba(255,255,255,.65)}
+
+/* 05 */
+#bdk .m-spec{margin:0;border-top:1px solid var(--ink)}
+#bdk .m-spec div{padding:.8em 0;border-bottom:1px solid rgba(42,42,41,.25)}
+#bdk .m-spec dt{font-size:.82em;font-weight:700;color:rgba(42,42,41,.65)}
+#bdk .m-spec dd{margin:.15em 0 0}
+#bdk .m-end{text-align:center;padding-top:3em;padding-bottom:3.5em}
+#bdk .m-mail{display:inline-block;margin:1.2em 0 1.4em;padding:.55em 1.2em;border-radius:2em;background:var(--ink);color:var(--cream);font-weight:600}
+#bdk .m-end img{display:block;margin:0 auto}
+
+/* 아래 고정 목차 탭 */
+#bdk .mtabs{position:absolute;left:0;right:0;bottom:0;z-index:4;display:none;grid-template-columns:repeat(5,1fr);
+  padding-bottom:env(safe-area-inset-bottom,0px);background:rgba(243,243,233,.96);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid rgba(42,42,41,.12)}
+#bdk.is-m .mtabs{display:grid;position:fixed}
+#bdk .mtabs a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;height:64px;font-size:12px;line-height:1.25;font-weight:500;text-align:center;color:var(--ink)}
+#bdk .mtabs a .mono{font-weight:700;font-size:12px}
+#bdk .mtabs a.is-on{color:var(--red)}
+#bdk .mbar{position:absolute;left:0;top:-1px;height:2px;width:0;background:var(--red);transition:width .25s ease}
+#bdk .mtabs a:focus-visible,#bdk .mh-btn:focus-visible,#bdk .m-card:focus-visible{outline:2px solid var(--red);outline-offset:-2px}
+@media print{#bdk .mpage,#bdk .mtabs{display:none!important}#bdk.is-m .track{display:block!important}}
+
 </style>
 
 <script>
@@ -641,7 +705,6 @@
 
   /* 섹션 → 첫 장 */
   var SECS=['','제품 소개','밤을 위한 설계','감촉과 향','성분 설계','제품 정보'];
-  var TABS=['','제품소개','밤을 위한 설계','감촉과 향','성분 설계','제품 정보'];
   var SEC_FIRST={1:'intro',2:'why',3:'texture',4:'formula',5:'info'};
   /* 언어: 지금은 한국어 원고만 있음. 번역본이 생기면 data-code 로 분기 */
   var LANGS=[['KOR','한국어','🇰🇷'],['ENG','영어','🇺🇸'],['JPN','일본어','🇯🇵'],['CHN','중국','🇨🇳'],['MNG','몽골','🇲🇳'],['RUS','러시아','🇷🇺']];
@@ -657,8 +720,8 @@
   /* ---------- 장마다 머리말·다음 버튼 넣기 ---------- */
   slides.forEach(function(s,i){
     var dark=s.dataset.ui==='dark', tone=dark?'light':'dark', ink=dark?'var(--cream)':'var(--ink)';
-    var sec=+s.dataset.sec||0, msec=+(s.dataset.msec||sec);
-    var d=s.querySelector('.stage.d'), m=s.querySelector('.stage.m');
+    var sec=+s.dataset.sec||0;
+    var d=s.querySelector('.stage.d');
 
     /* PC 머리말: 로고 · 01~05 · PDF · 언어 */
     var logo=pos(el('a','a'),'left:60px;top:26px;width:72px;height:18px'); logo.href='#cover'; logo.setAttribute('aria-label','byDose 처음으로');
@@ -680,27 +743,6 @@
       if(s.dataset.next) d.appendChild(pos(el('p','a next-l',s.dataset.next),'left:1362px;top:'+(top-30)+'px;color:'+ink));
     }
 
-    /* 모바일 */
-    if(i===0){
-      /* M1 표지: 로고 · 아래 '나잇나잇 크림 소개 →' */
-      var ml=pos(el('img','a'),'left:24px;top:26px;width:72px;height:18px'); ml.src=SVG['logo-dark']; ml.alt='byDose'; m.appendChild(ml);
-      m.appendChild(pos(el('p','a b trim',s.dataset.mnext),'right:72px;top:799px;font-size:12px;line-height:12px'));
-      var mb=pos(el('button','next'),'left:330px;top:784px;width:36px;height:36px'); mb.dataset.step='1'; mb.setAttribute('aria-label','다음 장');
-      mb.innerHTML='<img src="'+SVG['next-btn']+'" alt="" style="left:-9.6px;top:-1.6px;width:50.4px;height:50.4px">'; m.appendChild(mb);
-    }else{
-      m.appendChild(chromeBtns(tone,'left:330px;top:12px','left:12px;top:12px',true));
-      /* 진행선은 화면이 무대보다 넓어도 왼쪽 끝까지 닿게 왼쪽으로 길게 뺀다 */
-      if(msec) m.appendChild(pos(el('div','bar'),'left:-600px;width:'+(600+65*msec)+'px'));
-      for(var t=1;t<=5;t++){
-        var tb=pos(el('a','tab'+(t===msec?' is-on':''),'<span class="mono">0'+t+'</span><span class="t">'+TABS[t]+'</span>'),'left:'+(t-1)*65+'px;color:'+(t===msec?'var(--red)':ink));
-        tb.href='#'+SEC_FIRST[t]; m.appendChild(tb);
-      }
-      if(i<N-1){
-        var mn=pos(el('button','next'),'left:334px;top:790px;width:48px;height:48px'); mn.dataset.step='1';
-        mn.setAttribute('aria-label','다음 장'+(s.dataset.next?': '+s.dataset.next:''));
-        mn.innerHTML='<img src="'+SVG['next-btn-m']+'" alt="" style="left:0;top:0;width:48px;height:48px">'; m.appendChild(mn);
-      }
-    }
   });
 
   /* PDF 다운로드 · 언어 버튼 묶음 */
@@ -723,10 +765,8 @@
   function fit(){
     var was=isM; isM=isMobile();
     root.classList.toggle('is-m',isM);
-    var s=isM?Math.min(innerWidth/390,innerHeight/844):Math.min(innerWidth/1440,innerHeight/1024);
-    root.style.setProperty('--s',s);
-    slides.forEach(function(sl){ if(sl.dataset.mbg) sl.style.backgroundPosition=isM?sl.dataset.mbg:'center'; });
-    if(was!==isM){ clearVideos(); syncVideos(); }
+    root.style.setProperty('--s',Math.min(innerWidth/1440,innerHeight/1024));
+    if(was!==isM){ clearVideos(); if(isM) mVideos(); else syncVideos(); }
   }
 
   /* ---------- 이동 ---------- */
@@ -747,7 +787,10 @@
     if(e.target.closest('[data-pdf]')){window.print();return}
     if(e.target.closest('[data-step]')){go(cur+1);return}
     var a=e.target.closest('a[href^="#"]');
-    if(a){var j=idxOf(a.getAttribute('href').slice(1)); if(j>-1){e.preventDefault();go(j)}}
+    if(!a) return;
+    var id=a.getAttribute('href').slice(1);
+    if(isM){var t=document.getElementById(id.indexOf('m-')===0?id:'m-'+id); if(t&&mpage.contains(t)){e.preventDefault();mScrollTo(t)} return}
+    var j=idxOf(id); if(j>-1){e.preventDefault();go(j)}
   });
 
   function setActive(i){
@@ -765,7 +808,7 @@
 
   /* 키보드 */
   document.addEventListener('keydown',function(e){
-    if(e.target.closest&&e.target.closest('input,textarea,select')) return;
+    if(isM||(e.target.closest&&e.target.closest('input,textarea,select'))) return;
     var k=e.key;
     if(k==='ArrowRight'||k==='PageDown'||(k===' '&&!e.shiftKey)){e.preventDefault();go(cur+1)}
     else if(k==='ArrowLeft'||k==='PageUp'||(k===' '&&e.shiftKey)){e.preventDefault();go(cur-1)}
@@ -784,7 +827,7 @@
   },{passive:false});
 
   /* ---------- Vimeo 영상: 보이는 무대에서만, 현재 장 ±1만 로드 ---------- */
-  function medias(s){return [].slice.call(s.querySelectorAll((isM?'.stage.m':'.stage.d')+' .media[data-vimeo]'))}
+  function medias(s){return [].slice.call(s.querySelectorAll('.stage.d .media[data-vimeo]'))}
   function fitFrame(m){
     var f=m.querySelector('iframe'); if(!f) return;
     var r=parseFloat(m.dataset.ratio)||16/9, w=m.offsetWidth, h=m.offsetHeight, iw, ih;
@@ -792,18 +835,51 @@
     f.style.width=Math.ceil(iw)+2+'px'; f.style.height=Math.ceil(ih)+2+'px';
   }
   function clearVideos(){[].forEach.call(root.querySelectorAll('.media iframe'),function(f){f.remove()})}
+  function addFrame(m,title){
+    var f=document.createElement('iframe');
+    f.title=title+' 영상'; f.allow='autoplay; fullscreen; picture-in-picture'; f.setAttribute('loading','eager');
+    f.src='https://player.vimeo.com/video/'+m.dataset.vimeo+'?background=1&autoplay=1&loop=1&muted=1&dnt=1';
+    f.addEventListener('load',function(){setTimeout(function(){f.classList.add('is-ready')},400)});
+    m.appendChild(f); fitFrame(m);
+  }
+
+  /* ---------- 모바일: 세로 스크롤 페이지 ---------- */
+  var mpage=document.getElementById('bdkM');
+  var mSecs=[].slice.call(mpage.querySelectorAll('.ms'));
+  var mTabs=[].slice.call(mpage.querySelectorAll('.mtabs a'));
+  var mBar=document.getElementById('bdkMBar');
+  function mScrollTo(t){ mpage.scrollTo({top:t.offsetTop,behavior:reduce?'auto':'smooth'}) }
+  /* 지금 읽는 섹션을 아래 탭에 표시 (화면 위쪽 40% 지점을 지난 마지막 섹션) */
+  var mOn=-1, mraf=0;
+  function mActive(){
+    mraf=0;
+    var y=mpage.scrollTop+mpage.clientHeight*.4, sec=0;
+    mSecs.forEach(function(x){ if(x.offsetTop<=y) sec=+x.dataset.sec });
+    if(sec===mOn) return; mOn=sec;
+    mTabs.forEach(function(t){ t.classList.toggle('is-on',+t.dataset.t===sec); if(+t.dataset.t===sec) t.setAttribute('aria-current','true'); else t.removeAttribute('aria-current') });
+    mBar.style.width=(sec*20)+'%';
+  }
+  mpage.addEventListener('scroll',function(){ if(!mraf) mraf=requestAnimationFrame(mActive) },{passive:true});
+  /* 영상: 화면에 보일 때만 불러와 재생, 벗어나면 내려서 데이터 아끼기 */
+  var mObs=null;
+  function mVideos(){
+    if(!('IntersectionObserver' in window)) return;
+    if(!mObs) mObs=new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        var m=en.target, f=m.querySelector('iframe');
+        if(en.isIntersecting&&!f) addFrame(m,'모바일');
+        else if(!en.isIntersecting&&f) f.remove();
+      });
+    },{root:mpage,threshold:.25});
+    [].forEach.call(mpage.querySelectorAll('.media[data-vimeo]'),function(m){mObs.unobserve(m);mObs.observe(m)});
+  }
   function syncVideos(){
+    if(isM) return;
     slides.forEach(function(s,j){
       var d=Math.abs(j-cur);
       medias(s).forEach(function(m){
         var f=m.querySelector('iframe');
-        if(d<=1&&!f){
-          f=document.createElement('iframe');
-          f.title=s.dataset.title+' 영상'; f.allow='autoplay; fullscreen; picture-in-picture'; f.setAttribute('loading','eager');
-          f.src='https://player.vimeo.com/video/'+m.dataset.vimeo+'?background=1&autoplay=1&loop=1&muted=1&dnt=1';
-          f.addEventListener('load',function(){var ff=f;setTimeout(function(){ff.classList.add('is-ready')},400)});
-          m.appendChild(f); fitFrame(m);
-        }else if(d>2&&f){ f.remove(); }
+        if(d<=1&&!f){ addFrame(m,s.dataset.title); }else if(d>2&&f){ f.remove(); }
       });
     });
   }
@@ -811,13 +887,16 @@
   var rt;
   window.addEventListener('resize',function(){
     clearTimeout(rt);
-    rt=setTimeout(function(){fit();track.scrollTo({left:cur*track.clientWidth,behavior:'auto'})},80);
+    rt=setTimeout(function(){fit();if(isM){[].forEach.call(mpage.querySelectorAll('.media[data-vimeo]'),fitFrame);mActive()}else track.scrollTo({left:cur*track.clientWidth,behavior:'auto'})},80);
   });
 
   /* 시작: 해시(#scent 등)로 바로 열기 → 거래처에 특정 장 링크 공유 가능 */
   fit();
   var start=Math.max(0,idxOf((location.hash||'').slice(1)));
-  requestAnimationFrame(function(){go(start,true)});
+  requestAnimationFrame(function(){
+    go(start,true);
+    if(isM){ var h=(location.hash||'').slice(1), t=h&&document.getElementById(h.indexOf('m-')===0?h:'m-'+h); if(t&&mpage.contains(t)) mpage.scrollTop=t.offsetTop; mActive(); }
+  });
 })();
 </script>
 </body>
