@@ -126,11 +126,15 @@
 #bdk .bar{position:absolute;left:0;top:782px;height:2px;background:var(--red)}
 
 /* 언어 메뉴 */
-#bdk .lang-menu{position:absolute;min-width:140px;padding:6px;border-radius:12px;background:var(--cream);color:var(--ink);
-  box-shadow:0 8px 24px rgba(0,0,0,.14);font-size:14px;line-height:20px;display:none;z-index:5}
+/* 피그마 Group 28: 반투명 검정 판, 현재 언어 ✓, 마우스 올리면 파랑 */
+#bdk .lang-menu{position:absolute;width:197px;padding:4px 0;border-radius:12px;border:.5px solid rgba(243,243,233,.5);
+  background:rgba(42,42,41,.5);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  color:#fff;font-size:18px;line-height:24px;display:none;z-index:5}
 #bdk .lang-menu.is-open{display:block}
-#bdk .lang-menu span{display:flex;justify-content:space-between;gap:12px;padding:8px 10px;border-radius:8px}
-#bdk .lang-menu .off{color:rgba(42,42,41,.4)}
+#bdk .lang-menu button{position:relative;display:flex;align-items:center;justify-content:flex-end;gap:12px;width:173px;height:40px;padding:0 6px 0 0;border-radius:12px;color:#fff;white-space:pre}
+#bdk .lang-menu button:hover,#bdk .lang-menu button:focus-visible{background:rgba(0,136,255,.6);outline:0}
+#bdk .lang-menu button span:first-child{position:absolute;left:46px;top:8px}
+#bdk .lang-menu button[aria-checked="true"]::before{content:"";position:absolute;left:20px;top:15px;width:12px;height:7px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg)}
 
 @media (prefers-reduced-motion:reduce){#bdk .media iframe{transition:none}}
 
@@ -334,9 +338,7 @@
       </div>
     </section>
 
-    <!-- ===================== 7 · 03 AromaWellness =====================
-         ⚠ 확인서 블록(.cert)·CPL Aromas·AromaWellness 명칭 외부 사용 범위 확인 전.
-           미확인이면 .cert 블록을 지우고, 표의 '설문평가' 강조도 함께 정리한다(노션 v2.4 메모). -->
+    <!-- ===================== 7 · 03 AromaWellness (확인서 외부 사용 확인 완료) ===================== -->
     <section class="sl" id="aroma" data-title="03 AromaWellness" data-sec="3" data-next="성분 설계"
              style="background-image:url(nightnight-deck-assets/bg-aroma.jpg)" data-mbg="0% center">
       <div class="stage d">
@@ -451,13 +453,11 @@
         <p class="a" style="left:24px;top:114px;font-size:15px;line-height:20px">수분. 피부 회복의 시작점</p>
         <div class="a mcol" style="left:24px;top:148px;width:342px">
           <div class="card mbox">
-            <img class="mol" src="nightnight-deck-assets/mol-hyaluronate.png" alt="">
             <p class="pill chip mchip b c-blue">히알루론산 5종</p>
             <p class="mtitle md">수분 공급과 보습막</p>
             <p class="mbody">물 분자를 끌어당기는 히알루론산은 대표적인 보습 성분입니다. 기본 형태부터 잘게 분해된 형태, 그물처럼 연결된 형태까지 서로 다른 구조의 히알루론산 5종을 조합했습니다. 각기 다른 특성의 히알루론산이 피부에 수분을 공급하고, 피부 표면에 촉촉한 보습막을 형성하도록 고려했습니다.</p>
           </div>
           <div class="card mbox">
-            <img class="mol" src="nightnight-deck-assets/mol-xylityl.png" alt="">
             <p class="pill chip mchip b c-blue">AQUAXYL™ 자일리톨계 3종</p>
             <p class="mtitle md">수분 이동과 저장 환경</p>
             <p class="mbody">자일리톨·자일리틸글루코사이드·무수자일리톨로 구성된 보습 복합체 AQUAXYL™을 사용했습니다. AQUAXYL™은 표피 내 수분 이동과 수분 저장을 돕는 특성을 지닌 보습 원료입니다. 히알루론산이 물 분자를 끌어당겨 붙잡는다면, AQUAXYL™은 피부 안에서 수분이 오가고 유지되는 환경에 주목한 성분입니다.</p>
@@ -499,7 +499,6 @@
             <p class="mnote red">* 원료·제형 연구 기준이며, 나잇나잇 크림 완제품의 시험 결과가 아닙니다.</p>
           </div>
           <div class="card mbox">
-            <img class="mol" src="nightnight-deck-assets/mol-barrier.png" alt="">
             <p class="pill chip mchip c-yellow">세라마이드 5종</p>
             <p class="mtitle md">피부 장벽의 지질 보완</p>
             <p class="mbody">세라마이드는 피부 각질층에서 세포 사이를 채우는 주요 지질 성분 중 하나입니다. 5종 세라마이드를 조합해 피부 장벽에 필요한 지질을 보완하고, 수분 손실을 줄이는 장벽 케어를 고려했습니다.</p>
@@ -535,13 +534,11 @@
         <p class="a" style="left:24px;top:114px;font-size:15px;line-height:20px">아침 피부결까지 생각한 발효 케어</p>
         <div class="a mcol" style="left:24px;top:148px;width:342px">
           <div class="card mbox">
-            <img class="mol" src="nightnight-deck-assets/mol-galactomyces.png" alt="">
             <p class="pill chip mchip b c-green">비피다발효여과물</p>
             <p class="mtitle md">수분 유지와 피부 컨디셔닝</p>
             <p class="mbody">비피다균의 발효 과정에서 얻은 여과물입니다. 발효 과정에서 얻는 수용성 성분을 담은 원료로, 피부의 수분 유지와 컨디셔닝을 위해 활용됩니다. 나잇나잇 크림은 이러한 원료 특성에 주목해, <span class="b">하루 동안 외부 환경에 노출된 피부의 컨디션</span>까지 고려하여 비피다발효여과물을 선택했습니다.</p>
           </div>
           <div class="card mbox">
-            <img class="mol" src="nightnight-deck-assets/mol-bifida.png" alt="">
             <p class="pill chip mchip b c-green">갈락토미세스발효여과물</p>
             <p class="mtitle md">보습과 부드러운 피부결 관리</p>
             <p class="mbody">갈락토미세스의 발효 과정에서 얻은 여과물입니다. 피부 보습과 피부결 관리를 위한 컨디셔닝 원료로 활용되며, 관련 원료를 함유한 제형 연구에서는 피부 거칠기 개선이 보고되었습니다. 나잇나잇 크림은 이러한 원료의 활용 배경을 바탕으로, <span class="b">건조함으로 거칠어지기 쉬운 피부를 촉촉하고 부드럽게 관리하는 나이트케어를 위해</span> 갈락토미세스발효여과물을 선택했습니다.</p>
@@ -564,7 +561,6 @@
           <div><p>용기</p><p>에어리스 펌프</p></div>
           <div><p>사용법</p><p>적당량을 얼굴 전체에 부드럽게 펴 바릅니다.</p></div>
           <div><p>제조국</p><p>대한민국</p></div>
-          <!-- ⚠ 소비자가 표기 미결정 — 28,900원(정가) vs 19,900원(자사몰 실판매가). 결정 후 이 줄만 바꾼다. -->
           <div><p>소비자가</p><p>28,900원</p></div>
           <div><p>홈페이지 / 문의</p><p><a class="u" href="https://bydose.kr" target="_blank" rel="noopener">bydose.kr</a>  ·  <a class="u" href="mailto:hogan@bydose.kr">hogan@bydose.kr</a></p></div>
         </div>
@@ -580,7 +576,6 @@
           <div><p>용기</p><p>에어리스 펌프</p></div>
           <div><p>사용법</p><p>적당량을 얼굴 전체에 부드럽게 펴 바릅니다.</p></div>
           <div><p>제조국</p><p>대한민국</p></div>
-          <!-- ⚠ 소비자가 표기 미결정 (PC와 같이 바꾼다) -->
           <div><p>소비자가</p><p>28,900원</p></div>
           <div><p>홈페이지 / 문의</p><p><a class="u" href="https://bydose.kr" target="_blank" rel="noopener">bydose.kr</a> · <a class="u" href="mailto:hogan@bydose.kr">hogan@bydose.kr</a></p></div>
         </div>
@@ -622,7 +617,6 @@
 #bdk .mcard .chip,#bdk .mchip{height:30px;padding:0 12px;border-radius:30px;font-size:13px;line-height:18px}
 #bdk .mcol{display:flex;flex-direction:column;gap:12px;white-space:normal}
 #bdk .mbox{position:relative;padding:16px 16px 18px}
-#bdk .mbox .mol{position:absolute;right:12px;top:10px;width:48px;height:48px;object-fit:contain}
 #bdk .mchip{display:inline-flex;font-weight:700}
 #bdk .mtitle{margin-top:12px;font-size:17px;line-height:22px;letter-spacing:.03em}
 #bdk .mbody{margin-top:8px;font-size:13px;line-height:19px;word-break:keep-all}
@@ -646,6 +640,8 @@
   var SECS=['','제품 소개','밤을 위한 설계','감촉과 향','성분 설계','제품 정보'];
   var TABS=['','제품소개','밤을 위한 설계','감촉과 향','성분 설계','제품 정보'];
   var SEC_FIRST={1:'intro',2:'why',3:'texture',4:'formula',5:'info'};
+  /* 언어: 지금은 한국어 원고만 있음. 번역본이 생기면 data-code 로 분기 */
+  var LANGS=[['KOR','한국어','🇰🇷'],['ENG','영어','🇺🇸'],['CHN','중국','🇨🇳'],['MNG','몽골','🇲🇳'],['RUS','러시아','🇷🇺']];
   var NAV_X=[0,393,560,759,926,1093];          /* PC 메뉴 글자 시작 x */
   var DOT_X=[0,439,624,805,972,1139];          /* PC 빨간 점 x */
 
@@ -710,7 +706,9 @@
     dl.dataset.pdf='1'; dl.setAttribute('aria-label','PDF로 저장'); f.appendChild(dl);
     var lg=pos(el('button','ico','<img src="'+A+'lang-'+tone+'.svg" alt="" style="width:24px;height:24px"><img src="'+A+'caret-'+tone+'.svg" alt="" style="width:11.3px;height:11.3px;margin:-4px 0 0 6px">'),langPos+';width:62px;height:48px');
     lg.dataset.lang='1'; lg.setAttribute('aria-label','언어 선택'); lg.setAttribute('aria-haspopup','true'); f.appendChild(lg);
-    var menu=pos(el('div','lang-menu','<span>한국어 <b>✓</b></span><span class="off">English · 준비 중</span>'),mobile?'left:12px;top:60px':'right:62px;top:56px');
+    var menu=pos(el('div','lang-menu',LANGS.map(function(l){
+      return '<button type="button" role="menuitemradio" aria-checked="'+(l[0]==='KOR')+'" data-code="'+l[0]+'"><span>'+l[2]+'</span><span>'+l[0]+(l[0]==='MNG'?'  ':' ')+l[1]+'</span></button>';
+    }).join('')),mobile?'left:12px;top:60px':'left:1183px;top:56px');
     menu.setAttribute('role','menu'); f.appendChild(menu);
     return f;
   }
