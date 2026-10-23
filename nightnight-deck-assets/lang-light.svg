@@ -1,0 +1,13 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="ic_language">
+<path id="Ellipse 5" d="M23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12Z" stroke-width="2" stroke="#F3F3E9"/>
+<mask id="stroke0_0_10" fill="white">
+<path d="M19 12C19 18.6274 15.866 24 12 24C8.13401 24 5 18.6274 5 12C5 5.37258 8.13401 0 12 0C15.866 0 19 5.37258 19 12Z"/>
+</mask>
+<path id="Ellipse 6" d="M19 12C19 18.6274 15.866 24 12 24C8.13401 24 5 18.6274 5 12C5 5.37258 8.13401 0 12 0C15.866 0 19 5.37258 19 12Z" stroke-width="4" stroke="#F3F3E9" mask="url(#stroke0_0_10)"/>
+<path id="Vector 5" d="M12 2V22" stroke-width="2" stroke="#F3F3E9"/>
+<path id="Vector 6" d="M22.005 11.995L2.005 11.995" stroke-width="2" stroke="#F3F3E9"/>
+<path id="Vector 7" d="M22.005 7L2.005 7" stroke-width="2" stroke="#F3F3E9"/>
+<path id="Vector 8" d="M22.005 17L2.005 17" stroke-width="2" stroke="#F3F3E9"/>
+</g>
+</svg>
