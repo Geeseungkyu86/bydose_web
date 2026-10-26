@@ -110,6 +110,7 @@
 #bdk .nav-i .mono{font-weight:700}
 #bdk .nav-i:hover{color:var(--red)}
 #bdk .nav-i.is-on{color:var(--red)}
+#bdk .nav-i.nav-c{white-space:nowrap}#bdk .nav-i.nav-c [data-i18n-txt]{display:none}   /* 번역이 긴 언어: 다른 장은 번호만 */
 #bdk .ico{position:absolute;display:flex;align-items:center;justify-content:center}
 #bdk .ico:focus-visible,#bdk .nav-i:focus-visible,#bdk .next:focus-visible,#bdk .tab:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 #bdk .next{position:absolute;display:block}
@@ -135,6 +136,8 @@
 #bdk[lang="ja"]{--f:"42dot Sans","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
 #bdk[lang="zh-Hans"]{--f:"42dot Sans","PingFang SC","Noto Sans SC","Microsoft YaHei","Hiragino Sans GB",sans-serif}
 #bdk[lang="ja"].is-m .mpage,#bdk[lang="zh-Hans"].is-m .mpage{word-break:normal;line-break:strict}
+/* 번역 화면은 글 자리를 재서 옮긴다 → 아임웹 테마가 a·p 등에 거는 움직임(transition)이 끼면 중간 위치를 재게 되므로 끈다 */
+#bdk [data-g],#bdk [data-g] *,#bdk .nav-i,#bdk .nav-i *,#bdk .nav-dot,#bdk .next-l,#bdk .mtabs a,#bdk .mtabs a *{transition:none!important;animation:none!important}
 /* 번역 화면 PC: 카드 안 흐름 글(후기 카드·제품 정보 표)은 칸 폭에서 줄바꿈하고 표 줄은 내용만큼 늘어난다 */
 #bdk[data-locale]:not([data-locale="KOR"]) [data-g]>p:not(.a),#bdk[data-locale]:not([data-locale="KOR"]) .spec p{white-space:normal}
 #bdk[data-locale]:not([data-locale="KOR"]) .spec>div{height:auto;min-height:66px;padding-bottom:48px}
@@ -1090,6 +1093,11 @@
           while(W(it.e)>room&&f>.72){f-=.04;set(it.e,'fontSize',it.e._fs*k*f+'px')} });
         var lim=R; Rt.forEach(function(it){lim=Math.min(lim,it.k.r-W(it.e)-16)});
         var last=L[L.length-1];
+        /* 왼쪽 글이 줄의 40%도 못 쓰면 오른쪽 알약을 더 줄인다(최소 72%) */
+        if(last&&!last.img&&!last.pill&&Rt.some(function(i){return i.pill})){
+          var f2=1; while(lim-last.x<.4*(R-L[0].x)&&f2>.76){ f2-=.04; lim=R;
+            Rt.forEach(function(it){ if(it.pill) set(it.e,'fontSize',Math.min(parseFloat(it.e.style.fontSize)||1e9,it.e._fs*k*f2)+'px'); lim=Math.min(lim,it.k.r-W(it.e)-16) }) }
+        }
         if(last&&!last.img&&!last.pill){
           var room=lim-last.x, fixed=last.e.style.width&&last.e.style.whiteSpace!=='nowrap';
           if(W(last.e)>room+1||(fixed&&parseFloat(last.e.style.width)>room)) wrapTo(last.e,room);
@@ -1114,6 +1122,9 @@
         });
         y=rb; bottom=Math.max(bottom,rb);
       });
+      /* 한 묶음의 알약은 같은 크기로(가장 많이 줄인 것에 맞춤) */
+      var pf=Infinity; g.items.forEach(function(it){ if(it.pill&&it.e.style.fontSize) pf=Math.min(pf,parseFloat(it.e.style.fontSize)) });
+      if(pf<Infinity) g.items.forEach(function(it){ if(it.pill) set(it.e,'fontSize',pf+'px') });
       var cb=-Infinity; g.items.forEach(function(it){cb=Math.max(cb,it.k.b)});
       g.bottom=bottom;
       if(g.card){
@@ -1123,15 +1134,23 @@
       }
     }
   }
-  /* 상단 목차·다음 버튼 위 글자 (언어와 상관없이 매번) */
+  /* 상단 목차·다음 버튼 위 글자 (번역 화면만) */
   function fitChrome(stg,touched,box){
-    if(lang==='KOR') return;
     var navs=[].slice.call(stg.querySelectorAll('.nav-i'));
+    navs.forEach(function(v){v.classList.remove('nav-c');v.removeAttribute('title')});
+    if(lang==='KOR') return;
     if(navs.length){
+      /* 목차 글자를 차례로 놓는다. 85%로 줄여도 PDF 아이콘 앞(1226)을 넘으면
+         지금 장만 이름을 보이고 나머지는 번호만(마우스를 올리면 이름이 뜬다) */
       var dot=stg.querySelector('.nav-dot'), x0=Math.min(navs[0].offsetLeft,200), end=1226, gap=28, f=1, n=navs.length;
       navs.forEach(function(v){keep(v,touched)});
-      var tot=navs.reduce(function(a,v){return a+v.offsetWidth},0);
-      if(x0+tot+gap*(n-1)>end){ f=Math.max(.75,(end-x0-gap*(n-1))/tot); navs.forEach(function(v){v.style.fontSize=16*f+'px'}) }
+      function total(){return navs.reduce(function(a,v){return a+v.offsetWidth},0)+gap*(n-1)}
+      if(x0+total()>end){
+        f=(end-x0-gap*(n-1))/(total()-gap*(n-1));
+        if(f<.85){ navs.forEach(function(v){ if(!v.classList.contains('is-on')){v.classList.add('nav-c');v.title=v.textContent.replace(/\s+/g,' ').trim()} }); f=1 }
+        if(x0+total()>end) f=Math.max(.7,(end-x0-gap*(n-1))/(total()-gap*(n-1)));
+        if(f<1) navs.forEach(function(v){v.style.fontSize=16*f+'px'});
+      }
       var x=x0;
       navs.forEach(function(v){ v.style.left=x+'px'; if(dot&&v.classList.contains('is-on')){keep(dot,touched);dot.style.left=Math.round(x+v.offsetWidth/2-2)+'px'} x+=v.offsetWidth+gap });
     }
