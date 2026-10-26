@@ -140,8 +140,8 @@ def annotate(src, body, by_ko, rows_by_id, report):
         return [c for c in el.children if isinstance(c, Tag) or (isinstance(c, NavigableString) and not isinstance(c, Comment) and c.strip())]
 
     def walk(el):
-        if el.name in ('script', 'style', 'svg'):
-            return
+        if el.name in ('script', 'style', 'svg') or 'lang-menu' in (el.get('class') or []):
+            return          # 언어 메뉴는 각 언어 이름을 그 언어로 적으므로 번역하지 않는다
         if 'data-i18n' in el.attrs:
             i = el['data-i18n']
             if i in rows_by_id and text_of(el) != ns(rows_by_id[i][KO]) and not el.find_next_sibling(attrs={'data-i18n-part': i}):
