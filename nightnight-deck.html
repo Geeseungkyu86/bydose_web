@@ -798,8 +798,8 @@
     var pick=e.target.closest('.lang-menu [data-code]');
     if(pick){ setLang(pick.dataset.code,true); [].forEach.call(root.querySelectorAll('.lang-menu.is-open'),function(mn){mn.classList.remove('is-open')}); return }
     var lg=e.target.closest('[data-lang]');
-    [].forEach.call(root.querySelectorAll('.lang-menu.is-open'),function(mn){ if(!lg||mn!==lg.nextSibling) mn.classList.remove('is-open') });
-    if(lg){lg.nextSibling.classList.toggle('is-open');return}
+    [].forEach.call(root.querySelectorAll('.lang-menu.is-open'),function(mn){ if(!lg||mn!==lg.nextElementSibling) mn.classList.remove('is-open') });
+    if(lg){lg.nextElementSibling.classList.toggle('is-open');return}
     if(e.target.closest('[data-pdf]')){window.print();return}
     if(e.target.closest('[data-step]')){go(cur+1);return}
     var a=e.target.closest('a[href^="#"]');
