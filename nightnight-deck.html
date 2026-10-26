@@ -135,6 +135,12 @@
 #bdk[lang="ja"]{--f:"42dot Sans","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
 #bdk[lang="zh-Hans"]{--f:"42dot Sans","PingFang SC","Noto Sans SC","Microsoft YaHei","Hiragino Sans GB",sans-serif}
 #bdk[lang="ja"].is-m .mpage,#bdk[lang="zh-Hans"].is-m .mpage{word-break:normal;line-break:strict}
+/* 번역 화면 PC: 카드 안 흐름 글(후기 카드·제품 정보 표)은 칸 폭에서 줄바꿈하고 표 줄은 내용만큼 늘어난다 */
+#bdk[data-locale]:not([data-locale="KOR"]) [data-g]>p:not(.a),#bdk[data-locale]:not([data-locale="KOR"]) .spec p{white-space:normal}
+#bdk[data-locale]:not([data-locale="KOR"]) .spec>div{height:auto;min-height:66px;padding-bottom:48px}
+#bdk[data-locale]:not([data-locale="KOR"]) .spec>div::after{top:auto;bottom:23px}
+#bdk[data-locale]:not([data-locale="KOR"]) .spec>div p:first-child{line-height:14px;padding-right:8px}
+#bdk[data-locale]:not([data-locale="KOR"]) .spec>div p:last-child{white-space:normal;line-height:22px;margin-top:-2px}
 
 /* ---------- PDF 다운로드 = 인쇄 → PDF로 저장 (PC 무대 13장을 한 장씩) ---------- */
 @page{size:1440px 1024px;margin:0}
@@ -160,20 +166,20 @@
       <div class="stage d">
         <img class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/2c20ce999c4f0.jpg" alt="나잇나잇 크림 50mL 에어리스 펌프 용기" style="left:60px;top:264px;width:1320px;height:700px;border-radius:36px">
         <p data-i18n="S01_T001" class="a b" style="left:60px;top:197px;font-size:36px;line-height:normal">“ NIGHT NIGHT CREAM “</p>
-        <p data-i18n="S01_T002" class="a b trim" style="right:60px;top:212px;font-size:18px;line-height:18px">LIGHT GEL-CREAM · AROMAWELLNESS SCENT · MOISTURE &amp; BARRIER</p>
+        <p data-g="t" data-i18n="S01_T002" class="a b trim" style="right:60px;top:212px;font-size:18px;line-height:18px">LIGHT GEL-CREAM · AROMAWELLNESS SCENT · MOISTURE &amp; BARRIER</p>
       </div>
     </section>
 
     <!-- ===================== 2 · 01 제품 소개 ===================== -->
     <section class="sl" id="intro" data-title="01 제품 소개" data-sec="1" data-next="밤을 위한 설계">
       <div class="stage d">
-        <p data-i18n="S02_T001" class="a xb tr" style="left:120px;top:343px;font-size:24px;line-height:35px">GOOD NIGHT = GOOD SKIN</p>
-        <p data-i18n="S02_T002" class="a p18" style="left:120px;top:389px;line-height:24px">나잇나잇 크림은 잠들기 전의 감각적인 경험부터,<br>밤사이 피부가 스스로 회복할 수 있는 환경까지 고려한<br>‘아침촉촉’ 나이트크림입니다.</p>
-        <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjM3MS4wMDMiIGhlaWdodD0iMiIgdmlld0JveD0iMCAwIDM3MS4wMDMgMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggaWQ9IlZlY3RvciAxIiBkPSJNMC4wMDEzNDc3IDEuNUwzNzEuMDAxIDAuNDk5OTk4IiBzdHJva2U9IiMyQTJBMjkiLz4KPC9zdmc+Cg==" alt="" style="left:122px;top:484.5px;width:371px;height:2px">
-        <p data-i18n="S02_T003" class="a b tr" style="left:120px;top:510px;font-size:16px;line-height:18px">나잇나잇 크림 50 mL</p>
-        <p data-i18n="S02_T004" class="a pill tag" style="left:120px;top:552px">가벼운 젤-크림 타입</p>
-        <p data-i18n="S02_T005" class="a pill tag" style="left:120px;top:599px">「AromaWellness」 조향</p>
-        <p data-i18n="S02_T006" class="a pill tag" style="left:120px;top:646px">보습·장벽 케어</p>
+        <p data-g="a" data-i18n="S02_T001" class="a xb tr" style="left:120px;top:343px;font-size:24px;line-height:35px">GOOD NIGHT = GOOD SKIN</p>
+        <p data-g="a" data-i18n="S02_T002" class="a p18" style="left:120px;top:389px;line-height:24px">나잇나잇 크림은 잠들기 전의 감각적인 경험부터,<br>밤사이 피부가 스스로 회복할 수 있는 환경까지 고려한<br>‘아침촉촉’ 나이트크림입니다.</p>
+        <img data-g="a" class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjM3MS4wMDMiIGhlaWdodD0iMiIgdmlld0JveD0iMCAwIDM3MS4wMDMgMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggaWQ9IlZlY3RvciAxIiBkPSJNMC4wMDEzNDc3IDEuNUwzNzEuMDAxIDAuNDk5OTk4IiBzdHJva2U9IiMyQTJBMjkiLz4KPC9zdmc+Cg==" alt="" style="left:122px;top:484.5px;width:371px;height:2px">
+        <p data-g="a" data-i18n="S02_T003" class="a b tr" style="left:120px;top:510px;font-size:16px;line-height:18px">나잇나잇 크림 50 mL</p>
+        <p data-g="a" data-i18n="S02_T004" class="a pill tag" style="left:120px;top:552px">가벼운 젤-크림 타입</p>
+        <p data-g="a" data-i18n="S02_T005" class="a pill tag" style="left:120px;top:599px">「AromaWellness」 조향</p>
+        <p data-g="a" data-i18n="S02_T006" class="a pill tag" style="left:120px;top:646px">보습·장벽 케어</p>
         <img class="a fill" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/94d3abb072d92.png" alt="나잇나잇 크림 본품" style="left:828px;top:196px;width:173px;height:703px;object-position:bottom">
       </div>
     </section>
@@ -182,14 +188,14 @@
     <section class="sl" id="why" data-title="02 좋은 밤" data-sec="2" data-ui="dark" data-next="굿나잇 시퀀스™"
              style="background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/dad4e3c621c98.jpg)">
       <div class="stage d lite">
-        <p data-i18n="S03_T001" class="a h24" style="left:120px;top:178px">좋은 피부를 위한 좋은 밤</p>
-        <p data-i18n="S03_T002" class="a p18" style="left:120px;top:237px">피부는 밤에도 회복과 유지 활동을 이어갑니다.<br>그리고 수면은 건강한 피부를 위해 중요한 요소입니다.<br>바이도즈는 여기서 출발했습니다.<br><br><span class="u">좋은 잠의 결과가 좋은 피부로 이어지는 화장품.</span><br>나잇나잇 크림의 시작이었습니다.</p>
-        <p data-i18n="S03_T003" class="a pill badge" style="left:725px;top:576px">For a Good Night</p>
-        <p data-i18n="S03_T004" class="a md tr" style="left:733px;top:612px;font-size:20px;line-height:20px;color:#fff">잠들기 전 경험과 분위기</p>
-        <p data-i18n="S03_T005" class="a tr" style="left:729px;top:652px;font-size:16px;line-height:22px;color:#fff">하루의 마지막 스킨케어가 편안한 밤에 어울리도록,<br>피부에 남는 감촉과 향까지 고려했습니다.</p>
-        <p data-i18n="S03_T006" class="a pill badge" style="left:725px;top:765px">For a Good Skin</p>
-        <p data-i18n="S03_T007" class="a md tr" style="left:733px;top:801px;font-size:20px;line-height:20px;color:#fff">밤사이 피부 회복을 위한 환경</p>
-        <p data-i18n="S03_T008" class="a tr" style="left:729px;top:841px;font-size:16px;line-height:22px;color:#fff">피부가 밤을 보내는 동안 수분을 공급하고 유지하도록,<br>보습과 장벽 케어를 설계했습니다.</p>
+        <p data-g="a" data-i18n="S03_T001" class="a h24" style="left:120px;top:178px">좋은 피부를 위한 좋은 밤</p>
+        <p data-g="a" data-i18n="S03_T002" class="a p18" style="left:120px;top:237px">피부는 밤에도 회복과 유지 활동을 이어갑니다.<br>그리고 수면은 건강한 피부를 위해 중요한 요소입니다.<br>바이도즈는 여기서 출발했습니다.<br><br><span class="u">좋은 잠의 결과가 좋은 피부로 이어지는 화장품.</span><br>나잇나잇 크림의 시작이었습니다.</p>
+        <p data-g="b" data-i18n="S03_T003" class="a pill badge" style="left:725px;top:576px">For a Good Night</p>
+        <p data-g="b" data-i18n="S03_T004" class="a md tr" style="left:733px;top:612px;font-size:20px;line-height:20px;color:#fff">잠들기 전 경험과 분위기</p>
+        <p data-g="b" data-i18n="S03_T005" class="a tr" style="left:729px;top:652px;font-size:16px;line-height:22px;color:#fff">하루의 마지막 스킨케어가 편안한 밤에 어울리도록,<br>피부에 남는 감촉과 향까지 고려했습니다.</p>
+        <p data-g="b" data-i18n="S03_T006" class="a pill badge" style="left:725px;top:765px">For a Good Skin</p>
+        <p data-g="b" data-i18n="S03_T007" class="a md tr" style="left:733px;top:801px;font-size:20px;line-height:20px;color:#fff">밤사이 피부 회복을 위한 환경</p>
+        <p data-g="b" data-i18n="S03_T008" class="a tr" style="left:729px;top:841px;font-size:16px;line-height:22px;color:#fff">피부가 밤을 보내는 동안 수분을 공급하고 유지하도록,<br>보습과 장벽 케어를 설계했습니다.</p>
       </div>
     </section>
 
@@ -197,40 +203,40 @@
     <section class="sl" id="sequence" data-title="02 굿나잇 시퀀스™" data-sec="2" data-ui="dark" data-next="감촉과 향"
              style="background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/a4734845a1b52.jpg)">
       <div class="stage d lite">
-        <p data-i18n="S04_T001" class="a h24" style="left:120px;top:178px">굿나잇 시퀀스™<br><span class="rg">피부 회복을 돕는 설계</span></p>
-        <p data-i18n="S04_T002" class="a p18" style="left:120px;top:272px">잠들기 전의 경험부터, 덧바를 수 없는 밤사이의 보습,<br>그리고 다음 날 아침의 피부 컨디션까지.<br><br>나잇나잇 크림은 이 흐름(시퀀스)전체를<br>‘나이트 케어’로 생각했습니다.</p>
-        <div class="a glass" style="left:837px;top:386px;width:369px;height:139px"></div>
-        <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCAxIj4KPHBhdGggaWQ9IkVsbGlwc2UgNCIgZD0iTTIzIDEyQzIzIDE4LjA3NTEgMTguMDc1MSAyMyAxMiAyM0M1LjkyNDg3IDIzIDEgMTguMDc1MSAxIDEyQzEgNS45MjQ4NyA1LjkyNDg3IDEgMTIgMUMxOC4wNzUxIDEgMjMgNS45MjQ4NyAyMyAxMloiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3IgNCIgZD0iTTExLjIxNTEgMTIuOTUzQzExLjU1NzMgMTMuMzg2NSAxMi4xODYyIDEzLjQ2MDQgMTIuNjE5NiAxMy4xMTgyQzEzLjA1MzEgMTIuNzc2IDEzLjEyNzEgMTIuMTQ3MiAxMi43ODQ5IDExLjcxMzdMMTIgMTIuMzMzM0wxMS4yMTUxIDEyLjk1M1pNMTIgMTIuMzMzM0wxMi43ODQ5IDExLjcxMzdMNy43ODQ4OCA1LjM4MDM2TDcgNkw2LjIxNTEyIDYuNjE5NjRMMTEuMjE1MSAxMi45NTNMMTIgMTIuMzMzM1oiIGZpbGw9IiNEMzVCNDAiLz4KPHBhdGggaWQ9IlZlY3RvciAzIiBkPSJNMTEgMTIuMzMzM0MxMSAxMi44ODU2IDExLjQ0NzcgMTMuMzMzMyAxMiAxMy4zMzMzQzEyLjU1MjMgMTMuMzMzMyAxMyAxMi44ODU2IDEzIDEyLjMzMzNIMTJIMTFaTTEyIDEyLjMzMzNIMTNWM0gxMkgxMVYxMi4zMzMzSDEyWiIgZmlsbD0iIzJBMkEyOSIvPgo8L2c+Cjwvc3ZnPgo=" alt="" style="left:855px;top:404px;width:24px;height:24px">
-        <p data-i18n="S04_T003" class="a xb trim" style="left:891px;top:407px;font-size:24px;line-height:1.2;color:var(--ink)">PM 11:00</p>
-        <p data-i18n="S04_T004" class="a b trim" style="left:891px;top:444px;font-size:18px;line-height:1.2;color:var(--ink)">잠드는 순간을 위해</p>
-        <p data-i18n="S04_T005" class="a trim" style="left:891px;top:469px;font-size:18px;line-height:1.2;color:var(--ink)">제품을 바르고 잠자리에 드는 순간의<br>감촉과 향을 설계</p>
-        <div class="a glass" style="left:837px;top:537px;width:369px;height:139px"></div>
-        <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCAyIj4KPHBhdGggaWQ9IkVsbGlwc2UgNCIgZD0iTTIzIDEyQzIzIDE4LjA3NTEgMTguMDc1MSAyMyAxMiAyM0M1LjkyNDg3IDIzIDEgMTguMDc1MSAxIDEyQzEgNS45MjQ4NyA1LjkyNDg3IDEgMTIgMUMxOC4wNzUxIDEgMjMgNS45MjQ4NyAyMyAxMloiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3IgNCIgZD0iTTEyIDExQzExLjQ0NzcgMTEgMTEgMTEuNDQ3NyAxMSAxMkMxMSAxMi41NTIzIDExLjQ0NzcgMTMgMTIgMTNWMTJWMTFaTTEyIDEyVjEzSDIwVjEyVjExSDEyVjEyWiIgZmlsbD0iI0QzNUI0MCIvPgo8cGF0aCBpZD0iVmVjdG9yIDMiIGQ9Ik0xMSAxMi4zMzMzQzExIDEyLjg4NTYgMTEuNDQ3NyAxMy4zMzMzIDEyIDEzLjMzMzNDMTIuNTUyMyAxMy4zMzMzIDEzIDEyLjg4NTYgMTMgMTIuMzMzM0gxMkgxMVpNMTIgMTIuMzMzM0gxM1YzSDEySDExVjEyLjMzMzNIMTJaIiBmaWxsPSIjMkEyQTI5Ii8+CjwvZz4KPC9zdmc+Cg==" alt="" style="left:855px;top:555px;width:24px;height:24px">
-        <p data-i18n="S04_T006" class="a xb trim" style="left:891px;top:558px;font-size:24px;line-height:1.2;color:var(--ink)">AM 03:00</p>
-        <p data-i18n="S04_T007" class="a b trim" style="left:891px;top:595px;font-size:18px;line-height:1.2;color:var(--ink)">덧바를 수 없는 잠든 사이</p>
-        <p data-i18n="S04_T008" class="a trim" style="left:891px;top:620px;font-size:18px;line-height:1.2;color:var(--ink)">다시 덧바를 수 없는 밤사이,<br>수분 공급과 유지에 집중한 설계</p>
-        <div class="a glass" style="left:837px;top:688px;width:369px;height:139px"></div>
-        <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCAzIj4KPHBhdGggaWQ9IkVsbGlwc2UgNCIgZD0iTTIzIDEyQzIzIDE4LjA3NTEgMTguMDc1MSAyMyAxMiAyM0M1LjkyNDg3IDIzIDEgMTguMDc1MSAxIDEyQzEgNS45MjQ4NyA1LjkyNDg3IDEgMTIgMUMxOC4wNzUxIDEgMjMgNS45MjQ4NyAyMyAxMloiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3IgNCIgZD0iTTEyLjg1NzUgMTIuODQ3OUMxMy4xNDE2IDEyLjM3NDMgMTIuOTg4MSAxMS43NiAxMi41MTQ1IDExLjQ3NTlDMTIuMDQwOSAxMS4xOTE3IDExLjQyNjcgMTEuMzQ1MyAxMS4xNDI1IDExLjgxODlMMTIgMTIuMzMzNEwxMi44NTc1IDEyLjg0NzlaTTEyIDEyLjMzMzRMMTEuMTQyNSAxMS44MTg5TDcuMTQyNTEgMTguNDg1NUw4IDE5TDguODU3NDkgMTkuNTE0NUwxMi44NTc1IDEyLjg0NzlMMTIgMTIuMzMzNFoiIGZpbGw9IiNEMzVCNDAiLz4KPHBhdGggaWQ9IlZlY3RvciAzIiBkPSJNMTEgMTIuMzMzM0MxMSAxMi44ODU2IDExLjQ0NzcgMTMuMzMzMyAxMiAxMy4zMzMzQzEyLjU1MjMgMTMuMzMzMyAxMyAxMi44ODU2IDEzIDEyLjMzMzNIMTJIMTFaTTEyIDEyLjMzMzNIMTNWM0gxMkgxMVYxMi4zMzMzSDEyWiIgZmlsbD0iIzJBMkEyOSIvPgo8L2c+Cjwvc3ZnPgo=" alt="" style="left:855px;top:706px;width:24px;height:24px">
-        <p data-i18n="S04_T009" class="a xb trim" style="left:891px;top:709px;font-size:24px;line-height:1.2;color:var(--ink)">AM 07:00</p>
-        <p data-i18n="S04_T010" class="a b trim" style="left:891px;top:746px;font-size:18px;line-height:1.2;color:var(--ink)">아침촉촉 기상</p>
-        <p data-i18n="S04_T011" class="a trim" style="left:891px;top:771px;font-size:18px;line-height:1.2;color:var(--ink)">촉촉하게 정돈된<br>아침의 피부결까지 고려한 설계</p>
-        <p data-i18n="S04_T012" class="a lt wrap" style="left:837px;top:839px;width:369px;font-size:16px;line-height:23px">※ 11 PM · 3 AM · 7 AM은 밤의 사용 흐름을 표현한<br>상징적인 시간이며, 성분의 작용 시점을 의미하지 않습니다.</p>
+        <p data-g="a" data-i18n="S04_T001" class="a h24" style="left:120px;top:178px">굿나잇 시퀀스™<br><span class="rg">피부 회복을 돕는 설계</span></p>
+        <p data-g="a" data-i18n="S04_T002" class="a p18" style="left:120px;top:272px">잠들기 전의 경험부터, 덧바를 수 없는 밤사이의 보습,<br>그리고 다음 날 아침의 피부 컨디션까지.<br><br>나잇나잇 크림은 이 흐름(시퀀스)전체를<br>‘나이트 케어’로 생각했습니다.</p>
+        <div data-g="g1" data-g-card class="a glass" style="left:837px;top:386px;width:369px;height:139px"></div>
+        <img data-g="g1" class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCAxIj4KPHBhdGggaWQ9IkVsbGlwc2UgNCIgZD0iTTIzIDEyQzIzIDE4LjA3NTEgMTguMDc1MSAyMyAxMiAyM0M1LjkyNDg3IDIzIDEgMTguMDc1MSAxIDEyQzEgNS45MjQ4NyA1LjkyNDg3IDEgMTIgMUMxOC4wNzUxIDEgMjMgNS45MjQ4NyAyMyAxMloiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3IgNCIgZD0iTTExLjIxNTEgMTIuOTUzQzExLjU1NzMgMTMuMzg2NSAxMi4xODYyIDEzLjQ2MDQgMTIuNjE5NiAxMy4xMTgyQzEzLjA1MzEgMTIuNzc2IDEzLjEyNzEgMTIuMTQ3MiAxMi43ODQ5IDExLjcxMzdMMTIgMTIuMzMzM0wxMS4yMTUxIDEyLjk1M1pNMTIgMTIuMzMzM0wxMi43ODQ5IDExLjcxMzdMNy43ODQ4OCA1LjM4MDM2TDcgNkw2LjIxNTEyIDYuNjE5NjRMMTEuMjE1MSAxMi45NTNMMTIgMTIuMzMzM1oiIGZpbGw9IiNEMzVCNDAiLz4KPHBhdGggaWQ9IlZlY3RvciAzIiBkPSJNMTEgMTIuMzMzM0MxMSAxMi44ODU2IDExLjQ0NzcgMTMuMzMzMyAxMiAxMy4zMzMzQzEyLjU1MjMgMTMuMzMzMyAxMyAxMi44ODU2IDEzIDEyLjMzMzNIMTJIMTFaTTEyIDEyLjMzMzNIMTNWM0gxMkgxMVYxMi4zMzMzSDEyWiIgZmlsbD0iIzJBMkEyOSIvPgo8L2c+Cjwvc3ZnPgo=" alt="" style="left:855px;top:404px;width:24px;height:24px">
+        <p data-g="g1" data-i18n="S04_T003" class="a xb trim" style="left:891px;top:407px;font-size:24px;line-height:1.2;color:var(--ink)">PM 11:00</p>
+        <p data-g="g1" data-i18n="S04_T004" class="a b trim" style="left:891px;top:444px;font-size:18px;line-height:1.2;color:var(--ink)">잠드는 순간을 위해</p>
+        <p data-g="g1" data-i18n="S04_T005" class="a trim" style="left:891px;top:469px;font-size:18px;line-height:1.2;color:var(--ink)">제품을 바르고 잠자리에 드는 순간의<br>감촉과 향을 설계</p>
+        <div data-g="g2" data-g-card class="a glass" style="left:837px;top:537px;width:369px;height:139px"></div>
+        <img data-g="g2" class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCAyIj4KPHBhdGggaWQ9IkVsbGlwc2UgNCIgZD0iTTIzIDEyQzIzIDE4LjA3NTEgMTguMDc1MSAyMyAxMiAyM0M1LjkyNDg3IDIzIDEgMTguMDc1MSAxIDEyQzEgNS45MjQ4NyA1LjkyNDg3IDEgMTIgMUMxOC4wNzUxIDEgMjMgNS45MjQ4NyAyMyAxMloiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3IgNCIgZD0iTTEyIDExQzExLjQ0NzcgMTEgMTEgMTEuNDQ3NyAxMSAxMkMxMSAxMi41NTIzIDExLjQ0NzcgMTMgMTIgMTNWMTJWMTFaTTEyIDEyVjEzSDIwVjEyVjExSDEyVjEyWiIgZmlsbD0iI0QzNUI0MCIvPgo8cGF0aCBpZD0iVmVjdG9yIDMiIGQ9Ik0xMSAxMi4zMzMzQzExIDEyLjg4NTYgMTEuNDQ3NyAxMy4zMzMzIDEyIDEzLjMzMzNDMTIuNTUyMyAxMy4zMzMzIDEzIDEyLjg4NTYgMTMgMTIuMzMzM0gxMkgxMVpNMTIgMTIuMzMzM0gxM1YzSDEySDExVjEyLjMzMzNIMTJaIiBmaWxsPSIjMkEyQTI5Ii8+CjwvZz4KPC9zdmc+Cg==" alt="" style="left:855px;top:555px;width:24px;height:24px">
+        <p data-g="g2" data-i18n="S04_T006" class="a xb trim" style="left:891px;top:558px;font-size:24px;line-height:1.2;color:var(--ink)">AM 03:00</p>
+        <p data-g="g2" data-i18n="S04_T007" class="a b trim" style="left:891px;top:595px;font-size:18px;line-height:1.2;color:var(--ink)">덧바를 수 없는 잠든 사이</p>
+        <p data-g="g2" data-i18n="S04_T008" class="a trim" style="left:891px;top:620px;font-size:18px;line-height:1.2;color:var(--ink)">다시 덧바를 수 없는 밤사이,<br>수분 공급과 유지에 집중한 설계</p>
+        <div data-g="g3" data-g-card class="a glass" style="left:837px;top:688px;width:369px;height:139px"></div>
+        <img data-g="g3" class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJHcm91cCAzIj4KPHBhdGggaWQ9IkVsbGlwc2UgNCIgZD0iTTIzIDEyQzIzIDE4LjA3NTEgMTguMDc1MSAyMyAxMiAyM0M1LjkyNDg3IDIzIDEgMTguMDc1MSAxIDEyQzEgNS45MjQ4NyA1LjkyNDg3IDEgMTIgMUMxOC4wNzUxIDEgMjMgNS45MjQ4NyAyMyAxMloiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMkEyQTI5Ii8+CjxwYXRoIGlkPSJWZWN0b3IgNCIgZD0iTTEyLjg1NzUgMTIuODQ3OUMxMy4xNDE2IDEyLjM3NDMgMTIuOTg4MSAxMS43NiAxMi41MTQ1IDExLjQ3NTlDMTIuMDQwOSAxMS4xOTE3IDExLjQyNjcgMTEuMzQ1MyAxMS4xNDI1IDExLjgxODlMMTIgMTIuMzMzNEwxMi44NTc1IDEyLjg0NzlaTTEyIDEyLjMzMzRMMTEuMTQyNSAxMS44MTg5TDcuMTQyNTEgMTguNDg1NUw4IDE5TDguODU3NDkgMTkuNTE0NUwxMi44NTc1IDEyLjg0NzlMMTIgMTIuMzMzNFoiIGZpbGw9IiNEMzVCNDAiLz4KPHBhdGggaWQ9IlZlY3RvciAzIiBkPSJNMTEgMTIuMzMzM0MxMSAxMi44ODU2IDExLjQ0NzcgMTMuMzMzMyAxMiAxMy4zMzMzQzEyLjU1MjMgMTMuMzMzMyAxMyAxMi44ODU2IDEzIDEyLjMzMzNIMTJIMTFaTTEyIDEyLjMzMzNIMTNWM0gxMkgxMVYxMi4zMzMzSDEyWiIgZmlsbD0iIzJBMkEyOSIvPgo8L2c+Cjwvc3ZnPgo=" alt="" style="left:855px;top:706px;width:24px;height:24px">
+        <p data-g="g3" data-i18n="S04_T009" class="a xb trim" style="left:891px;top:709px;font-size:24px;line-height:1.2;color:var(--ink)">AM 07:00</p>
+        <p data-g="g3" data-i18n="S04_T010" class="a b trim" style="left:891px;top:746px;font-size:18px;line-height:1.2;color:var(--ink)">아침촉촉 기상</p>
+        <p data-g="g3" data-i18n="S04_T011" class="a trim" style="left:891px;top:771px;font-size:18px;line-height:1.2;color:var(--ink)">촉촉하게 정돈된<br>아침의 피부결까지 고려한 설계</p>
+        <p data-g="n" data-i18n="S04_T012" class="a lt wrap" style="left:837px;top:839px;width:369px;font-size:16px;line-height:23px">※ 11 PM · 3 AM · 7 AM은 밤의 사용 흐름을 표현한<br>상징적인 시간이며, 성분의 작용 시점을 의미하지 않습니다.</p>
       </div>
     </section>
 
     <!-- ===================== 5 · 03 텍스처 ===================== -->
     <section class="sl" id="texture" data-title="03 텍스처" data-sec="3" data-next="향">
       <div class="stage d">
-        <p data-i18n="S05_T001" class="a" style="left:72px;top:145px;font-size:18px;line-height:normal"><span class="mono">01. </span>Texture</p>
-        <p data-i18n="S05_T002" class="a b" style="left:472px;top:140px;font-size:24px;line-height:normal">“ LIGHT GEL-CREAM “</p>
+        <p data-g="h" data-i18n="S05_T001" class="a" style="left:72px;top:145px;font-size:18px;line-height:normal"><span class="mono">01. </span>Texture</p>
+        <p data-g="h" data-i18n="S05_T002" class="a b" style="left:472px;top:140px;font-size:24px;line-height:normal">“ LIGHT GEL-CREAM “</p>
         <div class="a media" data-vimeo="1217189885" data-ratio="1.7778" style="left:60px;top:181px;width:675px;height:703px;border-radius:12px;background-image:url(https://i.vimeocdn.com/video/2188812504-83314b1905a3b2a4234b66c86f2c7c4c4ddc4cee17474fc11246d96b5c48b05a-d_1280?region=us)"></div>
-        <p data-i18n="S05_T003" class="a h24" style="left:783px;top:217px">무거움은 덜고, 촉촉함은 남기도록.</p>
-        <p data-i18n="S05_T004" class="a p18 wrap" style="left:783px;top:276px;width:432px">나이트크림은 흔히 무겁고 리치한 제형을 떠올리기 쉽습니다. 하지만 촉촉함이 반드시 무거운 제형에서 오는 것은 아닙니다.<br><br>나잇나잇 크림은 수분감 있는 젤-크림 제형으로 부드럽게<br>펴 발리고, 번들거림을 줄인 산뜻한 마무리감을 지향합니다.</p>
-        <p data-i18n="S05_T005" class="a" style="left:783px;top:497px;font-size:18px;line-height:24px">발림성</p>
-        <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9Ijk2IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA5NiA4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iJiMyMzU7JiMxNzY7JiMxNTY7JiMyMzU7JiMxNjY7JiMxODg7JiMyMzY7JiMxMzI7JiMxNzc7ICYjMjM2OyYjMTYwOyYjMTQ0OyYjMjM2OyYjMTM2OyYjMTUyOyI+CjxjaXJjbGUgaWQ9Ik92YWwiIGN4PSI0IiBjeT0iNCIgcj0iNCIgZmlsbD0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDIiIGN4PSIyNiIgY3k9IjQiIHI9IjQiIGZpbGw9IiNEMzVCNDAiLz4KPGNpcmNsZSBpZD0iT3ZhbCAzIiBjeD0iNDgiIGN5PSI0IiByPSI0IiBmaWxsPSIjRDM1QjQwIi8+CjxjaXJjbGUgaWQ9Ik92YWwgNCIgY3g9IjcwIiBjeT0iNCIgcj0iNCIgZmlsbD0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDUiIGN4PSI5MiIgY3k9IjQiIHI9IjQiIGZpbGw9IiNEMzVCNDAiLz4KPC9nPgo8L3N2Zz4K" alt="발림성 5점 중 5점" style="left:850px;top:505px;width:96px;height:8px">
-        <p data-i18n="S05_T006" class="a" style="left:783px;top:545px;font-size:18px;line-height:24px">끈적임</p>
-        <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9Ijk2LjUiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDk2LjUgOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IiYjMjM1OyYjMTI5OyYjMTM2OyYjMjM2OyYjMTYwOyYjMTI5OyYjMjM2OyYjMTU4OyYjMTMyOyAmIzIzNjsmIzE2MDsmIzE0NDsmIzIzNjsmIzEzNjsmIzE1MjsiPgo8Y2lyY2xlIGlkPSJPdmFsIiBjeD0iNCIgY3k9IjQuNSIgcj0iNCIgZmlsbD0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDYiIGN4PSIyNiIgY3k9IjQuNSIgcj0iNCIgc3Ryb2tlPSIjRDM1QjQwIi8+CjxjaXJjbGUgaWQ9Ik92YWwgNyIgY3g9IjQ4IiBjeT0iNC41IiByPSI0IiBzdHJva2U9IiNEMzVCNDAiLz4KPGNpcmNsZSBpZD0iT3ZhbCA4IiBjeD0iNzAiIGN5PSI0LjUiIHI9IjQiIHN0cm9rZT0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDkiIGN4PSI5MiIgY3k9IjQuNSIgcj0iNCIgc3Ryb2tlPSIjRDM1QjQwIi8+CjwvZz4KPC9zdmc+Cg==" alt="끈적임 5점 중 1점" style="left:850px;top:552.5px;width:96.5px;height:9px">
-        <div class="a" style="left:783px;top:694px;width:432px;padding:20px 30px 24px 24px;border-radius:12px;background:rgba(255,255,255,.6);filter:drop-shadow(0 8px 6.5px rgba(0,0,0,.1))">
+        <p data-g="c" data-i18n="S05_T003" class="a h24" style="left:783px;top:217px">무거움은 덜고, 촉촉함은 남기도록.</p>
+        <p data-g="c" data-i18n="S05_T004" class="a p18 wrap" style="left:783px;top:276px;width:432px">나이트크림은 흔히 무겁고 리치한 제형을 떠올리기 쉽습니다. 하지만 촉촉함이 반드시 무거운 제형에서 오는 것은 아닙니다.<br><br>나잇나잇 크림은 수분감 있는 젤-크림 제형으로 부드럽게<br>펴 발리고, 번들거림을 줄인 산뜻한 마무리감을 지향합니다.</p>
+        <p data-g="c" data-i18n="S05_T005" class="a" style="left:783px;top:497px;font-size:18px;line-height:24px">발림성</p>
+        <img data-g="c" class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9Ijk2IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA5NiA4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iJiMyMzU7JiMxNzY7JiMxNTY7JiMyMzU7JiMxNjY7JiMxODg7JiMyMzY7JiMxMzI7JiMxNzc7ICYjMjM2OyYjMTYwOyYjMTQ0OyYjMjM2OyYjMTM2OyYjMTUyOyI+CjxjaXJjbGUgaWQ9Ik92YWwiIGN4PSI0IiBjeT0iNCIgcj0iNCIgZmlsbD0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDIiIGN4PSIyNiIgY3k9IjQiIHI9IjQiIGZpbGw9IiNEMzVCNDAiLz4KPGNpcmNsZSBpZD0iT3ZhbCAzIiBjeD0iNDgiIGN5PSI0IiByPSI0IiBmaWxsPSIjRDM1QjQwIi8+CjxjaXJjbGUgaWQ9Ik92YWwgNCIgY3g9IjcwIiBjeT0iNCIgcj0iNCIgZmlsbD0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDUiIGN4PSI5MiIgY3k9IjQiIHI9IjQiIGZpbGw9IiNEMzVCNDAiLz4KPC9nPgo8L3N2Zz4K" alt="발림성 5점 중 5점" style="left:850px;top:505px;width:96px;height:8px">
+        <p data-g="c" data-i18n="S05_T006" class="a" style="left:783px;top:545px;font-size:18px;line-height:24px">끈적임</p>
+        <img data-g="c" class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9Ijk2LjUiIGhlaWdodD0iOSIgdmlld0JveD0iMCAwIDk2LjUgOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IiYjMjM1OyYjMTI5OyYjMTM2OyYjMjM2OyYjMTYwOyYjMTI5OyYjMjM2OyYjMTU4OyYjMTMyOyAmIzIzNjsmIzE2MDsmIzE0NDsmIzIzNjsmIzEzNjsmIzE1MjsiPgo8Y2lyY2xlIGlkPSJPdmFsIiBjeD0iNCIgY3k9IjQuNSIgcj0iNCIgZmlsbD0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDYiIGN4PSIyNiIgY3k9IjQuNSIgcj0iNCIgc3Ryb2tlPSIjRDM1QjQwIi8+CjxjaXJjbGUgaWQ9Ik92YWwgNyIgY3g9IjQ4IiBjeT0iNC41IiByPSI0IiBzdHJva2U9IiNEMzVCNDAiLz4KPGNpcmNsZSBpZD0iT3ZhbCA4IiBjeD0iNzAiIGN5PSI0LjUiIHI9IjQiIHN0cm9rZT0iI0QzNUI0MCIvPgo8Y2lyY2xlIGlkPSJPdmFsIDkiIGN4PSI5MiIgY3k9IjQuNSIgcj0iNCIgc3Ryb2tlPSIjRDM1QjQwIi8+CjwvZz4KPC9zdmc+Cg==" alt="끈적임 5점 중 1점" style="left:850px;top:552.5px;width:96.5px;height:9px">
+        <div data-g="c" class="a" style="left:783px;top:694px;width:432px;padding:20px 30px 24px 24px;border-radius:12px;background:rgba(255,255,255,.6);filter:drop-shadow(0 8px 6.5px rgba(0,0,0,.1))">
           <p data-i18n="S05_T007" style="font-size:18px;line-height:28px;color:rgba(42,42,41,.4)">youm****</p>
           <p data-i18n="S05_T008" style="margin-top:10px;font-size:18px;line-height:28px">밤에 바르고 잠들어도 오전까지 촉촉한 느낌이에요.<br>야외 활동이 잦은데, 덕분에 피부가 당기지 않게<br>되어서 너무 좋아요!</p>
           <img class="a" src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgd2lkdGg9IjEyMCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDEyMCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IiYjMjM1OyYjMTc5OyYjMTMyOyYjMjM2OyYjMTYwOyYjMTQ0OyI+CjxwYXRoIGlkPSJTdGFyIDEiIGQ9Ik0xMS4wNDg5IDIuOTI3MDVDMTEuMzQ4MyAyLjAwNTc0IDEyLjY1MTcgMi4wMDU3NCAxMi45NTExIDIuOTI3MDVMMTQuNDY5NyA3LjYwMDgxQzE0LjYwMzUgOC4wMTI4NCAxNC45ODc1IDguMjkxOCAxNS40MjA3IDguMjkxOEgyMC4zMzVDMjEuMzAzNyA4LjI5MTggMjEuNzA2NSA5LjUzMTQxIDIwLjkyMjggMTAuMTAwOEwxNi45NDcgMTIuOTg5NEMxNi41OTY2IDEzLjI0NCAxNi40NDk5IDEzLjY5NTQgMTYuNTgzOCAxNC4xMDc0TDE4LjEwMjQgMTguNzgxMkMxOC40MDE3IDE5LjcwMjUgMTcuMzQ3MiAyMC40Njg2IDE2LjU2MzUgMTkuODk5MkwxMi41ODc4IDE3LjAxMDZDMTIuMjM3MyAxNi43NTYgMTEuNzYyNyAxNi43NTYgMTEuNDEyMiAxNy4wMTA2TDcuNDM2NDggMTkuODk5MkM2LjY1Mjc2IDIwLjQ2ODYgNS41OTgyOCAxOS43MDI1IDUuODk3NjMgMTguNzgxMkw3LjQxNjIzIDE0LjEwNzRDNy41NTAxMSAxMy42OTU0IDcuNDAzNDUgMTMuMjQ0IDcuMDUyOTYgMTIuOTg5NEwzLjA3NzIyIDEwLjEwMDhDMi4yOTM1MSA5LjUzMTQxIDIuNjk2MjggOC4yOTE4IDMuNjY1MDEgOC4yOTE4SDguNTc5MjlDOS4wMTI1MiA4LjI5MTggOS4zOTY0NyA4LjAxMjg0IDkuNTMwMzUgNy42MDA4MUwxMS4wNDg5IDIuOTI3MDVaIiBmaWxsPSIjRDM1QjQwIi8+CjxwYXRoIGlkPSJTdGFyIDIiIGQ9Ik0zNS4wNDg5IDIuOTI3MDVDMzUuMzQ4MyAyLjAwNTc0IDM2LjY1MTcgMi4wMDU3NCAzNi45NTExIDIuOTI3MDVMMzguNDY5NyA3LjYwMDgxQzM4LjYwMzUgOC4wMTI4NCAzOC45ODc1IDguMjkxOCAzOS40MjA3IDguMjkxOEg0NC4zMzVDNDUuMzAzNyA4LjI5MTggNDUuNzA2NSA5LjUzMTQxIDQ0LjkyMjggMTAuMTAwOEw0MC45NDcgMTIuOTg5NEM0MC41OTY2IDEzLjI0NCA0MC40NDk5IDEzLjY5NTQgNDAuNTgzOCAxNC4xMDc0TDQyLjEwMjQgMTguNzgxMkM0Mi40MDE3IDE5LjcwMjUgNDEuMzQ3MiAyMC40Njg2IDQwLjU2MzUgMTkuODk5MkwzNi41ODc4IDE3LjAxMDZDMzYuMjM3MyAxNi43NTYgMzUuNzYyNyAxNi43NTYgMzUuNDEyMiAxNy4wMTA2TDMxLjQzNjUgMTkuODk5MkMzMC42NTI4IDIwLjQ2ODYgMjkuNTk4MyAxOS43MDI1IDI5Ljg5NzYgMTguNzgxMkwzMS40MTYyIDE0LjEwNzRDMzEuNTUwMSAxMy42OTU0IDMxLjQwMzQgMTMuMjQ0IDMxLjA1MyAxMi45ODk0TDI3LjA3NzIgMTAuMTAwOEMyNi4yOTM1IDkuNTMxNDEgMjYuNjk2MyA4LjI5MTggMjcuNjY1IDguMjkxOEgzMi41NzkzQzMzLjAxMjUgOC4yOTE4IDMzLjM5NjUgOC4wMTI4NCAzMy41MzAzIDcuNjAwODFMMzUuMDQ4OSAyLjkyNzA1WiIgZmlsbD0iI0QzNUI0MCIvPgo8cGF0aCBpZD0iU3RhciAzIiBkPSJNNTkuMDQ4OSAyLjkyNzA1QzU5LjM0ODMgMi4wMDU3NCA2MC42NTE3IDIuMDA1NzQgNjAuOTUxMSAyLjkyNzA1TDYyLjQ2OTcgNy42MDA4MUM2Mi42MDM1IDguMDEyODQgNjIuOTg3NSA4LjI5MTggNjMuNDIwNyA4LjI5MThINjguMzM1QzY5LjMwMzcgOC4yOTE4IDY5LjcwNjUgOS41MzE0MSA2OC45MjI4IDEwLjEwMDhMNjQuOTQ3IDEyLjk4OTRDNjQuNTk2NiAxMy4yNDQgNjQuNDQ5OSAxMy42OTU0IDY0LjU4MzggMTQuMTA3NEw2Ni4xMDI0IDE4Ljc4MTJDNjYuNDAxNyAxOS43MDI1IDY1LjM0NzIgMjAuNDY4NiA2NC41NjM1IDE5Ljg5OTJMNjAuNTg3OCAxNy4wMTA2QzYwLjIzNzMgMTYuNzU2IDU5Ljc2MjcgMTYuNzU2IDU5LjQxMjIgMTcuMDEwNkw1NS40MzY1IDE5Ljg5OTJDNTQuNjUyOCAyMC40Njg2IDUzLjU5ODMgMTkuNzAyNSA1My44OTc2IDE4Ljc4MTJMNTUuNDE2MiAxNC4xMDc0QzU1LjU1MDEgMTMuNjk1NCA1NS40MDM0IDEzLjI0NCA1NS4wNTMgMTIuOTg5NEw1MS4wNzcyIDEwLjEwMDhDNTAuMjkzNSA5LjUzMTQxIDUwLjY5NjMgOC4yOTE4IDUxLjY2NSA4LjI5MThINTYuNTc5M0M1Ny4wMTI1IDguMjkxOCA1Ny4zOTY1IDguMDEyODQgNTcuNTMwMyA3LjYwMDgxTDU5LjA0ODkgMi45MjcwNVoiIGZpbGw9IiNEMzVCNDAiLz4KPHBhdGggaWQ9IlN0YXIgNCIgZD0iTTgzLjA0ODkgMi45MjcwNUM4My4zNDgzIDIuMDA1NzQgODQuNjUxNyAyLjAwNTc0IDg0Ljk1MTEgMi45MjcwNUw4Ni40Njk3IDcuNjAwODFDODYuNjAzNSA4LjAxMjg0IDg2Ljk4NzUgOC4yOTE4IDg3LjQyMDcgOC4yOTE4SDkyLjMzNUM5My4zMDM3IDguMjkxOCA5My43MDY1IDkuNTMxNDEgOTIuOTIyOCAxMC4xMDA4TDg4Ljk0NyAxMi45ODk0Qzg4LjU5NjYgMTMuMjQ0IDg4LjQ0OTkgMTMuNjk1NCA4OC41ODM4IDE0LjEwNzRMOTAuMTAyNCAxOC43ODEyQzkwLjQwMTcgMTkuNzAyNSA4OS4zNDcyIDIwLjQ2ODYgODguNTYzNSAxOS44OTkyTDg0LjU4NzggMTcuMDEwNkM4NC4yMzczIDE2Ljc1NiA4My43NjI3IDE2Ljc1NiA4My40MTIyIDE3LjAxMDZMNzkuNDM2NSAxOS44OTkyQzc4LjY1MjggMjAuNDY4NiA3Ny41OTgzIDE5LjcwMjUgNzcuODk3NiAxOC43ODEyTDc5LjQxNjIgMTQuMTA3NEM3OS41NTAxIDEzLjY5NTQgNzkuNDAzNCAxMy4yNDQgNzkuMDUzIDEyLjk4OTRMNzUuMDc3MiAxMC4xMDA4Qzc0LjI5MzUgOS41MzE0MSA3NC42OTYzIDguMjkxOCA3NS42NjUgOC4yOTE4SDgwLjU3OTNDODEuMDEyNSA4LjI5MTggODEuMzk2NSA4LjAxMjg0IDgxLjUzMDMgNy42MDA4MUw4My4wNDg5IDIuOTI3MDVaIiBmaWxsPSIjRDM1QjQwIi8+CjxwYXRoIGlkPSJTdGFyIDUiIGQ9Ik0xMDcuMDQ5IDIuOTI3MDVDMTA3LjM0OCAyLjAwNTc0IDEwOC42NTIgMi4wMDU3NCAxMDguOTUxIDIuOTI3MDVMMTEwLjQ3IDcuNjAwODFDMTEwLjYwNCA4LjAxMjg0IDExMC45ODcgOC4yOTE4IDExMS40MjEgOC4yOTE4SDExNi4zMzVDMTE3LjMwNCA4LjI5MTggMTE3LjcwNiA5LjUzMTQxIDExNi45MjMgMTAuMTAwOEwxMTIuOTQ3IDEyLjk4OTRDMTEyLjU5NyAxMy4yNDQgMTEyLjQ1IDEzLjY5NTQgMTEyLjU4NCAxNC4xMDc0TDExNC4xMDIgMTguNzgxMkMxMTQuNDAyIDE5LjcwMjUgMTEzLjM0NyAyMC40Njg2IDExMi41NjQgMTkuODk5MkwxMDguNTg4IDE3LjAxMDZDMTA4LjIzNyAxNi43NTYgMTA3Ljc2MyAxNi43NTYgMTA3LjQxMiAxNy4wMTA2TDEwMy40MzYgMTkuODk5MkMxMDIuNjUzIDIwLjQ2ODYgMTAxLjU5OCAxOS43MDI1IDEwMS44OTggMTguNzgxMkwxMDMuNDE2IDE0LjEwNzRDMTAzLjU1IDEzLjY5NTQgMTAzLjQwMyAxMy4yNDQgMTAzLjA1MyAxMi45ODk0TDk5LjA3NzIgMTAuMTAwOEM5OC4yOTM1IDkuNTMxNDEgOTguNjk2MyA4LjI5MTggOTkuNjY1IDguMjkxOEgxMDQuNTc5QzEwNS4wMTMgOC4yOTE4IDEwNS4zOTYgOC4wMTI4NCAxMDUuNTMgNy42MDA4MUwxMDcuMDQ5IDIuOTI3MDVaIiBmaWxsPSIjRDM1QjQwIi8+CjwvZz4KPC9zdmc+Cg==" alt="별점 5점" style="left:260px;top:22px;width:120px;height:24px">
@@ -241,20 +247,20 @@
     <!-- ===================== 6 · 03 향 ===================== -->
     <section class="sl" id="scent" data-title="03 향" data-sec="3" data-next="「아로마 웰니스」">
       <div class="stage d">
-        <p data-i18n="S06_T001" class="a" style="left:72px;top:145px;font-size:18px;line-height:normal"><span class="mono">02. </span>Scent</p>
-        <p data-i18n="S06_T002" class="a b" style="right:717px;top:140px;font-size:24px;line-height:normal">“ Sleep in the forest “</p>
+        <p data-g="h" data-i18n="S06_T001" class="a" style="left:72px;top:145px;font-size:18px;line-height:normal"><span class="mono">02. </span>Scent</p>
+        <p data-g="h" data-i18n="S06_T002" class="a b" style="right:717px;top:140px;font-size:24px;line-height:normal">“ Sleep in the forest “</p>
         <div class="a media" data-vimeo="1217189884" data-ratio="0.8889" style="left:60px;top:181px;width:675px;height:703px;border-radius:12px;background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/a63c5cc1b00d4.jpg)"></div>
-        <p data-i18n="S06_T003" class="a h24" style="left:783px;top:205px">잠들기 전 편안함까지 고려한 '좋은 향'</p>
-        <p data-i18n="S06_T004" class="a p18 wrap" style="left:783px;top:264px;width:432px"><span class="b">슬립 인 더포레스트</span><br>비 갠 숲속을 걷는 듯 촉촉하면서도 포근한 향.<br>라벤더 줄기를 손끝에 문지른 듯한 싱그러운 허브와 비에 젖은 흙내음, 이끼 낀 나무껍질의 분위기를 담았습니다.</p>
-        <p data-i18n="S06_T005" class="a sb" style="left:783px;top:464px;font-size:20px;line-height:28px">조향 설계</p>
-        <div class="a" style="left:783px;top:512px;width:432px;height:1px;background:rgba(42,42,41,.4)"></div>
-        <p data-i18n="S06_T006" class="a b" style="left:783px;top:537px;font-size:18px;line-height:28px">상쾌하고 시원하게 시작합니다</p>
-        <p data-i18n="S06_T007" class="a" style="left:783px;top:569px;font-size:18px;line-height:28px"><span class="b">TOP</span> | 라반딘 ∙ 베르가못 ∙ 오렌지 ∙ 자몽 ∙ 클라리 세이지</p>
-        <p data-i18n="S06_T008" class="a b" style="left:783px;top:621px;font-size:18px;line-height:28px">은은하고 부드럽게 이어집니다</p>
-        <p data-i18n="S06_T009" class="a" style="left:783px;top:653px;font-size:18px;line-height:28px"><span class="b">MIDDLE</span> | 자스민 ∙ 라벤더 ∙ 로즈마리 ∙ 네롤리 ∙ 핑크 페퍼</p>
-        <p data-i18n="S06_T010" class="a b" style="left:783px;top:705px;font-size:18px;line-height:28px">깊고 차분하게 남습니다</p>
-        <p data-i18n="S06_T011" class="a" style="left:783px;top:737px;font-size:18px;line-height:28px"><span class="b">BASE</span> | 머스크 ∙ 엠버 ∙ 시더우드 ∙ 베티버 ∙ 패출리 ∙ 톤카</p>
-        <p data-i18n="S06_T012" class="a wrap" style="left:783px;top:820px;width:432px;font-size:16px;line-height:26px;color:rgba(42,42,41,.6)">나잇나잇 크림의 '슬립 인 더포레스트향'은 잠들기 전의 감각을 고려해 개발한, 바이도즈 독점 공급 향료로 완성했습니다.</p>
+        <p data-g="c" data-i18n="S06_T003" class="a h24" style="left:783px;top:205px">잠들기 전 편안함까지 고려한 '좋은 향'</p>
+        <p data-g="c" data-i18n="S06_T004" class="a p18 wrap" style="left:783px;top:264px;width:432px"><span class="b">슬립 인 더포레스트</span><br>비 갠 숲속을 걷는 듯 촉촉하면서도 포근한 향.<br>라벤더 줄기를 손끝에 문지른 듯한 싱그러운 허브와 비에 젖은 흙내음, 이끼 낀 나무껍질의 분위기를 담았습니다.</p>
+        <p data-g="c" data-i18n="S06_T005" class="a sb" style="left:783px;top:464px;font-size:20px;line-height:28px">조향 설계</p>
+        <div data-g="c" class="a" style="left:783px;top:512px;width:432px;height:1px;background:rgba(42,42,41,.4)"></div>
+        <p data-g="c" data-i18n="S06_T006" class="a b" style="left:783px;top:537px;font-size:18px;line-height:28px">상쾌하고 시원하게 시작합니다</p>
+        <p data-g="c" data-i18n="S06_T007" class="a" style="left:783px;top:569px;font-size:18px;line-height:28px"><span class="b">TOP</span> | 라반딘 ∙ 베르가못 ∙ 오렌지 ∙ 자몽 ∙ 클라리 세이지</p>
+        <p data-g="c" data-i18n="S06_T008" class="a b" style="left:783px;top:621px;font-size:18px;line-height:28px">은은하고 부드럽게 이어집니다</p>
+        <p data-g="c" data-i18n="S06_T009" class="a" style="left:783px;top:653px;font-size:18px;line-height:28px"><span class="b">MIDDLE</span> | 자스민 ∙ 라벤더 ∙ 로즈마리 ∙ 네롤리 ∙ 핑크 페퍼</p>
+        <p data-g="c" data-i18n="S06_T010" class="a b" style="left:783px;top:705px;font-size:18px;line-height:28px">깊고 차분하게 남습니다</p>
+        <p data-g="c" data-i18n="S06_T011" class="a" style="left:783px;top:737px;font-size:18px;line-height:28px"><span class="b">BASE</span> | 머스크 ∙ 엠버 ∙ 시더우드 ∙ 베티버 ∙ 패출리 ∙ 톤카</p>
+        <p data-g="c" data-i18n="S06_T012" class="a wrap" style="left:783px;top:820px;width:432px;font-size:16px;line-height:26px;color:rgba(42,42,41,.6)">나잇나잇 크림의 '슬립 인 더포레스트향'은 잠들기 전의 감각을 고려해 개발한, 바이도즈 독점 공급 향료로 완성했습니다.</p>
       </div>
     </section>
 
@@ -262,22 +268,22 @@
     <section class="sl" id="aroma" data-title="03 AromaWellness" data-sec="3" data-next="성분 설계"
              style="background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/0a3ffe57f296c.jpg)">
       <div class="stage d">
-        <p data-i18n="S07_T001" class="a h24" style="left:60px;top:132px">「Aroma Wellness」<br>좋은 향을 넘어, 잠들기 전의 편안함까지.</p>
-        <p data-i18n="S07_T002" class="a p18" style="left:60px;top:226px">차분한 마음은 '좋은 잠'을, 좋은 잠은 '좋은 피부'를 만든다는 믿음으로,<br>나잇나잇 크림은 좋은 향을 넘어, 잠들기 전 심리 상태를 고려한 향을 담았습니다.<br><br>CPL Aromas의 「AromaWellness」는 향과 감정의 연결을 탐구하는<br>향 연구 플랫폼입니다. 향에 대한 사람의 행동과 생리적 반응, 주관적 인식을<br>다양한 평가 방법으로 살펴봅니다.</p>
-        <p data-i18n="S07_T003" class="a b p18 pre" style="left:60px;top:418px;color:#000"><span class="mono">01</span> 행동 반응</p>
-        <p data-i18n="S07_T004" class="a p18" style="left:187px;top:418px;color:#000">표정 변화 · 시선 추적</p>
-        <p data-i18n="S07_T005" class="a b p18 pre" style="left:60px;top:458px;color:#000"><span class="mono">02</span>  생리 반응</p>
-        <p data-i18n="S07_T006" class="a p18" style="left:187px;top:458px;color:#000">심박 · 뇌파 · <mark>피부 전도도(GSR)</mark></p>
-        <p data-i18n="S07_T007" class="a b p18 pre" style="left:60px;top:498px;color:#000"><span class="mono">03</span>  주관 반응</p>
-        <p class="a p18" style="left:187px;top:498px;color:#000"><mark data-i18n="S07_T008">설문평가</mark></p>
-        <div class="a cert" style="left:60px;top:572px;width:731px;height:312px;padding:24px;background:rgba(243,243,233,.3);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)">
-          <p data-i18n="S07_T009" class="a xb" style="left:24px;top:24px;font-size:18px;line-height:18px">CPL Aromas - 「Aroma Wellness」</p>
-          <p data-i18n="S07_T010" class="a p18" style="left:24px;top:62px">이 향료 GW ONE RELAX SC는 AromaWellness Relaxation<br>향료를 포함하며, CPL Aromas의 <span class="b">기술 적합성 확인서</span>를 받았습니다.</p>
-          <p data-i18n="S07_T011" class="a pre" style="left:28px;top:126px;font-size:12px;line-height:19px;opacity:.6">※ Certificate of Technology Compliance · 15 December 2025
+        <p data-g="a" data-i18n="S07_T001" class="a h24" style="left:60px;top:132px">「Aroma Wellness」<br>좋은 향을 넘어, 잠들기 전의 편안함까지.</p>
+        <p data-g="a" data-i18n="S07_T002" class="a p18" style="left:60px;top:226px">차분한 마음은 '좋은 잠'을, 좋은 잠은 '좋은 피부'를 만든다는 믿음으로,<br>나잇나잇 크림은 좋은 향을 넘어, 잠들기 전 심리 상태를 고려한 향을 담았습니다.<br><br>CPL Aromas의 「AromaWellness」는 향과 감정의 연결을 탐구하는<br>향 연구 플랫폼입니다. 향에 대한 사람의 행동과 생리적 반응, 주관적 인식을<br>다양한 평가 방법으로 살펴봅니다.</p>
+        <p data-g="a" data-i18n="S07_T003" class="a b p18 pre" style="left:60px;top:418px;color:#000"><span class="mono">01</span> 행동 반응</p>
+        <p data-g="a" data-i18n="S07_T004" class="a p18" style="left:187px;top:418px;color:#000">표정 변화 · 시선 추적</p>
+        <p data-g="a" data-i18n="S07_T005" class="a b p18 pre" style="left:60px;top:458px;color:#000"><span class="mono">02</span>  생리 반응</p>
+        <p data-g="a" data-i18n="S07_T006" class="a p18" style="left:187px;top:458px;color:#000">심박 · 뇌파 · <mark>피부 전도도(GSR)</mark></p>
+        <p data-g="a" data-i18n="S07_T007" class="a b p18 pre" style="left:60px;top:498px;color:#000"><span class="mono">03</span>  주관 반응</p>
+        <p data-g="a" class="a p18" style="left:187px;top:498px;color:#000"><mark data-i18n="S07_T008">설문평가</mark></p>
+        <div data-g="c" data-g-card class="a cert" style="left:60px;top:572px;width:731px;height:312px;padding:24px;background:rgba(243,243,233,.3);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)">
+          <p data-g="c" data-i18n="S07_T009" class="a xb" style="left:24px;top:24px;font-size:18px;line-height:18px">CPL Aromas - 「Aroma Wellness」</p>
+          <p data-g="c" data-i18n="S07_T010" class="a p18" style="left:24px;top:62px">이 향료 GW ONE RELAX SC는 AromaWellness Relaxation<br>향료를 포함하며, CPL Aromas의 <span class="b">기술 적합성 확인서</span>를 받았습니다.</p>
+          <p data-g="c" data-i18n="S07_T011" class="a pre" style="left:28px;top:126px;font-size:12px;line-height:19px;opacity:.6">※ Certificate of Technology Compliance · 15 December 2025
 ※ 확인 범위는 Relaxation 향료의 포함 사실과 해당 평가 방식입니다.
      GW ONE RELAX SC 전체의 별도 시험이나 완제품의 이완·수면 효과를
      입증하는 자료는 아닙니다.</p>
-          <p data-i18n="S07_T012" class="a" style="left:28px;top:264px;font-size:12px;line-height:18px">GW ONE RELAX SC 관련 기술 적합성 확인서<br>완제품의 수면·이완 효과 인증서가 아닙니다.</p>
+          <p data-g="c" data-i18n="S07_T012" class="a" style="left:28px;top:264px;font-size:12px;line-height:18px">GW ONE RELAX SC 관련 기술 적합성 확인서<br>완제품의 수면·이완 효과 인증서가 아닙니다.</p>
           <img class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/d18b8fab6ec71.jpg" alt="GW ONE RELAX SC 기술 적합성 확인서" style="left:523px;top:24px;width:196px;height:276px">
         </div>
       </div>
@@ -286,95 +292,95 @@
     <!-- ===================== 8 · 04 성분 설계 ===================== -->
     <section class="sl" id="formula" data-title="04 성분 설계" data-sec="4" data-next="Hydration">
       <div class="stage d">
-        <p data-i18n="S08_T001" class="a h24" style="left:60px;top:191px">피부의 회복 환경을 생각한 성분 설계</p>
-        <p data-i18n="S08_T002" class="a p18" style="left:60px;top:250px">자는 동안 피부가 회복하는 데 중요한<br>수분을 채우고 지키는 성분을 조합했습니다.<br>여기에 아침 피부결과 컨디션까지 고려한<br>두 가지 발효 성분을 더했습니다.</p>
+        <p data-g="a" data-i18n="S08_T001" class="a h24" style="left:60px;top:191px">피부의 회복 환경을 생각한 성분 설계</p>
+        <p data-g="a" data-i18n="S08_T002" class="a p18" style="left:60px;top:250px">자는 동안 피부가 회복하는 데 중요한<br>수분을 채우고 지키는 성분을 조합했습니다.<br>여기에 아침 피부결과 컨디션까지 고려한<br>두 가지 발효 성분을 더했습니다.</p>
         <img class="a fill" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/94d3abb072d92.png" alt="나잇나잇 크림 본품" style="left:961px;top:185px;width:173px;height:703px;object-position:bottom">
-        <a class="a card" href="#hydration" style="left:60px;top:383px;width:664px;height:159px"></a>
-        <p class="a b tr" style="left:90px;top:405px;font-size:24px;line-height:24px"><span data-i18n="S08_T003" class="mono">01</span></p>
-        <p data-i18n="S08_T004" class="a b tr" style="left:138px;top:405px;font-size:24px;line-height:24px">Hydration</p>
-        <p data-i18n="S08_T005" class="a" style="left:90px;top:453px;font-size:24px;line-height:24px">수분. 피부 회복의 시작점</p>
-        <p data-i18n="S08_T006" class="a pill chip c-blue" style="right:746px;top:417px">히알루론산 5종</p>
-        <p data-i18n="S08_T007" class="a pill chip c-blue" style="right:746px;top:467px">AQUAXYL™ 자일리톨계 3종</p>
-        <a class="a card" href="#barrier" style="left:60px;top:554px;width:664px;height:159px"></a>
-        <p class="a b tr" style="left:90px;top:576px;font-size:24px;line-height:24px"><span data-i18n="S08_T008" class="mono">02</span></p>
-        <p data-i18n="S08_T009" class="a b tr" style="left:138px;top:576px;font-size:24px;line-height:24px">Barrier</p>
-        <p data-i18n="S08_T010" class="a" style="left:90px;top:624px;font-size:24px;line-height:24px">채운 수분을 지키는 이중 보호 설계</p>
-        <p data-i18n="S08_T011" class="a pill chip c-yellow" style="right:746px;top:588px">엑토인</p>
-        <p data-i18n="S08_T012" class="a pill chip c-yellow" style="right:746px;top:638px">세라마이드 5종</p>
-        <a class="a card" href="#condition" style="left:60px;top:725px;width:664px;height:159px"></a>
-        <p class="a b tr" style="left:90px;top:747px;font-size:24px;line-height:24px"><span data-i18n="S08_T013" class="mono">03</span></p>
-        <p data-i18n="S08_T014" class="a b tr" style="left:138px;top:747px;font-size:24px;line-height:24px">Condition</p>
-        <p data-i18n="S08_T015" class="a" style="left:90px;top:795px;font-size:24px;line-height:24px">아침 피부결까지 생각한 발효 케어</p>
-        <p data-i18n="S08_T016" class="a pill chip c-green" style="right:746px;top:759px">비피다발효여과물</p>
-        <p data-i18n="S08_T017" class="a pill chip c-green" style="right:746px;top:809px">갈락토미세스발효여과물</p>
+        <a data-g="c1" data-g-card class="a card" href="#hydration" style="left:60px;top:383px;width:664px;height:159px"></a>
+        <p data-g="c1" class="a b tr" style="left:90px;top:405px;font-size:24px;line-height:24px"><span data-i18n="S08_T003" class="mono">01</span></p>
+        <p data-g="c1" data-i18n="S08_T004" class="a b tr" style="left:138px;top:405px;font-size:24px;line-height:24px">Hydration</p>
+        <p data-g="c1" data-i18n="S08_T005" class="a" style="left:90px;top:453px;font-size:24px;line-height:24px">수분. 피부 회복의 시작점</p>
+        <p data-g="c1" data-i18n="S08_T006" class="a pill chip c-blue" style="right:746px;top:417px">히알루론산 5종</p>
+        <p data-g="c1" data-i18n="S08_T007" class="a pill chip c-blue" style="right:746px;top:467px">AQUAXYL™ 자일리톨계 3종</p>
+        <a data-g="c2" data-g-card class="a card" href="#barrier" style="left:60px;top:554px;width:664px;height:159px"></a>
+        <p data-g="c2" class="a b tr" style="left:90px;top:576px;font-size:24px;line-height:24px"><span data-i18n="S08_T008" class="mono">02</span></p>
+        <p data-g="c2" data-i18n="S08_T009" class="a b tr" style="left:138px;top:576px;font-size:24px;line-height:24px">Barrier</p>
+        <p data-g="c2" data-i18n="S08_T010" class="a" style="left:90px;top:624px;font-size:24px;line-height:24px">채운 수분을 지키는 이중 보호 설계</p>
+        <p data-g="c2" data-i18n="S08_T011" class="a pill chip c-yellow" style="right:746px;top:588px">엑토인</p>
+        <p data-g="c2" data-i18n="S08_T012" class="a pill chip c-yellow" style="right:746px;top:638px">세라마이드 5종</p>
+        <a data-g="c3" data-g-card class="a card" href="#condition" style="left:60px;top:725px;width:664px;height:159px"></a>
+        <p data-g="c3" class="a b tr" style="left:90px;top:747px;font-size:24px;line-height:24px"><span data-i18n="S08_T013" class="mono">03</span></p>
+        <p data-g="c3" data-i18n="S08_T014" class="a b tr" style="left:138px;top:747px;font-size:24px;line-height:24px">Condition</p>
+        <p data-g="c3" data-i18n="S08_T015" class="a" style="left:90px;top:795px;font-size:24px;line-height:24px">아침 피부결까지 생각한 발효 케어</p>
+        <p data-g="c3" data-i18n="S08_T016" class="a pill chip c-green" style="right:746px;top:759px">비피다발효여과물</p>
+        <p data-g="c3" data-i18n="S08_T017" class="a pill chip c-green" style="right:746px;top:809px">갈락토미세스발효여과물</p>
       </div>
     </section>
 
     <!-- ===================== 9 · 04 Hydration ===================== -->
     <section class="sl" id="hydration" data-title="04 Hydration" data-sec="4" data-next="Barrier">
       <div class="stage d">
-        <p data-i18n="S08_T003" class="a b tr mono" style="left:60px;top:197px;font-size:24px;line-height:24px">01</p>
-        <p data-i18n="S08_T004" class="a b tr" style="left:108px;top:197px;font-size:24px;line-height:24px">Hydration</p>
-        <p data-i18n="S08_T005" class="a" style="left:258px;top:197px;font-size:24px;line-height:24px">수분. 피부 회복의 시작점</p>
-        <div class="a card" style="left:60px;top:261px;width:452px;height:502px"></div>
-        <div class="a card" style="left:524px;top:261px;width:452px;height:502px"></div>
-        <p data-i18n="S08_T006" class="a pill chip b" style="left:84px;top:309px;line-height:18px;letter-spacing:.03em;background:var(--blue)">히알루론산 5종</p>
-        <p data-i18n="S08_T018" class="a b tr" style="right:952px;top:321px;font-size:18px;line-height:18px;color:var(--blue)"><span class="mono">01</span> Hydration</p>
-        <p data-i18n="S09_T006" class="a md tr" style="left:84px;top:387px;font-size:24px;line-height:24px">수분 공급과 보습막</p>
-        <p data-i18n="S09_T007" class="a p16 wrap" style="left:84px;top:435px;width:404px">물 분자를 끌어당기는 히알루론산은 대표적인 보습 성분입니다.<br>기본 형태부터 잘게 분해된 형태, 그물처럼 연결된 형태까지<br>서로 다른 구조의 히알루론산 5종을 조합했습니다. 각기 다른 특성의 히알루론산이 피부에 수분을 공급하고, 피부 표면에<br>촉촉한 보습막을 형성하도록 고려했습니다.</p>
-        <img class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/04b8711211c1b.png" alt="" style="left:368px;top:603px;width:120px;height:120px">
-        <p data-i18n="S08_T007" class="a pill chip b" style="left:548px;top:309px;line-height:18px;letter-spacing:.03em;background:var(--blue)">AQUAXYL™ 자일리톨계 3종</p>
-        <p data-i18n="S08_T018" class="a b tr" style="right:488px;top:321px;font-size:18px;line-height:18px;color:var(--blue)"><span class="mono">01</span> Hydration</p>
-        <p data-i18n="S09_T009" class="a md tr" style="left:548px;top:387px;font-size:24px;line-height:24px">수분 이동과 저장 환경</p>
-        <p data-i18n="S09_T010" class="a p16 wrap" style="left:548px;top:435px;width:404px">자일리톨·자일리틸글루코사이드·무수자일리톨로 구성된 보습 복합체 AQUAXYL™을 사용했습니다. AQUAXYL™은 표피 내 수분 이동과 수분 저장을 돕는 특성을 지닌 보습 원료입니다.<br>히알루론산이 물 분자를 끌어당겨 붙잡는다면, AQUAXYL™은 피부 안에서 수분이 오가고 유지되는 환경에 주목한 성분입니다.</p>
-        <img class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/93296e1e38ae3.png" alt="" style="left:822px;top:603px;width:130px;height:120px">
-        <p data-i18n="S09_T011" class="a p16" style="left:72px;top:778px">나잇나잇 크림은 수분을 채우는 데서 그치지 않고,<br>수분이 고르게 오가고 머무는 환경까지 고려하기 위해 두 원료를 함께 배합했습니다.</p>
-        <p data-i18n="S09_T012" class="a red" style="left:72px;top:861px;font-size:16px;line-height:26px">※ AQUAXYL™의 특성은 원료사 자료 기준이며, 나잇나잇 크림 완제품의 시험 결과가 아닙니다.</p>
+        <p data-g="h" data-i18n="S08_T003" class="a b tr mono" style="left:60px;top:197px;font-size:24px;line-height:24px">01</p>
+        <p data-g="h" data-i18n="S08_T004" class="a b tr" style="left:108px;top:197px;font-size:24px;line-height:24px">Hydration</p>
+        <p data-g="h" data-i18n="S08_T005" class="a" style="left:258px;top:197px;font-size:24px;line-height:24px">수분. 피부 회복의 시작점</p>
+        <div data-g="L" data-g-card class="a card" style="left:60px;top:261px;width:452px;height:502px"></div>
+        <div data-g="R" data-g-card class="a card" style="left:524px;top:261px;width:452px;height:502px"></div>
+        <p data-g="L" data-i18n="S08_T006" class="a pill chip b" style="left:84px;top:309px;line-height:18px;letter-spacing:.03em;background:var(--blue)">히알루론산 5종</p>
+        <p data-g="L" data-i18n="S08_T018" class="a b tr" style="right:952px;top:321px;font-size:18px;line-height:18px;color:var(--blue)"><span class="mono">01</span> Hydration</p>
+        <p data-g="L" data-i18n="S09_T006" class="a md tr" style="left:84px;top:387px;font-size:24px;line-height:24px">수분 공급과 보습막</p>
+        <p data-g="L" data-i18n="S09_T007" class="a p16 wrap" style="left:84px;top:435px;width:404px">물 분자를 끌어당기는 히알루론산은 대표적인 보습 성분입니다.<br>기본 형태부터 잘게 분해된 형태, 그물처럼 연결된 형태까지<br>서로 다른 구조의 히알루론산 5종을 조합했습니다. 각기 다른 특성의 히알루론산이 피부에 수분을 공급하고, 피부 표면에<br>촉촉한 보습막을 형성하도록 고려했습니다.</p>
+        <img data-g="L" class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/04b8711211c1b.png" alt="" style="left:368px;top:603px;width:120px;height:120px">
+        <p data-g="R" data-i18n="S08_T007" class="a pill chip b" style="left:548px;top:309px;line-height:18px;letter-spacing:.03em;background:var(--blue)">AQUAXYL™ 자일리톨계 3종</p>
+        <p data-g="R" data-i18n="S08_T018" class="a b tr" style="right:488px;top:321px;font-size:18px;line-height:18px;color:var(--blue)"><span class="mono">01</span> Hydration</p>
+        <p data-g="R" data-i18n="S09_T009" class="a md tr" style="left:548px;top:387px;font-size:24px;line-height:24px">수분 이동과 저장 환경</p>
+        <p data-g="R" data-i18n="S09_T010" class="a p16 wrap" style="left:548px;top:435px;width:404px">자일리톨·자일리틸글루코사이드·무수자일리톨로 구성된 보습 복합체 AQUAXYL™을 사용했습니다. AQUAXYL™은 표피 내 수분 이동과 수분 저장을 돕는 특성을 지닌 보습 원료입니다.<br>히알루론산이 물 분자를 끌어당겨 붙잡는다면, AQUAXYL™은 피부 안에서 수분이 오가고 유지되는 환경에 주목한 성분입니다.</p>
+        <img data-g="R" class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/93296e1e38ae3.png" alt="" style="left:822px;top:603px;width:130px;height:120px">
+        <p data-g="n" data-i18n="S09_T011" class="a p16" style="left:72px;top:778px">나잇나잇 크림은 수분을 채우는 데서 그치지 않고,<br>수분이 고르게 오가고 머무는 환경까지 고려하기 위해 두 원료를 함께 배합했습니다.</p>
+        <p data-g="n" data-i18n="S09_T012" class="a red" style="left:72px;top:861px;font-size:16px;line-height:26px">※ AQUAXYL™의 특성은 원료사 자료 기준이며, 나잇나잇 크림 완제품의 시험 결과가 아닙니다.</p>
       </div>
     </section>
 
     <!-- ===================== 10 · 04 Barrier ===================== -->
     <section class="sl" id="barrier" data-title="04 Barrier" data-sec="4" data-next="Condition">
       <div class="stage d">
-        <p data-i18n="S08_T008" class="a b tr mono" style="left:60px;top:197px;font-size:24px;line-height:24px">02</p>
-        <p data-i18n="S08_T009" class="a b tr" style="left:108px;top:197px;font-size:24px;line-height:24px">Barrier</p>
-        <p data-i18n="S08_T010" class="a" style="left:258px;top:197px;font-size:24px;line-height:24px">채운 수분을 지키는 이중 보호 설계</p>
-        <div class="a card" style="left:60px;top:261px;width:452px;height:502px"></div>
-        <div class="a card" style="left:524px;top:261px;width:452px;height:502px"></div>
-        <p data-i18n="S08_T011" class="a pill chip c-yellow" style="left:84px;top:309px">엑토인</p>
-        <p data-i18n="S08_T019" class="a b tr" style="right:952px;top:321px;font-size:18px;line-height:18px;color:var(--yellow)"><span class="mono">02</span> Barrier</p>
-        <p data-i18n="S10_T006" class="a md tr" style="left:84px;top:387px;font-size:24px;line-height:24px">극한 환경에서 찾은 피부 보호</p>
-        <p data-i18n="S10_T007" class="a p16 wrap" style="left:84px;top:435px;width:404px">높은 염도와 건조함 등 극한 환경에 서식하는 일부 미생물이 스스로를 보호하기 위해 만들어내는 물질입니다. 엑토인은 주변의 물 분자와 상호작용해 단백질과 세포막 주변의 수분 환경을 안정화하는 특성을 지니고 있습니다. 피부의 수분 유지와 장벽 보호를 위한 성분으로 활용되며, <span class="red">엑토인을 함유한 제형의 피부 적용 연구*</span> 에서도 보습 및 수분 손실 개선 가능성이 보고되었습니다. <span class="b">단순히 수분을 공급하는 것을 넘어, 건조함과 외부 환경 스트레스까지 고려한 보습 설계</span>를 위해 엑토인을 선택했습니다.</p>
-        <p data-i18n="S10_T008" class="a wrap red" style="left:84px;top:639px;width:407px;font-size:16px;line-height:26px">* 원료·제형 연구 기준이며, 나잇나잇 크림 완제품의 시험 결과가 아닙니다.</p>
-        <p data-i18n="S08_T012" class="a pill chip c-yellow" style="left:548px;top:309px">세라마이드 5종</p>
-        <p data-i18n="S08_T019" class="a b tr" style="right:488px;top:321px;font-size:18px;line-height:18px;color:var(--yellow)"><span class="mono">02</span> Barrier</p>
-        <p data-i18n="S10_T010" class="a md tr" style="left:548px;top:387px;font-size:24px;line-height:24px">피부 장벽의 지질 보완</p>
-        <p data-i18n="S10_T011" class="a p16 wrap" style="left:548px;top:435px;width:404px">세라마이드는 피부 각질층에서 세포 사이를 채우는 주요 지질<br>성분 중 하나입니다. 5종 세라마이드를 조합해 피부 장벽에<br>필요한 지질을 보완하고, 수분 손실을 줄이는 장벽 케어를 고려했습니다.</p>
-        <img class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/3317b57113135.png" alt="" style="left:844px;top:603px;width:108px;height:120px;object-position:bottom">
-        <p data-i18n="S10_T012" class="a p16" style="left:72px;top:778px">엑토인이 수분 환경의 안정화와 보호에 주목한 성분이라면, 세라마이드는 피부 장벽을 구성하는 지질에 집중한 성분입니다.<br>서로 다른 역할의 두 성분을 함께 배합해, 채운 수분을 지키기 위한 보습 환경을 생각했습니다.</p>
+        <p data-g="h" data-i18n="S08_T008" class="a b tr mono" style="left:60px;top:197px;font-size:24px;line-height:24px">02</p>
+        <p data-g="h" data-i18n="S08_T009" class="a b tr" style="left:108px;top:197px;font-size:24px;line-height:24px">Barrier</p>
+        <p data-g="h" data-i18n="S08_T010" class="a" style="left:258px;top:197px;font-size:24px;line-height:24px">채운 수분을 지키는 이중 보호 설계</p>
+        <div data-g="L" data-g-card class="a card" style="left:60px;top:261px;width:452px;height:502px"></div>
+        <div data-g="R" data-g-card class="a card" style="left:524px;top:261px;width:452px;height:502px"></div>
+        <p data-g="L" data-i18n="S08_T011" class="a pill chip c-yellow" style="left:84px;top:309px">엑토인</p>
+        <p data-g="L" data-i18n="S08_T019" class="a b tr" style="right:952px;top:321px;font-size:18px;line-height:18px;color:var(--yellow)"><span class="mono">02</span> Barrier</p>
+        <p data-g="L" data-i18n="S10_T006" class="a md tr" style="left:84px;top:387px;font-size:24px;line-height:24px">극한 환경에서 찾은 피부 보호</p>
+        <p data-g="L" data-i18n="S10_T007" class="a p16 wrap" style="left:84px;top:435px;width:404px">높은 염도와 건조함 등 극한 환경에 서식하는 일부 미생물이 스스로를 보호하기 위해 만들어내는 물질입니다. 엑토인은 주변의 물 분자와 상호작용해 단백질과 세포막 주변의 수분 환경을 안정화하는 특성을 지니고 있습니다. 피부의 수분 유지와 장벽 보호를 위한 성분으로 활용되며, <span class="red">엑토인을 함유한 제형의 피부 적용 연구*</span> 에서도 보습 및 수분 손실 개선 가능성이 보고되었습니다. <span class="b">단순히 수분을 공급하는 것을 넘어, 건조함과 외부 환경 스트레스까지 고려한 보습 설계</span>를 위해 엑토인을 선택했습니다.</p>
+        <p data-g="L" data-i18n="S10_T008" class="a wrap red" style="left:84px;top:639px;width:407px;font-size:16px;line-height:26px">* 원료·제형 연구 기준이며, 나잇나잇 크림 완제품의 시험 결과가 아닙니다.</p>
+        <p data-g="R" data-i18n="S08_T012" class="a pill chip c-yellow" style="left:548px;top:309px">세라마이드 5종</p>
+        <p data-g="R" data-i18n="S08_T019" class="a b tr" style="right:488px;top:321px;font-size:18px;line-height:18px;color:var(--yellow)"><span class="mono">02</span> Barrier</p>
+        <p data-g="R" data-i18n="S10_T010" class="a md tr" style="left:548px;top:387px;font-size:24px;line-height:24px">피부 장벽의 지질 보완</p>
+        <p data-g="R" data-i18n="S10_T011" class="a p16 wrap" style="left:548px;top:435px;width:404px">세라마이드는 피부 각질층에서 세포 사이를 채우는 주요 지질<br>성분 중 하나입니다. 5종 세라마이드를 조합해 피부 장벽에<br>필요한 지질을 보완하고, 수분 손실을 줄이는 장벽 케어를 고려했습니다.</p>
+        <img data-g="R" class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/3317b57113135.png" alt="" style="left:844px;top:603px;width:108px;height:120px;object-position:bottom">
+        <p data-g="n" data-i18n="S10_T012" class="a p16" style="left:72px;top:778px">엑토인이 수분 환경의 안정화와 보호에 주목한 성분이라면, 세라마이드는 피부 장벽을 구성하는 지질에 집중한 성분입니다.<br>서로 다른 역할의 두 성분을 함께 배합해, 채운 수분을 지키기 위한 보습 환경을 생각했습니다.</p>
       </div>
     </section>
 
     <!-- ===================== 11 · 04 Condition ===================== -->
     <section class="sl" id="condition" data-title="04 Condition" data-sec="4" data-next="제품 정보">
       <div class="stage d">
-        <p data-i18n="S08_T013" class="a b tr mono" style="left:60px;top:197px;font-size:24px;line-height:24px">03</p>
-        <p data-i18n="S08_T014" class="a b tr" style="left:107px;top:197px;font-size:24px;line-height:24px">Condition</p>
-        <p data-i18n="S08_T015" class="a" style="left:258px;top:197px;font-size:24px;line-height:24px">아침 피부결까지 생각한 발효 케어</p>
-        <div class="a card" style="left:60px;top:261px;width:452px;height:502px"></div>
-        <div class="a card" style="left:524px;top:261px;width:452px;height:502px"></div>
-        <p data-i18n="S08_T016" class="a pill chip b" style="left:84px;top:309px;line-height:18px;letter-spacing:.03em;background:var(--green)">비피다발효여과물</p>
-        <p data-i18n="S08_T020" class="a b tr" style="right:952px;top:321px;font-size:18px;line-height:18px;color:var(--green)"><span class="mono">03</span> Condition</p>
-        <p data-i18n="S11_T006" class="a md tr" style="left:84px;top:387px;font-size:24px;line-height:24px">수분 유지와 피부 컨디셔닝</p>
-        <p data-i18n="S11_T007" class="a p16 wrap" style="left:84px;top:435px;width:404px">비피다균의 발효 과정에서 얻은 여과물입니다. 발효 과정에서 얻는 수용성 성분을 담은 원료로, 피부의 수분 유지와 컨디셔닝을 위해 활용됩니다. 나잇나잇 크림은 이러한 원료 특성에 주목해, <span class="b">하루 동안 외부 환경에 노출된 피부의 컨디션</span>까지 고려하여 비피다발효여과물을 선택했습니다.</p>
-        <img class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/9aefcb4cdc2ba.png" alt="" style="left:372px;top:603px;width:116px;height:120px">
-        <img class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/f5e5977d8d3a2.png" alt="" style="left:831px;top:603px;width:121px;height:120px">
-        <p data-i18n="S08_T017" class="a pill chip b" style="left:548px;top:309px;line-height:18px;letter-spacing:.03em;background:var(--green)">갈락토미세스발효여과물</p>
-        <p data-i18n="S08_T020" class="a b tr" style="right:488px;top:321px;font-size:18px;line-height:18px;color:var(--green)"><span class="mono">03</span> Condition</p>
-        <p data-i18n="S11_T009" class="a md tr" style="left:548px;top:387px;font-size:24px;line-height:24px">보습과 부드러운 피부결 관리</p>
-        <p data-i18n="S11_T010" class="a wrap" style="left:548px;top:435px;width:404px;font-size:16px;line-height:22px">갈락토미세스의 발효 과정에서 얻은 여과물입니다. 피부 보습과 피부결 관리를 위한 컨디셔닝 원료로 활용되며, 관련 원료를 함유한 제형 연구에서는 피부 거칠기 개선이 보고되었습니다. 나잇나잇 크림은 이러한 원료의 활용 배경을 바탕으로, <span class="b">건조함으로 거칠어지기 쉬운 피부를 촉촉하고 부드럽게 관리하는 나이트케어를 위해</span> 갈락토미세스발효여과물을 선택했습니다.</p>
-        <p data-i18n="S11_T011" class="a p16" style="left:72px;top:778px">수분을 채우고 지키는 보습·장벽 설계에 두 가지 발효 성분의 컨디셔닝 특성을 더해,<br>다음 날 아침의 피부결과 컨디션까지 생각했습니다.</p>
-        <p data-i18n="S11_T012" class="a red" style="left:72px;top:861px;font-size:16px;line-height:26px">※ 발효 성분의 특성과 연구 배경에 대한 설명입니다. 연구에 사용된 원료·제형의 결과를 완제품의 시험 결과로 제시하지 않습니다.</p>
+        <p data-g="h" data-i18n="S08_T013" class="a b tr mono" style="left:60px;top:197px;font-size:24px;line-height:24px">03</p>
+        <p data-g="h" data-i18n="S08_T014" class="a b tr" style="left:107px;top:197px;font-size:24px;line-height:24px">Condition</p>
+        <p data-g="h" data-i18n="S08_T015" class="a" style="left:258px;top:197px;font-size:24px;line-height:24px">아침 피부결까지 생각한 발효 케어</p>
+        <div data-g="L" data-g-card class="a card" style="left:60px;top:261px;width:452px;height:502px"></div>
+        <div data-g="R" data-g-card class="a card" style="left:524px;top:261px;width:452px;height:502px"></div>
+        <p data-g="L" data-i18n="S08_T016" class="a pill chip b" style="left:84px;top:309px;line-height:18px;letter-spacing:.03em;background:var(--green)">비피다발효여과물</p>
+        <p data-g="L" data-i18n="S08_T020" class="a b tr" style="right:952px;top:321px;font-size:18px;line-height:18px;color:var(--green)"><span class="mono">03</span> Condition</p>
+        <p data-g="L" data-i18n="S11_T006" class="a md tr" style="left:84px;top:387px;font-size:24px;line-height:24px">수분 유지와 피부 컨디셔닝</p>
+        <p data-g="L" data-i18n="S11_T007" class="a p16 wrap" style="left:84px;top:435px;width:404px">비피다균의 발효 과정에서 얻은 여과물입니다. 발효 과정에서 얻는 수용성 성분을 담은 원료로, 피부의 수분 유지와 컨디셔닝을 위해 활용됩니다. 나잇나잇 크림은 이러한 원료 특성에 주목해, <span class="b">하루 동안 외부 환경에 노출된 피부의 컨디션</span>까지 고려하여 비피다발효여과물을 선택했습니다.</p>
+        <img data-g="L" class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/9aefcb4cdc2ba.png" alt="" style="left:372px;top:603px;width:116px;height:120px">
+        <img data-g="R" class="a cover" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/f5e5977d8d3a2.png" alt="" style="left:831px;top:603px;width:121px;height:120px">
+        <p data-g="R" data-i18n="S08_T017" class="a pill chip b" style="left:548px;top:309px;line-height:18px;letter-spacing:.03em;background:var(--green)">갈락토미세스발효여과물</p>
+        <p data-g="R" data-i18n="S08_T020" class="a b tr" style="right:488px;top:321px;font-size:18px;line-height:18px;color:var(--green)"><span class="mono">03</span> Condition</p>
+        <p data-g="R" data-i18n="S11_T009" class="a md tr" style="left:548px;top:387px;font-size:24px;line-height:24px">보습과 부드러운 피부결 관리</p>
+        <p data-g="R" data-i18n="S11_T010" class="a wrap" style="left:548px;top:435px;width:404px;font-size:16px;line-height:22px">갈락토미세스의 발효 과정에서 얻은 여과물입니다. 피부 보습과 피부결 관리를 위한 컨디셔닝 원료로 활용되며, 관련 원료를 함유한 제형 연구에서는 피부 거칠기 개선이 보고되었습니다. 나잇나잇 크림은 이러한 원료의 활용 배경을 바탕으로, <span class="b">건조함으로 거칠어지기 쉬운 피부를 촉촉하고 부드럽게 관리하는 나이트케어를 위해</span> 갈락토미세스발효여과물을 선택했습니다.</p>
+        <p data-g="n" data-i18n="S11_T011" class="a p16" style="left:72px;top:778px">수분을 채우고 지키는 보습·장벽 설계에 두 가지 발효 성분의 컨디셔닝 특성을 더해,<br>다음 날 아침의 피부결과 컨디션까지 생각했습니다.</p>
+        <p data-g="n" data-i18n="S11_T012" class="a red" style="left:72px;top:861px;font-size:16px;line-height:26px">※ 발효 성분의 특성과 연구 배경에 대한 설명입니다. 연구에 사용된 원료·제형의 결과를 완제품의 시험 결과로 제시하지 않습니다.</p>
       </div>
     </section>
 
@@ -382,7 +388,7 @@
     <section class="sl" id="info" data-title="05 제품 정보" data-sec="5" data-next="EOD">
       <div class="stage d">
         <img class="a fill" src="https://cdn.imweb.me/upload/S2024082705e460c86991c/94d3abb072d92.png" alt="나잇나잇 크림 본품" style="left:268px;top:161px;width:173px;height:703px;object-position:bottom">
-        <div class="a spec" style="left:655px;top:185px;width:471px">
+        <div data-g="a" class="a spec" style="left:655px;top:185px;width:471px">
           <div><p data-i18n="S12_T001">제품명</p><p data-i18n="S12_T002">byDose NIGHT NIGHT CREAM (나잇나잇 크림)</p></div>
           <div><p data-i18n="S12_T003">용량</p><p data-i18n="S12_T004">50 mL</p></div>
           <div><p data-i18n="S12_T005">제품 유형 / 제형</p><p data-i18n="S12_T006">나이트 크림 / 젤-크림 타입</p></div>
@@ -393,7 +399,7 @@
           <div><p data-i18n="S12_T015">소비자가</p><p data-i18n="S12_T016">28,900원</p></div>
           <div><p data-i18n="S12_T017">홈페이지 / 문의</p><p data-i18n="S12_T018"><a class="u" href="https://bydose.kr" target="_blank" rel="noopener">bydose.kr</a>  ·  <a class="u" href="mailto:hogan@bydose.kr">hogan@bydose.kr</a></p></div>
         </div>
-        <p data-i18n="S12_T019" class="a red p16" style="left:657px;top:791px">전성분·제조/책임판매 정보·박스 입수 등 상세 정보와 공급가·MOQ·납기는<br>필요 시 별도 자료로 제공합니다.</p>
+        <p data-g="a" data-i18n="S12_T019" class="a red p16" style="left:657px;top:791px">전성분·제조/책임판매 정보·박스 입수 등 상세 정보와 공급가·MOQ·납기는<br>필요 시 별도 자료로 제공합니다.</p>
       </div>
     </section>
 
@@ -563,11 +569,11 @@
 
     <nav class="mtabs" aria-label="목차">
       <i class="mbar" id="bdkMBar"></i>
-      <a data-i18n-txt href="#m-intro" data-t="1"><span data-i18n="S08_T003" class="mono">01</span>제품소개</a>
-      <a data-i18n-txt href="#m-why" data-t="2"><span data-i18n="S08_T008" class="mono">02</span>밤을 위한 설계</a>
-      <a data-i18n-txt href="#m-texture" data-t="3"><span data-i18n="S08_T013" class="mono">03</span>감촉과 향</a>
-      <a data-i18n-txt href="#m-formula" data-t="4"><span class="mono">04</span>성분 설계</a>
-      <a data-i18n-txt href="#m-info" data-t="5"><span class="mono">05</span>제품 정보</a>
+      <a href="#m-intro" data-t="1"><span data-i18n="S08_T003" class="mono">01</span><span data-i18n-txt>제품소개</span></a>
+      <a href="#m-why" data-t="2"><span data-i18n="S08_T008" class="mono">02</span><span data-i18n-txt>밤을 위한 설계</span></a>
+      <a href="#m-texture" data-t="3"><span data-i18n="S08_T013" class="mono">03</span><span data-i18n-txt>감촉과 향</span></a>
+      <a href="#m-formula" data-t="4"><span class="mono">04</span><span data-i18n-txt>성분 설계</span></a>
+      <a href="#m-info" data-t="5"><span class="mono">05</span><span data-i18n-txt>제품 정보</span></a>
     </nav>
   </div>
 </div>
@@ -687,10 +693,11 @@
 /* 아래 고정 목차 탭 */
 #bdk .mtabs{position:absolute;left:0;right:0;bottom:0;z-index:4;display:none;grid-template-columns:repeat(5,1fr);
   padding-bottom:env(safe-area-inset-bottom,0px);background:rgba(243,243,233,.96);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid rgba(42,42,41,.12)}
-#bdk.is-m .mtabs{display:grid;position:fixed}
+#bdk.is-m .mtabs{display:grid;position:fixed;grid-template-columns:repeat(5,minmax(0,1fr))}
 #bdk .mtabs a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;height:64px;font-size:12px;line-height:1.25;font-weight:500;text-align:center;color:var(--ink)}
 #bdk .mtabs a .mono{font-weight:700;font-size:12px}
 #bdk .mtabs a.is-on{color:var(--red)}
+#bdk .mtabs a span[data-i18n-txt]{display:block;max-width:100%;padding:0 3px;overflow-wrap:normal}
 #bdk .mbar{position:absolute;left:0;top:-1px;height:2px;width:0;background:var(--red);transition:width .25s ease}
 #bdk .mtabs a:focus-visible,#bdk .mh-btn:focus-visible,#bdk .m-card:focus-visible{outline:2px solid var(--red);outline-offset:-2px}
 @media print{#bdk .mpage,#bdk .mtabs{display:none!important}#bdk.is-m .track{display:block!important}}
@@ -773,7 +780,7 @@
     var was=isM; isM=isMobile();
     root.classList.toggle('is-m',isM);
     root.style.setProperty('--s',Math.min(innerWidth/1440,innerHeight/1024));
-    if(was!==isM){ clearVideos(); if(isM) mVideos(); else {syncVideos(); if(lang!=='KOR') fitText();} }
+    if(was!==isM){ clearVideos(); if(isM) mVideos(); else syncVideos(); fitText() } else if(isM) fitTabs();
   }
 
   /* ---------- 이동 ---------- */
@@ -943,38 +950,182 @@
       try{var u=new URL(location.href); if(code==='KOR') u.searchParams.delete('lang'); else u.searchParams.set('lang',HTML_LANG[code]); history.replaceState(null,'',u)}catch(e){}
     }
   }
-  /* PC 무대는 글자 자리가 피그마 좌표로 고정 → 번역이 한국어 상자보다 크면 맞춘다.
-     - 빈자리 재기: 오른쪽(오른쪽 정렬이면 왼쪽)·아래 이웃 요소, 감싼 카드, 무대 가장자리까지
-     - 한 줄 글자: 같은 줄 오른쪽 값 칸을 통째로 밀거나 → 글자를 줄이고(최대 26%) → 그래도 넘치면 줄바꿈
-     - 여러 줄 글자: 한국어 폭 1.2배(빈자리 안)로 줄바꿈 → 아래 이웃을 카드 안에서 밀어 내리고 → 그래도 넘치면 글자 축소
-     - 알약(태그)은 줄바꿈 없이 글자만 줄인다. 카드 안 흐름 글자(후기·제품 정보 표)는 칸 폭 안에서 줄이거나 줄바꿈 */
+  /* PC 무대는 글자 자리가 피그마 좌표로 고정 → 번역 화면에서는 '글 묶음' 단위로 다시 쌓는다.
+     - 묶음(data-g): 위에서 아래로 쌓이는 한 칸. 한국어 배치에서 줄(같은 높이에 놓인 요소)과 줄 사이 간격을 재서 그대로 쓴다.
+     - 한 줄 안: 왼쪽부터 차례로(같은 x에서 시작하던 칸은 줄끼리 맞춤), 오른쪽 정렬 요소는 오른쪽 끝 고정.
+       마지막 글자는 남은 폭(묶음 오른쪽 한계 GOPT.r 또는 오른쪽 요소 앞)에서 줄바꿈.
+     - 카드(data-g-card): 글이 길어지면 카드가 함께 늘어난다. 나란한 카드는 높이를 맞춘다.
+     - 아래 묶음은 위 묶음이 늘어난 만큼 밀려 내려간다.
+     - 아래 한계(GOPT.b, 기본 984)를 넘으면 그 장의 글자 전체를 같은 비율로 줄여(최대 20%) 다시 쌓는다. */
+  var GOPT={
+    'cover.t':{l:560,r:1380,up:1},
+    'intro.a':{r:790},
+    'why.a':{r:640},
+    'sequence.a':{r:560},'sequence.g1':{r:1188},'sequence.g2':{r:1188},'sequence.g3':{r:1188},'sequence.n':{r:1206},
+    'texture.h':{r:735,up:1},'texture.c':{r:1215},
+    'scent.h':{r:735,up:1},'scent.c':{r:1215},
+    'aroma.a':{r:610},'aroma.c':{r:563,b:1004},
+    'formula.a':{r:900},'formula.c1':{r:694},'formula.c2':{r:694},'formula.c3':{r:694},
+    'hydration.L':{r:488},'hydration.R':{r:952},'hydration.n':{r:1180},
+    'barrier.L':{r:488},'barrier.R':{r:952},'barrier.n':{r:1180},
+    'condition.L':{r:488},'condition.R':{r:952},'condition.n':{r:1180},
+    'info.a':{r:1300}
+  };
   function fitText(){
-    if(isM) return;
-    var sc=parseFloat(root.style.getPropertyValue('--s'))||1;
-    slides.forEach(function(sl){var g=sl.querySelector('.stage.d'); if(g) fitStage(g,sc)});
+    if(isM) return fitTabs();
+    slides.forEach(function(sl){var g=sl.querySelector('.stage.d'); if(g) fitStage(g)});
   }
-  var SAVE=['whiteSpace','width','fontSize','lineHeight','left','right','top','visibility'];
-  function keep(e,list){ if(!e._sv){e._sv={};SAVE.forEach(function(k){e._sv[k]=e.style[k]}); list.push(e)} }
-  function fitStage(stg,sc){
-    var touched=stg._touched||(stg._touched=[]);
-    touched.forEach(function(e){SAVE.forEach(function(k){e.style[k]=e._sv[k]})});
-    var keys=[].slice.call(stg.querySelectorAll('[data-i18n]')), units=[], flows=[];
-    keys.forEach(function(el){
-      var u=el.classList.contains('a')?el:(getComputedStyle(el).display==='inline'?el.closest('.a'):null);
-      if(u){ if(units.indexOf(u)<0) units.push(u) } else flows.push(el);
+  /* 모바일 아래 탭: 번역 단어가 칸(화면 1/5)보다 길면 그 탭 글자만 줄인다(최소 9px), 그래도 길면 단어 안에서 줄바꿈 */
+  function fitTabs(){
+    [].forEach.call(root.querySelectorAll('.mtabs a span[data-i18n-txt]'),function(e){
+      e.style.fontSize=''; e.style.overflowWrap='';
+      if(lang==='KOR'||!e.offsetWidth) return;
+      var fs=12; while(e.scrollWidth>e.clientWidth&&fs>9){fs-=.5;e.style.fontSize=fs+'px'}
+      if(e.scrollWidth>e.clientWidth) e.style.overflowWrap='anywhere';
     });
-    var trs=keys.map(function(e){var h=e.innerHTML;e.innerHTML=e._ko;return h});
-    var sr=stg.getBoundingClientRect();
+  }
+  var SAVE=['whiteSpace','width','height','fontSize','lineHeight','left','top','visibility','textAlign','textWrap'];
+  function keep(e,list){ if(!e._sv){e._sv={};SAVE.forEach(function(k){e._sv[k]=e.style[k]}); list.push(e)} }
+  /* 한 줄 바꿈은 한국어 줄 길이에 맞춘 것 → 문장 중간이면 이어 붙인다(문장 끝·※·* 앞 줄바꿈과 빈 줄은 둔다) */
+  function joinBr(h){
+    var sp=/^(ja|zh)/.test(root.getAttribute('lang'))?'':' ';
+    return h.split(/<br\s*\/?>\s*<br\s*\/?>/i).map(function(par){
+      return par.split(/<br\s*\/?>/i).reduce(function(a,seg){
+        if(a===null) return seg;
+        var t=a.replace(/<[^>]+>/g,'').trim(), n=seg.replace(/<[^>]+>/g,'').trim();
+        return /[.!?。！？:：]$/.test(t)||/^[※*•·]/.test(n)?a+'<br>'+seg:a.replace(/\s+$/,'')+sp+seg.replace(/^\s+/,'');
+      },null);
+    }).join('<br><br>');
+  }
+  function fitStage(stg){
+    var touched=stg._touched||(stg._touched=[]);
+    function restore(){touched.forEach(function(e){SAVE.forEach(function(k){e.style[k]=e._sv[k]})})}
+    restore();
+    var sr=stg.getBoundingClientRect(), sc=sr.width/1440||1;
     function box(e){var r=e.getBoundingClientRect();return {l:(r.left-sr.left)/sc,t:(r.top-sr.top)/sc,r:(r.right-sr.left)/sc,b:(r.bottom-sr.top)/sc}}
-    var obs=[].filter.call(stg.querySelectorAll('.a,.card,.glass'),function(e){return e.offsetWidth&&!e.classList.contains('nav-i')&&!e.closest('[data-i18n-part]')}).map(function(e){var b=box(e);return {e:e,b:b,k:b}});
-    var b0=units.map(box), f0=flows.map(function(e){return e.offsetHeight});
+    /* 한국어로 잠깐 바꿔 원래 자리를 잰다 */
+    var keys=[].slice.call(stg.querySelectorAll('[data-i18n]'));
+    var trs=keys.map(function(e){var h=e.innerHTML;if(e._ko!=null)e.innerHTML=e._ko;return h});
+    var mem=[].slice.call(stg.querySelectorAll('[data-g]')), ko=mem.map(box);
     keys.forEach(function(e,i){e.innerHTML=trs[i]});
+    if(lang!=='KOR') fitGroups(stg,mem,ko,touched,restore,box);
+    fitChrome(stg,touched,box);
+  }
+  function fitGroups(stg,mem,ko,touched,restore,box){
+    var sid=stg.closest('.sl').id, G={}, list=[];
+    mem.forEach(function(e,i){
+      var n=e.getAttribute('data-g');
+      if(!G[n]){G[n]={items:[],card:null,o:GOPT[sid+'.'+n]||{}};list.push(G[n])}
+      var it={e:e,k:ko[i],right:!!e.style.right&&!e.style.left,img:e.tagName==='IMG'||!e.textContent.trim(),pill:e.classList.contains('pill')};
+      if(e.hasAttribute('data-g-card')) G[n].card=it; else G[n].items.push(it);
+    });
+    /* 글자 요소: 묶음 요소 자신과, 그 안에서 글자를 직접 가진 요소 */
+    var texts=[];
+    list.forEach(function(g){
+      g.kt=Infinity;g.kb=-Infinity;g.kl=Infinity;g.kr=-Infinity;
+      g.items.concat(g.card?[g.card]:[]).forEach(function(it){g.kt=Math.min(g.kt,it.k.t);g.kb=Math.max(g.kb,it.k.b);g.kl=Math.min(g.kl,it.k.l);g.kr=Math.max(g.kr,it.k.r)});
+      g.items.forEach(function(it){
+        if(it.img) return;
+        /* 문단은 한국어 줄바꿈을 풀어 칸 폭에 맞춰 다시 흐르게 */
+        var cs=getComputedStyle(it.e);
+        if(it.e.hasAttribute('data-i18n')&&parseFloat(cs.fontSize)<=18&&!it.pill) it.e.innerHTML=joinBr(it.e.innerHTML);
+        [it.e].concat([].slice.call(it.e.querySelectorAll('*'))).forEach(function(x){
+          if(x!==it.e&&![].some.call(x.childNodes,function(c){return c.nodeType===3&&c.nodeValue.trim()})) return;
+          var c=getComputedStyle(x); x._fs=parseFloat(c.fontSize); x._lh=parseFloat(c.lineHeight); texts.push(x);
+        });
+      });
+    });
+    var k=1;
+    for(;;){
+      if(layout(k)||k<0.81) break;
+      k-=0.04; restore();
+    }
+    function set(e,p,v){keep(e,touched);e.style[p]=v}
+    function W(e){return box(e).r-box(e).l}
+    function H(e){return box(e).b-box(e).t}
+    /* 제목은 줄 길이를 고르게(한 글자만 다음 줄로 넘어가지 않게) */
+    function wrapTo(e,w){set(e,'whiteSpace','normal');set(e,'width',Math.max(60,Math.floor(w))+'px');set(e,'textWrap',parseFloat(getComputedStyle(e).fontSize)>=19?'balance':'pretty')}
+    function layout(k){
+      texts.forEach(function(x){ set(x,'fontSize',x._fs*k+'px'); if(x._lh) set(x,'lineHeight',x._lh*k+'px') });
+      list.forEach(function(g){layoutGroup(g,k)});
+      /* 나란한 카드(같은 위치·크기)는 높이를 맞춘다 */
+      list.forEach(function(a){ list.forEach(function(b){
+        if(a!==b&&a.card&&b.card&&Math.abs(a.card.k.t-b.card.k.t)<2&&Math.abs(a.card.k.b-b.card.k.b)<2&&b.bottom>a.bottom){ set(a.card.e,'height',(b.bottom-a.card.k.t)+'px'); a.bottom=b.bottom }
+      })});
+      /* 위 묶음이 늘어난 만큼 아래 묶음을 민다 */
+      var ord=list.slice().sort(function(a,b){return a.kt-b.kt}), ok=true;
+      ord.forEach(function(g,i){
+        g.dy=g.o.up?Math.min(0,g.kb-g.bottom):0;
+        for(var j=0;j<i;j++){var h=ord[j];
+          if(h.kb<=g.kt+4&&Math.min(h.kr,g.kr)-Math.max(h.kl,g.kl)>4) g.dy=Math.max(g.dy,h.bottom+h.dy-h.kb);
+        }
+        if(g.dy) g.items.concat(g.card?[g.card]:[]).forEach(function(it){
+          if(it.e.offsetParent!==stg) return;   /* 카드 안 요소는 카드와 함께 움직인다 */
+          set(it.e,'top',(parseFloat(it.e.style.top)||0)+g.dy+'px');
+        });
+        if(g.bottom+g.dy>(g.o.b||984)+1) ok=false;
+      });
+      return ok;
+    }
+    function layoutGroup(g,k){
+      var R=g.o.r||1300, its=g.items.slice().sort(function(a,b){return a.k.t-b.k.t}), rows=[];
+      function ov(a,b){var o=Math.min(a.b,b.b)-Math.max(a.t,b.t);return o>Math.max(3,.3*Math.min(a.b-a.t,b.b-b.t))}
+      its.forEach(function(it){
+        var row=rows.filter(function(r){return r.some(function(o){return ov(o.k,it.k)})})[0];
+        if(row) row.push(it); else rows.push([it]);
+      });
+      /* 가로: 줄마다 왼쪽부터. 같은 x에서 시작하던 칸(값 칸 등)은 가장 많이 밀린 줄에 맞춘다 */
+      var colX={};
+      function lefts(row){return row.filter(function(i){return !i.right}).sort(function(a,b){return a.k.l-b.k.l})}
+      rows.forEach(function(row){ var p=null; lefts(row).forEach(function(it,j){
+        if(j){ var key=Math.round(it.k.l); it.x=Math.max(it.k.l,p.x+W(p.e)+Math.max(8,it.k.l-p.k.r)); colX[key]=Math.max(colX[key]||0,it.x) } else it.x=it.k.l;
+        p=it;
+      })});
+      var y=null, pkb=0, bottom=-Infinity;
+      rows.forEach(function(row){
+        var L=lefts(row), Rt=row.filter(function(i){return i.right});
+        L.forEach(function(it,j){ if(j) it.x=colX[Math.round(it.k.l)] });
+        /* 오른쪽 알약이 너무 넓으면 줄의 60%까지 글자를 줄인다 */
+        Rt.forEach(function(it){ if(!it.pill) return; var room=.6*(it.k.r-(L.length?L[0].x:g.kl)), f=1;
+          while(W(it.e)>room&&f>.72){f-=.04;set(it.e,'fontSize',it.e._fs*k*f+'px')} });
+        var lim=R; Rt.forEach(function(it){lim=Math.min(lim,it.k.r-W(it.e)-16)});
+        var last=L[L.length-1];
+        if(last&&!last.img&&!last.pill){
+          var room=lim-last.x, fixed=last.e.style.width&&last.e.style.whiteSpace!=='nowrap';
+          if(W(last.e)>room+1||(fixed&&parseFloat(last.e.style.width)>room)) wrapTo(last.e,room);
+        } else if(last){
+          /* 알약 줄: 오른쪽 이름표(장 제목과 같은 내용)와 부딪치면 이름표를 숨기고, 그래도 넓으면 알약 글자를 줄인다 */
+          if(last.x+W(last.e)+16>lim) Rt.forEach(function(it){ if(!it.pill&&!it.img){ set(it.e,'visibility','hidden'); it.hidden=1 } });
+          lim=R; Rt.forEach(function(it){ if(!it.hidden) lim=Math.min(lim,it.k.r-W(it.e)-16) });
+          if(last.pill){ var f=1; while(last.x+W(last.e)>lim&&f>.72){f-=.04;set(last.e,'fontSize',last.e._fs*k*f+'px')}
+            if(last.x+W(last.e)>lim){ wrapTo(last.e,lim-last.x); set(last.e,'height','auto') } }
+        } else if(Rt.length===1&&!Rt[0].img&&g.o.l!=null){
+          var it=Rt[0]; if(W(it.e)>it.k.r-g.o.l){ wrapTo(it.e,it.k.r-g.o.l); set(it.e,'textAlign','right') }
+        }
+        /* 세로: 한국어에서의 줄 사이 간격을 그대로 */
+        var kt=Infinity,kb=-Infinity; row.forEach(function(it){kt=Math.min(kt,it.k.t);kb=Math.max(kb,it.k.b)});
+        y=y===null?kt:y+Math.max(0,kt-pkb); pkb=kb;
+        var rb=-Infinity;
+        row.forEach(function(it){
+          var e=it.e, pb=e.offsetParent===stg?{l:0,t:0}:box(e.offsetParent), ty=y+(it.k.t-kt);
+          if(Math.abs(ty-it.k.t)>.5) set(e,'top',(ty-pb.t)+'px');
+          if(!it.right&&it.x!=null&&Math.abs(it.x-it.k.l)>.5) set(e,'left',(it.x-pb.l)+'px');
+          if(!it.hidden) rb=Math.max(rb,ty+H(e));
+        });
+        y=rb; bottom=Math.max(bottom,rb);
+      });
+      var cb=-Infinity; g.items.forEach(function(it){cb=Math.max(cb,it.k.b)});
+      g.bottom=bottom;
+      if(g.card){
+        var c=g.card, h=Math.max(c.k.b-c.k.t,bottom+(c.k.b-cb)-c.k.t);
+        if(h>c.k.b-c.k.t+.5) set(c.e,'height',h+'px');
+        g.bottom=c.k.t+h;
+      }
+    }
+  }
+  /* 상단 목차·다음 버튼 위 글자 (언어와 상관없이 매번) */
+  function fitChrome(stg,touched,box){
     if(lang==='KOR') return;
-    /* 알약·이름표 없는 요소는 번역 뒤 크기도 함께 피한다 */
-    function grow(o){var t=box(o.e);o.b={l:Math.min(o.k.l,t.l),t:o.k.t,r:Math.max(o.k.r,t.r),b:Math.max(o.k.b,t.b)}}
-    obs.forEach(function(o){ if(units.indexOf(o.e)<0||o.e.classList.contains('pill')) grow(o) });
-
-    /* 상단 목차: 글자 길이대로 차례로 놓고, 아이콘(PDF) 앞에서 넘치면 줄인다 */
     var navs=[].slice.call(stg.querySelectorAll('.nav-i'));
     if(navs.length){
       var dot=stg.querySelector('.nav-dot'), x0=Math.min(navs[0].offsetLeft,200), end=1226, gap=28, f=1, n=navs.length;
@@ -984,91 +1135,11 @@
       var x=x0;
       navs.forEach(function(v){ v.style.left=x+'px'; if(dot&&v.classList.contains('is-on')){keep(dot,touched);dot.style.left=Math.round(x+v.offsetWidth/2-2)+'px'} x+=v.offsetWidth+gap });
     }
-
-    function inside(a,b){return a.l>=b.l-1&&a.r<=b.r+1&&a.t>=b.t-1&&a.b<=b.b+1}
-    function vOv(a,b){return a.t<b.b-1&&a.b>b.t+1}
-    function hOv(a,l,r){return a.l<r-1&&a.r>l+1}
-    function shift(o,dx,dy){keep(o.e,touched);var s=o.e.style;
-      if(dx){ if(s.left) s.left=parseFloat(s.left)+dx+'px'; else s.right=parseFloat(s.right)-dx+'px' }
-      if(dy) s.top=(parseFloat(s.top)||o.e.offsetTop)+dy+'px';
-      o.b={l:o.b.l+dx,r:o.b.r+dx,t:o.b.t+dy,b:o.b.b+dy}}
-    /* 알약(태그)을 먼저 줄여 두고, 줄어든 크기로 나머지 글자의 빈자리를 잰다 */
-    var order=units.map(function(u,i){return i}).sort(function(a,c){return units[c].classList.contains('pill')-units[a].classList.contains('pill')});
-    var pillsDone=false;
-    order.forEach(function(i){
-      var u=units[i];
-      if(!pillsDone&&!u.classList.contains('pill')){ pillsDone=true; obs.forEach(function(o){ if(o.e.classList.contains('pill')) grow(o) }) }
-      var b=b0[i], st=u.style, w0=b.r-b.l, h0=b.b-b.t; if(!w0) return;
-      var nw=u.offsetWidth, nh=u.offsetHeight, pill=u.classList.contains('pill');
-      keep(u,touched);
-      var rightAnch=!!u._sv.right&&!u._sv.left, centered=/translateX\(-50%\)/.test(st.transform);
-      var frame=null;
-      obs.forEach(function(o){ if(o.e!==u&&!u.contains(o.e)&&inside(b,o.b)&&(o.b.r-o.b.l)*(o.b.b-o.b.t)>w0*h0*1.5&&(!frame||(o.b.r-o.b.l)<(frame.b.r-frame.b.l))) frame=o });
-      var F=frame&&frame.b, padX=F?(rightAnch?F.r-b.r:b.l-F.l):60;
-      var lim=rightAnch?(F?F.l+padX:60):(F?F.r-padX:1440-60), right=[];
-      function other(o){return o.e!==u&&!u.contains(o.e)&&!o.e.contains(u)&&!inside(b,o.b)&&(!frame||frame.e.contains(o.e)||!o.e.contains(frame.e))}
-      obs.forEach(function(o){
-        if(!other(o)||!vOv(o.b,b)) return;
-        if(!rightAnch&&o.k.l>=b.r-24&&o.k.l>b.l+8){ if(o.b.l-12<lim) lim=o.b.l-12; right.push(o) }
-        if(rightAnch&&o.k.r<=b.l+24&&o.k.r<b.r-8) lim=Math.max(lim,o.b.r+12);
-      });
-      var room=Math.max(w0,centered?w0*1.3:(rightAnch?b.r-lim:lim-b.l));
-      if(nw<=room+2&&nh<=h0+2) return;
-      var cs=getComputedStyle(u), fs=parseFloat(cs.fontSize), lh=parseFloat(cs.lineHeight)||fs*1.2;
-      function scale(k){st.fontSize=fs*k+'px';st.lineHeight=lh*k+'px'}
-      var oneLine=pill||h0<lh*1.5, fixedW=/\bwrap\b/.test(u.className)||!!u._sv.width, k=1;
-      if(oneLine&&!fixedW){
-        if(!rightAnch&&!centered&&!pill&&right.length&&nw>room){
-          var need=nw-room, col=right[0].b.l, colR=0, all=obs.filter(function(o){return Math.abs(o.b.l-col)<3&&other(o)&&(!F||inside(o.b,F))});
-          all.forEach(function(o){colR=Math.max(colR,o.b.r)});
-          if(all.length&&colR+need<=(F?F.r-padX:1440-60)+2){ all.forEach(function(o){shift(o,need,0)}); return }
-        }
-        while(u.offsetWidth>room+2&&k>0.74){k-=.04;scale(k)}
-        if(pill||u.offsetWidth<=room+2) return;
-        k=1;scale(1);
-      }
-      st.whiteSpace='normal';
-      if(!fixedW) st.width=Math.round(oneLine?room:Math.min(room,Math.max(w0*1.2,w0+40)))+'px';
-      /* 줄바꿈으로 길어진 아래쪽에 더 튀어나온 이웃(두 번째 태그 등)이 있으면 폭을 한 번 더 좁힌다 */
-      for(var it=0;it<2&&!fixedW&&!rightAnch&&!centered;it++){
-        var nb={l:b.l,r:b.r,t:b.t,b:b.t+u.offsetHeight}, lim2=lim;
-        obs.forEach(function(o){ if(other(o)&&vOv(o.b,nb)&&o.k.l>b.l+w0*.5) lim2=Math.min(lim2,o.b.l-12) });
-        if(lim2>=lim-1) break; lim=lim2; room=Math.max(120,lim-b.l); st.width=Math.round(room)+'px';
-      }
-      var L=rightAnch?b.r-u.offsetWidth:b.l, R=L+u.offsetWidth;
-      var bot=F?F.b-Math.min(24,b.t-F.t):1024-24, below=[];
-      obs.forEach(function(o){ if(other(o)&&o.b.t>=b.b-2&&hOv(o.b,L,R)){ bot=Math.min(bot,o.b.t-8); below.push(o) } });
-      var over=b.t+u.offsetHeight-bot;
-      if(over>0&&below.length&&F){
-        /* 아래 이웃(같은 카드 안, 그 아래 것까지)을 카드 바닥 여유만큼 밀어 내린다 */
-        var grp=obs.filter(function(o){return other(o)&&inside(o.b,F)&&o.b.t>=b.b-2&&hOv(o.b,L-40,R+40)}), gb=0;
-        grp.forEach(function(o){gb=Math.max(gb,o.b.b)});
-        var dy=Math.min(over,F.b-12-gb);
-        if(dy>0&&grp.length){ grp.forEach(function(o){shift(o,0,dy)}); bot+=dy }
-      }
-      while(b.t+u.offsetHeight>bot+2&&k>0.72){k-=.04;scale(k)}
-    });
-    /* 알약이 줄여도 오른쪽 정렬 이름표(01 Hydration 등)와 겹치면 이름표를 숨긴다(같은 내용이 장 제목에 있음) */
-    obs.forEach(function(p){
-      if(!p.e.classList.contains('pill')) return; var pb=box(p.e);
-      obs.forEach(function(o){ var s=o.e.style;
-        if(o.e===p.e||o.e.classList.contains('pill')||!s.right||s.left||!o.e.textContent.trim()) return;
-        var ob=box(o.e); if(vOv(ob,pb)&&hOv(ob,pb.l-8,pb.r+8)){keep(o.e,touched);s.visibility='hidden'}
-      });
-    });
     /* 다음 버튼 위 글자: 화면 오른쪽 밖으로 나가면 줄이고, 그래도 넘치면 왼쪽으로 당긴다 */
     [].forEach.call(stg.querySelectorAll('.next-l'),function(e){
       keep(e,touched); var k=1, w=function(){return box(e).r};
       while(w()>1440-8&&k>0.8){k-=.04;e.style.fontSize=16*k+'px'}
       if(w()>1440-8) e.style.left=Math.round(1440-8-e.offsetWidth/2)+'px';
-    });
-    /* 카드 안 흐름 글자: 칸 폭 안에서 한 줄로 줄여 보고, 안 되면 줄바꿈 */
-    flows.forEach(function(e,i){
-      keep(e,touched); var st=e.style;
-      if(e.scrollWidth<=e.clientWidth-6&&e.offsetHeight<=f0[i]+2) return;
-      var cs=getComputedStyle(e), fs=parseFloat(cs.fontSize), lh=parseFloat(cs.lineHeight)||fs*1.2, k=1;
-      while(e.scrollWidth>e.clientWidth-6&&k>0.8){k-=.04;st.fontSize=fs*k+'px';st.lineHeight=lh*k+'px'}
-      if(e.scrollWidth>e.clientWidth-6){st.fontSize=e._sv.fontSize;st.lineHeight=e._sv.lineHeight;st.whiteSpace='normal'}
     });
   }
   function startLang(){
