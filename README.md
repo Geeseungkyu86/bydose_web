@@ -63,3 +63,6 @@
 - 배치 점검: `node tools/check_deck_layout.js` (node + playwright 필요). PC 3가지·모바일 3가지 크기에서 넘침·겹침을 확인하고,
   글자를 줄이거나 단어 중간에서 꺾여야 겨우 들어가는 짧은 칸(목차·탭·알약·다음 장 안내)을 `bydose_제품소개서_다국어/길이_점검.csv` 에 권장 최대 글자 수와 함께 적습니다.
   `--shots 폴더` 를 붙이면 언어별 화면 사진도 저장합니다.
+- 언어별 PDF: `nightnight-deck-pdf/byDose_NightNightCream_<KO|EN|JA|ZH|MN|RU>.pdf` (PC 화면 13장, 1920×1080, 글자 선택·검색 가능)
+  - 제품소개서의 다운로드 버튼이 지금 보고 있는 언어의 PDF를 내려받습니다(저장소 main → 작업 브랜치 순서로 찾고, 못 받으면 브라우저 인쇄로 대신).
+  - 번역·배치를 고친 뒤에는 `node tools/build_deck_pdfs.js` (일부만: `node tools/build_deck_pdfs.js en,ru`) 로 다시 만들어 함께 올립니다.

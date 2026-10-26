@@ -222,11 +222,12 @@ For sample evaluation and inquiries about trade terms, please contact us below."
 전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,탐색 메뉴,감촉과 향,Texture & scent,Мэдрэмж ба үнэр,感触と香り,触感与香气,Текстура и аромат,기존 후보 유지,JS_SOURCE,JS_TABS_03,script var TABS[3]:L643
 전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,탐색 메뉴,성분 설계,Ingredient design,Найрлагын зохиомж,成分設計,成分设计,Подбор ингредиентов,기존 후보 유지,JS_SOURCE,JS_TABS_04,script var TABS[4]:L643
 전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,탐색 메뉴,제품 정보,Product information,Бүтээгдэхүүний мэдээлэл,製品情報,产品信息,Информация о продукте,기존 후보 유지,JS_SOURCE,JS_TABS_05,script var TABS[5]:L643
-전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,언어 선택 메뉴,한국어,**보류 — 미확정**. 원본 메뉴 라벨은 위 KO에 보존. 이슈 문서의 개별 후보 참조.,한국어,한국어,한국어,보류 — 미확정,미결정: 언어 선택 메뉴,JS_SOURCE,JS_LANG_KOR,script LANGS KOR:L646
-전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,언어 선택 메뉴,영어,**보류 — 미확정**. 원본 메뉴 라벨은 위 KO에 보존. 이슈 문서의 개별 후보 참조.,영어,영어,영어,보류 — 미확정,미결정: 언어 선택 메뉴,JS_SOURCE,JS_LANG_ENG,script LANGS ENG:L646
-전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,언어 선택 메뉴,중국,**보류 — 미확정**. 원본 메뉴 라벨은 위 KO에 보존. 이슈 문서의 개별 후보 참조.,중국,중국,중국,보류 — 미확정,미결정: 언어 선택 메뉴,JS_SOURCE,JS_LANG_CHN,script LANGS CHN:L646
-전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,언어 선택 메뉴,몽골,**보류 — 미확정**. 원본 메뉴 라벨은 위 KO에 보존. 이슈 문서의 개별 후보 참조.,몽골,몽골,몽골,보류 — 미확정,미결정: 언어 선택 메뉴,JS_SOURCE,JS_LANG_MNG,script LANGS MNG:L646
-전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,언어 선택 메뉴,러시아,**보류 — 미확정**. 원본 메뉴 라벨은 위 KO에 보존. 이슈 문서의 개별 후보 참조.,러시아,러시아,러시아,보류 — 미확정,미결정: 언어 선택 메뉴,JS_SOURCE,JS_LANG_RUS,script LANGS RUS:L646
+전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,언어 선택 메뉴,한국어,한국어,한국어,한국어,한국어,한국어,번역 제외: 언어 메뉴는 각 언어 이름을 그 언어로 고정(모든 언어 화면에서 같은 글자),JS_SOURCE,JS_LANG_KOR,script LANGS KOR:L646
+전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,언어 선택 메뉴,English,English,English,English,English,English,번역 제외: 언어 메뉴는 각 언어 이름을 그 언어로 고정(모든 언어 화면에서 같은 글자),JS_SOURCE,JS_LANG_ENG,script LANGS ENG:L646
+전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,언어 선택 메뉴,日本語,日本語,日本語,日本語,日本語,日本語,번역 제외: 언어 메뉴는 각 언어 이름을 그 언어로 고정(모든 언어 화면에서 같은 글자),JS_SOURCE,JS_LANG_JPN,script LANGS JPN
+전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,언어 선택 메뉴,简体中文,简体中文,简体中文,简体中文,简体中文,简体中文,번역 제외: 언어 메뉴는 각 언어 이름을 그 언어로 고정(모든 언어 화면에서 같은 글자),JS_SOURCE,JS_LANG_CHN,script LANGS CHN:L646
+전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,언어 선택 메뉴,Монгол,Монгол,Монгол,Монгол,Монгол,Монгол,번역 제외: 언어 메뉴는 각 언어 이름을 그 언어로 고정(모든 언어 화면에서 같은 글자),JS_SOURCE,JS_LANG_MNG,script LANGS MNG:L646
+전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,언어 선택 메뉴,Русский,Русский,Русский,Русский,Русский,Русский,번역 제외: 언어 메뉴는 각 언어 이름을 그 언어로 고정(모든 언어 화면에서 같은 글자),JS_SOURCE,JS_LANG_RUS,script LANGS RUS:L646
 전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,자동 생성 접근성,byDose 처음으로,byDose — back to the beginning,byDose эхлэл рүү,byDose トップへ,返回 byDose 首页,byDose — к началу,기존 후보 유지,JS_SOURCE,JS_HOME_ARIA,script:L663
 전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,자동 생성 접근성,PDF로 저장,Save as PDF,PDF болгон хадгалах,PDFとして保存,保存为 PDF,Сохранить в PDF,기존 후보 유지,JS_SOURCE,JS_PDF_ARIA,script:L708
 전체 공통 / UI,전 페이지 · 상단 탐색 / 동적 UI,자동 생성 접근성,언어 선택,Select language,Хэл сонгох,言語を選択,选择语言,Выбор языка,기존 후보 유지,JS_SOURCE,JS_LANGUAGE_ARIA,script:L710

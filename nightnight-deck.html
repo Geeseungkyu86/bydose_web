@@ -144,16 +144,18 @@
 #bdk[data-locale]:not([data-locale="KOR"]) .spec>div p:first-child{line-height:14px;padding-right:8px}
 #bdk[data-locale]:not([data-locale="KOR"]) .spec>div p:last-child{white-space:normal;line-height:22px;margin-top:-2px}
 
-/* ---------- PDF 다운로드 = 인쇄 → PDF로 저장 (PC 무대 13장을 한 장씩) ---------- */
-@page{size:1440px 1024px;margin:0}
+/* ---------- PDF = PC 화면 13장을 1920×1080 한 장씩 (tools/build_deck_pdfs.js 와 브라우저 인쇄가 함께 쓴다)
+   무대(1440×1024)를 높이에 맞춰 1.0547배 키워 가운데 두고, 양옆은 장 배경(크림색·사진)이 채운다 = 1920×1080 화면에서 보는 모습 ---------- */
+@page{size:1920px 1080px;margin:0}
 @media print{
   html,body{overflow:visible!important;height:auto!important;margin:0!important}
   #bdk{position:static;overflow:visible;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   #bdk .track{position:static;display:block;overflow:visible}
-  #bdk .sl{width:1440px;height:1024px;break-after:page;page-break-after:always}
+  #bdk .sl{width:1920px;height:1080px;break-after:page;page-break-after:always}
   #bdk .sl:last-child{break-after:auto;page-break-after:auto}
-  #bdk .stage.d{display:block!important;transform:none;left:0;top:0}
-  #bdk .ico,#bdk .next,#bdk .lang-menu{display:none!important}
+  /* left:50% 로 가운데 두면 크롬이 '페이지보다 넓다'고 보고 전체를 줄여 버린다 → 왼쪽 위에 두고 옮긴다. (1920-1440×1.0547)/2 = 200.6 */
+  #bdk .stage.d{display:block!important;left:0;top:0;transform-origin:0 0;transform:translate(200.625px,0) scale(1.0546875)}
+  #bdk .ico,#bdk .next,#bdk .next-l,#bdk .lang-menu{display:none!important}
   #bdk .media iframe{display:none}
 }
 </style>
@@ -803,7 +805,8 @@
     var lg=e.target.closest('[data-lang]');
     [].forEach.call(root.querySelectorAll('.lang-menu.is-open'),function(mn){ if(!lg||mn!==lg.nextElementSibling) mn.classList.remove('is-open') });
     if(lg){lg.nextElementSibling.classList.toggle('is-open');return}
-    if(e.target.closest('[data-pdf]')){window.print();return}
+    var pdf=e.target.closest('[data-pdf]');
+    if(pdf){downloadPdf(pdf);return}
     if(e.target.closest('[data-step]')){go(cur+1);return}
     var a=e.target.closest('a[href^="#"]');
     if(!a) return;
@@ -908,6 +911,28 @@
     clearTimeout(rt);
     rt=setTimeout(function(){fit();if(isM){[].forEach.call(mpage.querySelectorAll('.media[data-vimeo]'),fitFrame);mActive()}else track.scrollTo({left:cur*track.clientWidth,behavior:'auto'})},80);
   });
+
+  /* ---------- PDF 다운로드: 지금 보고 있는 언어의 PDF(1920×1080, 13장)를 내려받는다 ----------
+     파일은 tools/build_deck_pdfs.js 로 만들어 저장소 nightnight-deck-pdf/ 에 올린 것.
+     main 에 없으면(아직 합치기 전) 작업 브랜치에서 찾고, 둘 다 못 받으면 브라우저 인쇄(PDF로 저장)로 대신한다. */
+  var PDF_BASES=['https://raw.githubusercontent.com/Geeseungkyu86/bydose_web/main/nightnight-deck-pdf/',
+                 'https://raw.githubusercontent.com/Geeseungkyu86/bydose_web/claude/awesome-rubin-89ov1j/nightnight-deck-pdf/'];
+  var PDF_CODE={KOR:'KO',ENG:'EN',JPN:'JA',CHN:'ZH',MNG:'MN',RUS:'RU'};
+  function downloadPdf(btn){
+    if(btn._busy) return;
+    var name='byDose_NightNightCream_'+PDF_CODE[lang]+'.pdf', i=0;
+    function done(){btn._busy=0;btn.style.opacity=''}
+    if(!window.fetch||!window.URL||!URL.createObjectURL){window.print();return}
+    btn._busy=1; btn.style.opacity=.4;     /* 받는 동안 흐리게 */
+    (function next(){
+      if(i>=PDF_BASES.length){done();window.print();return}
+      fetch(PDF_BASES[i++]+name).then(function(r){if(!r.ok) throw r.status; return r.blob()}).then(function(b){
+        var u=URL.createObjectURL(new Blob([b],{type:'application/pdf'})), a=document.createElement('a');
+        a.href=u; a.download=name; document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function(){URL.revokeObjectURL(u)},10000); done();
+      }).catch(next);
+    })();
+  }
 
   /* ---------- 언어 바꾸기 ----------
      data-i18n="ID"   : 본문. 원고 I18N.id[ID] 로 통째로 바꾼다.
