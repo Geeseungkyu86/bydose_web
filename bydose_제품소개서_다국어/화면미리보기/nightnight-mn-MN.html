@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="mn-MN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>NIGHT NIGHT CREAM бүтээгдэхүүний танилцуулга — byDose</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=42dot+Sans:wght@300..800&amp;family=Roboto+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   나잇나잇 크림 제품소개서 (도매 거래처 전달용) — 좌우로 넘기는 웹 프레젠테이션
+   디자인 원본: 피그마 "제품소개서" (PC 1440×1024 13장 · 모바일 390×844)
+   모바일 M1~M6은 피그마 그대로, M7~M13은 같은 규칙(상단 언어·PDF, 하단 5칸 탭)으로 구성.
+
+   구조
+   - 장마다 피그마 좌표 그대로 그린 무대(.stage)를 화면에 맞춰 통째로 확대·축소한다 → 스크롤 없음.
+     PC 무대 .d(1440×1024) / 모바일 무대 .m(390×844). 세로 화면·좁은 화면이면 모바일 무대.
+   - 상단 메뉴·다음 버튼은 장마다 data-* 값을 읽어 JS가 넣는다(머리말 하나를 13번 복붙하지 않도록).
+   - 이미지 경로는 전부 nightnight-deck-assets/ 로 시작한다.
+     아임웹에 올릴 땐 그 폴더를 CDN에 올리고 이 문자열만 CDN 주소로 일괄 바꾸면 된다.
+
+   아임웹 코드 위젯에 통째로 붙여넣는 파일.
+   - #bdk 가 position:fixed 전체 화면을 덮는다 → 아임웹 GNB·푸터 위에 앱처럼 뜬다.
+   - h1~h6 사용 금지(테마가 덮어씀) → 전부 div/p.
+   - 스타일은 전부 #bdk 아래로 범위를 묶어 테마 CSS와 충돌하지 않게 한다.
+   ============================================================ */
+
+#bdk{
+  --ink:#2A2A29;
+  --cream:#F3F3E9;
+  --red:#D35B40;
+  --blue:#A7C9F3;
+  --yellow:#F1C966;
+  --green:#C9D09F;
+  --f:"42dot Sans",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard",sans-serif;
+  --mono:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --s:1;
+
+  position:fixed;inset:0;z-index:2147483000;
+  background:var(--cream);color:var(--ink);
+  font-family:var(--f);font-weight:400;letter-spacing:0;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+  overflow:hidden;
+}
+#bdk *,#bdk *::before,#bdk *::after{box-sizing:border-box}
+#bdk p{margin:0}
+#bdk a{color:inherit;text-decoration:none}
+#bdk button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+#bdk img{display:block}
+
+/* ---------- 트랙: 가로 scroll-snap ---------- */
+#bdk .track{
+  position:absolute;inset:0;display:flex;
+  overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x mandatory;overscroll-behavior:contain;scrollbar-width:none;
+  transition:opacity .18s ease;
+}
+#bdk .track::-webkit-scrollbar{display:none}
+#bdk .track.is-fading{opacity:0}
+#bdk .sl{
+  position:relative;flex:0 0 100%;width:100%;height:100%;
+  scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;
+  background:var(--cream) center/cover no-repeat;
+}
+#bdk .sl[data-ui="dark"]{background-color:#1d1916}
+
+/* ---------- 무대: 피그마 좌표계 그대로, 화면에 맞춰 확대·축소 ---------- */
+#bdk .stage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(var(--s));transform-origin:center}
+#bdk .stage.d{width:1440px;height:1024px}
+#bdk .stage.m{width:390px;height:844px;display:none}
+#bdk.is-m .stage.d{display:none}
+#bdk.is-m .stage.m{display:block}
+
+/* 절대배치 요소 */
+#bdk .a{position:absolute;white-space:nowrap}
+#bdk .wrap{white-space:normal;word-break:normal;overflow-wrap:anywhere}   /* 피그마처럼 한글은 글자 단위로 줄바꿈 */
+#bdk .pre{white-space:pre}
+#bdk .trim{text-box-trim:trim-both;text-box-edge:cap alphabetic}
+#bdk .mono{font-family:var(--mono)}
+#bdk .tr{letter-spacing:.03em}
+#bdk .xb{font-weight:800}#bdk .b{font-weight:700}#bdk .sb{font-weight:600}
+#bdk .md{font-weight:500}#bdk .rg{font-weight:400}#bdk .lt{font-weight:300}
+#bdk .lite{color:var(--cream)}
+#bdk .red{color:var(--red)}
+#bdk .u{text-decoration:underline;text-underline-offset:3px}
+#bdk .cover{object-fit:cover}
+#bdk .fill{object-fit:fill}
+
+/* 자주 쓰는 글자 크기 (피그마 텍스트 스타일) */
+#bdk .h24{font-size:24px;line-height:35px;font-weight:800}
+#bdk .p18{font-size:18px;line-height:26px}
+#bdk .p16{font-size:16px;line-height:24px}
+
+/* 알약 */
+#bdk .pill{display:flex;align-items:center;justify-content:center;white-space:nowrap}
+#bdk .tag{padding:7px 24px;border-radius:18px;background:rgba(0,0,0,.05);font-size:16px;line-height:21px;letter-spacing:.03em}
+#bdk .badge{height:24px;padding:0 12px;border-radius:12px;background:var(--red);color:#fff;font-size:16px;line-height:18px;font-weight:500;letter-spacing:.03em}
+#bdk .chip{height:42px;padding:0 16px;border-radius:36px;font-size:18px;line-height:26px;font-weight:600;color:var(--ink)}
+#bdk .c-blue{background:var(--blue)}#bdk .c-yellow{background:var(--yellow)}#bdk .c-green{background:var(--green)}
+#bdk mark{background:var(--red);color:var(--cream);border-radius:4px;padding:2px 4px}
+
+/* 카드 */
+#bdk .glass{background:rgba(243,243,233,.6);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border-radius:12px}
+#bdk .card{background:rgba(255,255,255,.6);border-radius:12px}
+#bdk .media{overflow:hidden;background:#cfcfc6 center/cover no-repeat}
+#bdk .media iframe{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border:0;pointer-events:none;opacity:0;transition:opacity .8s ease}
+#bdk .media iframe.is-ready{opacity:1}
+
+/* ---------- 공통 머리말 (JS가 넣음) ---------- */
+#bdk .nav-i{font-size:16px;line-height:18px;letter-spacing:.03em;white-space:pre;font-weight:500}
+#bdk .nav-i .mono{font-weight:700}
+#bdk .nav-i:hover{color:var(--red)}
+#bdk .nav-i.is-on{color:var(--red)}
+#bdk .ico{position:absolute;display:flex;align-items:center;justify-content:center}
+#bdk .ico:focus-visible,#bdk .nav-i:focus-visible,#bdk .next:focus-visible,#bdk .tab:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+#bdk .next{position:absolute;display:block}
+#bdk .next img{position:absolute}
+#bdk .next:hover img{filter:brightness(1.06)}
+#bdk .next-l{font-size:16px;line-height:18px;font-weight:500;letter-spacing:.03em;transform:translateX(-50%)}
+#bdk .tab{position:absolute;top:784px;width:65px;height:60px;text-align:center;font-size:10px;line-height:10px;letter-spacing:.03em}
+#bdk .tab .mono{position:absolute;left:0;right:0;top:17px;font-weight:700}
+#bdk .tab .t{position:absolute;left:3px;right:3px;top:33px;font-weight:500;white-space:nowrap}
+#bdk .tab.is-on{color:var(--red)}
+#bdk .bar{position:absolute;left:0;top:782px;height:2px;background:var(--red)}
+
+/* 언어 메뉴 */
+/* 피그마 Group 28: 반투명 검정 판, 현재 언어 ✓, 마우스 올리면 파랑 */
+#bdk .lang-menu{position:absolute;width:197px;padding:4px 0;border-radius:12px;border:.5px solid rgba(243,243,233,.5);
+  background:rgba(42,42,41,.5);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  color:#fff;font-size:18px;line-height:24px;display:none;z-index:5}
+#bdk .lang-menu.is-open{display:block}
+#bdk .lang-menu button{position:relative;display:flex;align-items:center;justify-content:flex-end;gap:12px;width:173px;height:40px;padding:0 6px 0 0;border-radius:12px;color:#fff;white-space:pre}
+#bdk .lang-menu button:hover,#bdk .lang-menu button:focus-visible{background:rgba(0,136,255,.6);outline:0}
+#bdk .lang-menu button span:first-child{position:absolute;left:46px;top:8px}
+#bdk .lang-menu button[aria-checked="true"]::before{content:"";position:absolute;left:20px;top:15px;width:12px;height:7px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg)}
+
+@media (prefers-reduced-motion:reduce){#bdk .media iframe{transition:none}}
+
+/* ---------- PDF 다운로드 = 인쇄 → PDF로 저장 (PC 무대 13장을 한 장씩) ---------- */
+@page{size:1440px 1024px;margin:0}
+@media print{
+  html,body{overflow:visible!important;height:auto!important;margin:0!important}
+  #bdk{position:static;overflow:visible;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #bdk .track{position:static;display:block;overflow:visible}
+  #bdk .sl{width:1440px;height:1024px;break-after:page;page-break-after:always}
+  #bdk .sl:last-child{break-after:auto;page-break-after:auto}
+  #bdk .stage.d{display:block!important;transform:none;left:0;top:0}
+  #bdk .stage.m{display:none!important}
+  #bdk .ico,#bdk .next,#bdk .lang-menu{display:none!important}
+  #bdk .media iframe{display:none}
+}
+</style>
+</head>
+<body>
+<div aria-roledescription="Танилцуулга" id="bdk">
+<div class="track" id="bdkTrack">
+<!-- ===================== 1 · 표지 ===================== -->
+<section class="sl" data-btn-top="584" data-mnext="NIGHT NIGHT CREAM-ийн танилцуулга" data-next="" data-sec="0" data-title="Нүүр хуудас" id="cover">
+<div class="stage d">
+<img alt="NIGHT NIGHT CREAM 50mL агаар нэвтрэхгүй шахуургат сав" class="a cover" src="nightnight-deck-assets/hero-product.jpg" style="left:60px;top:264px;width:1320px;height:700px;border-radius:36px"/>
+<p class="a b" style="left:60px;top:197px;font-size:36px;line-height:normal">“ NIGHT NIGHT CREAM “</p>
+<p class="a b trim" style="right:60px;top:212px;font-size:18px;line-height:18px">ХӨНГӨН ГЕЛЬ-КРЕМ · AROMAWELLNESS ҮНЭР · ЧИЙГШҮҮЛЭЛТ &amp; ХАМГААЛАХ ДАВХАРГА</p>
+</div>
+<div class="stage m">
+<img alt="" class="a cover" src="nightnight-deck-assets/hero-product.jpg" style="left:24px;top:170px;width:342px;height:593px;border-radius:36px"/>
+<p class="a b" style="left:24px;top:92px;font-size:24px;line-height:normal">“ NIGHT NIGHT CREAM “</p>
+<p class="a b trim wrap" style="left:24px;top:131px;width:342px;font-size:10px;line-height:11px">ХӨНГӨН ГЕЛЬ-КРЕМ · AROMAWELLNESS ҮНЭР · ЧИЙГШҮҮЛЭЛТ &amp; ХАМГААЛАХ ДАВХАРГА</p>
+</div>
+</section>
+<!-- ===================== 2 · 01 제품 소개 ===================== -->
+<section class="sl" data-next="Шөнийн арчилгааны зохиомж" data-sec="1" data-title="01 Бүтээгдэхүүний танилцуулга" id="intro">
+<div class="stage d">
+<p class="a xb tr" style="left:120px;top:343px;font-size:24px;line-height:35px">GOOD NIGHT = GOOD SKIN</p>
+<p class="a p18" style="left:120px;top:389px;line-height:24px">NIGHT NIGHT CREAM нь унтахын өмнөх мэдрэхүйн туршлагаас эхлээд шөнийн турш арьс өөрөө нөхөн сэргэх орчныг хүртэл харгалзан бүтээсэн, ‘өглөөний чийглэг арьс’-ыг зорьсон шөнийн тос юм.</p>
+<img alt="" class="a" src="nightnight-deck-assets/divider.svg" style="left:122px;top:484.5px;width:371px;height:2px"/>
+<p class="a b tr" style="left:120px;top:510px;font-size:16px;line-height:18px">NIGHT NIGHT CREAM 50 mL</p>
+<p class="a pill tag" style="left:120px;top:552px">Хөнгөн гель-крем бүтэцтэй</p>
+<p class="a pill tag" style="left:120px;top:599px">「AromaWellness」 үнэрийн зохиомж</p>
+<p class="a pill tag" style="left:120px;top:646px">Чийгшүүлэх · хамгаалах давхаргыг арчлах</p>
+<img alt="NIGHT NIGHT CREAM бүтээгдэхүүн" class="a fill" src="nightnight-deck-assets/cutout.png" style="left:828px;top:196px;width:173px;height:703px;object-position:bottom"/>
+</div>
+<div class="stage m">
+<img alt="" class="a fill" src="nightnight-deck-assets/cutout.png" style="left:153px;top:72px;width:84px;height:340px;object-position:bottom"/>
+<p class="a xb tr" style="left:24px;top:440px;font-size:20px;line-height:29px">GOOD NIGHT = GOOD SKIN</p>
+<p class="a wrap" style="left:24px;top:479px;width:342px;font-size:15px;line-height:20px">NIGHT NIGHT CREAM нь унтахын өмнөх мэдрэхүйн туршлагаас эхлээд шөнийн турш арьс өөрөө нөхөн сэргэх орчныг хүртэл харгалзан бүтээсэн, ‘өглөөний чийглэг арьс’-ыг зорьсон шөнийн тос юм.</p>
+<img alt="" class="a" src="nightnight-deck-assets/divider.svg" style="left:24px;top:552.5px;width:342px;height:2px"/>
+<p class="a b tr" style="left:24px;top:566px;font-size:16px;line-height:18px">NIGHT NIGHT CREAM 50 mL</p>
+<p class="a pill tag" style="left:24px;top:598px;background:rgba(0,0,0,.15)">Хөнгөн гель-крем бүтэцтэй</p>
+<p class="a pill tag" style="left:21px;top:641px;background:rgba(0,0,0,.15)">「AromaWellness」 үнэрийн зохиомж</p>
+<p class="a pill tag" style="left:24px;top:684px;background:rgba(0,0,0,.15)">Чийгшүүлэх · хамгаалах давхаргыг арчлах</p>
+</div>
+</section>
+<!-- ===================== 3 · 02 좋은 피부를 위한 좋은 밤 ===================== -->
+<section class="sl" data-mbg="6% center" data-next="Гүүднайт сиквенс™" data-sec="2" data-title="02 Сайхан шөнө" data-ui="dark" id="why" style="background-image:url(nightnight-deck-assets/bg-night.jpg)">
+<div class="stage d lite">
+<p class="a h24" style="left:120px;top:178px">Сайхан арьсны төлөөх сайхан шөнө</p>
+<p class="a p18" style="left:120px;top:237px">Арьс шөнийн цагаар ч нөхөн сэргэж, хэвийн байдлаа хадгалах үйл ажиллагаагаа үргэлжлүүлдэг. Нойр нь эрүүл арьсанд чухал хүчин зүйл юм. byDose энэ санаанаас эхэлсэн. <u>Сайн нойрны үр шимийг сайхан арьстай холбох гоо сайхны бүтээгдэхүүн.</u> NIGHT NIGHT CREAM-ийн эхлэл ийм байв.</p>
+<p class="a pill badge" style="left:725px;top:576px">For a Good Night</p>
+<p class="a md tr" style="left:733px;top:612px;font-size:20px;line-height:20px;color:#fff">Унтахын өмнөх мэдрэмж, уур амьсгал</p>
+<p class="a tr" style="left:729px;top:652px;font-size:16px;line-height:22px;color:#fff">Өдрийн сүүлчийн арьс арчилгаа тайван үдэштэй зохицохын тулд арьсанд үлдэх мэдрэмж, үнэрийг ч харгалзан үзсэн.</p>
+<p class="a pill badge" style="left:725px;top:765px">For a Good Skin</p>
+<p class="a md tr" style="left:733px;top:801px;font-size:20px;line-height:20px;color:#fff">Шөнийн турш арьс нөхөн сэргэх орчин</p>
+<p class="a tr" style="left:729px;top:841px;font-size:16px;line-height:22px;color:#fff">Арьсыг шөнийн турш чийгээр хангаж, чийгийг хадгалахад чиглэсэн чийгшүүлэх болон хамгаалах давхаргын арчилгааг төлөвлөсөн.</p>
+</div>
+<div class="stage m lite">
+<p class="a xb tr" style="left:24px;top:100px;font-size:22px;line-height:32px">Сайхан арьсны төлөөх сайхан шөнө</p>
+<p class="a wrap" style="left:24px;top:148px;width:342px;font-size:15px;line-height:22px">Арьс шөнийн цагаар ч нөхөн сэргэж, хэвийн байдлаа хадгалах үйл ажиллагаагаа үргэлжлүүлдэг. Нойр нь эрүүл арьсанд чухал хүчин зүйл юм. byDose энэ санаанаас эхэлсэн. <u>Сайн нойрны үр шимийг сайхан арьстай холбох гоо сайхны бүтээгдэхүүн.</u> NIGHT NIGHT CREAM-ийн эхлэл ийм байв.</p>
+<p class="a pill badge" style="left:24px;top:320px">For a Good Night</p>
+<p class="a md tr" style="left:28px;top:354px;font-size:17px;line-height:17px;color:#fff">Унтахын өмнөх мэдрэмж, уур амьсгал</p>
+<p class="a wrap tr" style="left:28px;top:379px;width:224px;font-size:14px;line-height:19px;color:#fff">Өдрийн сүүлчийн арьс арчилгаа тайван үдэштэй зохицохын тулд арьсанд үлдэх мэдрэмж, үнэрийг ч харгалзан үзсэн.</p>
+<p class="a pill badge" style="left:24px;top:468px">For a Good Skin</p>
+<p class="a md tr" style="left:28px;top:502px;font-size:17px;line-height:17px;color:#fff">Шөнийн турш арьс нөхөн сэргэх орчин</p>
+<p class="a wrap tr" style="left:28px;top:527px;width:224px;font-size:14px;line-height:19px;color:#fff">Арьсыг шөнийн турш чийгээр хангаж, чийгийг хадгалахад чиглэсэн чийгшүүлэх болон хамгаалах давхаргын арчилгааг төлөвлөсөн.</p>
+</div>
+</section>
+<!-- ===================== 4 · 02 굿나잇 시퀀스™ ===================== -->
+<section class="sl" data-mbg="50% center" data-next="Мэдрэмж ба үнэр" data-sec="2" data-title="02 Гүүднайт сиквенс™" data-ui="dark" id="sequence" style="background-image:url(nightnight-deck-assets/bg-sequence.jpg)">
+<div class="stage d lite">
+<p class="a h24" style="left:120px;top:178px">Гүүднайт сиквенс™<br/><span class="rg">Арьсны нөхөн сэргэлтийг дэмжихээр төлөвлөсөн арчилгаа</span></p>
+<p class="a p18" style="left:120px;top:272px">Унтахын өмнөх мэдрэмжээс эхлээд дахин тос түрхэх боломжгүй шөнийн чийгшүүлэлт, маргааш өглөөний арьсны байдал хүртэл. NIGHT NIGHT CREAM энэ бүх дарааллыг ‘шөнийн арчилгаа’ гэж үзсэн.</p>
+<div class="a glass" style="left:837px;top:386px;width:369px;height:139px"></div>
+<img alt="" class="a" src="nightnight-deck-assets/clock-11.svg" style="left:855px;top:404px;width:24px;height:24px"/>
+<p class="a xb trim" style="left:891px;top:407px;font-size:24px;line-height:1.2;color:var(--ink)">PM 11:00</p>
+<p class="a b trim" style="left:891px;top:444px;font-size:18px;line-height:1.2;color:var(--ink)">Нойронд автах тэр мөчид зориулж</p>
+<p class="a trim" style="left:891px;top:469px;font-size:18px;line-height:1.2;color:var(--ink)">Тосоо түрхээд орондоо орох үеийн арьсны мэдрэмж, үнэрийг бодолцон бүтээсэн</p>
+<div class="a glass" style="left:837px;top:537px;width:369px;height:139px"></div>
+<img alt="" class="a" src="nightnight-deck-assets/clock-3.svg" style="left:855px;top:555px;width:24px;height:24px"/>
+<p class="a xb trim" style="left:891px;top:558px;font-size:24px;line-height:1.2;color:var(--ink)">AM 03:00</p>
+<p class="a b trim" style="left:891px;top:595px;font-size:18px;line-height:1.2;color:var(--ink)">Дахин түрхэх боломжгүй унтаж байх хугацаанд</p>
+<p class="a trim" style="left:891px;top:620px;font-size:18px;line-height:1.2;color:var(--ink)">Дахин түрхэх боломжгүй шөнийн турш чийг өгөх, хадгалахад анхаарсан</p>
+<div class="a glass" style="left:837px;top:688px;width:369px;height:139px"></div>
+<img alt="" class="a" src="nightnight-deck-assets/clock-7.svg" style="left:855px;top:706px;width:24px;height:24px"/>
+<p class="a xb trim" style="left:891px;top:709px;font-size:24px;line-height:1.2;color:var(--ink)">AM 07:00</p>
+<p class="a b trim" style="left:891px;top:746px;font-size:18px;line-height:1.2;color:var(--ink)">Чийглэг арьстай өглөөг угтах</p>
+<p class="a trim" style="left:891px;top:771px;font-size:18px;line-height:1.2;color:var(--ink)">Өглөөний чийглэг, жигд арьсны гадаргууг ч бодолцон бүтээсэн</p>
+<p class="a lt wrap" style="left:837px;top:839px;width:369px;font-size:16px;line-height:23px">※ 11 PM · 3 AM · 7 AM нь шөнийн хэрэглээний дарааллыг бэлгэдсэн цагууд бөгөөд найрлага дахь бодисуудын үйлчлэх цагийг илэрхийлэхгүй.</p>
+</div>
+<div class="stage m lite">
+<p class="a xb tr" style="left:24px;top:100px;font-size:22px;line-height:32px">Гүүднайт сиквенс™<br/><span class="rg">Арьсны нөхөн сэргэлтийг дэмжихээр төлөвлөсөн арчилгаа</span></p>
+<p class="a wrap" style="left:24px;top:178px;width:342px;font-size:15px;line-height:22px">Унтахын өмнөх мэдрэмжээс эхлээд дахин тос түрхэх боломжгүй шөнийн чийгшүүлэлт, маргааш өглөөний арьсны байдал хүртэл. NIGHT NIGHT CREAM энэ бүх дарааллыг ‘шөнийн арчилгаа’ гэж үзсэн.</p>
+<div class="a glass" style="left:24px;top:310px;width:342px;height:128.8px;border-radius:11px"></div>
+<img alt="" class="a" src="nightnight-deck-assets/clock-11.svg" style="left:40.7px;top:326.7px;width:22.2px;height:22.2px"/>
+<p class="a xb trim" style="left:74px;top:329.5px;font-size:22.2px;line-height:1.2;color:var(--ink)">PM 11:00</p>
+<p class="a b trim" style="left:74px;top:363.8px;font-size:16.7px;line-height:1.2;color:var(--ink)">Нойронд автах тэр мөчид зориулж</p>
+<p class="a trim" style="left:74px;top:386.9px;font-size:16.7px;line-height:1.2;color:var(--ink)">Тосоо түрхээд орондоо орох үеийн арьсны мэдрэмж, үнэрийг бодолцон бүтээсэн</p>
+<div class="a glass" style="left:24px;top:446.8px;width:342px;height:128.8px;border-radius:11px"></div>
+<img alt="" class="a" src="nightnight-deck-assets/clock-3.svg" style="left:40.7px;top:463.5px;width:22.2px;height:22.2px"/>
+<p class="a xb trim" style="left:74px;top:466.3px;font-size:22.2px;line-height:1.2;color:var(--ink)">AM 03:00</p>
+<p class="a b trim" style="left:74px;top:500.6px;font-size:16.7px;line-height:1.2;color:var(--ink)">Дахин түрхэх боломжгүй унтаж байх хугацаанд</p>
+<p class="a trim" style="left:74px;top:523.8px;font-size:16.7px;line-height:1.2;color:var(--ink)">Дахин түрхэх боломжгүй шөнийн турш чийг өгөх, хадгалахад анхаарсан</p>
+<div class="a glass" style="left:24px;top:583.7px;width:342px;height:128.8px;border-radius:11px"></div>
+<img alt="" class="a" src="nightnight-deck-assets/clock-7.svg" style="left:40.7px;top:600.3px;width:22.2px;height:22.2px"/>
+<p class="a xb trim" style="left:74px;top:603.1px;font-size:22.2px;line-height:1.2;color:var(--ink)">AM 07:00</p>
+<p class="a b trim" style="left:74px;top:637.4px;font-size:16.7px;line-height:1.2;color:var(--ink)">Чийглэг арьстай өглөөг угтах</p>
+<p class="a trim" style="left:74px;top:660.6px;font-size:16.7px;line-height:1.2;color:var(--ink)">Өглөөний чийглэг, жигд арьсны гадаргууг ч бодолцон бүтээсэн</p>
+<p class="a lt wrap" style="left:24px;top:724.5px;width:342px;font-size:12px;line-height:17px">※ 11 PM · 3 AM · 7 AM нь шөнийн хэрэглээний дарааллыг бэлгэдсэн цагууд бөгөөд найрлага дахь бодисуудын үйлчлэх цагийг илэрхийлэхгүй.</p>
+</div>
+</section>
+<!-- ===================== 5 · 03 텍스처 ===================== -->
+<section class="sl" data-next="Үнэр" data-sec="3" data-title="03 Бүтэц" id="texture">
+<div class="stage d">
+<p class="a" style="left:72px;top:145px;font-size:18px;line-height:normal"><span class="mono">01. </span>Бүтэц</p>
+<p class="a b" style="left:472px;top:140px;font-size:24px;line-height:normal">“ ХӨНГӨН ГЕЛЬ-КРЕМ “</p>
+<div class="a media" data-ratio="1.7778" data-vimeo="1217189885" style="left:60px;top:181px;width:675px;height:703px;border-radius:12px;background-image:url(https://i.vimeocdn.com/video/2188812504-83314b1905a3b2a4234b66c86f2c7c4c4ddc4cee17474fc11246d96b5c48b05a-d_1280?region=us)"></div>
+<p class="a h24" style="left:783px;top:217px">Хүнд мэдрэмжийг багасгаж, чийглэг байдлыг үлдээхийг зорьсон.</p>
+<p class="a p18 wrap" style="left:783px;top:276px;width:432px">Шөнийн тос гэхээр өтгөн, баялаг бүтэцтэй тос санаанд орох нь элбэг. Гэвч чийглэг байдал заавал хүнд бүтэцтэй тосноос хамаарахгүй. NIGHT NIGHT CREAM нь чийглэг гель-крем бүтэцтэй, зөөлөн тараан түрхэгдэж, гялалзсан тослог байдлыг багасгасан хөнгөн мэдрэмж үлдээхийг зорьдог.</p>
+<p class="a" style="left:783px;top:497px;font-size:18px;line-height:24px">Тараан түрхэгдэх байдал</p>
+<img alt="Тараан түрхэгдэх байдал: 5-аас 5 оноо" class="a" src="nightnight-deck-assets/dots-spread.svg" style="left:850px;top:505px;width:96px;height:8px"/>
+<p class="a" style="left:783px;top:545px;font-size:18px;line-height:24px">Наалдамхай байдал</p>
+<img alt="Наалдамхай байдал: 5-аас 1 оноо" class="a" src="nightnight-deck-assets/dots-sticky.svg" style="left:850px;top:552.5px;width:96.5px;height:9px"/>
+<div class="a" style="left:783px;top:694px;width:432px;padding:20px 30px 24px 24px;border-radius:12px;background:rgba(255,255,255,.6);filter:drop-shadow(0 8px 6.5px rgba(0,0,0,.1))">
+<p style="font-size:18px;line-height:28px;color:rgba(42,42,41,.4)">youm****</p>
+<p style="margin-top:10px;font-size:18px;line-height:28px">Орой түрхээд унтахад өглөө хүртэл арьс чийглэг хэвээр санагддаг. Гадаа байнга гардаг ч энэ тосны ачаар арьс татах мэдрэмж арилсан нь үнэхээр таалагдаж байна!</p>
+<img alt="5 одтой үнэлгээ" class="a" src="nightnight-deck-assets/stars.svg" style="left:260px;top:22px;width:120px;height:24px"/>
+</div>
+</div>
+<div class="stage m">
+<p class="a" style="left:24px;top:86px;font-size:14px;line-height:normal"><span class="mono">01. </span>Бүтэц</p>
+<p class="a b" style="right:24px;top:84px;font-size:16px;line-height:normal">“ ХӨНГӨН ГЕЛЬ-КРЕМ “</p>
+<div class="a media" data-ratio="1.7778" data-vimeo="1217189885" style="left:24px;top:116px;width:342px;height:200px;border-radius:12px;background-image:url(https://i.vimeocdn.com/video/2188812504-83314b1905a3b2a4234b66c86f2c7c4c4ddc4cee17474fc11246d96b5c48b05a-d_1280?region=us)"></div>
+<p class="a xb tr" style="left:24px;top:340px;font-size:20px;line-height:29px">Хүнд мэдрэмжийг багасгаж, чийглэг байдлыг үлдээхийг зорьсон.</p>
+<p class="a wrap" style="left:24px;top:381px;width:342px;font-size:15px;line-height:22px">Шөнийн тос гэхээр өтгөн, баялаг бүтэцтэй тос санаанд орох нь элбэг. Гэвч чийглэг байдал заавал хүнд бүтэцтэй тосноос хамаарахгүй. NIGHT NIGHT CREAM нь чийглэг гель-крем бүтэцтэй, зөөлөн тараан түрхэгдэж, гялалзсан тослог байдлыг багасгасан хөнгөн мэдрэмж үлдээхийг зорьдог.</p>
+<p class="a" style="left:24px;top:533px;font-size:18px;line-height:24px">Тараан түрхэгдэх байдал</p>
+<img alt="Тараан түрхэгдэх байдал: 5-аас 5 оноо" class="a" src="nightnight-deck-assets/dots-spread.svg" style="left:91px;top:541px;width:96px;height:8px"/>
+<p class="a" style="left:24px;top:567px;font-size:18px;line-height:24px">Наалдамхай байдал</p>
+<img alt="Наалдамхай байдал: 5-аас 1 оноо" class="a" src="nightnight-deck-assets/dots-sticky.svg" style="left:91px;top:574.3px;width:96.5px;height:9px"/>
+<div class="a" style="left:24px;top:615px;width:342px;padding:15.8px 23.8px 19px 19px;border-radius:9.5px;background:#fff;filter:drop-shadow(0 6.3px 5.2px rgba(0,0,0,.1))">
+<p style="font-size:14.25px;line-height:22.2px;color:rgba(42,42,41,.4)">youm****</p>
+<p style="margin-top:7.9px;font-size:14.25px;line-height:22.2px">Орой түрхээд унтахад өглөө хүртэл арьс чийглэг хэвээр санагддаг. Гадаа байнга гардаг ч энэ тосны ачаар арьс татах мэдрэмж арилсан нь үнэхээр таалагдаж байна!</p>
+<img alt="5 одтой үнэлгээ" class="a" src="nightnight-deck-assets/stars.svg" style="left:205.8px;top:17.4px;width:95px;height:19px"/>
+</div>
+</div>
+</section>
+<!-- ===================== 6 · 03 향 ===================== -->
+<section class="sl" data-next="「AromaWellness」" data-sec="3" data-title="03 Үнэр" id="scent">
+<div class="stage d">
+<p class="a" style="left:72px;top:145px;font-size:18px;line-height:normal"><span class="mono">02. </span>Үнэр</p>
+<p class="a b" style="right:717px;top:140px;font-size:24px;line-height:normal">“ Sleep in the forest “</p>
+<div class="a media" data-ratio="0.8889" data-vimeo="1217189884" style="left:60px;top:181px;width:675px;height:703px;border-radius:12px;background-image:url(nightnight-deck-assets/poster-scent.jpg)"></div>
+<p class="a h24" style="left:783px;top:205px">Унтахын өмнөх тав тухыг ч бодолцсон 'сайхан үнэр'</p>
+<p class="a p18 wrap" style="left:783px;top:264px;width:432px"><span class="b">Sleep in the forest</span><br/>Бороо зогссоны дараах ойгоор алхах мэт чийглэг атлаа дулаахан үнэр. Лавандагийн ишийг хурууны үзүүрээр үрэхэд мэдрэгдэх мэт шинэхэн өвслөг үнэр, бороонд норсон хөрс, хөвд ургасан модны холтосны уур амьсгалыг шингээсэн.</p>
+<p class="a sb" style="left:783px;top:464px;font-size:20px;line-height:28px">Үнэрийн зохиомж</p>
+<div class="a" style="left:783px;top:512px;width:432px;height:1px;background:rgba(42,42,41,.4)"></div>
+<p class="a b" style="left:783px;top:537px;font-size:18px;line-height:28px">Сэрүүн, сэнгэнэсэн өнгөөр эхэлнэ</p>
+<p class="a" style="left:783px;top:569px;font-size:18px;line-height:28px"><span class="b">TOP</span> | Лавандин ∙ Бергамот ∙ Жүрж ∙ Грейпфрут ∙ Мускат шалфей</p>
+<p class="a b" style="left:783px;top:621px;font-size:18px;line-height:28px">Зөөлөн, намуухан өнгөөр үргэлжилнэ</p>
+<p class="a" style="left:783px;top:653px;font-size:18px;line-height:28px"><span class="b">MIDDLE</span> | Мэлрэг цэцэг ∙ Лаванда ∙ Розмарин ∙ Нероли ∙ Ягаан чинжүү</p>
+<p class="a b" style="left:783px;top:705px;font-size:18px;line-height:28px">Гүн, тогтуун өнгөөр үлдэнэ</p>
+<p class="a" style="left:783px;top:737px;font-size:18px;line-height:28px"><span class="b">BASE</span> | Заар ∙ Амбер ∙ Хуш мод ∙ Ветивер ∙ Пачули ∙ Тонка</p>
+<p class="a wrap" style="left:783px;top:820px;width:432px;font-size:16px;line-height:26px;color:rgba(42,42,41,.6)">NIGHT NIGHT CREAM-ийн 'Sleep in the forest' үнэрийг унтахын өмнөх мэдрэмжийг харгалзан боловсруулсан, зөвхөн byDose-д нийлүүлдэг үнэрт найрлагаар бүрдүүлсэн.</p>
+</div>
+<div class="stage m">
+<p class="a" style="left:24px;top:86px;font-size:14px;line-height:normal"><span class="mono">02. </span>Үнэр</p>
+<p class="a b" style="right:24px;top:84px;font-size:16px;line-height:normal">“ Sleep in the forest “</p>
+<div class="a media" data-ratio="0.8889" data-vimeo="1217189884" style="left:24px;top:116px;width:342px;height:200px;border-radius:12px;background-image:url(nightnight-deck-assets/poster-scent.jpg)"></div>
+<p class="a xb tr wrap" style="left:24px;top:340px;width:342px;font-size:20px;line-height:29px">Унтахын өмнөх тав тухыг ч бодолцсон 'сайхан үнэр'</p>
+<p class="a wrap" style="left:24px;top:379px;width:342px;font-size:15px;line-height:22px"><span class="b">Sleep in the forest</span><br/>Бороо зогссоны дараах ойгоор алхах мэт чийглэг атлаа дулаахан үнэр. Лавандагийн ишийг хурууны үзүүрээр үрэхэд мэдрэгдэх мэт шинэхэн өвслөг үнэр, бороонд норсон хөрс, хөвд ургасан модны холтосны уур амьсгалыг шингээсэн.</p>
+<p class="a sb" style="left:24px;top:485px;font-size:17px;line-height:24px">Үнэрийн зохиомж</p>
+<div class="a" style="left:24px;top:517px;width:342px;height:1px;background:rgba(42,42,41,.4)"></div>
+<p class="a b" style="left:24px;top:528px;font-size:15px;line-height:23px">Сэрүүн, сэнгэнэсэн өнгөөр эхэлнэ</p>
+<p class="a" style="left:24px;top:553px;font-size:13px;line-height:20px"><span class="b">TOP</span> | Лавандин ∙ Бергамот ∙ Жүрж ∙ Грейпфрут ∙ Мускат шалфей</p>
+<p class="a b" style="left:24px;top:583px;font-size:15px;line-height:23px">Зөөлөн, намуухан өнгөөр үргэлжилнэ</p>
+<p class="a" style="left:24px;top:608px;font-size:13px;line-height:20px"><span class="b">MIDDLE</span> | Мэлрэг цэцэг ∙ Лаванда ∙ Розмарин ∙ Нероли ∙ Ягаан чинжүү</p>
+<p class="a b" style="left:24px;top:638px;font-size:15px;line-height:23px">Гүн, тогтуун өнгөөр үлдэнэ</p>
+<p class="a" style="left:24px;top:663px;font-size:13px;line-height:20px"><span class="b">BASE</span> | Заар ∙ Амбер ∙ Хуш мод ∙ Ветивер ∙ Пачули ∙ Тонка</p>
+<p class="a wrap" style="left:24px;top:695px;width:342px;font-size:13px;line-height:21px;color:rgba(42,42,41,.6)">NIGHT NIGHT CREAM-ийн 'Sleep in the forest' үнэрийг унтахын өмнөх мэдрэмжийг харгалзан боловсруулсан, зөвхөн byDose-д нийлүүлдэг үнэрт найрлагаар бүрдүүлсэн.</p>
+</div>
+</section>
+<!-- ===================== 7 · 03 AromaWellness (확인서 외부 사용 확인 완료) ===================== -->
+<section class="sl" data-mbg="0% center" data-next="Найрлагын зохиомж" data-sec="3" data-title="03 AromaWellness" id="aroma" style="background-image:url(nightnight-deck-assets/bg-aroma.jpg)">
+<div class="stage d">
+<p class="a h24" style="left:60px;top:132px">「Aroma Wellness」 Сайхан үнэрээс цааш, унтахын өмнөх тав тухыг хүртэл.</p>
+<p class="a p18" style="left:60px;top:226px">Тайван сэтгэл 'сайн нойр'-ыг, сайн нойр 'сайхан арьс'-ыг бий болгодог гэсэн итгэлд тулгуурлан NIGHT NIGHT CREAM-д зөвхөн сайхан үнэр бус, унтахын өмнөх сэтгэл санааны байдлыг харгалзсан үнэр шингээсэн. CPL Aromas-ийн 「AromaWellness」 нь үнэр ба сэтгэл хөдлөлийн холбоог судалдаг үнэрийн судалгааны платформ юм. Үнэрт үзүүлэх хүний зан үйл, физиологийн хариу урвал, субъектив мэдрэмжийг олон төрлийн үнэлгээний аргаар судалдаг.</p>
+<p class="a b p18 pre" style="left:60px;top:418px;color:#000"><span class="mono">01</span> Зан үйлийн хариу урвал</p>
+<p class="a p18" style="left:187px;top:418px;color:#000">Нүүрний хувирлын өөрчлөлт · Харцны хөдөлгөөний хяналт</p>
+<p class="a b p18 pre" style="left:60px;top:458px;color:#000"><span class="mono">02</span> Физиологийн хариу урвал</p>
+<p class="a p18" style="left:187px;top:458px;color:#000">Зүрхний цохилт · Тархины долгион · <mark>Арьсны цахилгаан дамжуулалт (GSR)</mark></p>
+<p class="a b p18 pre" style="left:60px;top:498px;color:#000"><span class="mono">03</span> Субъектив хариу урвал</p>
+<p class="a p18" style="left:187px;top:498px;color:#000"><mark>Асуумжийн үнэлгээ</mark></p>
+<div class="a cert" style="left:60px;top:572px;width:731px;height:312px;padding:24px;background:rgba(243,243,233,.3);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)">
+<p class="a xb" style="left:24px;top:24px;font-size:18px;line-height:18px">CPL Aromas - 「Aroma Wellness」</p>
+<p class="a p18" style="left:24px;top:62px">Энэхүү GW ONE RELAX SC үнэрт найрлага нь AromaWellness Relaxation үнэрт найрлагыг агуулдаг бөгөөд CPL Aromas-аас <span class="b">технологийн нийцлийн баталгаажуулах баримт</span> авсан.</p>
+<p class="a pre" style="left:28px;top:126px;font-size:12px;line-height:19px;opacity:.6">※ Certificate of Technology Compliance · 15 December 2025<br/>※ Баталгаажуулалтын хамрах хүрээ нь Relaxation үнэрт найрлага агуулагдаж буй баримт болон холбогдох үнэлгээний арга юм. Энэ нь GW ONE RELAX SC-ийг бүхэлд нь тусад нь туршсан, эсвэл бэлэн бүтээгдэхүүний тайвшруулах, нойронд үзүүлэх нөлөөг нотолсон материал биш.</p>
+<p class="a" style="left:28px;top:264px;font-size:12px;line-height:18px">GW ONE RELAX SC-тэй холбоотой технологийн нийцлийн баталгаажуулах баримт.<br/>Бэлэн бүтээгдэхүүний нойронд үзүүлэх, тайвшруулах нөлөөг баталсан гэрчилгээ биш.</p>
+<img alt="GW ONE RELAX SC технологийн нийцлийн баталгаажуулах баримт" class="a cover" src="nightnight-deck-assets/certificate.jpg" style="left:523px;top:24px;width:196px;height:276px"/>
+</div>
+</div>
+<div class="stage m">
+<!-- 모바일은 사진이 글자 뒤에 깔려 잘 안 읽혀서 크림색 반투명 막을 한 겹 덮는다 -->
+<div class="a" style="left:0;top:0;width:390px;height:844px;background:linear-gradient(180deg,rgba(243,243,233,.86) 0%,rgba(243,243,233,.78) 55%,rgba(243,243,233,.6) 100%)"></div>
+<p class="a xb wrap" style="left:24px;top:84px;width:342px;font-size:20px;line-height:28px">「Aroma Wellness」 Сайхан үнэрээс цааш, унтахын өмнөх тав тухыг хүртэл.</p>
+<p class="a wrap" style="left:24px;top:152px;width:342px;font-size:14px;line-height:20px">Тайван сэтгэл 'сайн нойр'-ыг, сайн нойр 'сайхан арьс'-ыг бий болгодог гэсэн итгэлд тулгуурлан NIGHT NIGHT CREAM-д зөвхөн сайхан үнэр бус, унтахын өмнөх сэтгэл санааны байдлыг харгалзсан үнэр шингээсэн. CPL Aromas-ийн 「AromaWellness」 нь үнэр ба сэтгэл хөдлөлийн холбоог судалдаг үнэрийн судалгааны платформ юм. Үнэрт үзүүлэх хүний зан үйл, физиологийн хариу урвал, субъектив мэдрэмжийг олон төрлийн үнэлгээний аргаар судалдаг.</p>
+<p class="a b pre" style="left:24px;top:330px;font-size:15px;line-height:24px;color:#000"><span class="mono">01</span> Зан үйлийн хариу урвал</p>
+<p class="a" style="left:120px;top:330px;font-size:15px;line-height:24px;color:#000">Нүүрний хувирлын өөрчлөлт · Харцны хөдөлгөөний хяналт</p>
+<p class="a b pre" style="left:24px;top:360px;font-size:15px;line-height:24px;color:#000"><span class="mono">02</span> Физиологийн хариу урвал</p>
+<p class="a" style="left:120px;top:360px;font-size:15px;line-height:24px;color:#000">Зүрхний цохилт · Тархины долгион · <mark>Арьсны цахилгаан дамжуулалт (GSR)</mark></p>
+<p class="a b pre" style="left:24px;top:390px;font-size:15px;line-height:24px;color:#000"><span class="mono">03</span> Субъектив хариу урвал</p>
+<p class="a" style="left:120px;top:390px;font-size:15px;line-height:24px;color:#000"><mark>Асуумжийн үнэлгээ</mark></p>
+<div class="a cert" style="left:24px;top:432px;width:342px;height:320px;border-radius:12px;background:rgba(243,243,233,.55);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)">
+<p class="a xb wrap" style="left:16px;top:18px;width:200px;font-size:15px;line-height:20px">CPL Aromas - 「Aroma Wellness」</p>
+<p class="a wrap" style="left:16px;top:62px;width:206px;font-size:13px;line-height:19px">Энэхүү GW ONE RELAX SC үнэрт найрлага нь AromaWellness Relaxation үнэрт найрлагыг агуулдаг бөгөөд CPL Aromas-аас <span class="b">технологийн нийцлийн баталгаажуулах баримт</span> авсан.</p>
+<img alt="GW ONE RELAX SC технологийн нийцлийн баталгаажуулах баримт" class="a cover" src="nightnight-deck-assets/certificate.jpg" style="left:232px;top:16px;width:94px;height:132px"/>
+<p class="a wrap" style="left:16px;top:180px;width:310px;font-size:10.5px;line-height:16px;opacity:.6">※ Certificate of Technology Compliance · 15 December 2025<br/>※ Баталгаажуулалтын хамрах хүрээ нь Relaxation үнэрт найрлага агуулагдаж буй баримт болон холбогдох үнэлгээний арга юм. Энэ нь GW ONE RELAX SC-ийг бүхэлд нь тусад нь туршсан, эсвэл бэлэн бүтээгдэхүүний тайвшруулах, нойронд үзүүлэх нөлөөг нотолсон материал биш.</p>
+<p class="a wrap" style="left:16px;top:270px;width:310px;font-size:10.5px;line-height:16px">GW ONE RELAX SC-тэй холбоотой технологийн нийцлийн баталгаажуулах баримт.<br/>Бэлэн бүтээгдэхүүний нойронд үзүүлэх, тайвшруулах нөлөөг баталсан гэрчилгээ биш.</p>
+</div>
+</div>
+</section>
+<!-- ===================== 8 · 04 성분 설계 ===================== -->
+<section class="sl" data-next="Чийгшүүлэлт" data-sec="4" data-title="04 Найрлагын зохиомж" id="formula">
+<div class="stage d">
+<p class="a h24" style="left:60px;top:191px">Арьс нөхөн сэргэх орчныг бодолцсон найрлагын зохиомж</p>
+<p class="a p18" style="left:60px;top:250px">Унтаж байх үеийн арьсны нөхөн сэргэлтэд чухал чийгийг нөхөж, хадгалах орцуудыг хослуулсан. Үүн дээр өглөөний арьсны гадаргуу болон байдлыг харгалзан исгэлтээс гарган авсан хоёр орц нэмсэн.</p>
+<img alt="NIGHT NIGHT CREAM бүтээгдэхүүн" class="a fill" src="nightnight-deck-assets/cutout.png" style="left:961px;top:185px;width:173px;height:703px;object-position:bottom"/>
+<a class="a card" href="#hydration" style="left:60px;top:383px;width:664px;height:159px"></a>
+<p class="a b tr" style="left:90px;top:405px;font-size:24px;line-height:24px">01</p>
+<p class="a b tr" style="left:138px;top:405px;font-size:24px;line-height:24px">Чийгшүүлэлт</p>
+<p class="a" style="left:90px;top:453px;font-size:24px;line-height:24px">Чийг. Арьсны нөхөн сэргэлтийн эхлэл</p>
+<p class="a pill chip c-blue" style="right:746px;top:417px">5 төрлийн гиалуроны хүчил</p>
+<p class="a pill chip c-blue" style="right:746px;top:467px">AQUAXYL™ ксилитолын бүлгийн 3 орц</p>
+<a class="a card" href="#barrier" style="left:60px;top:554px;width:664px;height:159px"></a>
+<p class="a b tr" style="left:90px;top:576px;font-size:24px;line-height:24px">02</p>
+<p class="a b tr" style="left:138px;top:576px;font-size:24px;line-height:24px">Хамгаалах давхарга</p>
+<p class="a" style="left:90px;top:624px;font-size:24px;line-height:24px">Нөхсөн чийгийг хадгалах давхар хамгаалалтыг бодолцсон найрлага</p>
+<p class="a pill chip c-yellow" style="right:746px;top:588px">Эктоин</p>
+<p class="a pill chip c-yellow" style="right:746px;top:638px">5 төрлийн керамид</p>
+<a class="a card" href="#condition" style="left:60px;top:725px;width:664px;height:159px"></a>
+<p class="a b tr" style="left:90px;top:747px;font-size:24px;line-height:24px">03</p>
+<p class="a b tr" style="left:138px;top:747px;font-size:24px;line-height:24px">Арьсны байдал</p>
+<p class="a" style="left:90px;top:795px;font-size:24px;line-height:24px">Өглөөний арьсны гадаргууг ч бодолцсон исгэлтийн орцтой арчилгаа</p>
+<p class="a pill chip c-green" style="right:746px;top:759px">Бифидагийн исгэлтийн шүүгдэс</p>
+<p class="a pill chip c-green" style="right:746px;top:809px">Галактомицесийн исгэлтийн шүүгдэс</p>
+</div>
+<div class="stage m">
+<p class="a xb" style="left:24px;top:84px;font-size:20px;line-height:28px">Арьс нөхөн сэргэх орчныг бодолцсон найрлагын зохиомж</p>
+<p class="a" style="left:24px;top:124px;font-size:14px;line-height:20px">Унтаж байх үеийн арьсны нөхөн сэргэлтэд чухал чийгийг нөхөж, хадгалах орцуудыг хослуулсан. Үүн дээр өглөөний арьсны гадаргуу болон байдлыг харгалзан исгэлтээс гарган авсан хоёр орц нэмсэн.</p>
+<img alt="" class="a fill" src="nightnight-deck-assets/cutout.png" style="left:318px;top:84px;width:48px;height:132px;object-position:bottom"/>
+<a class="a card mcard" href="#hydration" style="left:24px;top:232px;width:342px;height:136px">
+<span class="a b tr" style="left:16px;top:18px;font-size:18px;line-height:22px"><span class="mono">01</span> Чийгшүүлэлт</span>
+<span class="a" style="left:16px;top:46px;font-size:15px;line-height:20px">Чийг. Арьсны нөхөн сэргэлтийн эхлэл</span>
+<span class="a mchips" style="left:16px;top:82px"><span class="pill chip c-blue">5 төрлийн гиалуроны хүчил</span><span class="pill chip c-blue">AQUAXYL™ ксилитолын бүлгийн 3 орц</span></span>
+</a>
+<a class="a card mcard" href="#barrier" style="left:24px;top:380px;width:342px;height:136px">
+<span class="a b tr" style="left:16px;top:18px;font-size:18px;line-height:22px"><span class="mono">02</span> Хамгаалах давхарга</span>
+<span class="a" style="left:16px;top:46px;font-size:15px;line-height:20px">Нөхсөн чийгийг хадгалах давхар хамгаалалтыг бодолцсон найрлага</span>
+<span class="a mchips" style="left:16px;top:82px"><span class="pill chip c-yellow">Эктоин</span><span class="pill chip c-yellow">5 төрлийн керамид</span></span>
+</a>
+<a class="a card mcard" href="#condition" style="left:24px;top:528px;width:342px;height:136px">
+<span class="a b tr" style="left:16px;top:18px;font-size:18px;line-height:22px"><span class="mono">03</span> Арьсны байдал</span>
+<span class="a" style="left:16px;top:46px;font-size:15px;line-height:20px">Өглөөний арьсны гадаргууг ч бодолцсон исгэлтийн орцтой арчилгаа</span>
+<span class="a mchips" style="left:16px;top:82px"><span class="pill chip c-green">Бифидагийн исгэлтийн шүүгдэс</span><span class="pill chip c-green">Галактомицесийн исгэлтийн шүүгдэс</span></span>
+</a>
+</div>
+</section>
+<!-- ===================== 9 · 04 Hydration ===================== -->
+<section class="sl" data-next="Хамгаалах давхарга" data-sec="4" data-title="04 Чийгшүүлэлт" id="hydration">
+<div class="stage d">
+<p class="a b tr mono" style="left:60px;top:197px;font-size:24px;line-height:24px">01</p>
+<p class="a b tr" style="left:108px;top:197px;font-size:24px;line-height:24px">Чийгшүүлэлт</p>
+<p class="a" style="left:258px;top:197px;font-size:24px;line-height:24px">Чийг. Арьсны нөхөн сэргэлтийн эхлэл</p>
+<div class="a card" style="left:60px;top:261px;width:452px;height:502px"></div>
+<div class="a card" style="left:524px;top:261px;width:452px;height:502px"></div>
+<p class="a pill chip b" style="left:84px;top:309px;line-height:18px;letter-spacing:.03em;background:var(--blue)">5 төрлийн гиалуроны хүчил</p>
+<p class="a b tr" style="right:952px;top:321px;font-size:18px;line-height:18px;color:var(--blue)"><span class="mono">01</span> Чийгшүүлэлт</p>
+<p class="a md tr" style="left:84px;top:387px;font-size:24px;line-height:24px">Чийг өгөх ба чийг хадгалах бүрхүүл</p>
+<p class="a p16 wrap" style="left:84px;top:435px;width:404px">Усны молекулыг татах чадвартай гиалуроны хүчил нь түгээмэл хэрэглэгддэг чийгшүүлэгч орц юм. Үндсэн хэлбэрээс нь эхлээд жижиг хэсэг болгон задалсан, тор мэт холбогдсон хэлбэр хүртэл өөр өөр бүтэцтэй 5 төрлийн гиалуроны хүчлийг хослуулсан. Өөр өөр шинж чанартай эдгээр гиалуроны хүчлээр арьсанд чийг өгч, гадаргуу дээр нь чийглэг бүрхүүл үүсгэхээр найрлагыг төлөвлөсөн.</p>
+<img alt="" class="a cover" src="nightnight-deck-assets/mol-hyaluronate.png" style="left:368px;top:603px;width:120px;height:120px"/>
+<p class="a pill chip b" style="left:548px;top:309px;line-height:18px;letter-spacing:.03em;background:var(--blue)">AQUAXYL™ ксилитолын бүлгийн 3 орц</p>
+<p class="a b tr" style="right:488px;top:321px;font-size:18px;line-height:18px;color:var(--blue)"><span class="mono">01</span> Чийгшүүлэлт</p>
+<p class="a md tr" style="left:548px;top:387px;font-size:24px;line-height:24px">Чийгийн шилжилт, нөөцлөлтийн орчин</p>
+<p class="a p16 wrap" style="left:548px;top:435px;width:404px">Ксилитол · ксилитилглюкозид · ангидроксилитолоос бүрдэх чийгшүүлэгч цогц орц AQUAXYL™-ийг ашигласан. AQUAXYL™ нь арьсны эпидермис доторх чийгийн шилжилт, нөөцлөлтийг дэмжих шинж чанартай чийгшүүлэгч түүхий эд юм. Гиалуроны хүчил усны молекулыг татаж, барьж тогтоодог бол AQUAXYL™ нь арьсан дотор чийг шилжиж, хадгалагдах орчинд чиглэсэн орц юм.</p>
+<img alt="" class="a cover" src="nightnight-deck-assets/mol-xylityl.png" style="left:822px;top:603px;width:130px;height:120px"/>
+<p class="a p16" style="left:72px;top:778px">NIGHT NIGHT CREAM нь зөвхөн чийг нөхөхөөр хязгаарлагдахгүй, чийг жигд шилжиж, хадгалагдах орчныг ч харгалзахын тулд энэ хоёр түүхий эдийг хослуулсан.</p>
+<p class="a red" style="left:72px;top:861px;font-size:16px;line-height:26px">※ AQUAXYL™-ийн шинж чанарын тайлбар нь түүхий эд нийлүүлэгчийн материалд үндэслэсэн бөгөөд NIGHT NIGHT CREAM бэлэн бүтээгдэхүүний туршилтын үр дүн биш.</p>
+</div>
+<div class="stage m">
+<p class="a b tr" style="left:24px;top:84px;font-size:20px;line-height:24px"><span class="mono">01</span> Чийгшүүлэлт</p>
+<p class="a" style="left:24px;top:114px;font-size:15px;line-height:20px">Чийг. Арьсны нөхөн сэргэлтийн эхлэл</p>
+<div class="a mcol" style="left:24px;top:148px;width:342px">
+<div class="card mbox">
+<p class="pill chip mchip b c-blue">5 төрлийн гиалуроны хүчил</p>
+<p class="mtitle md">Чийг өгөх ба чийг хадгалах бүрхүүл</p>
+<p class="mbody">Усны молекулыг татах чадвартай гиалуроны хүчил нь түгээмэл хэрэглэгддэг чийгшүүлэгч орц юм. Үндсэн хэлбэрээс нь эхлээд жижиг хэсэг болгон задалсан, тор мэт холбогдсон хэлбэр хүртэл өөр өөр бүтэцтэй 5 төрлийн гиалуроны хүчлийг хослуулсан. Өөр өөр шинж чанартай эдгээр гиалуроны хүчлээр арьсанд чийг өгч, гадаргуу дээр нь чийглэг бүрхүүл үүсгэхээр найрлагыг төлөвлөсөн.</p>
+</div>
+<div class="card mbox">
+<p class="pill chip mchip b c-blue">AQUAXYL™ ксилитолын бүлгийн 3 орц</p>
+<p class="mtitle md">Чийгийн шилжилт, нөөцлөлтийн орчин</p>
+<p class="mbody">Ксилитол · ксилитилглюкозид · ангидроксилитолоос бүрдэх чийгшүүлэгч цогц орц AQUAXYL™-ийг ашигласан. AQUAXYL™ нь арьсны эпидермис доторх чийгийн шилжилт, нөөцлөлтийг дэмжих шинж чанартай чийгшүүлэгч түүхий эд юм. Гиалуроны хүчил усны молекулыг татаж, барьж тогтоодог бол AQUAXYL™ нь арьсан дотор чийг шилжиж, хадгалагдах орчинд чиглэсэн орц юм.</p>
+</div>
+<p class="mfoot">NIGHT NIGHT CREAM нь зөвхөн чийг нөхөхөөр хязгаарлагдахгүй, чийг жигд шилжиж, хадгалагдах орчныг ч харгалзахын тулд энэ хоёр түүхий эдийг хослуулсан.</p>
+<p class="mnote red">※ AQUAXYL™-ийн шинж чанарын тайлбар нь түүхий эд нийлүүлэгчийн материалд үндэслэсэн бөгөөд NIGHT NIGHT CREAM бэлэн бүтээгдэхүүний туршилтын үр дүн биш.</p>
+</div>
+</div>
+</section>
+<!-- ===================== 10 · 04 Barrier ===================== -->
+<section class="sl" data-next="Арьсны байдал" data-sec="4" data-title="04 Хамгаалах давхарга" id="barrier">
+<div class="stage d">
+<p class="a b tr mono" style="left:60px;top:197px;font-size:24px;line-height:24px">02</p>
+<p class="a b tr" style="left:108px;top:197px;font-size:24px;line-height:24px">Хамгаалах давхарга</p>
+<p class="a" style="left:258px;top:197px;font-size:24px;line-height:24px">Нөхсөн чийгийг хадгалах давхар хамгаалалтыг бодолцсон найрлага</p>
+<div class="a card" style="left:60px;top:261px;width:452px;height:502px"></div>
+<div class="a card" style="left:524px;top:261px;width:452px;height:502px"></div>
+<p class="a pill chip c-yellow" style="left:84px;top:309px">Эктоин</p>
+<p class="a b tr" style="right:952px;top:321px;font-size:18px;line-height:18px;color:var(--yellow)"><span class="mono">02</span> Хамгаалах давхарга</p>
+<p class="a md tr" style="left:84px;top:387px;font-size:24px;line-height:24px">Эрс тэс орчноос олсон арьс хамгаалах орц</p>
+<p class="a p16 wrap" style="left:84px;top:435px;width:404px">Эктоин нь давсжилт ихтэй, хуурай зэрэг эрс тэс орчинд амьдардаг зарим бичил биетний өөрийгөө хамгаалахын тулд үүсгэдэг бодис юм. Эктоин нь эргэн тойрны усны молекултай харилцан үйлчилж, уураг болон эсийн мембраны орчмын чийгийн орчныг тогтворжуулах шинж чанартай. Арьсны чийгийг хадгалах, хамгаалах давхаргыг хамгаалах орц болгон ашигладаг бөгөөд <span class="red">эктоин агуулсан найрлагыг арьсанд хэрэглэсэн судалгаанд*</span> ч чийгшүүлэлтийг сайжруулж, чийгийн алдагдлыг бууруулах боломжийг мэдээлсэн. <span class="b">Зөвхөн чийг өгөхөөс гадна хуурайшилт, гадаад орчны стрессийг ч харгалзсан чийгшүүлэх найрлага</span> бүтээхийн тулд эктоиныг сонгосон.</p>
+<p class="a wrap red" style="left:84px;top:639px;width:407px;font-size:16px;line-height:26px">* Түүхий эд болон найрлагын судалгаанд үндэслэсэн бөгөөд NIGHT NIGHT CREAM бэлэн бүтээгдэхүүний туршилтын үр дүн биш.</p>
+<p class="a pill chip c-yellow" style="left:548px;top:309px">5 төрлийн керамид</p>
+<p class="a b tr" style="right:488px;top:321px;font-size:18px;line-height:18px;color:var(--yellow)"><span class="mono">02</span> Хамгаалах давхарга</p>
+<p class="a md tr" style="left:548px;top:387px;font-size:24px;line-height:24px">Арьсны хамгаалах давхаргын липидийг нөхөх</p>
+<p class="a p16 wrap" style="left:548px;top:435px;width:404px">Керамид нь арьсны эвэрлэг давхаргын эсүүдийн хоорондох зайг дүүргэдэг гол липидүүдийн нэг юм. 5 төрлийн керамидыг хослуулж, арьсны хамгаалах давхаргад шаардлагатай липидийг нөхөх, чийгийн алдагдлыг багасгах арчилгааг бодолцсон.</p>
+<img alt="" class="a cover" src="nightnight-deck-assets/mol-barrier.png" style="left:844px;top:603px;width:108px;height:120px;object-position:bottom"/>
+<p class="a p16" style="left:72px;top:778px">Эктоин нь чийгийн орчныг тогтворжуулах, хамгаалахад чиглэсэн орц бол керамид нь арьсны хамгаалах давхаргыг бүрдүүлдэг липидэд чиглэсэн орц юм. Өөр өөр үүрэгтэй энэ хоёр орцыг хослуулж, нөхсөн чийгийг хадгалах чийглэг орчныг бодолцсон.</p>
+</div>
+<div class="stage m">
+<p class="a b tr" style="left:24px;top:84px;font-size:20px;line-height:24px"><span class="mono">02</span> Хамгаалах давхарга</p>
+<p class="a" style="left:24px;top:114px;font-size:15px;line-height:20px">Нөхсөн чийгийг хадгалах давхар хамгаалалтыг бодолцсон найрлага</p>
+<div class="a mcol" style="left:24px;top:148px;width:342px">
+<div class="card mbox">
+<p class="pill chip mchip c-yellow">Эктоин</p>
+<p class="mtitle md">Эрс тэс орчноос олсон арьс хамгаалах орц</p>
+<p class="mbody">Эктоин нь давсжилт ихтэй, хуурай зэрэг эрс тэс орчинд амьдардаг зарим бичил биетний өөрийгөө хамгаалахын тулд үүсгэдэг бодис юм. Эктоин нь эргэн тойрны усны молекултай харилцан үйлчилж, уураг болон эсийн мембраны орчмын чийгийн орчныг тогтворжуулах шинж чанартай. Арьсны чийгийг хадгалах, хамгаалах давхаргыг хамгаалах орц болгон ашигладаг бөгөөд <span class="red">эктоин агуулсан найрлагыг арьсанд хэрэглэсэн судалгаанд*</span> ч чийгшүүлэлтийг сайжруулж, чийгийн алдагдлыг бууруулах боломжийг мэдээлсэн. <span class="b">Зөвхөн чийг өгөхөөс гадна хуурайшилт, гадаад орчны стрессийг ч харгалзсан чийгшүүлэх найрлага</span> бүтээхийн тулд эктоиныг сонгосон.</p>
+<p class="mnote red">* Түүхий эд болон найрлагын судалгаанд үндэслэсэн бөгөөд NIGHT NIGHT CREAM бэлэн бүтээгдэхүүний туршилтын үр дүн биш.</p>
+</div>
+<div class="card mbox">
+<p class="pill chip mchip c-yellow">5 төрлийн керамид</p>
+<p class="mtitle md">Арьсны хамгаалах давхаргын липидийг нөхөх</p>
+<p class="mbody">Керамид нь арьсны эвэрлэг давхаргын эсүүдийн хоорондох зайг дүүргэдэг гол липидүүдийн нэг юм. 5 төрлийн керамидыг хослуулж, арьсны хамгаалах давхаргад шаардлагатай липидийг нөхөх, чийгийн алдагдлыг багасгах арчилгааг бодолцсон.</p>
+</div>
+<p class="mfoot">Эктоин нь чийгийн орчныг тогтворжуулах, хамгаалахад чиглэсэн орц бол керамид нь арьсны хамгаалах давхаргыг бүрдүүлдэг липидэд чиглэсэн орц юм. Өөр өөр үүрэгтэй энэ хоёр орцыг хослуулж, нөхсөн чийгийг хадгалах чийглэг орчныг бодолцсон.</p>
+</div>
+</div>
+</section>
+<!-- ===================== 11 · 04 Condition ===================== -->
+<section class="sl" data-next="Бүтээгдэхүүний мэдээлэл" data-sec="4" data-title="04 Арьсны байдал" id="condition">
+<div class="stage d">
+<p class="a b tr mono" style="left:60px;top:197px;font-size:24px;line-height:24px">03</p>
+<p class="a b tr" style="left:107px;top:197px;font-size:24px;line-height:24px">Арьсны байдал</p>
+<p class="a" style="left:258px;top:197px;font-size:24px;line-height:24px">Өглөөний арьсны гадаргууг ч бодолцсон исгэлтийн орцтой арчилгаа</p>
+<div class="a card" style="left:60px;top:261px;width:452px;height:502px"></div>
+<div class="a card" style="left:524px;top:261px;width:452px;height:502px"></div>
+<p class="a pill chip b" style="left:84px;top:309px;line-height:18px;letter-spacing:.03em;background:var(--green)">Бифидагийн исгэлтийн шүүгдэс</p>
+<p class="a b tr" style="right:952px;top:321px;font-size:18px;line-height:18px;color:var(--green)"><span class="mono">03</span> Арьсны байдал</p>
+<p class="a md tr" style="left:84px;top:387px;font-size:24px;line-height:24px">Чийг хадгалах, арьсны байдлыг арчлах</p>
+<p class="a p16 wrap" style="left:84px;top:435px;width:404px">Бифида бактерийн исгэлтийн явцад гарган авсан шүүгдэс юм. Исгэлтээс үүсэх усанд уусдаг бүрэлдэхүүн хэсгүүдийг агуулсан энэ түүхий эдийг арьсны чийгийг хадгалах, арьсны байдлыг арчлахад ашигладаг. NIGHT NIGHT CREAM нь эдгээр шинж чанарт анхаарч, <span class="b">өдрийн турш гадаад орчны нөлөөнд байсан арьсны байдлыг</span> ч харгалзан бифидагийн исгэлтийн шүүгдсийг сонгосон.</p>
+<img alt="" class="a cover" src="nightnight-deck-assets/mol-galactomyces.png" style="left:372px;top:603px;width:116px;height:120px"/>
+<img alt="" class="a cover" src="nightnight-deck-assets/mol-bifida.png" style="left:831px;top:603px;width:121px;height:120px"/>
+<p class="a pill chip b" style="left:548px;top:309px;line-height:18px;letter-spacing:.03em;background:var(--green)">Галактомицесийн исгэлтийн шүүгдэс</p>
+<p class="a b tr" style="right:488px;top:321px;font-size:18px;line-height:18px;color:var(--green)"><span class="mono">03</span> Арьсны байдал</p>
+<p class="a md tr" style="left:548px;top:387px;font-size:24px;line-height:24px">Чийгшүүлж, арьсны гадаргууг зөөлөн байлгах арчилгаа</p>
+<p class="a wrap" style="left:548px;top:435px;width:404px;font-size:16px;line-height:22px">Галактомицесийн исгэлтийн явцад гарган авсан шүүгдэс юм. Арьсыг чийгшүүлэх, гадаргуугийн байдлыг арчлах орц болгон ашигладаг бөгөөд холбогдох түүхий эдийг агуулсан найрлагын судалгаанд арьсны барзгар байдал багассан гэж мэдээлсэн. NIGHT NIGHT CREAM нь энэ түүхий эдийн хэрэглээний үндэслэлд тулгуурлан, <span class="b">хуурайшилтаас болж барзайх хандлагатай арьсыг чийглэг, зөөлөн байлгах шөнийн арчилгаанд зориулж</span> галактомицесийн исгэлтийн шүүгдсийг сонгосон.</p>
+<p class="a p16" style="left:72px;top:778px">Чийгийг нөхөж, хадгалах чийгшүүлэлт болон хамгаалах давхаргын арчилгаанд исгэлтээс гарган авсан хоёр орцын арьс арчлах шинж чанарыг нэмж, маргааш өглөөний арьсны гадаргуу, байдлыг ч харгалзсан.</p>
+<p class="a red" style="left:72px;top:861px;font-size:16px;line-height:26px">※ Исгэлтээс гарган авсан орцуудын шинж чанар, судалгааны үндэслэлийн тайлбар юм. Судалгаанд ашигласан түүхий эд, найрлагын үр дүнг бэлэн бүтээгдэхүүний туршилтын үр дүн болгон танилцуулаагүй.</p>
+</div>
+<div class="stage m">
+<p class="a b tr" style="left:24px;top:84px;font-size:20px;line-height:24px"><span class="mono">03</span> Арьсны байдал</p>
+<p class="a" style="left:24px;top:114px;font-size:15px;line-height:20px">Өглөөний арьсны гадаргууг ч бодолцсон исгэлтийн орцтой арчилгаа</p>
+<div class="a mcol" style="left:24px;top:148px;width:342px">
+<div class="card mbox">
+<p class="pill chip mchip b c-green">Бифидагийн исгэлтийн шүүгдэс</p>
+<p class="mtitle md">Чийг хадгалах, арьсны байдлыг арчлах</p>
+<p class="mbody">Бифида бактерийн исгэлтийн явцад гарган авсан шүүгдэс юм. Исгэлтээс үүсэх усанд уусдаг бүрэлдэхүүн хэсгүүдийг агуулсан энэ түүхий эдийг арьсны чийгийг хадгалах, арьсны байдлыг арчлахад ашигладаг. NIGHT NIGHT CREAM нь эдгээр шинж чанарт анхаарч, <span class="b">өдрийн турш гадаад орчны нөлөөнд байсан арьсны байдлыг</span> ч харгалзан бифидагийн исгэлтийн шүүгдсийг сонгосон.</p>
+</div>
+<div class="card mbox">
+<p class="pill chip mchip b c-green">Галактомицесийн исгэлтийн шүүгдэс</p>
+<p class="mtitle md">Чийгшүүлж, арьсны гадаргууг зөөлөн байлгах арчилгаа</p>
+<p class="mbody">Галактомицесийн исгэлтийн явцад гарган авсан шүүгдэс юм. Арьсыг чийгшүүлэх, гадаргуугийн байдлыг арчлах орц болгон ашигладаг бөгөөд холбогдох түүхий эдийг агуулсан найрлагын судалгаанд арьсны барзгар байдал багассан гэж мэдээлсэн. NIGHT NIGHT CREAM нь энэ түүхий эдийн хэрэглээний үндэслэлд тулгуурлан, <span class="b">хуурайшилтаас болж барзайх хандлагатай арьсыг чийглэг, зөөлөн байлгах шөнийн арчилгаанд зориулж</span> галактомицесийн исгэлтийн шүүгдсийг сонгосон.</p>
+</div>
+<p class="mfoot">Чийгийг нөхөж, хадгалах чийгшүүлэлт болон хамгаалах давхаргын арчилгаанд исгэлтээс гарган авсан хоёр орцын арьс арчлах шинж чанарыг нэмж, маргааш өглөөний арьсны гадаргуу, байдлыг ч харгалзсан.</p>
+<p class="mnote red">※ Исгэлтээс гарган авсан орцуудын шинж чанар, судалгааны үндэслэлийн тайлбар юм. Судалгаанд ашигласан түүхий эд, найрлагын үр дүнг бэлэн бүтээгдэхүүний туршилтын үр дүн болгон танилцуулаагүй.</p>
+</div>
+</div>
+</section>
+<!-- ===================== 12 · 05 제품 정보 ===================== -->
+<section class="sl" data-next="EOD" data-sec="5" data-title="05 Бүтээгдэхүүний мэдээлэл" id="info">
+<div class="stage d">
+<img alt="NIGHT NIGHT CREAM бүтээгдэхүүн" class="a fill" src="nightnight-deck-assets/cutout.png" style="left:268px;top:161px;width:173px;height:703px;object-position:bottom"/>
+<div class="a spec" style="left:655px;top:185px;width:471px">
+<div><p>Бүтээгдэхүүний нэр</p><p>byDose NIGHT NIGHT CREAM (Найт Найт Крем)</p></div>
+<div><p>Хэмжээ</p><p>50 mL</p></div>
+<div><p>Бүтээгдэхүүний төрөл / бүтэц</p><p>Шөнийн тос / гель-крем бүтэц</p></div>
+<div><p>Арьсны төрөл</p><p>Бүх төрлийн арьсанд</p></div>
+<div><p>Савлагаа</p><p>Агаар нэвтрэхгүй шахуургат сав</p></div>
+<div><p>Хэрэглэх арга</p><p>Тохирох хэмжээгээр авч, нүүрний бүх хэсэгт зөөлөн тараан түрхэнэ.</p></div>
+<div><p>Үйлдвэрлэсэн улс</p><p>Бүгд Найрамдах Солонгос Улс</p></div>
+<div><p>Жижиглэнгийн үнэ</p><p>28,900 вон</p></div>
+<div><p>Вэбсайт / Холбоо барих</p><p><a class="u" href="https://bydose.kr" rel="noopener" target="_blank">bydose.kr</a>  ·  <a class="u" href="mailto:hogan@bydose.kr">hogan@bydose.kr</a></p></div>
+</div>
+<p class="a red p16" style="left:657px;top:791px">Бүрэн найрлага, үйлдвэрлэгч / борлуулалт хариуцагчийн мэдээлэл, хайрцаг дахь тоо ширхэг зэрэг дэлгэрэнгүй мэдээлэл болон нийлүүлэх үнэ, MOQ, нийлүүлэх хугацааг шаардлагатай үед тусдаа материалаар өгнө.</p>
+</div>
+<div class="stage m">
+<img alt="" class="a fill" src="nightnight-deck-assets/cutout.png" style="left:168px;top:76px;width:54px;height:210px;object-position:bottom"/>
+<div class="a spec spec-m" style="left:24px;top:304px;width:342px">
+<div><p>Бүтээгдэхүүний нэр</p><p>byDose NIGHT NIGHT CREAM (Найт Найт Крем)</p></div>
+<div><p>Хэмжээ</p><p>50 mL</p></div>
+<div><p>Бүтээгдэхүүний төрөл / бүтэц</p><p>Шөнийн тос / гель-крем бүтэц</p></div>
+<div><p>Арьсны төрөл</p><p>Бүх төрлийн арьсанд</p></div>
+<div><p>Савлагаа</p><p>Агаар нэвтрэхгүй шахуургат сав</p></div>
+<div><p>Хэрэглэх арга</p><p>Тохирох хэмжээгээр авч, нүүрний бүх хэсэгт зөөлөн тараан түрхэнэ.</p></div>
+<div><p>Үйлдвэрлэсэн улс</p><p>Бүгд Найрамдах Солонгос Улс</p></div>
+<div><p>Жижиглэнгийн үнэ</p><p>28,900 вон</p></div>
+<div><p>Вэбсайт / Холбоо барих</p><p><a class="u" href="https://bydose.kr" rel="noopener" target="_blank">bydose.kr</a> · <a class="u" href="mailto:hogan@bydose.kr">hogan@bydose.kr</a></p></div>
+</div>
+<p class="a red wrap" style="left:24px;top:716px;width:342px;font-size:12px;line-height:18px">Бүрэн найрлага, үйлдвэрлэгч / борлуулалт хариуцагчийн мэдээлэл, хайрцаг дахь тоо ширхэг зэрэг дэлгэрэнгүй мэдээлэл болон нийлүүлэх үнэ, MOQ, нийлүүлэх хугацааг шаардлагатай үед тусдаа материалаар өгнө.</p>
+</div>
+</section>
+<!-- ===================== 13 · 마무리 ===================== -->
+<section class="sl" data-msec="5" data-next="" data-sec="0" data-title="Холбоо барих" id="contact">
+<div class="stage d">
+<p class="a" style="left:50%;top:419px;transform:translateX(-50%);text-align:center;font-size:18px;line-height:24px">Уншиж танилцсанд баярлалаа. Дээжийг үнэлж үзэх болон худалдааны нөхцөлийн талаар доорх хаягаар холбогдоно уу.</p>
+<a class="a pill sb" href="mailto:hogan@bydose.kr" style="left:50%;top:491px;transform:translateX(-50%);height:42px;padding:0 16px;border-radius:36px;background:var(--ink);color:var(--cream);font-size:18px;line-height:26px">hogan@bydose.kr</a>
+<img alt="byDose" class="a" src="nightnight-deck-assets/rabbit.svg" style="left:690px;top:557px;width:60px;height:30px"/>
+</div>
+<div class="stage m">
+<p class="a" style="left:50%;top:330px;transform:translateX(-50%);text-align:center;font-size:15px;line-height:22px">Уншиж танилцсанд баярлалаа. Дээжийг үнэлж үзэх болон худалдааны нөхцөлийн талаар доорх хаягаар холбогдоно уу.</p>
+<a class="a pill sb" href="mailto:hogan@bydose.kr" style="left:50%;top:394px;transform:translateX(-50%);height:42px;padding:0 16px;border-radius:36px;background:var(--ink);color:var(--cream);font-size:16px;line-height:24px">hogan@bydose.kr</a>
+<img alt="byDose" class="a" src="nightnight-deck-assets/rabbit.svg" style="left:165px;top:456px;width:60px;height:30px"/>
+</div>
+</section>
+</div>
+</div>
+<style>
+/* 제품 정보 표 */
+/* 피그마: 값 글자 위에서 42px 아래 가는 줄, 다음 값까지 66px 간격 */
+#bdk .spec > div{position:relative;display:grid;grid-template-columns:108px 1fr;align-items:start;height:66px}
+#bdk .spec > div::after{content:"";position:absolute;left:1px;right:0;top:42px;height:1px;background:var(--ink)}
+#bdk .spec > div p:first-child{padding-top:3px;font-size:12px;line-height:12px;font-weight:700;letter-spacing:.03em}
+#bdk .spec > div p:last-child{font-size:18px;line-height:18px;white-space:pre}
+#bdk .spec-m > div{grid-template-columns:96px 1fr;height:auto;padding:11px 0;border-bottom:1px solid var(--ink)}
+#bdk .spec-m > div::after{display:none}
+#bdk .spec-m > div p:first-child{font-size:11px;line-height:14px}
+#bdk .spec-m > div p:last-child{font-size:14px;line-height:19px;white-space:normal;word-break:keep-all}
+
+/* 모바일 성분 카드 (M8~M11) — 위에서부터 흘러 내려가는 세로 칸 */
+#bdk .mchips{display:flex;flex-wrap:wrap;gap:6px;white-space:normal;width:310px}
+#bdk .mcard .chip,#bdk .mchip{height:30px;padding:0 12px;border-radius:30px;font-size:13px;line-height:18px}
+#bdk .mcol{display:flex;flex-direction:column;gap:12px;white-space:normal}
+#bdk .mbox{position:relative;padding:16px 16px 18px}
+#bdk .mchip{display:inline-flex;font-weight:700}
+#bdk .mtitle{margin-top:12px;font-size:17px;line-height:22px;letter-spacing:.03em}
+#bdk .mbody{margin-top:8px;font-size:13px;line-height:19px;word-break:keep-all}
+#bdk .mnote{margin-top:8px;font-size:12px;line-height:17px;word-break:keep-all}
+#bdk .mfoot{font-size:13px;line-height:19px;word-break:keep-all;padding:0 4px}
+#bdk .mcol > .mnote{padding:0 4px;margin-top:-4px}
+</style>
+<script>
+(function(){
+  var root=document.getElementById('bdk');
+  /* 아임웹 위젯 래퍼에 transform·애니메이션 효과가 걸려 있으면 position:fixed 가 그 상자 안에 갇힌다 → body 직속으로 옮김 */
+  if(root.parentNode!==document.body) document.body.appendChild(root);
+  var A='nightnight-deck-assets/';
+  var track=document.getElementById('bdkTrack');
+  var slides=[].slice.call(track.querySelectorAll('.sl'));
+  var N=slides.length, cur=-1;
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* 섹션 → 첫 장 */
+  var SECS=["", "Бүтээгдэхүүний танилцуулга", "Шөнийн арчилгааны зохиомж", "Мэдрэмж ба үнэр", "Найрлагын зохиомж", "Бүтээгдэхүүний мэдээлэл"];
+  var TABS=["", "Бүтээгдэхүүний танилцуулга", "Шөнийн арчилгааны зохиомж", "Мэдрэмж ба үнэр", "Найрлагын зохиомж", "Бүтээгдэхүүний мэдээлэл"];
+  var SEC_FIRST={1:'intro',2:'why',3:'texture',4:'formula',5:'info'};
+  /* 언어: 지금은 한국어 원고만 있음. 번역본이 생기면 data-code 로 분기 */
+  var LANGS=[['KOR','한국어','🇰🇷'],['ENG','영어','🇺🇸'],['CHN','중국','🇨🇳'],['MNG','몽골','🇲🇳'],['RUS','러시아','🇷🇺']];
+  var NAV_X=[0,393,560,759,926,1093];          /* PC 메뉴 글자 시작 x */
+  var DOT_X=[0,439,624,805,972,1139];          /* PC 빨간 점 x */
+
+  document.documentElement.style.overflow='hidden';
+  document.body.style.overflow='hidden';
+
+  function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+  function pos(e,css){e.style.cssText+=css;return e}
+
+  /* ---------- 장마다 머리말·다음 버튼 넣기 ---------- */
+  slides.forEach(function(s,i){
+    var dark=s.dataset.ui==='dark', tone=dark?'light':'dark', ink=dark?'var(--cream)':'var(--ink)';
+    var sec=+s.dataset.sec||0, msec=+(s.dataset.msec||sec);
+    var d=s.querySelector('.stage.d'), m=s.querySelector('.stage.m');
+
+    /* PC 머리말: 로고 · 01~05 · PDF · 언어 */
+    var logo=pos(el('a','a'),'left:60px;top:26px;width:72px;height:18px'); logo.href='#cover'; logo.setAttribute('aria-label',"byDose эхлэл рүү");
+    logo.innerHTML='<img src="'+A+'logo-'+tone+'.svg" alt="" width="72" height="18">'; d.appendChild(logo);
+    for(var k=1;k<=5;k++){
+      var it=pos(el('a','a nav-i'+(k===sec?' is-on':''),'<span class="mono">0'+k+'</span>   '+SECS[k]),'left:'+NAV_X[k]+'px;top:24px;color:'+(k===sec?'var(--red)':ink));
+      it.href='#'+SEC_FIRST[k]; d.appendChild(it);
+    }
+    if(sec) d.appendChild(pos(el('img','a'),'left:'+DOT_X[sec]+'px;top:50px;width:4px;height:4px')).src=A+'nav-dot.svg';
+    d.appendChild(chromeBtns(tone,'left:1246px;top:7px','left:1318px;top:7px'));
+
+    /* PC 다음 버튼 */
+    if(i<N-1){
+      var top=+(s.dataset.btnTop||482);
+      var nx=pos(el('button','next'),'left:1332px;top:'+top+'px;width:60px;height:60px');
+      nx.setAttribute('aria-label',"Дараагийн слайд"+(s.dataset.next?': '+s.dataset.next:''));
+      nx.innerHTML='<img src="'+A+'next-btn.svg" alt="" style="left:-12px;top:-2px;width:84px;height:84px">';
+      nx.dataset.step='1'; d.appendChild(nx);
+      if(s.dataset.next) d.appendChild(pos(el('p','a next-l',s.dataset.next),'left:1362px;top:'+(top-30)+'px;color:'+ink));
+    }
+
+    /* 모바일 */
+    if(i===0){
+      /* M1 표지: 로고 · 아래 '나잇나잇 크림 소개 →' */
+      var ml=pos(el('img','a'),'left:24px;top:26px;width:72px;height:18px'); ml.src=A+'logo-dark.svg'; ml.alt='byDose'; m.appendChild(ml);
+      m.appendChild(pos(el('p','a b trim',s.dataset.mnext),'right:72px;top:799px;font-size:12px;line-height:12px'));
+      var mb=pos(el('button','next'),'left:330px;top:784px;width:36px;height:36px'); mb.dataset.step='1'; mb.setAttribute('aria-label',"Дараагийн слайд");
+      mb.innerHTML='<img src="'+A+'next-btn.svg" alt="" style="left:-9.6px;top:-1.6px;width:50.4px;height:50.4px">'; m.appendChild(mb);
+    }else{
+      m.appendChild(chromeBtns(tone,'left:330px;top:12px','left:12px;top:12px',true));
+      if(msec) m.appendChild(pos(el('div','bar'),'width:'+(65*msec)+'px'));
+      for(var t=1;t<=5;t++){
+        var tb=pos(el('a','tab'+(t===msec?' is-on':''),'<span class="mono">0'+t+'</span><span class="t">'+TABS[t]+'</span>'),'left:'+(t-1)*65+'px;color:'+(t===msec?'var(--red)':ink));
+        tb.href='#'+SEC_FIRST[t]; m.appendChild(tb);
+      }
+      if(i<N-1){
+        var mn=pos(el('button','next'),'left:334px;top:790px;width:48px;height:48px'); mn.dataset.step='1';
+        mn.setAttribute('aria-label',"Дараагийн слайд"+(s.dataset.next?': '+s.dataset.next:''));
+        mn.innerHTML='<img src="'+A+'next-btn-m.svg" alt="" style="left:0;top:0;width:48px;height:48px">'; m.appendChild(mn);
+      }
+    }
+  });
+
+  /* PDF 다운로드 · 언어 버튼 묶음 */
+  function chromeBtns(tone,dlPos,langPos,mobile){
+    var f=document.createDocumentFragment();
+    var dl=pos(el('button','ico','<img src="'+A+'download-'+tone+'.svg" alt="" style="width:22px;height:22.5px">'),dlPos+';width:48px;height:48px');
+    dl.dataset.pdf='1'; dl.setAttribute('aria-label',"PDF болгон хадгалах"); f.appendChild(dl);
+    var lg=pos(el('button','ico','<img src="'+A+'lang-'+tone+'.svg" alt="" style="width:24px;height:24px"><img src="'+A+'caret-'+tone+'.svg" alt="" style="width:11.3px;height:11.3px;margin:-4px 0 0 6px">'),langPos+';width:62px;height:48px');
+    lg.dataset.lang='1'; lg.setAttribute('aria-label',"Хэл сонгох"); lg.setAttribute('aria-haspopup','true'); f.appendChild(lg);
+    var menu=pos(el('div','lang-menu',LANGS.map(function(l){
+      return '<button type="button" role="menuitemradio" aria-checked="'+(l[0]==='KOR')+'" data-code="'+l[0]+'"><span>'+l[2]+'</span><span>'+l[0]+(l[0]==='MNG'?'  ':' ')+l[1]+'</span></button>';
+    }).join('')),mobile?'left:12px;top:60px':'left:1183px;top:56px');
+    menu.setAttribute('role','menu'); f.appendChild(menu);
+    return f;
+  }
+
+  /* ---------- 화면 맞춤: PC 무대 / 모바일 무대 ---------- */
+  var isM=false;
+  function isMobile(){return innerWidth<768||innerWidth/innerHeight<0.9}
+  function fit(){
+    var was=isM; isM=isMobile();
+    root.classList.toggle('is-m',isM);
+    var s=isM?Math.min(innerWidth/390,innerHeight/844):Math.min(innerWidth/1440,innerHeight/1024);
+    root.style.setProperty('--s',s);
+    slides.forEach(function(sl){ if(sl.dataset.mbg) sl.style.backgroundPosition=isM?sl.dataset.mbg:'center'; });
+    if(was!==isM){ clearVideos(); syncVideos(); }
+  }
+
+  /* ---------- 이동 ---------- */
+  var fading=0;
+  function go(i,instant){
+    i=Math.max(0,Math.min(N-1,i));
+    if(instant||reduce){track.scrollTo({left:i*track.clientWidth,behavior:'auto'});setActive(i);return}
+    if(Math.abs(i-cur)<=1){track.scrollTo({left:i*track.clientWidth,behavior:'smooth'});setActive(i);return}
+    clearTimeout(fading); track.classList.add('is-fading');
+    fading=setTimeout(function(){track.scrollTo({left:i*track.clientWidth,behavior:'auto'});setActive(i);track.classList.remove('is-fading')},180);
+  }
+  function idxOf(id){for(var i=0;i<N;i++) if(slides[i].id===id) return i; return -1}
+
+  root.addEventListener('click',function(e){
+    var lg=e.target.closest('[data-lang]');
+    [].forEach.call(root.querySelectorAll('.lang-menu.is-open'),function(mn){ if(!lg||mn!==lg.nextSibling) mn.classList.remove('is-open') });
+    if(lg){lg.nextSibling.classList.toggle('is-open');return}
+    if(e.target.closest('[data-pdf]')){window.print();return}
+    if(e.target.closest('[data-step]')){go(cur+1);return}
+    var a=e.target.closest('a[href^="#"]');
+    if(a){var j=idxOf(a.getAttribute('href').slice(1)); if(j>-1){e.preventDefault();go(j)}}
+  });
+
+  function setActive(i){
+    if(i===cur) return;
+    cur=i;
+    slides.forEach(function(el,j){el.setAttribute('aria-hidden',j===i?'false':'true'); el.inert=j!==i});
+    if(history.replaceState) history.replaceState(null,'','#'+slides[i].id);
+    syncVideos();
+  }
+  var raf=0;
+  track.addEventListener('scroll',function(){
+    if(raf) return;
+    raf=requestAnimationFrame(function(){raf=0;setActive(Math.round(track.scrollLeft/track.clientWidth))});
+  },{passive:true});
+
+  /* 키보드 */
+  document.addEventListener('keydown',function(e){
+    if(e.target.closest&&e.target.closest('input,textarea,select')) return;
+    var k=e.key;
+    if(k==='ArrowRight'||k==='PageDown'||(k===' '&&!e.shiftKey)){e.preventDefault();go(cur+1)}
+    else if(k==='ArrowLeft'||k==='PageUp'||(k===' '&&e.shiftKey)){e.preventDefault();go(cur-1)}
+    else if(k==='Home'){e.preventDefault();go(0)}
+    else if(k==='End'){e.preventDefault();go(N-1)}
+  });
+
+  /* 휠 한 번 = 한 장 */
+  var wheelLock=0, acc=0;
+  track.addEventListener('wheel',function(e){
+    if(isM) return;
+    e.preventDefault();
+    var now=Date.now(); if(now<wheelLock) return;
+    acc+=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;
+    if(Math.abs(acc)>30){go(cur+(acc>0?1:-1));acc=0;wheelLock=now+750}
+  },{passive:false});
+
+  /* ---------- Vimeo 영상: 보이는 무대에서만, 현재 장 ±1만 로드 ---------- */
+  function medias(s){return [].slice.call(s.querySelectorAll((isM?'.stage.m':'.stage.d')+' .media[data-vimeo]'))}
+  function fitFrame(m){
+    var f=m.querySelector('iframe'); if(!f) return;
+    var r=parseFloat(m.dataset.ratio)||16/9, w=m.offsetWidth, h=m.offsetHeight, iw, ih;
+    if(w/h>r){iw=w;ih=w/r}else{ih=h;iw=h*r}
+    f.style.width=Math.ceil(iw)+2+'px'; f.style.height=Math.ceil(ih)+2+'px';
+  }
+  function clearVideos(){[].forEach.call(root.querySelectorAll('.media iframe'),function(f){f.remove()})}
+  function syncVideos(){
+    slides.forEach(function(s,j){
+      var d=Math.abs(j-cur);
+      medias(s).forEach(function(m){
+        var f=m.querySelector('iframe');
+        if(d<=1&&!f){
+          f=document.createElement('iframe');
+          f.title=s.dataset.title+' 영상'; f.allow='autoplay; fullscreen; picture-in-picture'; f.setAttribute('loading','eager');
+          f.src='https://player.vimeo.com/video/'+m.dataset.vimeo+'?background=1&autoplay=1&loop=1&muted=1&dnt=1';
+          f.addEventListener('load',function(){var ff=f;setTimeout(function(){ff.classList.add('is-ready')},400)});
+          m.appendChild(f); fitFrame(m);
+        }else if(d>2&&f){ f.remove(); }
+      });
+    });
+  }
+
+  var rt;
+  window.addEventListener('resize',function(){
+    clearTimeout(rt);
+    rt=setTimeout(function(){fit();track.scrollTo({left:cur*track.clientWidth,behavior:'auto'})},80);
+  });
+
+  /* 시작: 해시(#scent 등)로 바로 열기 → 거래처에 특정 장 링크 공유 가능 */
+  fit();
+  var start=Math.max(0,idxOf((location.hash||'').slice(1)));
+  requestAnimationFrame(function(){go(start,true)});
+})();
+</script>
+</body>
+</html>
