@@ -20,6 +20,11 @@
 ├── nightnight/             나잇나잇크림 상세페이지 프로토타입
 │   └── nightnight.html       아임웹 코드 위젯 작업본 (※ 현행 아임웹 게시본보다 구 버전)
 │
+├── nightnight2/            나잇나잇크림 유통(도매)용 이미지 상세페이지 (1080폭, 영상→GIF)
+│   ├── README.md             만든 방식·자사몰과 다른 점·피그마 링크
+│   ├── build.py · make_gif.sh  HTML 생성 / GIF 변환
+│   └── src/ img/ gif/ video/ out/
+│
 ├── nightnight-deck/        나잇나잇크림 제품소개서
 │   ├── nightnight-deck.html  제품소개서 (사진은 imweb CDN, 아이콘은 인라인)
 │   └── 다국어_제품소개서/      다국어 번역 작업 (GEE_작업안내.txt 참고)
