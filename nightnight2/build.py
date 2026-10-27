@@ -26,15 +26,24 @@ SPLIT={'클로이':['나이트 크림은 좀 무겁고','번들 거릴 거 같�
        '루시':['또. 또. 또 뜨네.','오늘도 화장이 안먹어..!']}
 # 인스타그램 DM처럼 마지막 말풍선 아래에 붙는 이모지 리액션 (고민 내용과 맞춘 것)
 REACT={'클로이':'🫠','미아':'😣','노아':'🔥🏜️','엠마':'🐼','루시':'💄😩'}
+# 말풍선 그라데이션: 인스타그램 DM처럼 대화 전체에 한 줄기 그라데이션(위 D35B40 → 아래 989B87)이 깔리고
+# 각 말풍선은 그중 자기 위치 구간만 보여준다. 위치 대신 말풍선 순번(9개)으로 구간을 나눈다.
+G_TOP,G_BOT=(0xD3,0x5B,0x40),(0x98,0x9B,0x87)
+N_BUBBLES=sum(len(v) for v in SPLIT.values())+1   # +1 = 한 줄짜리 미아
+_k=[0]
+def grad():
+    mix=lambda f:'#%02X%02X%02X'%tuple(round(a+(b-a)*f) for a,b in zip(G_TOP,G_BOT))
+    k=_k[0]; _k[0]+=1
+    return f'background:linear-gradient(180deg,{mix(k/N_BUBBLES)},{mix((k+1)/N_BUBBLES)})'
 def chat(m):
     src,name,quote=m.group(1),m.group(2),re.sub(r'<span class="nnd-pc-only">.*?</span>','',m.group(3))
     who=name.split(' ')[0]; lines=SPLIT.get(who,[quote])
     assert ''.join(lines).replace(' ','')==quote.replace(' ',''), (name,quote)
-    bubbles=''.join(f'<p class="nnd-chat__bubble">{t}</p>' for t in lines[:-1])
-    bubbles+=f'<div class="nnd-chat__last"><p class="nnd-chat__bubble">{lines[-1]}</p><span class="nnd-chat__react">{REACT[who]}</span></div>'
+    bubbles=''.join(f'<p class="nnd-chat__bubble" style="{grad()}">{t}</p>' for t in lines[:-1])
+    bubbles+=f'<div class="nnd-chat__last"><p class="nnd-chat__bubble" style="{grad()}">{lines[-1]}</p><span class="nnd-chat__react">{REACT[who]}</span></div>'
     return f'<div class="nnd-chat"><img src="{src}" alt=""><div class="nnd-chat__body"><p class="nnd-chat__name">{name}</p>{bubbles}</div></div>'
 story,n=re.subn(r'<div class="nnd-pill"><img src="([^"]+)" alt=""><div><p class="nnd-pill__name">([^<]+)</p><p class="nnd-pill__quote">(.*?)</p></div></div>',chat,story)
-assert n==5, n
+assert n==5 and _k[0]==N_BUBBLES, (n,_k[0])
 story=story.replace(' loading="lazy"','').replace(' hidden>','>').replace('<img data-src=','<img src=').replace('aria-expanded="false"','aria-expanded="true"')
 # videos -> poster img
 def vid(m):
@@ -59,7 +68,7 @@ html,body{margin:0;padding:0;background:#F3F3E9}
 .nnd-chat img{width:40px;height:40px;border-radius:50%;flex:none;background:rgba(255,255,255,.6)}
 .nnd-chat__body{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
 .nnd-chat__name{margin:0 0 2px!important;font-size:13px;line-height:18px;font-weight:600;color:var(--ink70)}
-.nnd-chat__bubble{margin:0!important;padding:9px 14px;border-radius:18px;background:rgba(255,255,255,.6);font-size:15px;line-height:22px;color:var(--ink);white-space:nowrap}
+.nnd-chat__bubble{margin:0!important;padding:9px 14px;border-radius:18px;font-size:15px;line-height:22px;color:#fff;white-space:nowrap}
 .nnd-chat__name+.nnd-chat__bubble,.nnd-chat__name+.nnd-chat__last .nnd-chat__bubble{border-top-left-radius:4px}
 .nnd-personas{gap:22px}
 .nnd-chat__last{position:relative;padding-bottom:16px}
