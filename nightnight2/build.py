@@ -24,11 +24,14 @@ SPLIT={'클로이':['나이트 크림은 좀 무겁고','번들 거릴 거 같�
        '노아':['하루종일 히터 바람에','얼굴이 버석해...'],
        '엠마':['분명 오래 잤는데','왜 때문에 피곤해 보이지??'],
        '루시':['또. 또. 또 뜨네.','오늘도 화장이 안먹어..!']}
+# 인스타그램 DM처럼 마지막 말풍선 아래에 붙는 이모지 리액션 (고민 내용과 맞춘 것)
+REACT={'클로이':'🫠','미아':'😣','노아':'🔥🏜️','엠마':'🐼','루시':'💄😩'}
 def chat(m):
     src,name,quote=m.group(1),m.group(2),re.sub(r'<span class="nnd-pc-only">.*?</span>','',m.group(3))
-    lines=SPLIT.get(name.split(' ')[0],[quote])
+    who=name.split(' ')[0]; lines=SPLIT.get(who,[quote])
     assert ''.join(lines).replace(' ','')==quote.replace(' ',''), (name,quote)
-    bubbles=''.join(f'<p class="nnd-chat__bubble">{t}</p>' for t in lines)
+    bubbles=''.join(f'<p class="nnd-chat__bubble">{t}</p>' for t in lines[:-1])
+    bubbles+=f'<div class="nnd-chat__last"><p class="nnd-chat__bubble">{lines[-1]}</p><span class="nnd-chat__react">{REACT[who]}</span></div>'
     return f'<div class="nnd-chat"><img src="{src}" alt=""><div class="nnd-chat__body"><p class="nnd-chat__name">{name}</p>{bubbles}</div></div>'
 story,n=re.subn(r'<div class="nnd-pill"><img src="([^"]+)" alt=""><div><p class="nnd-pill__name">([^<]+)</p><p class="nnd-pill__quote">(.*?)</p></div></div>',chat,story)
 assert n==5, n
@@ -57,7 +60,12 @@ html,body{margin:0;padding:0;background:#F3F3E9}
 .nnd-chat__body{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
 .nnd-chat__name{margin:0 0 2px!important;font-size:13px;line-height:18px;font-weight:600;color:var(--ink70)}
 .nnd-chat__bubble{margin:0!important;padding:9px 14px;border-radius:18px;background:rgba(255,255,255,.6);font-size:15px;line-height:22px;color:var(--ink);white-space:nowrap}
-.nnd-chat__name+.nnd-chat__bubble{border-top-left-radius:4px}
+.nnd-chat__name+.nnd-chat__bubble,.nnd-chat__name+.nnd-chat__last .nnd-chat__bubble{border-top-left-radius:4px}
+.nnd-personas{gap:22px}
+.nnd-chat__last{position:relative;padding-bottom:16px}
+.nnd-chat__react{position:absolute;left:10px;bottom:0;display:flex;align-items:center;height:24px;padding:0 6px;border-radius:12px;
+  background:#fff;box-shadow:0 0 0 2px var(--bg);font-size:13px;line-height:24px;letter-spacing:1px;
+  font-family:"Apple Color Emoji","Noto Color Emoji","Segoe UI Emoji",sans-serif}
 '''
 html=f'''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=360">
 <title>나잇나잇 크림_유통 상세페이지</title>
