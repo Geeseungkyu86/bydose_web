@@ -18,6 +18,20 @@ story=re.sub(r'<a class="nnd-persona__link"[^>]*>.*?</a>','',story,flags=re.S)
 accs=re.findall(r'<div class="nnd-acc">.*?</div>\s*</div>',story,flags=re.S)
 for a in accs:
     if '배송 안내' in a or '교환·반품' in a: story=story.replace(a,'')
+# 고민 카드(알약형) -> 대화형 말풍선. 카드는 한 줄/두 줄이 섞여 높이가 들쭉날쭉했다.
+# 문구는 그대로 두고, 긴 문장은 말풍선 두 개로 나눠 360px에서 모든 말풍선이 한 줄에 들어가게 끊는다.
+SPLIT={'클로이':['나이트 크림은 좀 무겁고','번들 거릴 거 같아...'],
+       '노아':['하루종일 히터 바람에','얼굴이 버석해...'],
+       '엠마':['분명 오래 잤는데','왜 때문에 피곤해 보이지??'],
+       '루시':['또. 또. 또 뜨네.','오늘도 화장이 안먹어..!']}
+def chat(m):
+    src,name,quote=m.group(1),m.group(2),re.sub(r'<span class="nnd-pc-only">.*?</span>','',m.group(3))
+    lines=SPLIT.get(name.split(' ')[0],[quote])
+    assert ''.join(lines).replace(' ','')==quote.replace(' ',''), (name,quote)
+    bubbles=''.join(f'<p class="nnd-chat__bubble">{t}</p>' for t in lines)
+    return f'<div class="nnd-chat"><img src="{src}" alt=""><div class="nnd-chat__body"><p class="nnd-chat__name">{name}</p>{bubbles}</div></div>'
+story,n=re.subn(r'<div class="nnd-pill"><img src="([^"]+)" alt=""><div><p class="nnd-pill__name">([^<]+)</p><p class="nnd-pill__quote">(.*?)</p></div></div>',chat,story)
+assert n==5, n
 story=story.replace(' loading="lazy"','').replace(' hidden>','>').replace('<img data-src=','<img src=').replace('aria-expanded="false"','aria-expanded="true"')
 # videos -> poster img
 def vid(m):
@@ -37,6 +51,13 @@ html,body{margin:0;padding:0;background:#F3F3E9}
 .nnd-vid{background:none!important}
 .nnd-acc__icon{display:none!important}
 .nnd-cert{cursor:default}
+.nnd-personas{gap:16px}
+.nnd-chat{display:flex;align-items:flex-start;gap:10px}
+.nnd-chat img{width:40px;height:40px;border-radius:50%;flex:none;background:rgba(255,255,255,.6)}
+.nnd-chat__body{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.nnd-chat__name{margin:0 0 2px!important;font-size:13px;line-height:18px;font-weight:600;color:var(--ink70)}
+.nnd-chat__bubble{margin:0!important;padding:9px 14px;border-radius:18px;background:rgba(255,255,255,.6);font-size:15px;line-height:22px;color:var(--ink);white-space:nowrap}
+.nnd-chat__name+.nnd-chat__bubble{border-top-left-radius:4px}
 '''
 html=f'''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=360">
 <title>나잇나잇 크림_유통 상세페이지</title>

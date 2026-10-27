@@ -282,6 +282,13 @@ html,body{margin:0;padding:0;background:#F3F3E9}
 .nnd-vid{background:none!important}
 .nnd-acc__icon{display:none!important}
 .nnd-cert{cursor:default}
+.nnd-personas{gap:16px}
+.nnd-chat{display:flex;align-items:flex-start;gap:10px}
+.nnd-chat img{width:40px;height:40px;border-radius:50%;flex:none;background:rgba(255,255,255,.6)}
+.nnd-chat__body{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.nnd-chat__name{margin:0 0 2px!important;font-size:13px;line-height:18px;font-weight:600;color:var(--ink70)}
+.nnd-chat__bubble{margin:0!important;padding:9px 14px;border-radius:18px;background:rgba(255,255,255,.6);font-size:15px;line-height:22px;color:var(--ink);white-space:nowrap}
+.nnd-chat__name+.nnd-chat__bubble{border-top-left-radius:4px}
 </style></head><body><div id="nnd-story">
 
   
@@ -291,23 +298,23 @@ html,body{margin:0;padding:0;background:#F3F3E9}
     <p class="nnd-intro__sub">수부지, 아침에 본 거울이 만족스럽지 못한 분들,<br>화장이 뜨고 잘 안 먹는 분들, 피부가 버석한 분 이라면 나잇나잇 앞으로 모여보세요!</p>
     <div class="nnd-personas">
       <div class="nnd-persona">
-        <div class="nnd-pill"><img src="../img/f1f00a8a7de23.png" alt=""><div><p class="nnd-pill__name">클로이 (29세)</p><p class="nnd-pill__quote"><span class="nnd-pc-only">나는 수부지라, </span>나이트 크림은 좀 무겁고 번들 거릴 거 같아...</p></div></div>
+        <div class="nnd-chat"><img src="../img/f1f00a8a7de23.png" alt=""><div class="nnd-chat__body"><p class="nnd-chat__name">클로이 (29세)</p><p class="nnd-chat__bubble">나이트 크림은 좀 무겁고</p><p class="nnd-chat__bubble">번들 거릴 거 같아...</p></div></div>
         
       </div>
       <div class="nnd-persona">
-        <div class="nnd-pill"><img src="../img/f650d22020985.png" alt=""><div><p class="nnd-pill__name">미아 (27세)</p><p class="nnd-pill__quote">나는 아침마다 얼굴이 너무 당겨...</p></div></div>
+        <div class="nnd-chat"><img src="../img/f650d22020985.png" alt=""><div class="nnd-chat__body"><p class="nnd-chat__name">미아 (27세)</p><p class="nnd-chat__bubble">나는 아침마다 얼굴이 너무 당겨...</p></div></div>
         
       </div>
       <div class="nnd-persona">
-        <div class="nnd-pill"><img src="../img/d2b076fe4ae95.png" alt=""><div><p class="nnd-pill__name">노아 (32세)</p><p class="nnd-pill__quote">하루종일 히터 바람에 얼굴이 버석해...</p></div></div>
+        <div class="nnd-chat"><img src="../img/d2b076fe4ae95.png" alt=""><div class="nnd-chat__body"><p class="nnd-chat__name">노아 (32세)</p><p class="nnd-chat__bubble">하루종일 히터 바람에</p><p class="nnd-chat__bubble">얼굴이 버석해...</p></div></div>
         
       </div>
       <div class="nnd-persona">
-        <div class="nnd-pill"><img src="../img/be7faf7627161.png" alt=""><div><p class="nnd-pill__name">엠마 (33세)</p><p class="nnd-pill__quote">분명 오래 잤는데 왜 때문에 피곤해 보이지??</p></div></div>
+        <div class="nnd-chat"><img src="../img/be7faf7627161.png" alt=""><div class="nnd-chat__body"><p class="nnd-chat__name">엠마 (33세)</p><p class="nnd-chat__bubble">분명 오래 잤는데</p><p class="nnd-chat__bubble">왜 때문에 피곤해 보이지??</p></div></div>
         
       </div>
       <div class="nnd-persona">
-        <div class="nnd-pill"><img src="../img/3b26089569fab.png" alt=""><div><p class="nnd-pill__name">루시 (27세)</p><p class="nnd-pill__quote">또. 또. 또 뜨네. 오늘도 화장이 안먹어..!</p></div></div>
+        <div class="nnd-chat"><img src="../img/3b26089569fab.png" alt=""><div class="nnd-chat__body"><p class="nnd-chat__name">루시 (27세)</p><p class="nnd-chat__bubble">또. 또. 또 뜨네.</p><p class="nnd-chat__bubble">오늘도 화장이 안먹어..!</p></div></div>
         
       </div>
     </div>
