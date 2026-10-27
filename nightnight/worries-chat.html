@@ -1,0 +1,71 @@
+<!--
+  나잇나잇 크림 — 고민 대화 (대화형 UI)
+  기존 "알약형 카드 5개"를 채팅 말풍선으로 바꾼 버전.
+  카드에서는 한 줄/두 줄이 섞여 높이가 들쭉날쭉했다. 긴 문장은 문구는 그대로 두고
+  말풍선 두 개로 나눠 보내는 식으로 끊어, 모든 말풍선이 모바일(393px)에서도 한 줄에 들어가게 했다.
+  아바타는 시안용으로 기존 화면 캡처에서 잘라 인라인 webp로 넣었다 — 원본 일러스트 CDN URL로 교체 권장.
+  아임웹 코드 위젯 제약: h1~h6 사용 금지. 모든 클래스는 .nn-chat 아래로 스코프.
+-->
+<style>
+.nn-chat{
+  --nn-bg:#F3F3E9;--nn-bubble:#FAFAF6;--nn-ink:#2A2A29;--nn-muted:rgba(42,42,41,.55);
+  background:var(--nn-bg);color:var(--nn-ink);
+  font-family:"42dot Sans","Asta Sans",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard",sans-serif;
+  padding:40px 20px;word-break:keep-all;-webkit-font-smoothing:antialiased;
+}
+.nn-chat__list{max-width:560px;margin:0 auto;padding:0;list-style:none;display:flex;flex-direction:column;gap:20px}
+.nn-chat__msg{display:flex;align-items:flex-start;gap:10px}
+.nn-chat__avatar{flex:none;width:44px;height:44px;border-radius:50%;background:var(--nn-bubble);overflow:hidden}
+.nn-chat__avatar img{display:block;width:100%;height:100%}
+.nn-chat__body{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:4px;max-width:calc(100% - 54px)}
+.nn-chat__name{margin:0 0 2px;font-size:13px;line-height:16px;color:var(--nn-muted)}
+.nn-chat__bubble{
+  margin:0;background:var(--nn-bubble);
+  border-radius:4px 20px 20px 20px;     /* 아바타 쪽 위 모서리만 각지게 — 말꼬리 대신 */
+  padding:11px 16px;font-size:16px;line-height:24px;
+}
+/* 같은 사람이 이어 보낸 두 번째 말풍선은 모서리를 모두 둥글게 */
+.nn-chat__bubble + .nn-chat__bubble{border-radius:20px}
+/* 스크롤로 들어오면 한 건씩 차례로 올라옴. JS가 없거나 모션 줄이기 설정이면 처음부터 보임 */
+.nn-chat.is-anim .nn-chat__msg{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
+.nn-chat.is-anim .nn-chat__msg.is-in{opacity:1;transform:none}
+@media (min-width:769px){
+  .nn-chat{padding:80px 20px}
+  .nn-chat__list{gap:24px}
+  .nn-chat__avatar{width:52px;height:52px}
+  .nn-chat__body{max-width:calc(100% - 64px)}
+  .nn-chat__name{font-size:14px}
+  .nn-chat__bubble{font-size:18px;line-height:28px;padding:14px 20px}
+}
+</style>
+<section class="nn-chat" aria-label="나잇나잇 크림을 찾게 되는 고민들">
+  <ul class="nn-chat__list">
+    <li class="nn-chat__msg"><span class="nn-chat__avatar"><img src="data:image/webp;base64,UklGRpAFAABXRUJQVlA4IIQFAADQHQCdASpgAGAAPlEgjkWjoaEUC43EOAUEtIBq/lVXgDsE/u/Qu+H/XrjhcweJT6p/ivyX/nHKD7kv2P0EP5j/afyw4HitPoBeoPzP/F/0/kK70H85/wHGDUAPyB/sP7b+RX0pfwH/M/wX5aey/8x/sP/G/u/wCfyT+h/6L84/3////3Qexn0Yf2MOWgTG4pSbfcpWeoHVAuNDALPwS3uDr6sbzuvaPB9p2IPfUylu3NxTvMfkbd1R3dzfGEkpRI784Ko36S5qM6JkXixA6wo1lANhaUgwsJfMgPxpwaO56mJLWNYa1zXhTX6KF6KQx2JlAk2GIHoAAP79gZAtIxhqdhxG4UVrCblvIh9k0Xe+CpLSDTtIU3/Y1IuzwPcSx81ncDPNp4CFJw0h7/kR+8j6TNsfTxxF/+7SdFfYby6STs8WvtWf0hVgD5mYPWXjfw6H38MJGCUyRAt+8Cx+m+m3C+xV/OfPYV64KFSHhWtL+kiSvPIv450v1K6jpd13/sZ6ST9WedynFDfbE8FeI6dimK6IXfiZD0wYFLB02CMusDhsEEWa4W0qjKo6dx0RXgbRnSnSY5wxzoBtcpDMOpqbqzzysUeQgoHrSrGd8RV03yLkd6i+Zn2jYmMjdY/Iw6omgDvHdt0VzzFHzrsge13fZtFde4dJ7997AghEmqc5ytCSNa+ce/x/Un+B6mgLfkJWecJWg3tfqx6P+fyW7JqgWw8tSaE9+9OKSjM7cwr1yyq1oPgUH4bb48XQLie6vA2xUn/G2mW52xqy+I+xK9LPX6JjgNEI3XkN2usidSyl3dqW3/0EyLWBkh6RXIsio+a+D7Pr56lmtti7N/+MCm8Ik/23i8M4PF2XSTov8jTkh39MB/OGHlTNDkY+5XimyUuMBlbPUmHGWpnFZRyMYKysBGyeQfg/EdJ68lzqDNeXZl7Xghw3vtM7Eux8Yx3GL/6sBYCaQv6zv/h0RbYq8jxatUdzoLZqikG3T7w4EUPWwCXjfK0Sho6j/9z//8KCrr/R9a10lGiI2QAM98cP/juh9AAiqpcxdzqniV6Al1AMH0bWAebgtfxx+A+Mxt3t6gtXEAphkjWsc6k/aDib+zKBg8Ig/EjKvCQ3N1uwHJyxiguCCPkBu+jISiWkv+B0sFntuEgALlSyENkDQCq0LEcUKCAj/NOwcJAKlFOyavWENGF8A4NSRsvq0n9wNR6h9HP51++ngEt0nb019X6PqAAMuCVBfbRIKRSx59QCKQ2i/sutv8JOOCtQsDzdudyYGUPQ9ulRqAkWMZ4W206d1Mqt1GsrXJ682vfBr661fUQWMP6mfsv57OgBwcKFe5KQxp+lAO4Px7z7HXXGlL8kOH9v/X0WwA4BAN8QCRO13cP9a7V4zj75kzYM9G4O3ihR6egNEa7PyeLPwzxEcbrh6b9pUgzBCODfMJ7pk5TDqY3tz0dGCTvkLwf/8YM4Y9/hT+8dDDUUYgvTyxmMq69/8O+Gu0skz7k7UF8hgn/K89IE0Ik7mGCADYdQFEDXnv/JkiAPQ3Q7CImxH5p8ytc3Wvfn0nV13XqxzTOfAdto20worxIp//8JIW/5UyaiV+hqUxTKEagy3WyQpA4Z212eOjNJeq721YpWlEaKIOA28ti6FgnoWwU3y7T4xUus+tuMhc+qIJYdR/tx4/Z2cnrWcKrS17yOWFpOie8TSkm8Kf9I9zqB7L9iRNlAmQLcOSVyIEAwAl/0gbezhmxStwbWvk+TK811DHWJ5j/o2qm3QHQnU7ARrm4Xdcj7El8o3g2P4EY4lwEGEvqR+VJFf9hUo6G9BOdhhABjcmvAiy9dZSsrTJIBg/SxAX9Y++IXwNCWj8jI3HPOWqjER08waPdtzfwPt8AAAA==" alt=""></span>
+      <div class="nn-chat__body"><p class="nn-chat__name">클로이 (29세)</p><p class="nn-chat__bubble">나이트 크림은 좀 무겁고</p><p class="nn-chat__bubble">번들 거릴 거 같아…</p></div></li>
+    <li class="nn-chat__msg"><span class="nn-chat__avatar"><img src="data:image/webp;base64,UklGRrAFAABXRUJQVlA4IKQFAACQHACdASpgAGAAPlEkj0WjoiETmgUAOAUEtIAJ7R++9DJ3R9nfMl78u4zyFfX37v+TfIj6bvyV+AL1x/jvmA41cAH1G/1PfB6kGCr+rf5/8yOZh8S9gD+U/2//Vfcz9Kn7//zP8n+PPtH/Of8F/zf8B8Af8j/qX+u+4TwT/tV7H/7WsOsn3lIjVXHM6FUKN8faAYy4c0KgYu9TROBT+RJX8sS3XOOrwyAnTA0wD/iyGdspZTLfSxJj0wtXdmPEVe5AICUSZ1CXwsDl2chb+DXq0So7qr/a9x5HGXtM2+YbqbWpVjIAPeT9+DehAAAA/v5oYF7ggRtsibrNs/i6mOOf9ux78nNDV/L762d4P4oB5DxzB0jLNR/fYfTlYXQM9b+vmIyQAv33fq9hPicbBirAKlEKgHzJgLeD+T73lAMcFWtqL7+F49o1u4mVcglMdisU9OTRiNPKF7CMohw/L9Pz5FKoFqH9/BY4jBEHoMZR4a5Z2Bk+DqaQV1+fhrb2Yud8l6NzRdTcUThRzIBjn7rbYY0iB/F++n6acfqM7hq0lxnUcyxvReVwl2LvPOL3ze++4CQxc8CuXd3zcKKv6BYvvT7Lxacnfr+36fzMrcreguGh1USz0Q/gElmKiemYfKl3fLzRHW5c2e6GGUDCtH97PS37Iskc6fYwx5ICLQrG5giLdB//k2jhqqz4Al/A9APwvfql1izGAfoJitOFmZm53fERLMf4/j+cSwMJze0uKtqW43CLPi5J8F9zqICoaotXQ8q637zuFMAOxevtt8U/X0cImStYoChOutL7/5og/H+Yd8pZWyLxQkGxt6wlakHCuPhNeiYuXkGyuNO98WF4VE/JN5vZIzAJtSqX+4B/G0lCnn71A0anOCs949SepAnB995F21ohvQhv827ooVrNglIqfAYs2R0wNmrnOL4bwuSKqjNeE3begPU5GybkJX6goGO1rETTicCbEhXB/ilif2nkYSYhCcg7ypSNSRCZa7C7bFlwnuiNaeELPooMy2KnGxxw3/BBzMzwd85FV2VHB5/2EYtbkV/8RMV9Iz6KnT3/AjazpWyOh9548oJFbMfQbtzjSb982iBumGZoXTJbBOXsVpfN+0Rhuy7fRorFc4dXH485y2wB1Ozi6aDNB/RAb8g3X/gs3xwjCuad5QoouZON+BFbkjX4g0mOhP1kAnkC/mGKv8s5BmVZE4Kigqlx7e/6YbLwDU8tvmoq6VLrL4HyeESg4pmnnzBjLaT0aq5PRlRpEYr/FRwPPu479/W1hNGRgUyj827s+IuPw69t24008k97evPNWHJPvXjbM1MToW/FTRyjkf5JDA9WxVDR/xlH/P/+D61NHFROaVsZVnN1OmcZmDBHeXlJxRQ8ETi16CGICoP3GA5ArtaUFhO6wfulZy/Qs+leOCvtvh8LvbYk6VQi4Pzn9WHha6Ju3Umt5nwI6swPfgOBS+L42L3xb7TgiD3gBQxpinKR0mvfqUNwXhRfow8VqObz1ko9D/JRUiF4rZdlL+NvjmlgWALMRf6j5uElLod8MWw5FKmdbCo6fC031h4/10jG4PO7f4bGedPBseRlc1Mjxr+qEgJdEiXqs9iRsIRxyZU0qaa5YSwQfiGO+dQzuG5w9s+gWTnclfY6NGGu2QOVJrPzC1Nrz+fLSF4SxbxNE5Vb+vbHeXo5sA7YCSeWQLUL/dPx0wqw2dWcDUt1IEMJr+XhD3uLcAou3CL3z9YngJ/z+ihNieuCUupGxh0dEZU81gzrdhS2HpMRmwRdpfmTYplWUCLM4IQuxLsuBzpu/O0MCYxhPNro3IkdFDPVzsRr/8BiKBAmgqzcEHdmaLLePsiWACyG6Obt1/c10/GDaokOjMcvpM7+/frCfFZu9MYOhfVeeu4mUp6Q/ynm1dy9fsa1Ip6wAAAA" alt=""></span>
+      <div class="nn-chat__body"><p class="nn-chat__name">미아 (27세)</p><p class="nn-chat__bubble">나는 아침마다 얼굴이 너무 당겨…</p></div></li>
+    <li class="nn-chat__msg"><span class="nn-chat__avatar"><img src="data:image/webp;base64,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" alt=""></span>
+      <div class="nn-chat__body"><p class="nn-chat__name">노아 (32세)</p><p class="nn-chat__bubble">하루종일 히터 바람에</p><p class="nn-chat__bubble">얼굴이 버석해…</p></div></li>
+    <li class="nn-chat__msg"><span class="nn-chat__avatar"><img src="data:image/webp;base64,UklGRmwFAABXRUJQVlA4IGAFAAAwHACdASpgAGAAPlEkjkUjoiETKk40OAUEtIAK8A68f6D0J/fL2g3K3UX+G/Xf7/+W/9J9hu9XgBfi38d/wG87gA+on+o+2TnJ+rX929EL/YcbtQA/lv9c/4nslfyP/Z/un+L9H3zz/1/8L8BH8r/qn+r/On+5eBv0Kf3APDpoW1E5DUbHrd0w/oFzQ3Wng6c7ub5Kjy8g34qUrxn4VfRFMaHLT+trrS2itizLmmttsVT6ZYytYOqWOyQ6ifFIxLChoToHe7U1KFiAKMCqszZYucvWe3hynPlFMquL7VQBQKYlgg8373bjZgAA/v2BkNLewHcZAYabX7V9495NDmYYis8WcMbT2eeJVloMxePx9v+/bkk9o6ilQcN+PibowU4to34bab8AqhjN0Ph5RfmEKaKPP2upC9nEseOqSYiR/ZU1FMW9EHvCE5mvuuiLdSZnCeTy6O8KnakJt54U2L4hn1KgvJffvtF62rAl14J6gYvjxtgpjyTEuhvO9XudpLMIhBbtndeD0Jp1IQ1BY76uAdUAGY4qo5unG0S4YnQbdsdnN9RHXC2td1069nTzhytRldOBgC2NTqAeYMr8NZHTMcsLdHoIzBn6QnXv/ViCTP1FHDbOM8f2TC38rLSsYHPm/+Mllf+5OsrhYa6SeH9/cozM+kXOUKT6fR8jJJOSbTFPX5Bx74IccIOzkn7dFpyrucvIXfRRDxYbHUVrQHVUgmHVTsCrW9BvY5EGT+zJ0L7Pzf8K1q0LFKoly6eL/8PjiXhtfsHQ8YYQP1vdI+nBJ4JNzW5tR3DVzHl6I8wJLBIjbj5bf4Y4l79ys8YM/kD++CJ5Ao4VM7ls3z9d+mELkhb5cskWIG+DPAEpEDu9bPw0aAf0kduPbZoMeLfJfFUjs8zoqy8J1/bcZMxDDMYY9BRfKaR4/r2JRb1f/Vl+96PnkQ9Kh2JPOLTLJ/CmaxnfSlUEFDrC9FYvUaeA7ewMMBe+1xNGSKBbrnCzC0fzcfkfLCNVjAdeqW8iE7jIN54J6qE+AH5sTtgV45VHuebRv/XrOTgu07/efH+BbK4TiFlkVXHoggj6FnPQPMHDjx5m60yinnnpUw0/z+TRjWZyZVP5EJzeLCvMom2qrthSEWBoqPiUZ8hzDuHbawAypQgnhcHrkUHkS4gJz7LBtiG/uMENhawHCVWTkPax/l/soj7d15mTKtS/QEeUSC48M4klzH/NpoBSEvxD2USp7xb3jHDxK/BUmZkpEbZ98SoqOt6OAQ4Cbp2BXglINEphrSJ8Y7S3AKB29HvhB9qvg4Hqf8V8ZvyHN9mvMH36zEUFpcL49ycmbt/zxPIA43JtA7AYA0QO99VwryU9fD61BArCO0YFd31n/GeKf/CZmv0KZCPyBlTIU34lOk3dwiSf0Bgn+BtQfi8am8jc14Yp3Pz1di7eM3BgI/YlmRfa8FSgVNJqgyPh8ehXrhCil3EnGonSibNsrJzUYl/Um/7Y/UhvTKTKgBkZ+AaeMwWMeAkQ0Wc+8TipBReCpaymUpOwIO/tzq8T51OpFt8Fhya7khkjwRUmQL4AIjHjn6f0oifs0TVhIziCJbDwwa4aEHaypXxpqw5Ixp/BcFn08kOHpKcZxyj6X3sjhywNXKF38Oa88FOfrak7ikmUEf/Moz96C+bLkiN0GkATohFCACBus3UKyjyPAb8dtAJ3ZI1sm3stn4p+yuIQuJLxIk8y1pTz1vQp+0hi+ZmAq2C7HfCEY1CWmbSd7Riy5+aQ4D9ndiTZyDQ3qDDeXH9Ly4Yo6AweOgYIyGssU0K5cSv9Q+quzcEALHtypnd0WGX15/9NAAAAAA==" alt=""></span>
+      <div class="nn-chat__body"><p class="nn-chat__name">엠마 (33세)</p><p class="nn-chat__bubble">분명 오래 잤는데</p><p class="nn-chat__bubble">왜 때문에 피곤해 보이지??</p></div></li>
+    <li class="nn-chat__msg"><span class="nn-chat__avatar"><img src="data:image/webp;base64,UklGRrgFAABXRUJQVlA4IKwFAACQHgCdASpgAGAAPlEijkUjoiETKSbAOAUEtIAK82/u/Z//WegQ8XeuGcU+un3T8w/yV+Bv6B4Y+nD0D/5R/bfyj/IfjeAAfjv88/uX5jf1vnT7kz/OcZhQA/OH++9k3+Y/5/3ge0r84/t3/Q/xXwC/yn+ff6H+4/u//jf//9JPrx/bX2Wf13RUCi65redK5cOHxoP7/ptgTx3X0LFLp7fTVw22csukSJBHnFsvg4Esx8R9ur+UgYkNB4Dz1kNWTtJBmfd+EZWDaJs8dp+KEImbZN3Xa8PlbLXbMuq+7Kd9j8zMr9U2/pRlKQ3y10iJM/kX3nnHH1eqWTybvolAAP79gZDSzPQ3JcZax4x9qeaHviyxpBijGQAQ/p7QCTYMx03qf0fWN7zip+KgT0riNG0FKvuCwhNGmP/wAazh4y9pd9bMp9t34zjpdbFd7WGUJQy4dHDwpK81GPtcFv8uAQZ6Ye7/iEIhrYg2vcI118Xt0hRRTCI9qkwPovDoUhB0zdh5CWkZUwdeopGM/XOjytQABMHZdQbhrfXYSJGfEfqwz0eMr3antAidHdCWOqpcRCuYpoMSY90oqpJP83jvsbUd+Yzv70y5W2LFBSWf8UhkOUBV0zf7mjhjZ3o+L9Imsjyf4sObUJT5fmDv/Y9ZTtjOICJC7I+tCMb7hFr624zhFjnvIG8S90yZwPm5JxmzQcJ+1XPIersewKQH/WhXg8m/qMdW/HY/uAB/OYEk090mwJ54vi+e2JzouvMhAGyapA426hb8Qf69WDWsDCL+Nqg7QfkrlMTpNbKkysBhVseT7K3IBNkAz3uu2TGD9RyX26S7OxjB5BiG5i5uBFvipFTJrhJqOXwdwEeJU6z92ejcyJjF2f0hoQWNTGb0YDSEGBDVFaQnZP+hq9gmCbWL124ViwZDEYop2K/PMCiWwk9Q+Djflj88mQH6swP+5JpFkKUNXMY9ff9ciXawzHTl/99y14zJy7l7NzWri6RwMe9UYHPqHrAnw3wGZpwkOnsWa/RuEJl7Gl0+ENQKf1l7BgbrIrAa218U16pvVmSFtSsHbbiOd2s87zLix8yf7glTvYkRrg6N7qp0NyG+1rI3c6XBc4bdocw95z51zbMved9PcM76PVnS3YMP5Vvyvebgy5qKIWfmSd+uPe/QgWLKFnBjGfwUm9TVSVDxHL3EO01q3ZY3XwzT9BoYPlovCMrhUlYHW+xf8MoYwBFgEhJSfZZu+2Rv2r/zWsAicIMp7b6MPNZG97xJ7yexCD8BWfisayiQNdawawdN7pj/yFdFwwYf0xFSkY76pm/vkJI5Lllb4wF8qwY1i4/uSR9U+H/4w9W4viHL5ibJZIfwFiJKlD6J+Y0r4jO+MqiYyjPqstl/l8BcG2G362tUcD+U8G3Dar1lL1W+JpZ7SvW9cfPBzzFXZTteK1fCJNW8wZwlmsr/XCd77/6rpv6QwlaaL11sOJmtZH0K1czcn/YIc9LurT9ugu8pOX9ouIv9AgurhS1LhPEVkt4EOT1K1ur3oXmHcZi5syZmCCx9mmWhQ4Q0pMylcLhV4qpmoukDy5YOPSdFaQXWzX8Oz+VlkiFSlgBFgxtHlVp/f/w3nVBE377ZQttFM+7dbUKKaeTYtNmvwbN75g0sn2fkShshQUli6T+Xt1LP0EV0TR52Y8c7hXTcwdR8aws5ZOmUKcM7+ObX+k0EeNTf2bt4Len9ewgD71hGros+yZhUFkXesiJ9WriNL1QvEC5EWmaz9DERa9FwcFSiXSS6WVD4jOCseTSaVULTuHIw0lYZwr/h/4WFgTLBmt6M7kTJzWvrAxyD1vZ8V34UDJmfDj9f5AX5AB+RaBMQ+7zRS2QagQyQua2Qg5B5WZ4F8c54bsMFsyf/+GaSkY5bZTSJDPSQbWoQtH9jnPRoBn6YO0+TRJs2/mQAAAA=" alt=""></span>
+      <div class="nn-chat__body"><p class="nn-chat__name">루시 (27세)</p><p class="nn-chat__bubble">또. 또. 또 뜨네.</p><p class="nn-chat__bubble">오늘도 화장이 안먹어..!</p></div></li>
+  </ul>
+</section>
+<script>
+(function(){
+  var root = document.querySelector('.nn-chat');
+  if (!root || !('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  root.classList.add('is-anim');
+  var msgs = root.querySelectorAll('.nn-chat__msg');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      msgs.forEach(function(m, i){ setTimeout(function(){ m.classList.add('is-in'); }, i * 350); });
+    });
+  }, { threshold: 0.25 });
+  io.observe(root);
+})();
+</script>
