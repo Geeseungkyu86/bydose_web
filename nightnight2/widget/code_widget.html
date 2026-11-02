@@ -304,10 +304,11 @@
   transform:translate(-50%,calc(100% + 40px));opacity:0;pointer-events:none;
   transition:transform .35s ease,opacity .35s ease;
   display:flex;align-items:center;gap:12px;padding:0 8px 0 28px;
-  border-radius:12px;background:rgba(243,243,233,.86);
-  border:1px solid rgba(42,42,41,.08);
-  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
-  box-shadow:0 10px 32px rgba(42,42,41,.14);
+  /* 글래스모피즘 — 헤더(흰 60% + blur 12)와 같은 계열, 뒤가 비치도록 조금 더 투명하게 */
+  border-radius:12px;background:rgba(255,255,255,.45);
+  border:1px solid rgba(255,255,255,.55);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 10px 40px rgba(42,42,41,.12);
   font-family:"42dot Sans",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
   color:#2A2A29;-webkit-font-smoothing:antialiased;
 }
@@ -326,9 +327,10 @@
 /* 모바일: 구매 시트 안에만 있는 수량별 할인 배너를 가격 아래에 복제(누르면 구매 시트) */
 .nnd-qd-inline{margin:12px 0 4px;cursor:pointer}
 @media (min-width:769px){.nnd-qd-inline{display:none!important}}
-.nnd-fbar__btn{height:48px;padding:0 24px;border-radius:100px;border:1px solid rgba(42,42,41,.35);background:none;font:inherit;font-size:15px;font-weight:600;color:#2A2A29;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
-.nnd-fbar__btn:hover{background:rgba(42,42,41,.06);border-color:#2A2A29}
-.nnd-fbar__btn--buy{min-width:150px;border-color:#2A2A29;background:#2A2A29;color:#F3F3E9}
+/* 버튼 모서리 8px — 바(12px) 안쪽 여백 8px에 맞춘 값 */
+.nnd-fbar__btn{height:48px;padding:0 24px;border-radius:8px;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.4);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font:inherit;font-size:15px;font-weight:600;color:#2A2A29;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+.nnd-fbar__btn:hover{background:rgba(255,255,255,.75)}
+.nnd-fbar__btn--buy{min-width:150px;border-color:rgba(42,42,41,.9);background:rgba(42,42,41,.9);color:#F3F3E9}
 .nnd-fbar__btn--buy:hover{background:#D35B40;border-color:#D35B40;color:#fff}
 @media (max-width:991px){#nnd-fbar{display:none}}
 
