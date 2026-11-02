@@ -294,26 +294,31 @@
   .nnd-info__head{padding:0}
   .nnd-info .nnd-accs{margin-top:20px;padding:0}
 }
-/* ---------- PC 플로팅 구매 바 ---------- */
+/* ---------- PC 플로팅 구매 바 ----------
+   2026-11-02: 화면 폭 가득(1712) → 가운데 880으로 줄이고 모서리 12px(헤더와 같게). 오른쪽 아래 상담(채팅) 버튼을
+   가리지 않도록 양옆을 최소 120px씩 비운다(상담 버튼 58px + 여백 24px보다 넓게). */
 #nnd-fbar{
   /* 상품 위젯 위·아래 어디에 두든 스크립트가 body 직속으로 옮긴다 */
   position:fixed;z-index:9990;left:50%;bottom:24px;
-  width:min(1712px,calc(100vw - 48px));height:56px;
+  box-sizing:border-box;width:min(880px,calc(100vw - 240px));height:64px;
   transform:translate(-50%,calc(100% + 40px));opacity:0;pointer-events:none;
   transition:transform .35s ease,opacity .35s ease;
-  display:flex;align-items:center;gap:16px;padding:0 8px 0 24px;
-  border-radius:100px;background:rgba(255,255,255,.72);
-  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-  box-shadow:0 6px 24px rgba(42,42,41,.10);
+  display:flex;align-items:center;gap:12px;padding:0 8px 0 28px;
+  /* 글래스모피즘 — 헤더(흰 60% + blur 12)와 같은 계열, 뒤가 비치도록 조금 더 투명하게 */
+  border-radius:12px;background:rgba(255,255,255,.45);
+  border:1px solid rgba(255,255,255,.55);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 10px 40px rgba(42,42,41,.12);
   font-family:"42dot Sans",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
   color:#2A2A29;-webkit-font-smoothing:antialiased;
 }
 #nnd-fbar.is-on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
 #nnd-fbar *{box-sizing:border-box}
-.nnd-fbar__name{font-size:16px;line-height:20px;font-weight:600;white-space:nowrap}
-.nnd-fbar__spec{font-family:"Roboto Mono",ui-monospace,monospace;font-size:14px;color:rgba(42,42,41,.55);white-space:nowrap}
+.nnd-fbar__info{display:flex;flex-direction:column;justify-content:center;min-width:0}
+.nnd-fbar__name{font-size:15px;line-height:20px;font-weight:700;white-space:nowrap}
+.nnd-fbar__spec{font-family:"Roboto Mono",ui-monospace,monospace;font-size:12px;line-height:16px;color:rgba(42,42,41,.55);white-space:nowrap}
 .nnd-fbar__gap{flex:1}
-.nnd-fbar__price{font-size:18px;font-weight:700;white-space:nowrap;margin-right:8px}
+.nnd-fbar__price{font-size:20px;font-weight:800;white-space:nowrap;margin-right:8px;letter-spacing:-.01em}
 .nnd-fbar__orig{margin-right:8px;font-size:14px;font-weight:400;color:rgba(42,42,41,.45);text-decoration:line-through}
 
 /* 상품 위젯 판매가 → '판매가(취소선) + 1개 구매 할인가' (스크립트 7번이 넣는다) */
@@ -322,9 +327,10 @@
 /* 모바일: 구매 시트 안에만 있는 수량별 할인 배너를 가격 아래에 복제(누르면 구매 시트) */
 .nnd-qd-inline{margin:12px 0 4px;cursor:pointer}
 @media (min-width:769px){.nnd-qd-inline{display:none!important}}
-.nnd-fbar__btn{height:40px;padding:0 28px;border-radius:100px;border:1px solid #2A2A29;background:none;font:inherit;font-size:15px;font-weight:600;color:#2A2A29;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s}
-.nnd-fbar__btn:hover{background:rgba(42,42,41,.06)}
-.nnd-fbar__btn--buy{background:#2A2A29;color:#F3F3E9}
+/* 버튼 모서리 8px — 바(12px) 안쪽 여백 8px에 맞춘 값 */
+.nnd-fbar__btn{height:48px;padding:0 24px;border-radius:8px;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.4);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font:inherit;font-size:15px;font-weight:600;color:#2A2A29;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+.nnd-fbar__btn:hover{background:rgba(255,255,255,.75)}
+.nnd-fbar__btn--buy{min-width:150px;border-color:rgba(42,42,41,.9);background:rgba(42,42,41,.9);color:#F3F3E9}
 .nnd-fbar__btn--buy:hover{background:#D35B40;border-color:#D35B40;color:#fff}
 @media (max-width:991px){#nnd-fbar{display:none}}
 
@@ -340,8 +346,7 @@
 </style>
 
 <div id="nnd-fbar" aria-hidden="true">
-  <span class="nnd-fbar__name">NIGHT NIGHT CREAM™</span>
-  <span class="nnd-fbar__spec">FACE CREAM · 50mL</span>
+  <span class="nnd-fbar__info"><span class="nnd-fbar__name">NIGHT NIGHT CREAM™</span><span class="nnd-fbar__spec">FACE CREAM · 50mL</span></span>
   <span class="nnd-fbar__gap"></span>
   <span class="nnd-fbar__price"><del class="nnd-fbar__orig" data-nnd-orig hidden></del><span data-nnd-price>28,900</span>원</span>
   <button type="button" class="nnd-fbar__btn" data-nnd-native="cart">장바구니</button>
