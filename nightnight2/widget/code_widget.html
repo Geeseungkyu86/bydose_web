@@ -295,7 +295,7 @@
   .nnd-info .nnd-accs{margin-top:20px;padding:0}
 }
 /* ---------- PC 플로팅 구매 바 ----------
-   2026-11-02: 화면 폭 가득(1712) → 가운데 880 알약으로 줄였다. 오른쪽 아래 상담(채팅) 버튼을
+   2026-11-02: 화면 폭 가득(1712) → 가운데 880으로 줄이고 모서리 12px(헤더와 같게). 오른쪽 아래 상담(채팅) 버튼을
    가리지 않도록 양옆을 최소 120px씩 비운다(상담 버튼 58px + 여백 24px보다 넓게). */
 #nnd-fbar{
   /* 상품 위젯 위·아래 어디에 두든 스크립트가 body 직속으로 옮긴다 */
@@ -304,7 +304,7 @@
   transform:translate(-50%,calc(100% + 40px));opacity:0;pointer-events:none;
   transition:transform .35s ease,opacity .35s ease;
   display:flex;align-items:center;gap:12px;padding:0 8px 0 28px;
-  border-radius:100px;background:rgba(243,243,233,.86);
+  border-radius:12px;background:rgba(243,243,233,.86);
   border:1px solid rgba(42,42,41,.08);
   -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
   box-shadow:0 10px 32px rgba(42,42,41,.14);
