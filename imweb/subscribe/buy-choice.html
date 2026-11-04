@@ -1,11 +1,13 @@
 <!--
   나잇나잇크림 상품 A(idx=63, 한 번 구매) — 구매 방식 선택 카드
-  넣는 곳: 상품 A의 '별도 입력 칸'(인트로 아래) 그리고 상세 설명 맨 끝. 같은 코드를 두 곳에 붙인다.
+  넣는 곳: 상품 A 상세(현행 #nnd-story) 두 군데 — 아래 '넣는 자리' 참고. 같은 코드를 두 곳에 붙인다.
   아임웹 상세 칸 제약: 스크립트 불가, h1~h6 금지 → 인라인 스타일과 링크만. 미디어쿼리 없이 flex-wrap으로 반응형.
   동작:
     - [한 번 구매] href="#bd-once" → 바디 스크립트(body-script.html)가 페이지 위 아임웹 구매 영역으로 스크롤
       (스크립트가 없어도 오류 없음, 아무 일도 안 일어남)
     - [정기구독] → 상품 B. SUB_IDX를 상품 B의 idx로 바꾼다. 바디 스크립트가 utm·fbclid를 붙이고 픽셀 이벤트를 보낸다.
+  가격은 적지 않는다(세일 기간마다 바뀌고, 위쪽 아임웹 영역과 세일 배너에 이미 나온다).
+  넣는 자리(현행 상세 #nnd-story 기준): 위 = 세일 배너(#bd-promo) 바로 아래, 끝 = #nnd-story 맨 끝.
   문구는 초안. 브랜드 보이스 문서로 검수 전.
 -->
 <div class="bd-sub-choice" style="-webkit-font-smoothing: antialiased; color: #2A2A29; font-family: '42dot Sans', -apple-system, sans-serif; margin: 24px 0; box-sizing: border-box;">
@@ -15,7 +17,7 @@
 
     <a href="#bd-once" class="bd-once-go" style="flex: 1 1 200px; display: block; box-sizing: border-box; padding: 16px 18px; border: 1px solid rgba(42,42,41,0.18); border-radius: 10px; background: #FFFFFF; color: #2A2A29; text-decoration: none;">
       <span style="display: block; font-size: 15px; font-weight: 700; margin-bottom: 4px;">한 번 구매</span>
-      <span style="display: block; font-size: 13px; color: rgba(42,42,41,0.65); line-height: 1.55;">1개 19,900원 · 2개 37,100원<br>2개부터 무료배송</span>
+      <span style="display: block; font-size: 13px; color: rgba(42,42,41,0.65); line-height: 1.55;">1·2·3개 중 골라서<br>2개부터 무료배송</span>
     </a>
 
     <a href="https://bydose.kr/shop_view?idx=SUB_IDX" class="bd-sub-go" style="flex: 1 1 200px; display: block; box-sizing: border-box; padding: 16px 18px; border: 1px solid #2A2A29; border-radius: 10px; background: #2A2A29; color: #FFFFFF; text-decoration: none;">
