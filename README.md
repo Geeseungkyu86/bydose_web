@@ -33,6 +33,9 @@
 │       ├── 언어별_번역적용본/  en · ja · mn-MN · ru · zh-CN
 │       └── 화면미리보기/
 │
+├── ads/                   광고 개선 자료
+│   └── 광고_CPA_개선_리포트_2026-11-04.md  Meta 광고 진단·할 일 10가지 (원본 https://claude.ai/artifact/4LUF6k4CNYGCxSYrU1P3LH, 대표 검토 중)
+│
 └── nightnight-crew/        나잇나잇 크루(NNC) 프로모션
     ├── 나잇나잇_크루_랜딩페이지.html
     ├── 나잇나잇_크루_상세가이드.html
@@ -56,3 +59,7 @@
 - 대부분의 HTML은 이미지·영상을 CDN(및 Vimeo) URL로 참조합니다. 예외: `nightnight-crew/brochure/`(로컬 assets), `다국어_제품소개서/한국어_승인_디자인원본.html`(같은 폴더의 nightnight-deck-assets) — 이 둘은 폴더째 옮겨야 합니다.
 - Vimeo는 무료 플랜이라 플레이어 화질 파라미터가 무시됩니다. 업로드 단계에서 해상도를 줄여야 합니다.
 - 아임웹 코드 위젯 제약: `h1~h6` 사용 금지(테마가 덮어씀), 이미지는 CDN URL, GNB는 이 파일 바깥에 있음.
+
+## 광고 작업 전에
+
+광고·랜딩·픽셀 작업을 하는 세션은 `ads/광고_CPA_개선_리포트_2026-11-04.md`를 먼저 읽는다. 웹 쪽 할 일: 6개월 가입 맞춤 전환용 상품 번호 확인, 구매 금액이 실제 결제액으로 Meta에 가는지 확인(지금 1건 약 13,000원으로 잡힘), 정기배송 페이지 첫 화면에 총액·무료배송·남은 달 환불 표시(`imweb/subscribe/plan-page.html`). 돈 기준(광고비 상한, 손익분기)은 재무 저장소 `geeseungkyu86/bydose-funding`의 CLAUDE.md와 `skills/bydose-numbers`를 따른다.
