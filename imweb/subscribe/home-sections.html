@@ -1,0 +1,57 @@
+<!--
+  홈 — 히어로 아래에 넣는 정기배송 섹션 (아임웹 코드 위젯)
+  목표: 홈에 들어온 사람을 6개월 정기배송으로 보낸다. 히어로(home-hero.html) 바로 아래.
+  히어로 메뉴도 바꾼다(제안): NIGHT NIGHT CREAM 하나 → MONTHLY(정기배송) · CREAM · MIST
+  PLAN_URL, SHOP_URL, MIST_URL, MIST_IMG는 정해지면 채운다. 문구는 초안.
+-->
+<style>
+#bd-home-sub { --bg:#F3F3E9; --ink:#2A2A29; --ink70:rgba(42,42,41,.7); --ink50:rgba(42,42,41,.5); --accent:#D35B40;
+  background:var(--bg); color:var(--ink); font-family:'42dot Sans',-apple-system,'Apple SD Gothic Neo',sans-serif; -webkit-font-smoothing:antialiased; word-break:keep-all; }
+#bd-home-sub *, #bd-home-sub *::before, #bd-home-sub *::after { box-sizing:border-box; }
+#bd-home-sub p { margin:0; }
+#bd-home-sub a { color:inherit; text-decoration:none; }
+#bd-home-sub .wrap { max-width:1080px; margin:0 auto; padding:56px 20px 64px; display:flex; flex-direction:column; gap:28px; }
+#bd-home-sub .eyebrow { font-size:13px; color:var(--ink50); letter-spacing:.04em; }
+#bd-home-sub .title { font-size:26px; font-weight:700; line-height:1.4; letter-spacing:-.5px; margin-top:6px; }
+#bd-home-sub .lede { font-size:15px; color:var(--ink70); line-height:1.65; margin-top:10px; }
+#bd-home-sub .plans { display:flex; flex-wrap:wrap; gap:10px; }
+#bd-home-sub .p { flex:1 1 96px; min-width:0; background:#fff; border-radius:14px; padding:14px 12px; display:flex; flex-direction:column; gap:4px; border:1.5px solid transparent; position:relative; }
+#bd-home-sub .p.rec { border-color:var(--ink); }
+#bd-home-sub .p .n { font-size:14px; font-weight:700; }
+#bd-home-sub .p .v { font-size:17px; font-weight:800; letter-spacing:-.3px; }
+#bd-home-sub .p .v span { font-size:12px; font-weight:400; color:var(--ink50); }
+#bd-home-sub .p .s { font-size:12px; color:var(--ink70); }
+#bd-home-sub .p .g { font-size:12px; font-weight:700; color:var(--accent); }
+#bd-home-sub .badge { position:absolute; top:-10px; left:14px; font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px; background:var(--accent); color:#fff; }
+#bd-home-sub .cta { display:flex; align-items:center; justify-content:center; height:54px; border-radius:10px; background:var(--ink); color:#fff !important; font-size:16px; font-weight:700; }
+#bd-home-sub .more { text-align:center; font-size:14px; text-decoration:underline !important; text-underline-offset:3px; color:var(--ink70) !important; }
+#bd-home-sub .duo { display:flex; flex-wrap:wrap; gap:12px; }
+#bd-home-sub .duo a { flex:1 1 200px; background:#fff; border-radius:14px; overflow:hidden; display:flex; flex-direction:column; }
+#bd-home-sub .duo .img { aspect-ratio:4/3; background:#ECEBE1 center/contain no-repeat; }
+#bd-home-sub .duo .t { padding:14px 16px 16px; font-size:15px; font-weight:700; }
+#bd-home-sub .duo .t span { display:block; margin-top:3px; font-size:13px; font-weight:400; color:var(--ink70); }
+</style>
+
+<div id="bd-home-sub">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">NIGHT NIGHT MONTHLY</p>
+      <p class="title">매달 한 병,<br>6개월 동안</p>
+      <p class="lede">다 쓸 때쯤 다음 크림이 도착해요. 6개월을 한 번에 결제하면 미스트도 함께 보내 드려요.</p>
+    </div>
+
+    <div class="plans">
+      <div class="p"><p class="n">매달 결제</p><p class="v">19,900원<span> / 한 달</span></p><p class="s">언제든 해지</p></div>
+      <div class="p rec"><span class="badge">추천</span><p class="n">6개월 한 번에</p><p class="v">16,500원<span> / 한 달</span></p><p class="s">99,000원 한 번 결제</p><p class="g">미스트 1개 함께</p></div>
+      <div class="p"><p class="n">12개월 한 번에</p><p class="v">15,800원<span> / 한 달</span></p><p class="s">190,000원 한 번 결제</p><p class="g">미스트 1개 함께</p></div>
+    </div>
+
+    <a class="cta" href="PLAN_URL">6개월 정기배송 보기</a>
+
+    <div class="duo">
+      <a href="https://bydose.kr/shop_view?idx=63"><div class="img" style="background-image:url(https://cdn.imweb.me/upload/S2024082705e460c86991c/37c6ab3dbe655.png)"></div><p class="t">나잇나잇 크림<span>한 번만 사기</span></p></a>
+      <a href="MIST_URL"><div class="img" style="background-image:url(MIST_IMG)"></div><p class="t">나잇나잇 미스트<span>단품으로 사기</span></p></a>
+    </div>
+    <a class="more" href="SHOP_URL">제품 전체 보기</a>
+  </div>
+</div>
