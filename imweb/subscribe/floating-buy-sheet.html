@@ -1,0 +1,241 @@
+<!--
+  플로팅 구매 바 + 구매 방식 선택 창 (정기구독 분기 버전)
+  floating-buy-btn.html을 바탕으로 만듦. 결정 전까지 기존 파일은 그대로 둔다.
+  - 홈·콘텐츠 페이지: [지금 구매하기] → 선택 창 [한 번 구매 → 상품 A] / [정기구독 → 상품 B]
+  - 상품 B 페이지: [정기구독 신청] → 맨 위 아임웹 신청 버튼으로 스크롤
+  SUB_IDX(두 곳)를 상품 B idx로 바꾼다. 선택 클릭은 Meta 픽셀 맞춤 이벤트(ChooseOnce/ChooseSubscribe, where: floating)
+-->
+<!--
+  [필수] imweb 또는 페이지 <head>의 meta viewport에 viewport-fit=cover 추가:
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+-->
+
+<style>
+:root {
+    --h-bg: rgba(255, 255, 255, 0.6);
+    --h-blur: blur(10px);
+}
+
+/* [1] PC 버전 */
+.bydose-floating-buy-wrapper {
+    position: fixed;
+    height: 56px;
+    bottom: calc(24px + env(safe-area-inset-bottom));
+
+    left: 50%;
+    transform: translateX(-50%) translateY(12px);
+    width: calc(100% - 208px);
+    max-width: 1280px;
+
+    z-index: 99999;
+    box-sizing: border-box;
+
+    background-color: var(--h-bg) !important;
+    -webkit-backdrop-filter: var(--h-blur) !important;
+    backdrop-filter: var(--h-blur) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.bydose-floating-buy-wrapper.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.bydose-floating-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
+.bydose-floating-product-name {
+    font-family: '42dot Sans', sans-serif;
+    font-size: 16px;
+    color: #2A2A29;
+    font-weight: 500;
+}
+
+.bydose-floating-buy-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 40px;
+    font-family: '42dot Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #2A2A29 !important;
+    color: #FFFFFF !important;
+    text-decoration: none;
+    border-radius: 8px !important;
+    transition: background-color 0.3s ease;
+}
+
+.bydose-floating-buy-btn:hover {
+    background-color: #4A4A48 !important;
+}
+
+/* [2] 모바일 버전 */
+@media (max-width: 991px) {
+    .bydose-floating-buy-wrapper {
+        height: 56px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+
+        left: 12px;
+        transform: translateY(12px);
+        width: calc(100% - 92px);
+        max-width: none;
+    }
+
+    .bydose-floating-buy-wrapper.is-visible {
+        transform: translateY(0);
+    }
+
+    .bydose-floating-content { padding: 0 16px; }
+    .bydose-floating-product-name { font-size: 14px; }
+    .bydose-floating-buy-btn {
+        width: 110px;
+        height: 36px;
+        font-size: 14px;
+        border-radius: 6px !important;
+    }
+}
+
+/* [3] 구매 방식 선택 창 (정기구독 분기) */
+.bd-sheet-dim {
+    position: fixed; inset: 0; z-index: 100000;
+    background: rgba(0, 0, 0, 0.35);
+    opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+}
+.bd-sheet {
+    position: fixed; left: 50%; bottom: 0; z-index: 100001;
+    width: 100%; max-width: 480px; box-sizing: border-box;
+    transform: translate(-50%, 100%); transition: transform 0.3s ease;
+    background: #FFFFFF; border-radius: 16px 16px 0 0;
+    padding: 20px 16px calc(20px + env(safe-area-inset-bottom));
+    font-family: '42dot Sans', sans-serif; color: #2A2A29;
+}
+.bd-sheet-open .bd-sheet-dim { opacity: 1; pointer-events: auto; }
+.bd-sheet-open .bd-sheet { transform: translate(-50%, 0); }
+.bd-sheet-title { font-size: 14px; color: rgba(42,42,41,0.55); margin: 0 0 12px 2px; }
+.bd-sheet-opt {
+    display: block; padding: 16px 18px; margin-bottom: 8px; border-radius: 10px;
+    border: 1px solid rgba(42,42,41,0.18); color: #2A2A29 !important; text-decoration: none;
+}
+.bd-sheet-opt b { display: block; font-size: 15px; margin-bottom: 4px; }
+.bd-sheet-opt span { display: block; font-size: 13px; color: rgba(42,42,41,0.65); line-height: 1.5; }
+.bd-sheet-opt.is-sub { background: #2A2A29; border-color: #2A2A29; color: #FFFFFF !important; }
+.bd-sheet-opt.is-sub span { color: rgba(255,255,255,0.78); }
+@media (prefers-reduced-motion: reduce) { .bd-sheet, .bd-sheet-dim { transition: none; } }
+</style>
+
+<div class="bydose-floating-buy-wrapper" id="floatingBuyBtn">
+    <div class="bydose-floating-content">
+        <span class="bydose-floating-product-name">"나잇나잇크림"</span>
+        <a href="https://bydose.kr/shop_view?idx=63" class="bydose-floating-buy-btn" id="bdSheetOpen">지금 구매하기</a>
+    </div>
+</div>
+
+<!-- 구매 방식 선택 창: 버튼을 누르면 아래에서 올라온다. 스크립트가 안 돌면 버튼은 그냥 상품 A로 간다 -->
+<div id="bdSheetRoot">
+    <div class="bd-sheet-dim" id="bdSheetDim"></div>
+    <div class="bd-sheet" role="dialog" aria-modal="true" aria-label="받는 방법 선택">
+        <p class="bd-sheet-title">받는 방법을 골라 주세요</p>
+        <a class="bd-sheet-opt" href="https://bydose.kr/shop_view?idx=63" data-choice="ChooseOnce">
+            <b>한 번 구매</b><span>1개 19,900원 · 2개 37,100원 · 2개부터 무료배송</span>
+        </a>
+        <a class="bd-sheet-opt is-sub" href="https://bydose.kr/shop_view?idx=SUB_IDX" data-choice="ChooseSubscribe">
+            <b>정기구독 →</b><span>1개부터 무료배송 · 2·3개월마다 · 언제든 해지</span>
+        </a>
+    </div>
+</div>
+
+
+<script>
+(function() {
+    var btn = document.getElementById('floatingBuyBtn');
+
+    var USE_PCT    = true;
+    var SCROLL_PCT = 10;
+    var SCROLL_PX  = 400;
+
+    var ticking = false;
+
+    function updateVisibility() {
+        var scrolled    = window.scrollY || document.documentElement.scrollTop;
+        var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+        var shouldShow;
+        if (USE_PCT) {
+            var pct = totalHeight > 0 ? (scrolled / totalHeight) * 100 : 0;
+            shouldShow = pct >= SCROLL_PCT;
+        } else {
+            shouldShow = scrolled >= SCROLL_PX;
+        }
+
+        if (shouldShow) {
+            btn.classList.add('is-visible');
+        } else {
+            btn.classList.remove('is-visible');
+        }
+
+        ticking = false;
+    }
+
+    function onScroll() {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(updateVisibility);
+        }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    updateVisibility();
+
+    // 구매 방식 선택 창
+    var SUB_IDX = 'SUB_IDX'; // 상품 B idx로 바꾸기
+    var root = document.documentElement;
+    var opener = document.getElementById('bdSheetOpen');
+    var dim = document.getElementById('bdSheetDim');
+    var KEEP = /^(utm_[a-z]+|fbclid|gclid)$/;
+
+    // 상품 B 페이지에서는 선택 창 대신 "정기구독 신청" 하나로 맨 위 신청 버튼까지 스크롤
+    var here = new URLSearchParams(location.search).get('idx');
+    if (/\/shop_view/.test(location.pathname) && here === SUB_IDX) {
+        opener.textContent = '정기구독 신청';
+        opener.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        return;
+    }
+
+    document.querySelectorAll('.bd-sheet-opt').forEach(function (a) {
+        var to = new URL(a.getAttribute('href').replace('SUB_IDX', SUB_IDX), location.href);
+        new URLSearchParams(location.search).forEach(function (v, k) {
+            if (KEEP.test(k) && !to.searchParams.has(k)) to.searchParams.set(k, v);
+        });
+        a.href = to.toString();
+        a.addEventListener('click', function () {
+            if (typeof window.fbq === 'function') window.fbq('trackCustom', a.dataset.choice, { where: 'floating' });
+        });
+    });
+
+    function close() { root.classList.remove('bd-sheet-open'); }
+    opener.addEventListener('click', function (e) {
+        e.preventDefault();
+        root.classList.add('bd-sheet-open');
+    });
+    dim.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+})();
+</script>

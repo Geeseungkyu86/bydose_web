@@ -1,0 +1,56 @@
+<!--
+  정기구독 분기 — 사이트 공통 바디 코드에 추가 (body-code/body_code.html 끝에 붙인다)
+  아임웹 관리자 > 환경설정 > SEO의 '바디 코드'. 상세 칸은 스크립트가 안 돌아서 여기서 처리한다.
+
+  하는 일 (상품 A, idx=63에서만)
+  1. [정기구독] 링크(.bd-sub-go)에 지금 주소의 utm_*·fbclid를 붙인다 → 아임웹 유입 분석에서 B 주문의 출처 유지
+  2. 선택 클릭을 Meta 픽셀 맞춤 이벤트로 보낸다: ChooseOnce / ChooseSubscribe (where: top|bottom)
+  3. [한 번 구매](#bd-once) → 페이지 맨 위 아임웹 구매 영역으로 스크롤
+  SUB_IDX를 상품 B의 idx로 바꾼다.
+-->
+<script>
+(function () {
+  var A_IDX = '63';
+  var SUB_IDX = 'SUB_IDX'; // 상품 B idx로 바꾸기
+
+  if (!/\/shop_view/.test(location.pathname)) return;
+  var idx = new URLSearchParams(location.search).get('idx');
+  if (idx !== A_IDX) return;
+
+  var KEEP = /^(utm_[a-z]+|fbclid|gclid)$/;
+
+  function carry(href) {
+    try {
+      var to = new URL(href, location.href);
+      new URLSearchParams(location.search).forEach(function (v, k) {
+        if (KEEP.test(k) && !to.searchParams.has(k)) to.searchParams.set(k, v);
+      });
+      return to.toString();
+    } catch (e) { return href; }
+  }
+
+  function where(el) {
+    var all = document.querySelectorAll('.bd-sub-choice');
+    return all.length > 1 && el.closest('.bd-sub-choice') === all[all.length - 1] ? 'bottom' : 'top';
+  }
+
+  function track(name, el) {
+    if (typeof window.fbq === 'function') window.fbq('trackCustom', name, { where: where(el) });
+  }
+
+  document.addEventListener('click', function (e) {
+    var sub = e.target.closest('a.bd-sub-go');
+    if (sub) {
+      track('ChooseSubscribe', sub);
+      sub.href = carry(sub.getAttribute('href').replace('SUB_IDX', SUB_IDX));
+      return; // 기본 이동
+    }
+    var once = e.target.closest('a.bd-once-go, a[href="#bd-once"]');
+    if (once) {
+      e.preventDefault();
+      track('ChooseOnce', once);
+      window.scrollTo({ top: 0, behavior: 'smooth' }); // 아임웹 구매 영역(이미지·옵션·구매 버튼)이 맨 위
+    }
+  }, true);
+})();
+</script>
