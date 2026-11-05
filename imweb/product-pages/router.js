@@ -6,7 +6,7 @@
    목록에 없는 상품은 아무것도 꽂지 않는다 → 아임웹 상품별 '상세 설명'이 그대로 보인다.
 
    비상용 이미지 (2026-11-05): 상품별 '상세 설명' 칸에 같은 내용을 이미지로 넣어 둔다.
-   - 기다리는 동안(html.bd-pending)과 CDN 화면이 뜬 뒤(html.bd-page-on)에는 그 이미지를 숨긴다.
+   - 기다리는 동안(html.bd-pending)과 CDN 화면이 뜬 뒤(html.bd-ready, 상세 모드에서만)에는 그 이미지를 숨긴다.
    - 목록에 없는 상품이거나 CDN을 못 받으면 숨김을 풀어 이미지가 보인다.
    - 숨기는 규칙과 6초 안전장치는 loader.html에 있다(router.js를 못 받아도 풀리게).
    - pages/ 파일의 맨 바깥 요소에는 자동으로 data-bd-piece가 붙고, 이것만 상세 본문에 남는다.
@@ -48,8 +48,17 @@
   }
 
   var html = document.documentElement;
-  /* 실패·없음 표시(html.bd-page-off): 사이트 바디 코드의 '구매평 상시 보이기'가 이걸 보고 구매평 모드로 바꾸지 않는다 */
-  function showFallback() { html.classList.remove('bd-pending'); if (!html.classList.contains('bd-page-on')) html.classList.add('bd-page-off'); }
+  /* 숨김 규칙은 여기서 넣는다. loader.html의 'html.bd-page-on … > :not([data-bd-piece])' 규칙은 구매평 모드에서
+     구매평까지 숨겨서(2026-11-05 라이브 사고) 성공 표시로 bd-page-on을 쓰지 않고 bd-ready를 쓴다.
+     구매평 모드(product_review)에는 아임웹 상세 설명이 그려지지 않으므로 숨길 것이 없다 → 상세 모드에서만 숨긴다. */
+  if (!document.getElementById('bd-pages-style')) {
+    var st = document.createElement('style');
+    st.id = 'bd-pages-style';
+    st.textContent = 'html.bd-ready #prod_detail_body:not(.product_review):not(.product_review_mobile) > :not([data-bd-piece]){display:none !important}';
+    document.head.appendChild(st);
+  }
+  /* 실패·없음 표시(html.bd-page-off) */
+  function showFallback() { html.classList.remove('bd-pending'); if (!html.classList.contains('bd-ready')) html.classList.add('bd-page-off'); }
 
   if (!file) { showFallback(); collapse(); return; }
   root.setAttribute('data-bd-page', file);
@@ -60,7 +69,7 @@
     .catch(function (e) {
       /* 실패하면 아임웹 상세 설명만 보인다(페이지가 비지 않게 상세 설명에 최소 이미지는 둔다). */
       if (window.console) console.warn('[bydose-pages] load failed', file, e);
-      html.classList.remove('bd-page-on');
+      html.classList.remove('bd-ready');
       showFallback();
       collapse();
     });
@@ -82,8 +91,8 @@
   function runNext(list, i) {
     if (i >= list.length) {
       root.setAttribute('data-bd-ready', '1');
-      html.classList.remove('bd-page-off');
-      html.classList.add('bd-page-on');
+      html.classList.remove('bd-page-off', 'bd-page-on');
+      html.classList.add('bd-ready');
       showFallback();
       document.dispatchEvent(new CustomEvent('bydose:page-ready', { detail: { idx: idx, file: file } }));
       return;

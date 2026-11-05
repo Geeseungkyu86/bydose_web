@@ -336,7 +336,6 @@
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('.site_prod_nav a._review, .site_prod_nav a._detail, .site_prod_nav a._qna');
     if (!a) return;
-    if (!pageOn()) return; // CDN 상세가 없으면 아임웹 기본 탭 동작 (비상용 상세가 지워지지 않게)
     if (a.classList.contains('_qna')) { current = null; return; } // Q&A는 아임웹 기본 동작
     e.preventDefault();
     e.stopPropagation();
@@ -387,20 +386,8 @@
     });
   }, { passive: true });
 
-  /* 상품 상세 라우터(imweb/product-pages)가 CDN 상세를 띄웠는지: html.bd-page-on(떴음) / html.bd-page-off(실패·없음).
-     구매평 모드는 아임웹 '상세 설명'을 빼고 그려서, CDN 상세가 없을 때 바꾸면 비상용 상세까지 사라진다(2026-11-05 확인).
-     그래서 CDN 상세가 떴을 때만 구매평 모드로 바꾸고, 아니면 아임웹 기본 화면(상세 설명 + 구매평 탭)을 그대로 둔다. */
-  var HTML = document.documentElement;
-  function pageOn() { return HTML.classList.contains('bd-page-on'); }
-  function pageDecided() { return pageOn() || HTML.classList.contains('bd-page-off'); }
-
   function init() {
-    waitFor(function () { return window.SITE_SHOP_DETAIL && body() && pageDecided(); }, start, start, 8000);
-  }
-  function start() {
-    if (!pageOn()) { log('CDN 상세 없음 → 구매평 모드로 바꾸지 않음(비상용 상세 유지)'); return; }
-    if (!(window.SITE_SHOP_DETAIL && body())) return;
-    (function () {
+    waitFor(function () { return window.SITE_SHOP_DETAIL && body(); }, function () {
       if (location.hash === '#prod_detail_review') {
         ensureReview(function () {
           setTimeout(function () { scrollToEl(reviewAnchor(body())); setActive('review'); }, 300);
@@ -408,7 +395,7 @@
       } else {
         ensureReview(function () { setActive('detail'); }, true);
       }
-    })();
+    });
   }
 
   if (document.readyState === 'complete') setTimeout(init, 0);
