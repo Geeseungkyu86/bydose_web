@@ -1,78 +1,50 @@
 /* ============================================================
-   바이도즈 상품 상세 라우터 (2026-11-05)
+   바이도즈 상품 상세 라우터 (2026-11-05 다시 씀)
 
-   아임웹 '공통 상품 상세 페이지'의 코드 위젯(loader.html)이 이 파일을 부른다.
-   주소의 상품 번호(shop_view?idx=63)를 보고 그 상품의 상세 화면만 꽂는다.
-   목록에 없는 상품은 아무것도 꽂지 않는다 → 아임웹 상품별 '상세 설명'이 그대로 보인다.
+   loader.html(아임웹 공용 상품 상세 페이지의 코드 위젯)이 이 파일을 받아 실행한다.
+   주소의 상품 번호(shop_view?idx=63)를 보고, PAGES 목록에 있으면 pages/<파일>.html을 받아
+   로더 자리에 넣고 그 안의 스크립트를 실행한다. 상세정보 본문으로 옮기는 일은 각 페이지 파일이 한다
+   (크림 페이지는 원래 위젯과 같은 코드라 동작도 같다).
 
-   비상용 이미지 (2026-11-05): 상품별 '상세 설명' 칸에 같은 내용을 이미지로 넣어 둔다.
-   - 기다리는 동안(html.bd-pending)과 CDN 화면이 뜬 뒤(html.bd-ready, 상세 모드에서만)에는 그 이미지를 숨긴다.
-   - 목록에 없는 상품이거나 CDN을 못 받으면 숨김을 풀어 이미지가 보인다.
-   - 숨기는 규칙과 6초 안전장치는 loader.html에 있다(router.js를 못 받아도 풀리게).
-   - pages/ 파일의 맨 바깥 요소에는 자동으로 data-bd-piece가 붙고, 이것만 상세 본문에 남는다.
+   하지 않는 것 (2026-11-05 사고 뒤 정한 원칙):
+   - 아임웹 요소를 숨기거나 접지 않는다. (구매평·상세 설명은 아임웹이 그리는 그대로)
+   - 목록에 없는 상품에서는 아무것도 하지 않는다.
 
-   상품 추가: 아래 PAGES에 '상품번호': 'pages/파일이름.html' 한 줄 추가 → main에 병합.
-   미리보기: 아무 상품 주소 끝에 &bd_page=파일이름 (예: shop_view?idx=70&bd_page=six-month)
+   상품 추가: PAGES에 '상품번호': 'pages/파일이름.html' 한 줄 → main 병합 → 1분 안에 반영.
+   되돌리기: 그 줄을 지우고 main 병합 → 1분 안에 그 상품은 원래 아임웹 화면.
+   미리보기: 상품 주소 끝에 &bd_page=파일이름 (목록과 상관없이 그 파일을 넣어 본다).
+   점검: 로더 자리(#bydose-pages)의 data-bd-page / data-bd-ready / data-bd-error 속성.
    ============================================================ */
 (function () {
   var PAGES = {
     '63': 'pages/nightnight-cream.html'   /* 나잇나잇 크림 */
-    /* '00': 'pages/six-month.html',        6개월 정기배송 (상품 등록 후 번호 넣기) */
-    /* '00': 'pages/nightnight-mist.html',  나잇나잇 미스트 */
   };
 
   var root = document.getElementById('bydose-pages');
   if (!root || root.getAttribute('data-bd-init')) return;
   root.setAttribute('data-bd-init', '1');
 
-  var base = root.getAttribute('data-base') || '';
-  var ver = root.getAttribute('data-v') || String(Math.floor(Date.now() / 6e5));
+  var cfg = window.BYDOSE_PAGES || {};
+  var sources = cfg.sources || ['https://cdn.jsdelivr.net/gh/geeseungkyu86/bydose_web@main/imweb/product-pages/'];
+  var v = cfg.v || Math.floor(Date.now() / 60000);
   var params = new URLSearchParams(location.search);
   var idx = params.get('idx') || '';
   var preview = (params.get('bd_page') || '').replace(/[^a-z0-9-]/gi, '');
   var file = preview ? 'pages/' + preview + '.html' : PAGES[idx];
-
-  /* 위젯이 들어 있는 아임웹 섹션. 꽂을 게 없으면 빈 칸이 남지 않게 접는다
-     (상품 위젯이 같이 들어 있는 섹션은 절대 접지 않는다). */
-  function collapse() {
-    var sec = root.closest('.section_wrap, [id^="s20"]');
-    if (!sec) return;
-    /* 상품 구매 영역·상세정보 본문이 같은 구역에 있으면 절대 접지 않는다(2026-11-05: 상세 본문까지 접혀 비상용이 안 보였음).
-       로더 말고 글자·사진·영상이 하나라도 있는 구역도 접지 않는다. */
-    if (sec.querySelector('#prod_detail, #prod_detail_body, [id^="prod_detail"], [class*="prod_detail"]')) return;
-    var others = sec.querySelectorAll('img, iframe, video, a, button, p, li');
-    for (var i = 0; i < others.length; i++) if (!root.contains(others[i])) return;
-    var text = (sec.textContent || '').replace(/\s+/g, '');
-    if (text.length > 0 && text !== (root.textContent || '').replace(/\s+/g, '')) return;
-    sec.style.display = 'none';
-  }
-
-  var html = document.documentElement;
-  /* 숨김 규칙은 여기서 넣는다. loader.html의 'html.bd-page-on … > :not([data-bd-piece])' 규칙은 구매평 모드에서
-     구매평까지 숨겨서(2026-11-05 라이브 사고) 성공 표시로 bd-page-on을 쓰지 않고 bd-ready를 쓴다.
-     구매평 모드(product_review)에는 아임웹 상세 설명이 그려지지 않으므로 숨길 것이 없다 → 상세 모드에서만 숨긴다. */
-  if (!document.getElementById('bd-pages-style')) {
-    var st = document.createElement('style');
-    st.id = 'bd-pages-style';
-    st.textContent = 'html.bd-ready #prod_detail_body:not(.product_review):not(.product_review_mobile) > :not([data-bd-piece]){display:none !important}';
-    document.head.appendChild(st);
-  }
-  /* 실패·없음 표시(html.bd-page-off) */
-  function showFallback() { html.classList.remove('bd-pending'); if (!html.classList.contains('bd-ready')) html.classList.add('bd-page-off'); }
-
-  if (!file) { showFallback(); collapse(); return; }
+  if (!file) return;
   root.setAttribute('data-bd-page', file);
 
-  fetch(base + file + '?v=' + ver, { credentials: 'omit' })
-    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
-    .then(mount)
-    .catch(function (e) {
-      /* 실패하면 아임웹 상세 설명만 보인다(페이지가 비지 않게 상세 설명에 최소 이미지는 둔다). */
-      if (window.console) console.warn('[bydose-pages] load failed', file, e);
-      html.classList.remove('bd-ready');
-      showFallback();
-      collapse();
-    });
+  (function get(i) {
+    if (i >= sources.length) {
+      root.setAttribute('data-bd-error', 'page');
+      if (window.console) console.warn('[bydose-pages] 상세를 받지 못함', file);
+      return;
+    }
+    fetch(sources[i] + file + '?v=' + v, { credentials: 'omit' })
+      .then(function (res) { if (!res.ok) throw new Error(res.status); return res.text(); })
+      .then(mount)
+      .catch(function () { get(i + 1); });
+  })(0);
 
   /* innerHTML로 넣은 <script>는 실행되지 않아서, 순서대로 새로 만들어 붙인다. */
   function mount(html) {
@@ -80,10 +52,6 @@
     tpl.innerHTML = html;
     var scripts = Array.prototype.slice.call(tpl.content.querySelectorAll('script'));
     scripts.forEach(function (s) { s.parentNode.removeChild(s); });
-    /* 맨 바깥 요소 표시: 상세 본문으로 옮겨져도 숨김 대상에서 빠진다 */
-    Array.prototype.forEach.call(tpl.content.children, function (el) {
-      if (!/^(STYLE|LINK|META)$/.test(el.tagName)) el.setAttribute('data-bd-piece', '');
-    });
     root.appendChild(tpl.content);
     runNext(scripts, 0);
   }
@@ -91,9 +59,6 @@
   function runNext(list, i) {
     if (i >= list.length) {
       root.setAttribute('data-bd-ready', '1');
-      html.classList.remove('bd-page-off', 'bd-page-on');
-      html.classList.add('bd-ready');
-      showFallback();
       document.dispatchEvent(new CustomEvent('bydose:page-ready', { detail: { idx: idx, file: file } }));
       return;
     }
