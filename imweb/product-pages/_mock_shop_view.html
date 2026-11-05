@@ -1,23 +1,44 @@
-<!doctype html><html><head><meta charset="utf-8"><title>mock shop_view</title></head><body>
-<div class="section_wrap" id="s2000a"><div id="prod_detail"><div class="real_price">28,900원</div><div id="prod_detail_body"><div id="native"><img alt="비상용 상세 이미지" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="10" height="10"><p>아임웹 상품별 상세 설명 (비상용 이미지)</p></div></div></div></div>
-<div class="section_wrap" id="s2000b">
-<!-- loader.html과 같고 data-base만 로컬 주소. ?base=로 바꿀 수 있음(실패 시험용) -->
-<style>
-  html.bd-pending #prod_detail_body > :not([data-bd-piece]),
-  html.bd-page-on #prod_detail_body > :not([data-bd-piece]) { display: none !important; }
-</style>
-<div id="bydose-pages" data-base="/imweb/product-pages/"></div>
+<!doctype html><html><head><meta charset="utf-8"><title>mock shop_view (상세정보 탭 끔)</title></head><body>
+<!-- 아임웹 흉내: 상세정보 탭을 끄면 상세 본문 안에 상세 설명과 구매평이 같이 그려진다(2026-11-05 추정) -->
+<div class="section_wrap" id="s2000a"><div id="prod_detail"><div class="real_price">28,900원</div></div></div>
+<div class="section_wrap" id="s2000c"><div id="prod_detail_body" class="_prod_detail_detail_lazy_load shop_view_body fr-view">
+  <div id="native"><p>아임웹 상세 설명</p></div>
+  <div class="tw-relative _prod_detail_review">구매평 59</div><ul class="list_review_wrap"><li>후기 1</li></ul>
+</div></div>
+<div class="section_wrap" id="s2000b"><!-- ============================================================
+     바이도즈 상품 상세 로더 (2026-11-05 다시 씀)
+     아임웹 '상품 상세 페이지'(공용 틀)의 코드 위젯에 이것만 붙인다. 지금의 크림 전체 코드를 대신한다.
+
+     - router.js를 받아 실행한다. 어떤 상품에 어떤 상세를 보일지는 router.js의 PAGES 목록이 정한다.
+     - 받는 곳 두 군데: jsDelivr(CDN) → 안 되면 GitHub에서 직접. 둘 다 이 저장소 main.
+     - 1분마다 새로 받는다(고친 내용이 1분 안에 반영).
+     - 숨기거나 접는 동작은 없다. 목록에 없는 상품에서는 아무것도 하지 않는다.
+     ============================================================ -->
+<div id="bydose-pages" data-sources="/nowhere/,/imweb/product-pages/"></div>
 <script>
 (function () {
   var r = document.getElementById('bydose-pages');
-  var q = new URLSearchParams(location.search).get('base'); if (q) r.setAttribute('data-base', q);
-  var h = document.documentElement;
-  h.classList.add('bd-pending');
-  setTimeout(function () { h.classList.remove('bd-pending'); }, 6000);
-  var s = document.createElement('script');
-  s.src = r.getAttribute('data-base') + 'router.js?v=1';
-  s.onerror = function () { h.classList.remove('bd-pending'); };
-  document.body.appendChild(s);
+  if (!r || r.getAttribute('data-bd-loader')) return;
+  r.setAttribute('data-bd-loader', '1');
+  var SOURCES = (r.getAttribute('data-sources') || [
+    'https://cdn.jsdelivr.net/gh/geeseungkyu86/bydose_web@main/imweb/product-pages/',
+    'https://raw.githubusercontent.com/geeseungkyu86/bydose_web/main/imweb/product-pages/'
+  ].join(',')).split(',');
+  var v = Math.floor(Date.now() / 60000);
+  window.BYDOSE_PAGES = { sources: SOURCES, v: v };
+  (function load(i) {
+    if (i >= SOURCES.length) { r.setAttribute('data-bd-error', 'router'); return; }
+    fetch(SOURCES[i] + 'router.js?v=' + v, { credentials: 'omit' })
+      .then(function (res) { if (!res.ok) throw new Error(res.status); return res.text(); })
+      .then(function (code) {
+        var s = document.createElement('script');
+        s.setAttribute('data-bd-source', String(i));
+        s.textContent = code;
+        document.body.appendChild(s);
+      })
+      .catch(function () { load(i + 1); });
+  })(0);
 })();
 </script>
-</div></body></html>
+</div>
+</body></html>

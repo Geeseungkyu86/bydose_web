@@ -1,31 +1,35 @@
 <!-- ============================================================
-     바이도즈 상품 상세 로더 — 아임웹 '공통 상품 상세 페이지'의 코드 위젯에 이것만 붙인다.
-     (지금 붙어 있는 나잇나잇 크림 전체 코드 대신. 한 번 붙이면 다시 고칠 일이 없다.)
+     바이도즈 상품 상세 로더 (2026-11-05 다시 씀)
+     아임웹 '상품 상세 페이지'(공용 틀)의 코드 위젯에 이것만 붙인다. 지금의 크림 전체 코드를 대신한다.
 
-     상품별 상세 화면은 GitHub 저장소 imweb/product-pages/pages/ 에 있고,
-     main에 병합되면 jsDelivr CDN으로 바로 나간다(GitHub Action이 캐시를 비운다).
-     어떤 상품에 어떤 화면을 보일지는 router.js의 PAGES 목록이 정한다.
-
-     비상용: 상품별 '상세 설명' 칸의 이미지는 CDN 화면이 뜨면 숨고,
-     CDN을 못 받거나 6초 안에 안 뜨면 그대로 보인다.
+     - router.js를 받아 실행한다. 어떤 상품에 어떤 상세를 보일지는 router.js의 PAGES 목록이 정한다.
+     - 받는 곳 두 군데: jsDelivr(CDN) → 안 되면 GitHub에서 직접. 둘 다 이 저장소 main.
+     - 1분마다 새로 받는다(고친 내용이 1분 안에 반영).
+     - 숨기거나 접는 동작은 없다. 목록에 없는 상품에서는 아무것도 하지 않는다.
      ============================================================ -->
-<style>
-  html.bd-pending #prod_detail_body > :not([data-bd-piece]),
-  html.bd-page-on #prod_detail_body > :not([data-bd-piece]) { display: none !important; }
-</style>
-<div id="bydose-pages" data-base="https://cdn.jsdelivr.net/gh/geeseungkyu86/bydose_web@main/imweb/product-pages/"></div>
+<div id="bydose-pages"></div>
 <script>
 (function () {
   var r = document.getElementById('bydose-pages');
   if (!r || r.getAttribute('data-bd-loader')) return;
   r.setAttribute('data-bd-loader', '1');
-  var h = document.documentElement;
-  h.classList.add('bd-pending');                       /* 비상용 이미지가 잠깐 비치지 않게 */
-  setTimeout(function () { h.classList.remove('bd-pending'); }, 6000);  /* 안전장치 */
-  var s = document.createElement('script');
-  s.src = r.getAttribute('data-base') + 'router.js?v=' + Math.floor(Date.now() / 6e5); /* 10분마다 새로 받음 */
-  s.async = true;
-  s.onerror = function () { h.classList.remove('bd-pending'); };
-  document.body.appendChild(s);
+  var SOURCES = (r.getAttribute('data-sources') || [
+    'https://cdn.jsdelivr.net/gh/geeseungkyu86/bydose_web@main/imweb/product-pages/',
+    'https://raw.githubusercontent.com/geeseungkyu86/bydose_web/main/imweb/product-pages/'
+  ].join(',')).split(',');
+  var v = Math.floor(Date.now() / 60000);
+  window.BYDOSE_PAGES = { sources: SOURCES, v: v };
+  (function load(i) {
+    if (i >= SOURCES.length) { r.setAttribute('data-bd-error', 'router'); return; }
+    fetch(SOURCES[i] + 'router.js?v=' + v, { credentials: 'omit' })
+      .then(function (res) { if (!res.ok) throw new Error(res.status); return res.text(); })
+      .then(function (code) {
+        var s = document.createElement('script');
+        s.setAttribute('data-bd-source', String(i));
+        s.textContent = code;
+        document.body.appendChild(s);
+      })
+      .catch(function () { load(i + 1); });
+  })(0);
 })();
 </script>
