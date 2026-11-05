@@ -23,10 +23,11 @@ fs.mkdirSync(outDir, { recursive: true });
 (async () => {
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 420, height: 900 } });
+
+  async function build(SCALE) {
   await page.setContent('<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0">' + src + '</body></html>', { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts && document.fonts.ready);
-
-  const html = await page.evaluate(() => {
+  return page.evaluate((SCALE) => {
     const root = document.getElementById('nnd-story');
 
     /* ---- 1. 정적으로 바꾸기 ---- */
@@ -128,25 +129,22 @@ fs.mkdirSync(outDir, { recursive: true });
     }
     function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-    /* 편집기는 미디어쿼리가 안 돼서, px 값을 화면 폭에 따라 자라는 min(vw, 1.3배)로 바꾼다.
-       390px 화면에서 원래 크기, 넓은 화면에서 최대 1.3배. 아임웹 상세 설명은 크기 제한이 있어(v6 99KB 출력 안 됨, 2026-11-05) 짧게 쓴다. */
-    const SCALE_PROPS = /^(font-size|line-height|margin|padding|gap|border-radius|width|height|min-width|min-height)/;
-    const MAX = 1.3;
+    /* 아임웹 상세 설명은 min()·calc()·vw 같은 계산식이 들어가면 출력되지 않는다(v6·v7, 2026-11-05 대표 확인).
+       그래서 계산식 없이 px에 고정 배율을 곱한다. PC용(상세 설명) 1.3배, 모바일용(모바일 전용 상세 설명) 1배. */
+    const SCALE_PROPS = /^(font-size|margin|padding|gap|border-radius|width|height|min-width|min-height)/;
+    const MAX = SCALE;
     function grow(decl) {
+      if (SCALE === 1) return [decl];
       const i = decl.indexOf(':'); const prop = decl.slice(0, i), val = decl.slice(i + 1);
-      if (!SCALE_PROPS.test(prop) || !/\d+(\.\d+)?px/.test(val) || /calc|clamp|min\(/.test(val)) return [decl];
-      const g = val.replace(/(-?\d+(?:\.\d+)?)px/g, (m, n) => {
-        n = parseFloat(n);
-        if (Math.abs(n) < 4) return m;
-        if (n < 12 && /^(margin|padding|gap|border-radius)/.test(prop)) return m;   /* 작은 간격은 그대로(코드 크기 줄이기) */
-        /* min(화면폭 비례, 1.3배): 390px 화면에서 원래 크기, 넓으면 1.3배에서 멈춤 (짧게 쓰려고 clamp 대신 min) */
-        return n > 0 ? 'min(' + +(n / 3.9).toFixed(2) + 'vw,' + +(n * MAX).toFixed(1) + 'px)' : m;
-      });
-      return [prop + ':' + g];
+      if (!SCALE_PROPS.test(prop) || !/\d+(\.\d+)?px/.test(val)) return [decl];
+      return [prop + ':' + val.replace(/(-?\d+(?:\.\d+)?)px/g, (m, n) => {
+        n = parseFloat(n); if (Math.abs(n) < 2) return m;
+        return +(n * SCALE).toFixed(1) + 'px';
+      })];
     }
     const hex = n => ('0' + (+n).toString(16)).slice(-2);
     const short = d => d.replace(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/g, (m, r, g, b, a) =>
-      '#' + hex(r) + hex(g) + hex(b) + (a !== undefined && a !== '1' ? hex(Math.round(parseFloat(a) * 255)) : ''));
+      (a !== undefined && a !== '1') ? m.replace(/, /g, ',') : '#' + hex(r) + hex(g) + hex(b));
     const growAll = arr => arr.reduce((a, d) => a.concat(grow(short(d))), []);
     function walk(el, parentCS) {
       if (el.nodeType === 3) return esc(el.textContent.replace(/\s+/g, ' '));
@@ -180,7 +178,7 @@ fs.mkdirSync(outDir, { recursive: true });
         if (v4[1] === v4[3]) { sh = v4.slice(0, 3); if (v4[0] === v4[2]) { sh = v4.slice(0, 2); if (v4[0] === v4[1]) sh = [v4[0]]; } }
         st.push(k + ':' + sh.join(' ').replace(/\b0px\b/g, '0'));
       });
-      if (el === root) st.push("font-family:'42dot Sans',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif", 'max-width:720px', 'margin:0 auto', 'box-sizing:border-box');
+      if (el === root) st.push("font-family:'42dot Sans',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif", 'max-width:' + (SCALE > 1 ? 720 : 560) + 'px', 'margin:0 auto', 'box-sizing:border-box');
       if (tag === 'img') {
         /* 편집기(Froala)는 사진에 여백 5px·가운데 정렬·폭 줄임을 붙이고 인라인 지정도 지울 수 있다.
            그래서 사진마다 크기를 정한 상자를 씌운다. 사진에 무슨 일이 생겨도 상자 밖 배치는 그대로다. */
@@ -190,12 +188,10 @@ fs.mkdirSync(outDir, { recursive: true });
           const w = Math.round(r.width), h = Math.round(r.height);
           const rad = cs.borderRadius !== '0px' ? 'border-radius:' + cs.borderRadius + ';' : '';
           /* 상자를 사진보다 10px 크게: 편집기가 여백 5px·폭 -10px을 붙여도, 안 붙여도 사진은 w×h 그대로 가운데 */
-          const W = w + 10, H = h + 10;
-          const cw = 'min(' + +(w / 3.9).toFixed(2) + 'vw,' + +(w * MAX).toFixed(1) + 'px)';
-          const ch = 'min(' + +(h / 3.9).toFixed(2) + 'vw,' + +(h * MAX).toFixed(1) + 'px)';
-          const box = (p, px, c) => p + ':calc(' + c + ' + 10px);';
-          return '<div style="' + box('width', W, cw) + box('height', H, ch) + box('min-width', W, cw) + 'flex-shrink:0;margin:-5px;display:flex;align-items:center;justify-content:center;line-height:0;font-size:0">' +
-            img + 'width:' + cw + ';height:' + ch + ';object-fit:cover;' + rad + '">' + '</div>';
+          const sw = +(w * SCALE).toFixed(1), sh = +(h * SCALE).toFixed(1);
+          const W = +(sw + 10).toFixed(1), H = +(sh + 10).toFixed(1);
+          return '<div style="width:' + W + 'px;height:' + H + 'px;min-width:' + W + 'px;flex-shrink:0;margin:-5px;display:flex;align-items:center;justify-content:center;line-height:0;font-size:0">' +
+            img + 'width:' + sw + 'px;height:' + sh + 'px;object-fit:cover;' + rad + '">' + '</div>';
         }
         /* 큰 사진: 편집기가 폭을 10px 줄이고 위아래 5px을 넣어도 상자 밖으로 5px씩 넓혀 원래 폭을 맞춘다 */
         return '<div style="margin:0 -5px;line-height:0;font-size:0">' + img + 'width:100%;height:auto">' + '</div>';
@@ -221,13 +217,21 @@ fs.mkdirSync(outDir, { recursive: true });
       return '<' + tag + (out.length ? ' style="' + out.join(';') + '"' : '') + '>' + inner + '</' + tag + '>';
     }
     return walk(root, null);
-  });
+  }, SCALE); }
 
-  const head = '<!-- 비상용 상세 (' + name + ') — tools/build_fallback.js로 만든 것. 직접 고치지 말고 pages/' + name + '.html을 고친 뒤 다시 뽑는다.\n' +
-    '     아임웹 상품 > 상품 상세 설명 > 에디터로 등록 > 코드 보기(</>)에 전부 붙여 넣는다. CDN 화면이 뜨면 숨는다. -->\n';
-  const out = head + html.replace(/(<\/(?:div|p|li|ol|ul)>)/g, '$1\n') + '\n';
-  fs.writeFileSync(path.join(outDir, name + '.html'), out);
-  console.log('wrote fallback/' + name + '.html', out.length, 'bytes');
+  /* PC용(상세 설명, 1.3배)과 모바일용(모바일 전용 상세 설명, 1배) 두 벌 */
+  const outs = {};
+  for (const [suffix, scale, where] of [['', 1.3, '상품 상세 설명 > 에디터로 등록'], ['.mobile', 1, "고급 설정 > '모바일 전용 상세 설명' 켜기 > 그 편집기"]]) {
+    const html = await build(scale);
+    const head = '<!-- 비상용 상세 (' + name + (suffix ? ', 모바일' : ', PC') + ') — tools/build_fallback.js로 만든 것. 직접 고치지 말고 pages/' + name + '.html을 고친 뒤 다시 뽑는다.\n' +
+      '     아임웹 상품 > ' + where + ' > 코드 보기(</>)에 전부 붙여 넣는다. CDN 화면이 뜨면 숨는다. -->\n';
+    const out = head + html.replace(/(<\/(?:div|p|li|ol|ul)>)/g, '$1\n') + '\n';
+    if (/min\(|calc\(|clamp\(|vw/.test(out)) throw new Error('계산식이 섞였다 — 아임웹에서 출력되지 않는다');
+    fs.writeFileSync(path.join(outDir, name + suffix + '.html'), out);
+    outs[suffix || 'pc'] = out;
+    console.log('wrote fallback/' + name + suffix + '.html', Buffer.byteLength(out), 'bytes');
+  }
+  const out = outs.pc;
 
   /* 미리보기 캡처 (휴대폰·PC) */
   const shots = process.env.SHOT_DIR;
