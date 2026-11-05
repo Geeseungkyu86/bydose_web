@@ -48,7 +48,8 @@
   }
 
   var html = document.documentElement;
-  function showFallback() { html.classList.remove('bd-pending'); }
+  /* 실패·없음 표시(html.bd-page-off): 사이트 바디 코드의 '구매평 상시 보이기'가 이걸 보고 구매평 모드로 바꾸지 않는다 */
+  function showFallback() { html.classList.remove('bd-pending'); if (!html.classList.contains('bd-page-on')) html.classList.add('bd-page-off'); }
 
   if (!file) { showFallback(); collapse(); return; }
   root.setAttribute('data-bd-page', file);
@@ -81,6 +82,7 @@
   function runNext(list, i) {
     if (i >= list.length) {
       root.setAttribute('data-bd-ready', '1');
+      html.classList.remove('bd-page-off');
       html.classList.add('bd-page-on');
       showFallback();
       document.dispatchEvent(new CustomEvent('bydose:page-ready', { detail: { idx: idx, file: file } }));
