@@ -88,7 +88,11 @@ fs.mkdirSync(outDir, { recursive: true });
       if (el.tagName === 'BR') return '<br>';
       const tag = KEEP_TAG[el.tagName] || (cs.display.indexOf('inline') === 0 ? 'span' : 'div');
       const st = [];
-      INHERIT.forEach(p => { const v = cs.getPropertyValue(p); if (!parentCS || parentCS.getPropertyValue(p) !== v) st.push(p.replace('text-decoration-line', 'text-decoration') + ':' + v); });
+      INHERIT.forEach(p => {
+        const v = cs.getPropertyValue(p);
+        const always = p === 'text-align' && (tag === 'div' || tag === 'p');   /* 편집기·테마가 칸마다 정렬을 덮어써도 버티게 */
+        if (always || !parentCS || parentCS.getPropertyValue(p) !== v) st.push(p.replace('text-decoration-line', 'text-decoration') + ':' + (v === 'start' ? 'left' : v));
+      });
       BOX.forEach(p => {
         const v = cs.getPropertyValue(p);
         if (p === 'display') {
@@ -106,8 +110,11 @@ fs.mkdirSync(outDir, { recursive: true });
         else st.push('width:100%', 'height:auto');
         st.push('display:block', 'max-width:100%');
         if (r.width < 140 && cs.borderRadius !== '0px') st.push('border-radius:' + cs.borderRadius);
-        return '<img src="' + el.src + '" alt="' + esc(el.alt || '') + '" loading="lazy" style="' + st.join(';') + '">';
+        /* 아임웹 편집기(Froala)가 사진에 붙이는 가운데 정렬(margin auto)·폭 줄임·여백을 이긴다 */
+        const imgSt = st.filter(x => !/^margin/.test(x)).concat(['margin:0', 'padding:0', 'border:0', 'float:none']);
+        return '<img src="' + el.src + '" alt="' + esc(el.alt || '') + '" loading="lazy" style="' + imgSt.map(x => x + '!important').join(';') + '">';
       }
+      if (parentCS && /flex/.test(parentCS.display) && parentCS.flexDirection === 'row' && tag === 'div' && !el.querySelector(':scope > img')) st.push('flex:1 1 auto', 'min-width:0');
       const w = explicitSize(el, 'width');
       if (w && el !== root && parseFloat(w) < 300) st.push('width:' + w, 'flex-shrink:0');
       const h = explicitSize(el, 'height');
