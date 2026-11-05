@@ -55,7 +55,7 @@ fs.mkdirSync(outDir, { recursive: true });
     if (personas) {
       const pills = [...personas.querySelectorAll('.nnd-pill')];
       const wrap = document.createElement('div');
-      wrap.style.cssText = 'margin:28px 0 0;padding:0 24px;display:flex;flex-direction:column;gap:22px;text-align:left';
+      wrap.style.cssText = 'margin:28px auto 0;max-width:540px;box-sizing:border-box;padding:0 24px;display:flex;flex-direction:column;gap:22px;text-align:left';
       pills.forEach((pill, i) => {
         const c = CHAT[i]; if (!c) return;
         const img = pill.querySelector('img'), name = pill.querySelector('.nnd-pill__name').textContent;
@@ -110,10 +110,10 @@ fs.mkdirSync(outDir, { recursive: true });
     const INHERIT = ['color', 'font-size', 'font-weight', 'line-height', 'letter-spacing', 'text-align', 'text-decoration-line', 'white-space'];
     const BOX = ['display', 'flex-direction', 'flex-wrap', 'align-items', 'justify-content', 'gap', 'flex-shrink', 'flex-grow',
       'margin-top', 'margin-right', 'margin-bottom', 'margin-left', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
-      'background-color', 'border-top', 'border-bottom', 'border-left', 'border-right', 'border-radius', 'overflow', 'object-fit', 'vertical-align'];
+      'background-color', 'border-top', 'border-bottom', 'border-left', 'border-right', 'border-radius', 'max-width', 'overflow', 'object-fit', 'vertical-align'];
     const DEFAULT = { 'margin-top': '0px', 'margin-right': '0px', 'margin-bottom': '0px', 'margin-left': '0px',
       'padding-top': '0px', 'padding-right': '0px', 'padding-bottom': '0px', 'padding-left': '0px',
-      'background-color': 'rgba(0, 0, 0, 0)', 'border-radius': '0px', 'overflow': 'visible', 'object-fit': 'fill',
+      'background-color': 'rgba(0, 0, 0, 0)', 'max-width': 'none', 'border-radius': '0px', 'overflow': 'visible', 'object-fit': 'fill',
       'flex-direction': 'row', 'flex-wrap': 'nowrap', 'align-items': 'normal', 'justify-content': 'normal', 'gap': 'normal',
       'flex-shrink': '1', 'flex-grow': '0', 'vertical-align': 'baseline' };
     const KEEP_TAG = { P: 'p', SPAN: 'span', IMG: 'img', OL: 'ol', UL: 'ul', LI: 'li', B: 'b', DEL: 'del', BR: 'br' };
@@ -129,6 +129,21 @@ fs.mkdirSync(outDir, { recursive: true });
     }
     function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
+    /* 편집기는 미디어쿼리가 안 돼서, px 값을 화면 폭에 따라 자라는 clamp()로 바꾼다.
+       390px 화면에서 원래 크기, 넓은 화면에서 최대 1.3배. clamp를 못 읽는 경우를 위해 px를 먼저 적는다. */
+    const SCALE_PROPS = /^(font-size|line-height|margin|padding|gap|border-radius|width|height|min-width|min-height)/;
+    const MAX = 1.3;
+    function grow(decl) {
+      const i = decl.indexOf(':'); const prop = decl.slice(0, i), val = decl.slice(i + 1);
+      if (!SCALE_PROPS.test(prop) || !/\d+(\.\d+)?px/.test(val) || /calc|clamp/.test(val)) return [decl];
+      const g = val.replace(/(-?\d+(?:\.\d+)?)px/g, (m, n) => {
+        n = parseFloat(n); if (Math.abs(n) < 2) return m;
+        const lo = Math.min(n, n * MAX), hi = Math.max(n, n * MAX);
+        return 'clamp(' + +lo.toFixed(2) + 'px,' + +(n / 3.9).toFixed(3) + 'vw,' + +hi.toFixed(2) + 'px)';
+      });
+      return g === val ? [decl] : [decl, prop + ':' + g];
+    }
+    const growAll = arr => arr.reduce((a, d) => a.concat(grow(d)), []);
     function walk(el, parentCS) {
       if (el.nodeType === 3) return esc(el.textContent.replace(/\s+/g, ' '));
       if (el.nodeType !== 1) return '';
@@ -154,7 +169,7 @@ fs.mkdirSync(outDir, { recursive: true });
         const forceZero = /^(margin|padding)-/.test(p) && (tag === 'p' || tag === 'ol' || tag === 'ul' || tag === 'li');
         if (DEFAULT[p] !== v || forceZero) st.push(p + ':' + v);
       });
-      if (el === root) st.push("font-family:'42dot Sans',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif", 'max-width:560px', 'margin:0 auto', 'box-sizing:border-box');
+      if (el === root) st.push("font-family:'42dot Sans',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif", 'max-width:720px', 'margin:0 auto', 'box-sizing:border-box');
       if (tag === 'img') {
         /* 편집기(Froala)는 사진에 여백 5px·가운데 정렬·폭 줄임을 붙이고 인라인 지정도 지울 수 있다.
            그래서 사진마다 크기를 정한 상자를 씌운다. 사진에 무슨 일이 생겨도 상자 밖 배치는 그대로다. */
@@ -165,8 +180,11 @@ fs.mkdirSync(outDir, { recursive: true });
           const rad = cs.borderRadius !== '0px' ? 'border-radius:' + cs.borderRadius + ';' : '';
           /* 상자를 사진보다 10px 크게: 편집기가 여백 5px·폭 -10px을 붙여도, 안 붙여도 사진은 w×h 그대로 가운데 */
           const W = w + 10, H = h + 10;
-          return '<div style="width:' + W + 'px;height:' + H + 'px;min-width:' + W + 'px;flex-shrink:0;margin:-5px;display:flex;align-items:center;justify-content:center;line-height:0;font-size:0">' +
-            img + 'width:' + w + 'px;height:' + h + 'px;min-width:' + w + 'px;min-height:' + h + 'px;object-fit:cover;' + rad + '">' + '</div>';
+          const cw = 'clamp(' + w + 'px,' + +(w / 3.9).toFixed(3) + 'vw,' + +(w * MAX).toFixed(2) + 'px)';
+          const ch = 'clamp(' + h + 'px,' + +(h / 3.9).toFixed(3) + 'vw,' + +(h * MAX).toFixed(2) + 'px)';
+          const box = (p, px, c) => p + ':' + px + 'px;' + p + ':calc(' + c + ' + 10px);';
+          return '<div style="' + box('width', W, cw) + box('height', H, ch) + box('min-width', W, cw) + 'flex-shrink:0;margin:-5px;display:flex;align-items:center;justify-content:center;line-height:0;font-size:0">' +
+            img + 'width:' + w + 'px;width:' + cw + ';height:' + h + 'px;height:' + ch + ';min-width:' + w + 'px;min-width:' + cw + ';min-height:' + h + 'px;min-height:' + ch + ';object-fit:cover;' + rad + '">' + '</div>';
         }
         /* 큰 사진: 편집기가 폭을 10px 줄이고 위아래 5px을 넣어도 상자 밖으로 5px씩 넓혀 원래 폭을 맞춘다 */
         return '<div style="margin:0 -5px;line-height:0;font-size:0">' + img + 'width:100%;height:auto">' + '</div>';
@@ -179,7 +197,9 @@ fs.mkdirSync(outDir, { recursive: true });
       if (h && parseFloat(h) < 60 && (!el.children.length || el.style.height)) st.push('height:' + h, 'min-height:' + h);
       let inner = '';
       el.childNodes.forEach(c => { inner += walk(c, cs); });
-      return '<' + tag + (st.length ? ' style="' + st.join(';') + '"' : '') + '>' + inner + '</' + tag + '>';
+      if (el !== root && el.style.marginLeft === 'auto') st.push('margin-left:auto', 'margin-right:auto');   /* 가운데 두기는 auto 그대로 */
+      const out = growAll(st);
+      return '<' + tag + (out.length ? ' style="' + out.join(';') + '"' : '') + '>' + inner + '</' + tag + '>';
     }
     return walk(root, null);
   });
