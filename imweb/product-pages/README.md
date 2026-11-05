@@ -22,6 +22,7 @@
 | `loader.html` | 아임웹 공통 상품 상세 페이지의 코드 위젯에 붙이는 것. 지금 붙어 있는 크림 전체 코드를 이걸로 바꾼다 |
 | `router.js` | 상품 번호 → 상세 화면 목록(`PAGES`). 상품을 추가할 때 여기만 고친다 |
 | `pages/nightnight-cream.html` | 나잇나잇 크림(idx 63) 상세. 옛 `nightnight2/widget/code_widget.html`을 옮긴 것(내용 그대로) |
+| `fallback/nightnight-cream.html` | 크림 비상용 상세(코드). 아임웹 상품 '상세 설명' 칸에 붙인다. `tools/build_fallback.js`가 만든다 |
 | `_mock_shop_view.html` | 로컬 확인용 가짜 상품 페이지 (`python3 -m http.server` 후 `/imweb/product-pages/_mock_shop_view.html?idx=63`) |
 | `/.github/workflows/purge-jsdelivr.yml` | main에 병합되면 jsDelivr 캐시를 비워 바로 반영 |
 
@@ -45,8 +46,11 @@
 | CDN을 못 받음 / 6초 안에 안 뜸 | 상세 설명 칸 이미지 |
 | 목록에 없는 상품 | 상세 설명 칸 내용 |
 
-- 숨긴 이미지도 브라우저가 내려받을 수 있다. 그래서 비상용은 **JPG 몇 장, 합계 2MB 이하**로 가볍게 만든다. GIF·영상은 넣지 않는다.
-- 크림은 도매용 이미지 상세(`nightnight2/`, 1080px)의 JPG를 쓰고, GIF 자리는 포스터 이미지로 바꾼다.
+- 비상용은 이미지 대신 **코드(글자)로 만든다**: `node imweb/product-pages/tools/build_fallback.js <이름>` → `fallback/<이름>.html`.
+  CDN 화면을 휴대폰 폭으로 그려서 모양을 줄마다 인라인 스타일로 굳힌 것이다(편집기는 `<style>`·스크립트가 안 됨).
+  영상은 첫 장면 사진, 아코디언은 펼침, 세일 배너·이동 링크는 뺌. 이미지는 `loading="lazy"`라 숨어 있으면 받지 않는다.
+- 붙이는 곳: 아임웹 상품 > 상품 상세 설명 > **에디터로 등록** > 코드 보기(`</>`)에 파일 전체를 붙여 넣는다.
+- 상세(`pages/`)를 고치면 비상용도 다시 뽑아 붙인다(세일 배너는 안 들어가서 세일 기간만 바뀌면 다시 안 붙여도 된다).
 - 숨기는 규칙은 `loader.html`의 `<style>`: 상세 본문(`#prod_detail_body`) 안에서 `pages/` 화면(`data-bd-piece`)이 아닌 것은 숨긴다.
 
 ## 반영 시간
