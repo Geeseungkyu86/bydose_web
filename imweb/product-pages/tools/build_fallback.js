@@ -109,7 +109,6 @@ fs.mkdirSync(outDir, { recursive: true });
     /* ---- 2. 보이는 모양을 인라인 스타일로 ---- */
     const INHERIT = ['color', 'font-size', 'font-weight', 'line-height', 'letter-spacing', 'text-align', 'text-decoration-line', 'white-space'];
     const BOX = ['display', 'flex-direction', 'flex-wrap', 'align-items', 'justify-content', 'gap', 'flex-shrink', 'flex-grow',
-      'margin-top', 'margin-right', 'margin-bottom', 'margin-left', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
       'background-color', 'border-top', 'border-bottom', 'border-left', 'border-right', 'border-radius', 'max-width', 'overflow', 'object-fit', 'vertical-align'];
     const DEFAULT = { 'margin-top': '0px', 'margin-right': '0px', 'margin-bottom': '0px', 'margin-left': '0px',
       'padding-top': '0px', 'padding-right': '0px', 'padding-bottom': '0px', 'padding-left': '0px',
@@ -129,21 +128,26 @@ fs.mkdirSync(outDir, { recursive: true });
     }
     function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-    /* 편집기는 미디어쿼리가 안 돼서, px 값을 화면 폭에 따라 자라는 clamp()로 바꾼다.
-       390px 화면에서 원래 크기, 넓은 화면에서 최대 1.3배. clamp를 못 읽는 경우를 위해 px를 먼저 적는다. */
+    /* 편집기는 미디어쿼리가 안 돼서, px 값을 화면 폭에 따라 자라는 min(vw, 1.3배)로 바꾼다.
+       390px 화면에서 원래 크기, 넓은 화면에서 최대 1.3배. 아임웹 상세 설명은 크기 제한이 있어(v6 99KB 출력 안 됨, 2026-11-05) 짧게 쓴다. */
     const SCALE_PROPS = /^(font-size|line-height|margin|padding|gap|border-radius|width|height|min-width|min-height)/;
     const MAX = 1.3;
     function grow(decl) {
       const i = decl.indexOf(':'); const prop = decl.slice(0, i), val = decl.slice(i + 1);
-      if (!SCALE_PROPS.test(prop) || !/\d+(\.\d+)?px/.test(val) || /calc|clamp/.test(val)) return [decl];
+      if (!SCALE_PROPS.test(prop) || !/\d+(\.\d+)?px/.test(val) || /calc|clamp|min\(/.test(val)) return [decl];
       const g = val.replace(/(-?\d+(?:\.\d+)?)px/g, (m, n) => {
-        n = parseFloat(n); if (Math.abs(n) < 2) return m;
-        const lo = Math.min(n, n * MAX), hi = Math.max(n, n * MAX);
-        return 'clamp(' + +lo.toFixed(2) + 'px,' + +(n / 3.9).toFixed(3) + 'vw,' + +hi.toFixed(2) + 'px)';
+        n = parseFloat(n);
+        if (Math.abs(n) < 4) return m;
+        if (n < 12 && /^(margin|padding|gap|border-radius)/.test(prop)) return m;   /* 작은 간격은 그대로(코드 크기 줄이기) */
+        /* min(화면폭 비례, 1.3배): 390px 화면에서 원래 크기, 넓으면 1.3배에서 멈춤 (짧게 쓰려고 clamp 대신 min) */
+        return n > 0 ? 'min(' + +(n / 3.9).toFixed(2) + 'vw,' + +(n * MAX).toFixed(1) + 'px)' : m;
       });
-      return g === val ? [decl] : [decl, prop + ':' + g];
+      return [prop + ':' + g];
     }
-    const growAll = arr => arr.reduce((a, d) => a.concat(grow(d)), []);
+    const hex = n => ('0' + (+n).toString(16)).slice(-2);
+    const short = d => d.replace(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/g, (m, r, g, b, a) =>
+      '#' + hex(r) + hex(g) + hex(b) + (a !== undefined && a !== '1' ? hex(Math.round(parseFloat(a) * 255)) : ''));
+    const growAll = arr => arr.reduce((a, d) => a.concat(grow(short(d))), []);
     function walk(el, parentCS) {
       if (el.nodeType === 3) return esc(el.textContent.replace(/\s+/g, ' '));
       if (el.nodeType !== 1) return '';
@@ -154,7 +158,7 @@ fs.mkdirSync(outDir, { recursive: true });
       const st = [];
       INHERIT.forEach(p => {
         const v = cs.getPropertyValue(p);
-        const always = p === 'text-align' && (tag === 'div' || tag === 'p');   /* 편집기·테마가 칸마다 정렬을 덮어써도 버티게 */
+        const always = false;   /* 편집기·테마가 칸마다 정렬을 덮어써도 버티게 */
         if (always || !parentCS || parentCS.getPropertyValue(p) !== v) st.push(p.replace('text-decoration-line', 'text-decoration') + ':' + (v === 'start' ? 'left' : v));
       });
       BOX.forEach(p => {
@@ -165,9 +169,16 @@ fs.mkdirSync(outDir, { recursive: true });
           return;
         }
         if (p.indexOf('border-') === 0 && p !== 'border-radius') { if (!isBorderNone(v)) st.push(p + ':' + v); return; }
-        /* 편집기·테마가 문단(p)과 목록에 여백을 넣으므로 0이어도 직접 적는다 */
-        const forceZero = /^(margin|padding)-/.test(p) && (tag === 'p' || tag === 'ol' || tag === 'ul' || tag === 'li');
-        if (DEFAULT[p] !== v || forceZero) st.push(p + ':' + v);
+        if (DEFAULT[p] !== v) st.push(p + ':' + v);
+      });
+      /* 여백은 한 줄로. 편집기·테마가 문단(p)과 목록에 여백을 넣으므로 0이어도 직접 적는다 */
+      ['margin', 'padding'].forEach(k => {
+        const forceZero = tag === 'ol' || tag === 'ul' || tag === 'li' || (k === 'margin' && tag === 'p');
+        const v4 = ['top', 'right', 'bottom', 'left'].map(d => cs.getPropertyValue(k + '-' + d));
+        if (v4.every(x => x === '0px') && !forceZero) return;
+        let sh = v4;
+        if (v4[1] === v4[3]) { sh = v4.slice(0, 3); if (v4[0] === v4[2]) { sh = v4.slice(0, 2); if (v4[0] === v4[1]) sh = [v4[0]]; } }
+        st.push(k + ':' + sh.join(' ').replace(/\b0px\b/g, '0'));
       });
       if (el === root) st.push("font-family:'42dot Sans',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif", 'max-width:720px', 'margin:0 auto', 'box-sizing:border-box');
       if (tag === 'img') {
@@ -180,11 +191,11 @@ fs.mkdirSync(outDir, { recursive: true });
           const rad = cs.borderRadius !== '0px' ? 'border-radius:' + cs.borderRadius + ';' : '';
           /* 상자를 사진보다 10px 크게: 편집기가 여백 5px·폭 -10px을 붙여도, 안 붙여도 사진은 w×h 그대로 가운데 */
           const W = w + 10, H = h + 10;
-          const cw = 'clamp(' + w + 'px,' + +(w / 3.9).toFixed(3) + 'vw,' + +(w * MAX).toFixed(2) + 'px)';
-          const ch = 'clamp(' + h + 'px,' + +(h / 3.9).toFixed(3) + 'vw,' + +(h * MAX).toFixed(2) + 'px)';
-          const box = (p, px, c) => p + ':' + px + 'px;' + p + ':calc(' + c + ' + 10px);';
+          const cw = 'min(' + +(w / 3.9).toFixed(2) + 'vw,' + +(w * MAX).toFixed(1) + 'px)';
+          const ch = 'min(' + +(h / 3.9).toFixed(2) + 'vw,' + +(h * MAX).toFixed(1) + 'px)';
+          const box = (p, px, c) => p + ':calc(' + c + ' + 10px);';
           return '<div style="' + box('width', W, cw) + box('height', H, ch) + box('min-width', W, cw) + 'flex-shrink:0;margin:-5px;display:flex;align-items:center;justify-content:center;line-height:0;font-size:0">' +
-            img + 'width:' + w + 'px;width:' + cw + ';height:' + h + 'px;height:' + ch + ';min-width:' + w + 'px;min-width:' + cw + ';min-height:' + h + 'px;min-height:' + ch + ';object-fit:cover;' + rad + '">' + '</div>';
+            img + 'width:' + cw + ';height:' + ch + ';object-fit:cover;' + rad + '">' + '</div>';
         }
         /* 큰 사진: 편집기가 폭을 10px 줄이고 위아래 5px을 넣어도 상자 밖으로 5px씩 넓혀 원래 폭을 맞춘다 */
         return '<div style="margin:0 -5px;line-height:0;font-size:0">' + img + 'width:100%;height:auto">' + '</div>';
@@ -198,6 +209,14 @@ fs.mkdirSync(outDir, { recursive: true });
       let inner = '';
       el.childNodes.forEach(c => { inner += walk(c, cs); });
       if (el !== root && el.style.marginLeft === 'auto') st.push('margin-left:auto', 'margin-right:auto');   /* 가운데 두기는 auto 그대로 */
+      /* 줄 간격은 글자 크기 대비 비율로(짧고, 화면 폭에 따라 글자와 같이 커진다). 글자 크기를 적는 칸에는 같이 적는다 */
+      const fsIdx = st.findIndex(x => x.indexOf('font-size:') === 0);
+      const lhIdx = st.findIndex(x => x.indexOf('line-height:') === 0);
+      const lhPx = parseFloat(cs.lineHeight), fsPx = parseFloat(cs.fontSize);
+      if ((fsIdx >= 0 || lhIdx >= 0) && !isNaN(lhPx) && fsPx > 0 && lhPx > 0) {
+        const ratio = 'line-height:' + +(lhPx / fsPx).toFixed(3);
+        if (lhIdx >= 0) st[lhIdx] = ratio; else st.push(ratio);
+      }
       const out = growAll(st);
       return '<' + tag + (out.length ? ' style="' + out.join(';') + '"' : '') + '>' + inner + '</' + tag + '>';
     }
