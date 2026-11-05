@@ -36,7 +36,15 @@
      (상품 위젯이 같이 들어 있는 섹션은 절대 접지 않는다). */
   function collapse() {
     var sec = root.closest('.section_wrap, [id^="s20"]');
-    if (sec && !sec.querySelector('#prod_detail')) sec.style.display = 'none';
+    if (!sec) return;
+    /* 상품 구매 영역·상세정보 본문이 같은 구역에 있으면 절대 접지 않는다(2026-11-05: 상세 본문까지 접혀 비상용이 안 보였음).
+       로더 말고 글자·사진·영상이 하나라도 있는 구역도 접지 않는다. */
+    if (sec.querySelector('#prod_detail, #prod_detail_body, [id^="prod_detail"], [class*="prod_detail"]')) return;
+    var others = sec.querySelectorAll('img, iframe, video, a, button, p, li');
+    for (var i = 0; i < others.length; i++) if (!root.contains(others[i])) return;
+    var text = (sec.textContent || '').replace(/\s+/g, '');
+    if (text.length > 0 && text !== (root.textContent || '').replace(/\s+/g, '')) return;
+    sec.style.display = 'none';
   }
 
   var html = document.documentElement;

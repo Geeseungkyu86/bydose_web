@@ -131,7 +131,7 @@ fs.mkdirSync(outDir, { recursive: true });
 
     /* 아임웹 상세 설명은 min()·calc()·vw 같은 계산식이 들어가면 출력되지 않는다(v6·v7, 2026-11-05 대표 확인).
        그래서 계산식 없이 px에 고정 배율을 곱한다. PC용(상세 설명) 1.3배, 모바일용(모바일 전용 상세 설명) 1배. */
-    const SCALE_PROPS = /^(font-size|margin|padding|gap|border-radius|width|height|min-width|min-height)/;
+    const SCALE_PROPS = /^(font-size|line-height|margin|padding|gap|border-radius|width|height|min-width|min-height)/;
     const MAX = SCALE;
     function grow(decl) {
       if (SCALE === 1) return [decl];
@@ -145,7 +145,7 @@ fs.mkdirSync(outDir, { recursive: true });
     const hex = n => ('0' + (+n).toString(16)).slice(-2);
     const short = d => d.replace(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/g, (m, r, g, b, a) =>
       (a !== undefined && a !== '1') ? m.replace(/, /g, ',') : '#' + hex(r) + hex(g) + hex(b));
-    const growAll = arr => arr.reduce((a, d) => a.concat(grow(short(d))), []);
+    const growAll = arr => arr.reduce((a, d) => a.concat(grow(d)), []);
     function walk(el, parentCS) {
       if (el.nodeType === 3) return esc(el.textContent.replace(/\s+/g, ' '));
       if (el.nodeType !== 1) return '';
@@ -174,9 +174,7 @@ fs.mkdirSync(outDir, { recursive: true });
         const forceZero = tag === 'ol' || tag === 'ul' || tag === 'li' || (k === 'margin' && tag === 'p');
         const v4 = ['top', 'right', 'bottom', 'left'].map(d => cs.getPropertyValue(k + '-' + d));
         if (v4.every(x => x === '0px') && !forceZero) return;
-        let sh = v4;
-        if (v4[1] === v4[3]) { sh = v4.slice(0, 3); if (v4[0] === v4[2]) { sh = v4.slice(0, 2); if (v4[0] === v4[1]) sh = [v4[0]]; } }
-        st.push(k + ':' + sh.join(' ').replace(/\b0px\b/g, '0'));
+        ['top', 'right', 'bottom', 'left'].forEach((d, j) => { if (v4[j] !== '0px' || forceZero) st.push(k + '-' + d + ':' + v4[j]); });
       });
       if (el === root) st.push("font-family:'42dot Sans',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif", 'max-width:' + (SCALE > 1 ? 720 : 560) + 'px', 'margin:0 auto', 'box-sizing:border-box');
       if (tag === 'img') {
@@ -205,14 +203,6 @@ fs.mkdirSync(outDir, { recursive: true });
       let inner = '';
       el.childNodes.forEach(c => { inner += walk(c, cs); });
       if (el !== root && el.style.marginLeft === 'auto') st.push('margin-left:auto', 'margin-right:auto');   /* 가운데 두기는 auto 그대로 */
-      /* 줄 간격은 글자 크기 대비 비율로(짧고, 화면 폭에 따라 글자와 같이 커진다). 글자 크기를 적는 칸에는 같이 적는다 */
-      const fsIdx = st.findIndex(x => x.indexOf('font-size:') === 0);
-      const lhIdx = st.findIndex(x => x.indexOf('line-height:') === 0);
-      const lhPx = parseFloat(cs.lineHeight), fsPx = parseFloat(cs.fontSize);
-      if ((fsIdx >= 0 || lhIdx >= 0) && !isNaN(lhPx) && fsPx > 0 && lhPx > 0) {
-        const ratio = 'line-height:' + +(lhPx / fsPx).toFixed(3);
-        if (lhIdx >= 0) st[lhIdx] = ratio; else st.push(ratio);
-      }
       const out = growAll(st);
       return '<' + tag + (out.length ? ' style="' + out.join(';') + '"' : '') + '>' + inner + '</' + tag + '>';
     }
@@ -226,7 +216,9 @@ fs.mkdirSync(outDir, { recursive: true });
     const head = '<!-- 비상용 상세 (' + name + (suffix ? ', 모바일' : ', PC') + ') — tools/build_fallback.js로 만든 것. 직접 고치지 말고 pages/' + name + '.html을 고친 뒤 다시 뽑는다.\n' +
       '     아임웹 상품 > ' + where + ' > 코드 보기(</>)에 전부 붙여 넣는다. CDN 화면이 뜨면 숨는다. -->\n';
     const out = head + html.replace(/(<\/(?:div|p|li|ol|ul)>)/g, '$1\n') + '\n';
-    if (/min\(|calc\(|clamp\(|vw/.test(out)) throw new Error('계산식이 섞였다 — 아임웹에서 출력되지 않는다');
+    /* 아임웹에서 출력이 안 된 표기: 계산식(v6·v7)과 # 색(v7·PC/모바일 1차). v5(rgb·px만)는 출력됐다. */
+    const styles = (out.match(/style="[^"]*"/g) || []).join(' ');
+    if (/min\(|calc\(|clamp\(|vw|#/.test(styles)) throw new Error('아임웹에서 출력되지 않는 표기(계산식·# 색)가 섞였다');
     fs.writeFileSync(path.join(outDir, name + suffix + '.html'), out);
     outs[suffix || 'pc'] = out;
     console.log('wrote fallback/' + name + suffix + '.html', Buffer.byteLength(out), 'bytes');
