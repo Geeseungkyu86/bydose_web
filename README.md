@@ -34,7 +34,7 @@
 │       └── 화면미리보기/
 │
 ├── ads/                   광고 개선 자료
-│   └── 광고_CPA_개선_리포트_2026-11-04.md  Meta 광고 진단·할 일 10가지 (원본 https://claude.ai/artifact/4LUF6k4CNYGCxSYrU1P3LH, 대표 검토 중)
+│   └── 광고_CPA_개선_리포트_2026-11-04.md  Meta 광고 진단·할 일 10가지 (원본 https://claude.ai/artifact/4LUF6k4CNYGCxSYrU1P3LH, 슬라이드 https://claude.ai/artifact/KL1NgsidLuFzhV8VCqrFJG)
 │
 └── nightnight-crew/        나잇나잇 크루(NNC) 프로모션
     ├── 나잇나잇_크루_랜딩페이지.html
