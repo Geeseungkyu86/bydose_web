@@ -1,6 +1,23 @@
 <!doctype html><html><head><meta charset="utf-8"><title>mock shop_view</title></head><body>
-<div class="section_wrap" id="s2000a"><div id="prod_detail"><div class="real_price">28,900원</div><div id="prod_detail_body"><p id="native">아임웹 상품별 상세 설명</p></div></div></div>
+<div class="section_wrap" id="s2000a"><div id="prod_detail"><div class="real_price">28,900원</div><div id="prod_detail_body"><div id="native"><img alt="비상용 상세 이미지" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="10" height="10"><p>아임웹 상품별 상세 설명 (비상용 이미지)</p></div></div></div></div>
 <div class="section_wrap" id="s2000b">
+<!-- loader.html과 같고 data-base만 로컬 주소. ?base=로 바꿀 수 있음(실패 시험용) -->
+<style>
+  html.bd-pending #prod_detail_body > :not([data-bd-piece]),
+  html.bd-page-on #prod_detail_body > :not([data-bd-piece]) { display: none !important; }
+</style>
 <div id="bydose-pages" data-base="/imweb/product-pages/"></div>
-<script>(function(){var r=document.getElementById('bydose-pages');var s=document.createElement('script');s.src=r.getAttribute('data-base')+'router.js?v=1';document.body.appendChild(s);})();</script>
+<script>
+(function () {
+  var r = document.getElementById('bydose-pages');
+  var q = new URLSearchParams(location.search).get('base'); if (q) r.setAttribute('data-base', q);
+  var h = document.documentElement;
+  h.classList.add('bd-pending');
+  setTimeout(function () { h.classList.remove('bd-pending'); }, 6000);
+  var s = document.createElement('script');
+  s.src = r.getAttribute('data-base') + 'router.js?v=1';
+  s.onerror = function () { h.classList.remove('bd-pending'); };
+  document.body.appendChild(s);
+})();
+</script>
 </div></body></html>

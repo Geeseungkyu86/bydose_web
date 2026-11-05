@@ -5,16 +5,27 @@
      상품별 상세 화면은 GitHub 저장소 imweb/product-pages/pages/ 에 있고,
      main에 병합되면 jsDelivr CDN으로 바로 나간다(GitHub Action이 캐시를 비운다).
      어떤 상품에 어떤 화면을 보일지는 router.js의 PAGES 목록이 정한다.
+
+     비상용: 상품별 '상세 설명' 칸의 이미지는 CDN 화면이 뜨면 숨고,
+     CDN을 못 받거나 6초 안에 안 뜨면 그대로 보인다.
      ============================================================ -->
+<style>
+  html.bd-pending #prod_detail_body > :not([data-bd-piece]),
+  html.bd-page-on #prod_detail_body > :not([data-bd-piece]) { display: none !important; }
+</style>
 <div id="bydose-pages" data-base="https://cdn.jsdelivr.net/gh/geeseungkyu86/bydose_web@main/imweb/product-pages/"></div>
 <script>
 (function () {
   var r = document.getElementById('bydose-pages');
   if (!r || r.getAttribute('data-bd-loader')) return;
   r.setAttribute('data-bd-loader', '1');
+  var h = document.documentElement;
+  h.classList.add('bd-pending');                       /* 비상용 이미지가 잠깐 비치지 않게 */
+  setTimeout(function () { h.classList.remove('bd-pending'); }, 6000);  /* 안전장치 */
   var s = document.createElement('script');
   s.src = r.getAttribute('data-base') + 'router.js?v=' + Math.floor(Date.now() / 6e5); /* 10분마다 새로 받음 */
   s.async = true;
+  s.onerror = function () { h.classList.remove('bd-pending'); };
   document.body.appendChild(s);
 })();
 </script>
