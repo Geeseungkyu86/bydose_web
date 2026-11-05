@@ -5,6 +5,12 @@
    주소의 상품 번호(shop_view?idx=63)를 보고 그 상품의 상세 화면만 꽂는다.
    목록에 없는 상품은 아무것도 꽂지 않는다 → 아임웹 상품별 '상세 설명'이 그대로 보인다.
 
+   비상용 이미지 (2026-11-05): 상품별 '상세 설명' 칸에 같은 내용을 이미지로 넣어 둔다.
+   - 기다리는 동안(html.bd-pending)과 CDN 화면이 뜬 뒤(html.bd-page-on)에는 그 이미지를 숨긴다.
+   - 목록에 없는 상품이거나 CDN을 못 받으면 숨김을 풀어 이미지가 보인다.
+   - 숨기는 규칙과 6초 안전장치는 loader.html에 있다(router.js를 못 받아도 풀리게).
+   - pages/ 파일의 맨 바깥 요소에는 자동으로 data-bd-piece가 붙고, 이것만 상세 본문에 남는다.
+
    상품 추가: 아래 PAGES에 '상품번호': 'pages/파일이름.html' 한 줄 추가 → main에 병합.
    미리보기: 아무 상품 주소 끝에 &bd_page=파일이름 (예: shop_view?idx=70&bd_page=six-month)
    ============================================================ */
@@ -33,7 +39,10 @@
     if (sec && !sec.querySelector('#prod_detail')) sec.style.display = 'none';
   }
 
-  if (!file) { collapse(); return; }
+  var html = document.documentElement;
+  function showFallback() { html.classList.remove('bd-pending'); }
+
+  if (!file) { showFallback(); collapse(); return; }
   root.setAttribute('data-bd-page', file);
 
   fetch(base + file + '?v=' + ver, { credentials: 'omit' })
@@ -42,6 +51,8 @@
     .catch(function (e) {
       /* 실패하면 아임웹 상세 설명만 보인다(페이지가 비지 않게 상세 설명에 최소 이미지는 둔다). */
       if (window.console) console.warn('[bydose-pages] load failed', file, e);
+      html.classList.remove('bd-page-on');
+      showFallback();
       collapse();
     });
 
@@ -51,6 +62,10 @@
     tpl.innerHTML = html;
     var scripts = Array.prototype.slice.call(tpl.content.querySelectorAll('script'));
     scripts.forEach(function (s) { s.parentNode.removeChild(s); });
+    /* 맨 바깥 요소 표시: 상세 본문으로 옮겨져도 숨김 대상에서 빠진다 */
+    Array.prototype.forEach.call(tpl.content.children, function (el) {
+      if (!/^(STYLE|LINK|META)$/.test(el.tagName)) el.setAttribute('data-bd-piece', '');
+    });
     root.appendChild(tpl.content);
     runNext(scripts, 0);
   }
@@ -58,6 +73,8 @@
   function runNext(list, i) {
     if (i >= list.length) {
       root.setAttribute('data-bd-ready', '1');
+      html.classList.add('bd-page-on');
+      showFallback();
       document.dispatchEvent(new CustomEvent('bydose:page-ready', { detail: { idx: idx, file: file } }));
       return;
     }
