@@ -54,7 +54,7 @@ fs.mkdirSync(outDir, { recursive: true });
       c.style.position = 'static'; c.style.padding = '16px 16px 0';
       c.parentNode.after(c);
     });
-    root.querySelectorAll('.nnd-wide, .nnd-block__media').forEach(m => { m.style.aspectRatio = 'auto'; });
+    root.querySelectorAll('.nnd-wide, .nnd-block__media').forEach(m => { m.style.aspectRatio = 'auto'; m.style.background = 'transparent'; });
     root.style.width = 'auto'; root.style.margin = '0'; root.style.paddingBottom = '80px';
 
     /* ---- 2. 보이는 모양을 인라인 스타일로 ---- */
@@ -105,16 +105,19 @@ fs.mkdirSync(outDir, { recursive: true });
       });
       if (el === root) st.push("font-family:'42dot Sans',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif", 'max-width:560px', 'margin:0 auto', 'box-sizing:border-box');
       if (tag === 'img') {
+        /* 편집기(Froala)는 사진에 여백 5px·가운데 정렬·폭 줄임을 붙이고 인라인 지정도 지울 수 있다.
+           그래서 사진마다 크기를 정한 상자를 씌운다. 사진에 무슨 일이 생겨도 상자 밖 배치는 그대로다. */
         const r = el.getBoundingClientRect();
-        if (r.width < 140) st.push('width:' + Math.round(r.width) + 'px', 'height:' + Math.round(r.height) + 'px');
-        else st.push('width:100%', 'height:auto');
-        st.push('display:block', 'max-width:100%');
-        if (r.width < 140 && cs.borderRadius !== '0px') st.push('border-radius:' + cs.borderRadius);
-        /* 아임웹 편집기(Froala)가 사진에 붙이는 가운데 정렬(margin auto)·폭 줄임·여백을 이긴다 */
-        const imgSt = st.filter(x => !/^margin/.test(x)).concat(['margin:0', 'padding:0', 'border:0', 'float:none']);
-        return '<img src="' + el.src + '" alt="' + esc(el.alt || '') + '" loading="lazy" style="' + imgSt.map(x => x + '!important').join(';') + '">';
+        const img = '<img src="' + el.src + '" alt="' + esc(el.alt || '') + '" loading="lazy" style="display:block;margin:0;padding:0;border:0;max-width:100%;';
+        if (r.width < 140) {
+          const w = Math.round(r.width), h = Math.round(r.height);
+          const rad = cs.borderRadius !== '0px' ? 'border-radius:' + cs.borderRadius + ';' : '';
+          return '<div style="width:' + w + 'px;height:' + h + 'px;min-width:' + w + 'px;flex-shrink:0;overflow:hidden;line-height:0;font-size:0;' + rad + '">' +
+            img + 'width:' + w + 'px;height:' + h + 'px;object-fit:cover">' + '</div>';
+        }
+        return '<div style="width:100%;overflow:hidden;line-height:0;font-size:0">' + img + 'width:100%;height:auto">' + '</div>';
       }
-      if (parentCS && /flex/.test(parentCS.display) && parentCS.flexDirection === 'row' && tag === 'div' && !el.querySelector(':scope > img')) st.push('flex:1 1 auto', 'min-width:0');
+      if (parentCS && /flex/.test(parentCS.display) && parentCS.flexDirection === 'row' && tag === 'div' && !el.querySelector(':scope > img')) st.push('flex-grow:1', 'min-width:0');
       const w = explicitSize(el, 'width');
       if (w && el !== root && parseFloat(w) < 300) st.push('width:' + w, 'flex-shrink:0');
       const h = explicitSize(el, 'height');
