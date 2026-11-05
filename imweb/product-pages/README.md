@@ -1,0 +1,47 @@
+# 상품 상세 라우터 (2026-11-05)
+
+## 왜
+
+아임웹 상품 상세는 모든 상품이 **공통 상품 상세 페이지 하나**를 같이 쓴다. 나잇나잇 크림 상세(영상·버튼·플로팅 구매 바)를
+그 공통 페이지의 코드 위젯에 넣어 두었더니, 상품을 새로 만들면 그 상품에도 크림 상세가 뜬다.
+상품별 '상세 설명' 칸으로 옮기면 영상·버튼·스크립트를 마음대로 못 쓴다.
+
+## 구조
+
+```
+아임웹 공통 상품 상세 페이지
+└─ 코드 위젯: loader.html (한 번 붙이면 끝)
+     └─ router.js (jsDelivr CDN, 이 저장소 main)
+          ├─ 주소의 idx를 본다 (shop_view?idx=63)
+          ├─ PAGES 목록에 있으면 → pages/<파일>.html을 받아 '상세정보' 본문 맨 앞에 꽂는다
+          └─ 없으면 → 아무것도 안 함 → 아임웹 상품별 '상세 설명'이 그대로 보인다
+```
+
+| 파일 | 하는 일 |
+|---|---|
+| `loader.html` | 아임웹 공통 상품 상세 페이지의 코드 위젯에 붙이는 것. 지금 붙어 있는 크림 전체 코드를 이걸로 바꾼다 |
+| `router.js` | 상품 번호 → 상세 화면 목록(`PAGES`). 상품을 추가할 때 여기만 고친다 |
+| `pages/nightnight-cream.html` | 나잇나잇 크림(idx 63) 상세. 옛 `nightnight2/widget/code_widget.html`을 옮긴 것(내용 그대로) |
+| `_mock_shop_view.html` | 로컬 확인용 가짜 상품 페이지 (`python3 -m http.server` 후 `/imweb/product-pages/_mock_shop_view.html?idx=63`) |
+| `/.github/workflows/purge-jsdelivr.yml` | main에 병합되면 jsDelivr 캐시를 비워 바로 반영 |
+
+## 상품 추가하는 법
+
+1. 아임웹에서 상품을 만들고 상품 번호(idx)를 확인한다.
+2. `pages/<이름>.html`을 만든다(코드 위젯 쓰듯 HTML·CSS·스크립트 자유. 영상·버튼 다 됨).
+3. 아임웹 상품 주소 끝에 `&bd_page=<이름>`을 붙여 실제 페이지에서 미리 본다 (main에 올라간 뒤).
+4. `router.js`의 `PAGES`에 `'<idx>': 'pages/<이름>.html'` 한 줄 추가 → main 병합.
+
+새 화면이 없는 상품(도매 전용, 증정품 등)은 아무것도 안 해도 된다. 아임웹 '상세 설명' 칸 내용만 보인다.
+
+## 반영 시간
+
+- 브라우저는 10분마다 새로 받는다(주소 뒤 `?v=` 값이 10분마다 바뀜).
+- CDN은 GitHub Action이 병합 직후 비운다. Action이 실패하면 최대 12시간 옛 버전이 나갈 수 있다 → Actions 탭에서 'Purge jsDelivr' 수동 실행.
+
+## 주의
+
+- 이 저장소는 공개 저장소라서 jsDelivr로 나간다. 비공개로 바꾸면 라우터가 멈춘다(그땐 GitHub Pages 대신 Cloudflare Pages 등으로 옮긴다).
+- CDN을 못 받으면 아임웹 '상세 설명'만 보인다. 그래서 크림의 아임웹 '상세 설명' 칸에도 최소한의 이미지(제품컷·전성분)는 남겨 둔다.
+- 세일 배너 숨김 날짜(`PROMO_END`)는 여전히 `imweb/body-code/body_code.html`(사이트 바디 코드)에 있다.
+- 아임웹 코드 위젯 제약은 그대로: h1~h6 금지, 이미지는 CDN URL.
