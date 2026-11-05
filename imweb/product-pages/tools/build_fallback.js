@@ -42,10 +42,18 @@ fs.mkdirSync(outDir, { recursive: true });
       box.replaceChildren(im);
       box.style.aspectRatio = 'auto';
     });
+    root.querySelectorAll('.nnd-review').forEach(r => {          /* 아이디와 별점을 한 줄로 */
+      const id = r.querySelector('.nnd-review__id'), stars = r.querySelector('.nnd-stars');
+      if (!id || !stars) return;
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:12px';
+      id.before(row); row.appendChild(id); row.appendChild(stars);
+      stars.style.position = 'static';
+    });
     root.querySelectorAll('.nnd-stars').forEach(s => {          /* 별점 SVG → 글자 */
       const t = document.createElement('span');
       t.className = s.className; t.textContent = '★★★★★';
-      t.style.cssText = 'display:block;text-align:right;margin-top:-20px;font-size:14px;line-height:14px;letter-spacing:1px;color:' +
+      t.style.cssText = 'display:inline-block;flex-shrink:0;font-size:14px;line-height:14px;letter-spacing:1px;color:' +
         (s.classList.contains('nnd-stars--mute') ? 'rgba(42,42,41,.4)' : '#D35B40');
       s.replaceWith(t);
     });
@@ -112,13 +120,17 @@ fs.mkdirSync(outDir, { recursive: true });
         if (r.width < 140) {
           const w = Math.round(r.width), h = Math.round(r.height);
           const rad = cs.borderRadius !== '0px' ? 'border-radius:' + cs.borderRadius + ';' : '';
-          return '<div style="width:' + w + 'px;height:' + h + 'px;min-width:' + w + 'px;flex-shrink:0;overflow:hidden;line-height:0;font-size:0;' + rad + '">' +
-            img + 'width:' + w + 'px;height:' + h + 'px;object-fit:cover">' + '</div>';
+          /* 상자를 사진보다 10px 크게: 편집기가 여백 5px·폭 -10px을 붙여도, 안 붙여도 사진은 w×h 그대로 가운데 */
+          const W = w + 10, H = h + 10;
+          return '<div style="width:' + W + 'px;height:' + H + 'px;min-width:' + W + 'px;flex-shrink:0;margin:-5px;display:flex;align-items:center;justify-content:center;line-height:0;font-size:0">' +
+            img + 'width:' + w + 'px;height:' + h + 'px;min-width:' + w + 'px;min-height:' + h + 'px;object-fit:cover;' + rad + '">' + '</div>';
         }
-        return '<div style="width:100%;overflow:hidden;line-height:0;font-size:0">' + img + 'width:100%;height:auto">' + '</div>';
+        /* 큰 사진: 편집기가 폭을 10px 줄이고 위아래 5px을 넣어도 상자 밖으로 5px씩 넓혀 원래 폭을 맞춘다 */
+        return '<div style="margin:0 -5px;line-height:0;font-size:0">' + img + 'width:100%;height:auto">' + '</div>';
       }
-      if (parentCS && /flex/.test(parentCS.display) && parentCS.flexDirection === 'row' && tag === 'div' && !el.querySelector(':scope > img')) st.push('flex-grow:1', 'min-width:0');
       const w = explicitSize(el, 'width');
+      /* 사진 옆 글 칸만 남은 폭을 차지 (사용감 점처럼 폭이 정해진 칸은 제외) */
+      if (!w && parentCS && /flex/.test(parentCS.display) && parentCS.flexDirection === 'row' && tag === 'div' && el.textContent.trim() && !el.querySelector(':scope > img')) st.push('flex-grow:1', 'min-width:0');
       if (w && el !== root && parseFloat(w) < 300) st.push('width:' + w, 'flex-shrink:0');
       const h = explicitSize(el, 'height');
       if (h && parseFloat(h) < 60 && !el.children.length) st.push('height:' + h);
