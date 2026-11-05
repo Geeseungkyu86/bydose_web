@@ -42,6 +42,47 @@ fs.mkdirSync(outDir, { recursive: true });
       box.replaceChildren(im);
       box.style.aspectRatio = 'auto';
     });
+    /* 고민 카드 → Figma '01 고민 카드 (대화형)'(나잇나잇 크림_유통 상세페이지, node 12:3) 말풍선.
+       1080 시안 값을 3으로 나눈 크기. 색은 시안에서 읽은 값(위에서 아래로 주황 → 회갈색). */
+    const CHAT = [
+      { lines: ['나이트 크림은 좀 무겁고', '번들 거릴 거 같아...'], emo: '🫠', bg: '#D35B40' },
+      { lines: ['나는 아침마다 얼굴이 너무 당겨...'], emo: '😣', bg: '#C66B52' },
+      { lines: ['하루종일 히터 바람에', '얼굴이 버석해...'], emo: '🔥🏜️', bg: '#BB755D' },
+      { lines: ['분명 오래 잤는데', '왜 때문에 피곤해 보이지??'], emo: '🐼', bg: '#AD846D' },
+      { lines: ['또. 또. 또 뜨네.', '오늘도 화장이 안먹어..!'], emo: '💄😩', bg: '#A1947F' }
+    ];
+    const personas = root.querySelector('.nnd-personas');
+    if (personas) {
+      const pills = [...personas.querySelectorAll('.nnd-pill')];
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'margin:28px 0 0;padding:0 24px;display:flex;flex-direction:column;gap:22px;text-align:left';
+      pills.forEach((pill, i) => {
+        const c = CHAT[i]; if (!c) return;
+        const img = pill.querySelector('img'), name = pill.querySelector('.nnd-pill__name').textContent;
+        const row = document.createElement('div');
+        row.style.cssText = 'display:flex;align-items:flex-start;gap:10px';
+        const av = document.createElement('div');
+        av.style.cssText = 'width:40px;height:40px;flex-shrink:0;border-radius:50%;background:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center';
+        const im = document.createElement('img'); im.src = img.src; im.alt = '';
+        im.style.cssText = 'width:30px;height:30px;border-radius:50%';
+        av.appendChild(im);
+        const col = document.createElement('div');
+        col.style.cssText = 'display:flex;flex-direction:column;align-items:flex-start;min-width:0';
+        const nm = document.createElement('p'); nm.textContent = name;
+        nm.style.cssText = 'margin:0 0 4px;font-size:14px;line-height:20px;font-weight:600;color:rgba(42,42,41,.7)';
+        col.appendChild(nm);
+        c.lines.forEach((t, k) => {
+          const b = document.createElement('p'); b.textContent = t;
+          b.style.cssText = 'margin:' + (k ? '4px' : '0') + ' 0 0;padding:9px 14px;border-radius:20px;background:' + c.bg + ';color:#fff;font-size:15px;line-height:22px;font-weight:500';
+          col.appendChild(b);
+        });
+        const emo = document.createElement('span'); emo.textContent = c.emo;
+        emo.style.cssText = 'display:inline-block;margin:-8px 0 0 10px;padding:2px 6px;border-radius:12px;background:#FAFAF6;font-size:14px;line-height:20px';
+        col.appendChild(emo);
+        row.appendChild(av); row.appendChild(col); wrap.appendChild(row);
+      });
+      personas.replaceWith(wrap);
+    }
     root.querySelectorAll('.nnd-review').forEach(r => {          /* 아이디와 별점을 한 줄로 */
       const id = r.querySelector('.nnd-review__id'), stars = r.querySelector('.nnd-stars');
       if (!id || !stars) return;
@@ -109,7 +150,9 @@ fs.mkdirSync(outDir, { recursive: true });
           return;
         }
         if (p.indexOf('border-') === 0 && p !== 'border-radius') { if (!isBorderNone(v)) st.push(p + ':' + v); return; }
-        if (DEFAULT[p] !== v) st.push(p + ':' + v);
+        /* 편집기·테마가 문단(p)과 목록에 여백을 넣으므로 0이어도 직접 적는다 */
+        const forceZero = /^(margin|padding)-/.test(p) && (tag === 'p' || tag === 'ol' || tag === 'ul' || tag === 'li');
+        if (DEFAULT[p] !== v || forceZero) st.push(p + ':' + v);
       });
       if (el === root) st.push("font-family:'42dot Sans',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif", 'max-width:560px', 'margin:0 auto', 'box-sizing:border-box');
       if (tag === 'img') {
@@ -133,7 +176,7 @@ fs.mkdirSync(outDir, { recursive: true });
       if (!w && parentCS && /flex/.test(parentCS.display) && parentCS.flexDirection === 'row' && tag === 'div' && el.textContent.trim() && !el.querySelector(':scope > img')) st.push('flex-grow:1', 'min-width:0');
       if (w && el !== root && parseFloat(w) < 300) st.push('width:' + w, 'flex-shrink:0');
       const h = explicitSize(el, 'height');
-      if (h && parseFloat(h) < 60 && !el.children.length) st.push('height:' + h);
+      if (h && parseFloat(h) < 60 && (!el.children.length || el.style.height)) st.push('height:' + h, 'min-height:' + h);
       let inner = '';
       el.childNodes.forEach(c => { inner += walk(c, cs); });
       return '<' + tag + (st.length ? ' style="' + st.join(';') + '"' : '') + '>' + inner + '</' + tag + '>';
