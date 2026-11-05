@@ -13,6 +13,7 @@
 │   ├── cursor-bunny.html     커서 따라다니는 토끼 마크 (사이트 전역 위젯)
 │   ├── links.html            링크 페이지
 │   ├── product-intro.html / product-detail.html
+│   ├── product-pages/      상품 상세 라우터: 공통 상품 상세 페이지에 loader.html 하나, 상품별 화면은 pages/ (README 참고)
 │   ├── reels-collector.html / reels-collector-widget.html
 │   ├── icon-illustration-generator.html
 │   └── sections/           section1~8.html
