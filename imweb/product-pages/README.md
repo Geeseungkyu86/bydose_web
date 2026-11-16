@@ -21,6 +21,7 @@
 | `loader.html` | 공용 틀의 코드 위젯에 붙이는 것. 라우터를 받아 실행만 한다 |
 | `router.js` | 상품 번호 → 상세 파일 목록(`PAGES`). 상품 추가·되돌리기는 여기 한 줄 |
 | `pages/nightnight-cream.html` | 나잇나잇 크림(idx 63) 상세. 2026-11-05까지 공용 틀에 붙어 있던 위젯 코드 그대로 |
+| `pages/nightnight-mist.html` | 나잇나잇 미스트 상세 **초안**(2026-11-16). 크림 페이지 스타일·동작을 그대로 쓰고 루트 id만 `#nnm-story`. 사진 자리·확인 필요 표시가 있어 공개 전 정리 필요. `PAGES`에는 아직 없음(상품 번호 확인 후) |
 | `_mock_shop_view.html` | 로컬 확인용 가짜 상품 페이지 (`python3 -m http.server` 후 `/imweb/product-pages/_mock_shop_view.html?idx=63`). 첫 경로를 일부러 막아 예비 경로도 시험한다 |
 | `/.github/workflows/purge-jsdelivr.yml` | main 병합 시 jsDelivr 캐시 비우기 |
 

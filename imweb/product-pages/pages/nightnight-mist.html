@@ -1,0 +1,916 @@
+<!-- ============================================================
+     바이도즈 나잇나잇 미스트 상세 — 초안 (2026-11-16)
+
+     - 크림 상세(pages/nightnight-cream.html)의 스타일·동작 코드를 그대로 가져와 같은 디자인으로 만든다.
+       루트 id만 #nnm-story로 바꿨다(클래스 nnd-*는 크림과 같음). 미스트에만 있는 스타일은 nnm-*.
+     - 구성 근거: nightnight-mist/상세페이지-구성.md, USP.md
+     - 초안 표시: 맨 위 검은 안내 줄(.nnm-draftbar), 점선 상자(.nnm-ph) = 사진·영상 자리,
+       주황 점선 태그(.nnm-todo) = 받을 정보. 공개 전에 모두 없앤다.
+     - "몸에도"(히어로·④·Q&A 1번)는 화장품·생활화학제품 두 신고 번호가 나온 뒤 공개한다.
+     - 새로 쓴 문구는 작업 문구(보이스&톤 검수 전). 크림 페이지에서 가져온 향 블록 문구는 그대로.
+     - 미리보기: 아무 상품 주소에 &bd_page=nightnight-mist (main 병합 후). router.js PAGES에는 아직 넣지 않는다
+       (미스트 상품 번호 확인 후).
+     - 로컬: python3 -m http.server 후 /imweb/product-pages/_mock_shop_view.html?idx=63&bd_page=nightnight-mist
+     ============================================================ -->
+<link href="https://fonts.googleapis.com/css2?family=42dot+Sans:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+#nnm-story{
+  --bg:#F3F3E9; --ink:#2A2A29; --black:#000; --accent:#D35B40; --cool:#9DAABA;
+  --line:rgba(42,42,41,.4); --ink70:rgba(42,42,41,.7); --ink40:rgba(42,42,41,.4);
+  --pad:60px;            /* 좌우 여백 — 1280 기준 x=60 */
+  --chapter:240px;       /* 챕터 사이(시안 실측 240) */
+  --block:180px;         /* 같은 챕터 안 블록 사이 */
+  --sticky-top:0px;      /* 스크립트가 고정 헤더·탭 높이를 재서 넣는다 */
+  position:relative;
+  background:var(--bg); color:var(--ink);
+  font-family:"42dot Sans",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
+  font-weight:400; letter-spacing:0; word-break:keep-all;
+  -webkit-font-smoothing:antialiased;
+  text-align:left;
+  padding-bottom:var(--chapter);
+}
+#nnm-story *,#nnm-story *::before,#nnm-story *::after{box-sizing:border-box}
+#nnm-story p{margin:0}
+#nnm-story img{display:block;max-width:none}
+#nnm-story button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:left}
+#nnm-story a{color:inherit;text-decoration:none}
+#nnm-story .hl{color:var(--accent);font-weight:700}
+
+/* ---------- 공통 타이포 ---------- */
+.nnd-label{font-size:18px;line-height:18px;font-weight:800;color:var(--accent)}
+.nnd-label--cool{color:var(--cool)}
+.nnd-title{margin-top:12px!important;font-size:36px;line-height:48px;font-weight:600;color:var(--ink)}
+.nnd-body{margin-top:36px!important;font-size:18px;line-height:28px;color:var(--ink)}
+.nnd-body + .nnd-body{margin-top:28px!important}
+
+/* ---------- 고민 카드 ---------- */
+.nnd-intro{padding-top:120px;text-align:center}
+.nnd-intro__title{font-size:36px;line-height:48px;font-weight:600;color:var(--black)}
+.nnd-intro__sub{margin-top:24px!important;font-size:18px;line-height:28px;color:var(--black)}
+.nnd-personas{width:542px;max-width:calc(100% - 2*var(--pad));margin:44px auto 0;display:flex;flex-direction:column;gap:12px;text-align:left}
+.nnd-persona{display:flex;flex-direction:column;gap:12px}
+.nnd-pill{display:flex;align-items:center;gap:20px;padding:12px 24px;border-radius:100px;background:rgba(255,255,255,.6)}
+.nnd-pill img{width:60px;height:60px;border-radius:50%;flex:none}
+.nnd-pill__name{font-size:18px;line-height:18px;font-weight:600;color:var(--ink70)}
+.nnd-pill__quote{margin-top:4px!important;font-size:18px;line-height:22px;color:var(--ink)}
+.nnd-persona__link{align-self:flex-end;font-size:18px;line-height:22px;color:var(--ink40)!important;transition:color .2s}
+.nnd-persona__link:hover{color:var(--accent)!important}
+
+/* 챕터 안 페르소나 칩(작은 말풍선) */
+.nnd-chip{display:inline-flex;align-items:center;gap:12px;padding:12px 20px;border-radius:100px;background:rgba(255,255,255,.6);max-width:100%}
+.nnd-chip img{width:40px;height:40px;border-radius:50%;flex:none}
+.nnd-chip__name{font-size:16px;line-height:18px;font-weight:600;color:var(--ink70)}
+.nnd-chip__quote{margin-top:4px!important;font-size:16px;line-height:22px;color:var(--ink)}
+#nnm-story .nnd-chip + .nnd-label{margin-top:60px}   /* #nnm-story p{margin:0}보다 우선 */
+
+/* ---------- 굿나잇 시퀀스 ---------- */
+.nnd-seq{margin-top:var(--chapter);display:grid;grid-template-columns:1fr 1fr;align-items:center}
+.nnd-seq__text{padding:0 var(--pad)}
+.nnd-seq__label{font-size:24px;line-height:24px;font-weight:700;color:var(--accent)}
+.nnd-seq__title{margin-top:12px!important;font-size:36px;line-height:48px;font-weight:600;color:var(--black)}
+.nnd-seq__body{margin-top:24px!important;font-size:18px;line-height:28px;color:var(--black)}
+.nnd-seq__rows{display:flex;flex-direction:column;gap:10px}
+.nnd-row{position:relative;display:flex;align-items:center;height:136px;padding:0 60px 0 23px;background:rgba(255,255,255,.7);transition:background .2s}
+.nnd-row:hover{background:#fff}
+.nnd-row__time{display:flex;align-items:flex-start;width:297px;flex:none}
+.nnd-row__ap{font-size:18px;line-height:18px;font-weight:800;color:var(--accent);margin-top:-2px}
+.nnd-row__ap--pm{color:var(--cool)}
+.nnd-row__hm{margin-left:9px;font-size:72px;line-height:72px;font-weight:800;color:var(--black);letter-spacing:-.01em}
+.nnd-row__q{flex:1;font-size:20px;line-height:28px;font-weight:600;color:var(--black)}
+.nnd-row__arrow{font-size:24px;line-height:24px;color:var(--ink)}
+
+/* ---------- 챕터 + 따라다니는 소분류 ---------- */
+.nnd-chapter{margin-top:var(--chapter);position:relative}
+.nnd-marker{
+  position:-webkit-sticky;position:sticky;top:calc(var(--sticky-top) + 20px);z-index:5;
+  display:inline-block;margin-left:var(--pad);height:40px;
+  font-size:18px;line-height:18px;font-weight:800;color:var(--ink);
+}
+.nnd-marker__ap{color:var(--accent)}
+.nnd-marker__ap--pm{color:var(--cool)}
+.nnd-marker__sub{display:block;margin-top:4px}
+.nnd-marker + .nnd-block{margin-top:36px}  /* 소분류(40) + 36 = 이미지까지 76(시안) */
+
+/* ---------- 이미지 좌 · 텍스트 우 블록 ---------- */
+.nnd-block{display:grid;grid-template-columns:1fr 1fr;align-items:start}
+.nnd-block + .nnd-block{margin-top:var(--block)}
+.nnd-block__media{position:relative;overflow:hidden;background:#dedbd2;aspect-ratio:1/1}
+.nnd-block__media--tall{aspect-ratio:4/5}
+.nnd-block__media img{width:100%;height:100%;object-fit:cover}
+.nnd-block__content{padding:0 var(--pad)}
+
+/* Vimeo 배경영상 — iframe엔 object-fit이 안 먹어서 min-width/min-height + aspect-ratio로 cover */
+.nnd-vid{position:absolute;inset:0;background-size:cover;background-position:center}
+.nnd-vid iframe{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);min-width:100%;min-height:100%;border:0;pointer-events:none;opacity:0;transition:opacity .4s}
+.nnd-vid.is-ready iframe{opacity:1}
+.nnd-vid--169 iframe{aspect-ratio:16/9}
+.nnd-vid--89 iframe{aspect-ratio:8/9;transform:translate(-50%,-50%) scale(1.006)}  /* 원본 좌우 1px 검은 열 숨김(nightnight 주석 참고) */
+.nnd-vid--11 iframe{aspect-ratio:1/1}
+
+/* 발림성·끈적임 지표 */
+.nnd-rates{margin-top:36px;display:flex;flex-direction:column;gap:24px}
+.nnd-rate{display:flex;align-items:center}
+.nnd-rate span{width:66px;font-size:16px;line-height:24px}
+.nnd-rate i{display:block;width:8px;height:8px;border-radius:50%;background:var(--cool);margin-right:14px}
+.nnd-rate i.o{background:none;border:1px solid var(--cool)}
+
+/* 후기 카드 */
+.nnd-review{position:relative;background:#fff;border-radius:12px;padding:20px 30px 24px 24px}
+.nnd-review__id{font-size:18px;line-height:28px;color:var(--ink40)}
+.nnd-review__text{margin-top:3px!important;font-size:18px;line-height:28px;color:var(--ink)}
+.nnd-stars{position:absolute;top:20px;right:24px;display:flex}
+.nnd-stars svg{width:24px;height:24px;fill:var(--accent)}
+.nnd-stars--mute svg{fill:var(--ink40)}
+.nnd-block__content .nnd-review{margin-top:36px}
+
+/* 향 노트 */
+.nnd-highlight{margin-top:60px!important;font-size:20px;line-height:28px;font-weight:600;color:var(--ink)}
+.nnd-notes{margin-top:72px;display:flex;flex-direction:column;gap:24px}
+.nnd-note{display:flex;align-items:center;gap:18px}
+.nnd-note img{width:96px;height:96px;border-radius:50%;object-fit:cover;flex:none}
+.nnd-note__t{font-size:18px;line-height:28px;font-weight:700;color:var(--black)}
+.nnd-note__d{margin-top:4px!important;font-size:18px;line-height:28px}
+
+/* 아코디언 */
+.nnd-accs{margin-top:52px}
+.nnd-acc{border-bottom:1px solid var(--line)}
+.nnd-acc__btn{display:flex!important;width:100%;align-items:center;justify-content:space-between;gap:16px;padding:20px 0!important;font-size:20px!important;line-height:28px!important;font-weight:600!important;color:var(--black)!important}
+.nnd-acc__icon{flex:none;font-size:20px;line-height:24px;font-weight:300;transition:transform .25s ease}
+.nnd-acc__btn[aria-expanded="true"] .nnd-acc__icon{transform:rotate(45deg)}
+.nnd-acc__panel{padding:4px 0 32px;font-size:18px;line-height:28px}
+.nnd-acc__panel[hidden]{display:none}
+.nnd-copy p + p{margin-top:16px!important}
+.nnd-list{margin:0;padding-left:20px}
+.nnd-flow + .nnd-flow{margin-top:28px}
+.nnd-flow__t{font-size:18px;line-height:28px;font-weight:700;color:var(--black)}
+.nnd-flow__n b{font-weight:700}
+.nnd-cert{display:block;width:100%;cursor:zoom-in}
+.nnd-cert img{width:100%;height:auto}
+.nnd-kv{display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:6px 20px;font-size:15px;line-height:24px}
+.nnd-kv dt{color:var(--ink70);font-weight:600}
+.nnd-kv dd{margin:0}
+.nnd-list li{margin:0 0 4px}
+
+/* AM 07:00 와이드 이미지 + 칩 오버레이 */
+.nnd-wide{position:relative;aspect-ratio:16/10;overflow:hidden;background:#dedbd2}
+.nnd-wide > img{width:100%;height:100%;object-fit:cover}
+.nnd-wide__chips{position:absolute;left:50%;bottom:36px;padding-left:var(--pad);display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.nnd-wide__chips .nnd-chip{background:rgba(255,255,255,.6)}
+.nnd-after-wide{display:grid;grid-template-columns:1fr 1fr}
+.nnd-after-wide .nnd-block__content{grid-column:2;padding-top:48px}
+
+/* 클로징 */
+.nnd-closing{margin-top:var(--chapter)}
+.nnd-closing__title{margin-top:60px!important;text-align:center;font-size:36px;line-height:48px;font-weight:600;color:var(--black)}
+.nnd-reviews{margin:100px auto 0;width:1064px;max-width:calc(100% - 2*var(--pad));display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.nnd-reviews__col{display:flex;flex-direction:column;gap:12px}
+
+/* How to use */
+.nnd-how{margin-top:var(--chapter)}
+.nnd-how .nnd-block__content{display:flex;flex-direction:column;align-self:stretch}
+.nnd-how .nnd-body{margin-top:36px!important}
+.nnd-spec{margin-top:auto;padding-top:48px}
+.nnd-spec__row{display:flex;gap:24px;padding:20px 0;border-bottom:1px solid var(--line);font-size:18px;line-height:28px}
+.nnd-spec__row dt{width:67px;flex:none;font-weight:700;color:var(--ink40)}
+.nnd-spec__row dd{margin:0;font-weight:500}
+.nnd-spec{margin-bottom:0}
+
+/* 구매 전 확인 */
+.nnd-info{margin-top:var(--chapter);display:grid;grid-template-columns:1fr 1fr;align-items:start}
+.nnd-info__head{padding:0 var(--pad)}
+.nnd-info .nnd-accs{margin-top:-20px;padding:0 var(--pad)}
+
+/* 인증서 확대 보기 */
+.nnd-lightbox{position:fixed;inset:0;z-index:2147483000;background:rgba(42,42,41,.85);display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;opacity:0;pointer-events:none;transition:opacity .25s}
+.nnd-lightbox.is-open{opacity:1;pointer-events:auto}
+.nnd-lightbox img{max-width:100%;max-height:100%;width:auto;height:auto;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+
+/* ============================================================
+   모바일 — 피그마 "상세설명 Mobile" 393 실측
+   상세 본문이 좌우 15px 안쪽(363폭)이라 화면 끝까지 넓힌다.
+   ============================================================ */
+@media (max-width:768px){
+  #nnm-story{
+    --pad:24px; --chapter:96px; --block:72px;
+    width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
+    padding-bottom:120px;   /* 하단 고정 바(72) 위 여유 */
+  }
+  .nnd-label{font-size:13px;line-height:16px}
+  .nnd-title{margin-top:8px!important;font-size:22px;line-height:30px}
+  .nnd-body{margin-top:14px!important;font-size:15px;line-height:24px}
+  .nnd-body + .nnd-body{margin-top:20px!important}
+
+  .nnd-intro{padding:64px var(--pad) 0}
+  .nnd-intro__title{font-size:22px;line-height:30px}
+  .nnd-intro__sub{margin-top:12px!important;font-size:14px;line-height:22px}
+  .nnd-personas{width:auto;max-width:none;margin-top:28px}
+  .nnd-persona{gap:6px}
+  .nnd-pill{gap:12px;padding:12px 14px}
+  .nnd-pill img{width:44px;height:44px}
+  .nnd-pill__name{font-size:14px;line-height:20px}
+  .nnd-pill__quote{margin-top:2px!important;font-size:15px;line-height:22px}
+  .nnd-persona__link{font-size:14px;line-height:20px}
+  .nnd-pc-only{display:none}   /* 고민 카드가 모두 한 줄이 되도록 모바일에서 빼는 문구(사용자 요청) */
+
+  .nnd-chip{gap:10px;padding:10px 16px}
+  .nnd-chip img{width:32px;height:32px}
+  .nnd-chip__name{font-size:12px;line-height:16px}
+  .nnd-chip__quote{margin-top:2px!important;font-size:12px;line-height:16px}
+  #nnm-story .nnd-chip + .nnd-label{margin-top:28px}
+
+  .nnd-seq{display:block}
+  .nnd-seq__text{padding:0 var(--pad)}
+  .nnd-seq__label{font-size:15px;line-height:20px}
+  .nnd-seq__title{margin-top:10px!important;font-size:24px;line-height:32px}
+  .nnd-seq__body{margin-top:14px!important;font-size:15px;line-height:24px}
+  .nnd-seq__rows{margin-top:32px;gap:8px}
+  .nnd-row{height:auto;padding:18px 24px}
+  .nnd-row__time{width:150px}
+  .nnd-row__ap{font-size:12px;line-height:14px;margin-top:0}
+  .nnd-row__hm{margin-left:2px;font-size:44px;line-height:48px}
+  .nnd-row__q{font-size:15px;line-height:20px;padding-left:16px}
+  .nnd-row__arrow{font-size:20px;line-height:20px}
+
+  .nnd-marker{margin-left:var(--pad);height:auto;font-size:14px;line-height:18px;top:calc(var(--sticky-top) + 12px)}
+  .nnd-marker__sub{margin-top:2px}
+  .nnd-marker + .nnd-block{margin-top:20px}
+
+  .nnd-block{display:block}
+  .nnd-block__content{padding:24px var(--pad) 0}
+  .nnd-block__content--top28{padding-top:28px}
+
+  .nnd-rates{margin-top:20px;gap:8px}
+  .nnd-rate span{width:64px;font-size:14px;line-height:20px}
+  .nnd-rate i{width:6px;height:6px;margin-right:16px}
+
+  .nnd-review{padding:16px 18px 18px}
+  .nnd-review__id{font-size:13px;line-height:18px}
+  .nnd-review__text{margin-top:6px!important;font-size:14px;line-height:22px}
+  .nnd-stars{top:16px;right:18px}
+  .nnd-stars svg{width:14px;height:14px}
+  .nnd-block__content .nnd-review{margin-top:16px}
+
+  .nnd-highlight{margin-top:20px!important;font-size:15px;line-height:24px}
+  .nnd-notes{margin-top:28px;gap:16px}
+  .nnd-note{gap:16px}
+  .nnd-note img{width:64px;height:64px}
+  .nnd-note__t{font-size:15px;line-height:20px}
+  .nnd-note__d{margin-top:2px!important;font-size:14px;line-height:20px}
+
+  .nnd-accs{margin-top:24px}
+  .nnd-acc__btn{padding:16px 0!important;font-size:16px!important;line-height:24px!important}
+  .nnd-acc__icon{font-size:18px;line-height:20px}
+  .nnd-acc__panel{padding:8px 0 24px;font-size:14px;line-height:22px}
+  .nnd-flow + .nnd-flow{margin-top:20px}
+  .nnd-flow__t{font-size:15px;line-height:22px}
+  .nnd-kv{grid-template-columns:1fr;gap:2px;font-size:13px;line-height:20px}
+  .nnd-kv dd{margin-bottom:10px}
+  .nnd-copy p + p{margin-top:12px!important}
+
+  .nnd-wide{aspect-ratio:4/5}
+  .nnd-wide__chips{left:16px;bottom:16px;padding-left:0;gap:8px}
+  .nnd-after-wide{display:block}
+  .nnd-after-wide .nnd-block__content{padding-top:28px}
+
+  .nnd-closing__title{margin-top:48px!important;padding:0 var(--pad);font-size:20px;line-height:28px}
+  .nnd-reviews{display:flex;flex-direction:column;gap:10px;width:auto;max-width:none;margin:32px var(--pad) 0}
+  .nnd-reviews__col{gap:10px}
+
+  .nnd-how .nnd-block__content{padding-top:28px}
+  .nnd-how .nnd-body{margin-top:14px!important}
+  .nnd-spec{padding-top:24px}
+  .nnd-spec__row{gap:20px;padding:14px 0;font-size:14px;line-height:20px}
+  .nnd-spec__row dt{width:64px}
+
+  .nnd-info{display:block;padding:0 var(--pad)}
+  .nnd-info__head{padding:0}
+  .nnd-info .nnd-accs{margin-top:20px;padding:0}
+}
+/* ---------- PC 플로팅 구매 바 ----------
+   2026-11-02: 화면 폭 가득(1712) → 가운데 880으로 줄이고 모서리 12px(헤더와 같게). 오른쪽 아래 상담(채팅) 버튼을
+   가리지 않도록 양옆을 최소 120px씩 비운다(상담 버튼 58px + 여백 24px보다 넓게). */
+#nnd-fbar{
+  /* 상품 위젯 위·아래 어디에 두든 스크립트가 body 직속으로 옮긴다 */
+  position:fixed;z-index:9990;left:50%;bottom:24px;
+  box-sizing:border-box;width:min(880px,calc(100vw - 240px));height:64px;
+  transform:translate(-50%,calc(100% + 40px));opacity:0;pointer-events:none;
+  transition:transform .35s ease,opacity .35s ease;
+  display:flex;align-items:center;gap:12px;padding:0 8px 0 28px;
+  /* 글래스모피즘 — 헤더(흰 60% + blur 12)와 같은 계열, 뒤가 비치도록 조금 더 투명하게 */
+  border-radius:12px;background:rgba(255,255,255,.45);
+  border:1px solid rgba(255,255,255,.55);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 10px 40px rgba(42,42,41,.12);
+  font-family:"42dot Sans",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
+  color:#2A2A29;-webkit-font-smoothing:antialiased;
+}
+#nnd-fbar.is-on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+#nnd-fbar *{box-sizing:border-box}
+.nnd-fbar__info{display:flex;flex-direction:column;justify-content:center;min-width:0}
+.nnd-fbar__name{font-size:15px;line-height:20px;font-weight:700;white-space:nowrap}
+.nnd-fbar__spec{font-family:"Roboto Mono",ui-monospace,monospace;font-size:12px;line-height:16px;color:rgba(42,42,41,.55);white-space:nowrap}
+.nnd-fbar__gap{flex:1}
+.nnd-fbar__price{font-size:20px;font-weight:800;white-space:nowrap;margin-right:8px;letter-spacing:-.01em}
+.nnd-fbar__orig{margin-right:8px;font-size:14px;font-weight:400;color:rgba(42,42,41,.45);text-decoration:line-through}
+
+/* 상품 위젯 판매가 → '판매가(취소선) + 1개 구매 할인가' (스크립트 7번이 넣는다) */
+.nnd-price-orig{margin-right:8px;font-size:.75em;font-weight:400;color:#9a9a96!important;text-decoration:line-through}
+.nnd-price-sale{display:inline-block}
+/* 모바일: 구매 시트 안에만 있는 수량별 할인 배너를 가격 아래에 복제(누르면 구매 시트) */
+.nnd-qd-inline{margin:12px 0 4px;cursor:pointer}
+@media (min-width:769px){.nnd-qd-inline{display:none!important}}
+/* 버튼 모서리 8px — 바(12px) 안쪽 여백 8px에 맞춘 값 */
+.nnd-fbar__btn{height:48px;padding:0 24px;border-radius:8px;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.4);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font:inherit;font-size:15px;font-weight:600;color:#2A2A29;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+.nnd-fbar__btn:hover{background:rgba(255,255,255,.75)}
+.nnd-fbar__btn--buy{min-width:150px;border-color:rgba(42,42,41,.9);background:rgba(42,42,41,.9);color:#F3F3E9}
+.nnd-fbar__btn--buy:hover{background:#D35B40;border-color:#D35B40;color:#fff}
+@media (max-width:991px){#nnd-fbar{display:none}}
+
+/* 요약설명(관리자 편집기, 인라인 스타일만 가능) — 모바일에서 아코디언 펼친 글자(14/22)와 맞춘다.
+   편집기 HTML엔 미디어쿼리를 못 넣어서 이 위젯 CSS가 대신(영역 가이드 규칙). */
+/* iOS Safari는 긴 문단의 글자를 임의로 키운다(text autosizing). px로 준 크기가 그대로 나오도록 끈다.
+   크롬 에뮬레이션에선 14px로 나왔는데 아이폰에선 줄간격(22)만 먹고 글자가 커져 보였던 원인. */
+.goods_summary,#nnm-story{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}
+@media (max-width:768px){
+  .goods_summary .fr-view > div{font-size:14px!important;line-height:22px!important}
+  .goods_summary .fr-view > div *{font-size:inherit!important}
+}
+
+/* ============================================================
+   미스트 페이지에만 있는 것 (크림 페이지 CSS 위에 더함)
+   ============================================================ */
+/* 초안 안내 줄 — 공개 전에 마크업과 함께 지운다 */
+.nnm-draftbar{margin:0 auto;padding:14px var(--pad);background:#2A2A29;color:#F3F3E9;font-size:14px;line-height:22px}
+.nnm-draftbar b{color:#F3B3A3;margin-right:4px}
+.nnm-todo{display:inline-block;padding:1px 8px;margin:0 2px;border-radius:999px;border:1px dashed var(--accent);color:var(--accent);font-size:.8em;line-height:1.5;font-weight:600;vertical-align:middle;white-space:nowrap}
+
+/* 사진·영상 자리 */
+.nnm-ph{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;height:100%;min-height:200px;padding:24px;text-align:center;border:2px dashed rgba(42,42,41,.25);background:#E6E3D7;color:var(--ink70);font-size:16px;line-height:24px;font-weight:600}
+.nnm-ph small{font-size:13px;font-weight:400;color:var(--ink40)}
+.nnm-ph__tag{position:absolute;top:14px;left:14px;padding:3px 10px;border-radius:999px;background:var(--ink);color:var(--bg);font-size:12px;line-height:18px;font-weight:700}
+.nnm-ph--tall{aspect-ratio:4/5;height:auto}
+.nnm-ph--sq{aspect-ratio:1/1;height:auto;min-height:0}
+.nnm-ph--card{aspect-ratio:4/3;height:auto;min-height:0;font-size:14px}
+.nnm-ph--band{width:1064px;max-width:calc(100% - 2*var(--pad));margin:60px auto 0;min-height:180px}
+
+/* ① 히어로 */
+.nnm-hero{padding-top:100px}
+.nnm-hero__text{text-align:center;padding:0 var(--pad)}
+.nnm-hero__title{margin-top:16px;font-size:44px;line-height:58px;font-weight:700;color:var(--black)}
+.nnm-hero__sub{margin-top:20px!important;font-size:18px;line-height:28px;color:var(--ink)}
+.nnm-hero__media{margin-top:60px;display:grid;grid-template-columns:1fr 1fr;gap:0}
+
+/* ③ 시간표 — 미스트 칸 강조, 크림 칸은 흐리게 */
+.nnm-row--here{background:#fff;box-shadow:inset 4px 0 0 var(--accent)}
+.nnm-row--cream{opacity:.7}
+.nnm-row--cream:hover{opacity:1}
+.nnm-row__tag{display:block;margin-top:6px;font-size:14px;line-height:18px;font-weight:700;color:var(--accent)}
+.nnm-row__tag--mute{color:var(--ink40)}
+
+/* 등록 표시 줄 */
+.nnm-regline{margin-top:28px!important;font-size:14px;line-height:22px;color:var(--ink70)}
+
+/* ⑤ 크림과 같은 향 */
+.nnm-same{margin-top:36px;padding:0 var(--pad)}
+.nnm-same__head{max-width:640px}
+.nnm-steps{margin-top:60px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.nnm-step{min-width:0}
+.nnm-step__t{margin-top:16px!important;font-size:20px;line-height:28px;font-weight:700;color:var(--black)}
+.nnm-step__d{margin-top:2px!important;font-size:16px;line-height:24px;color:var(--ink70)}
+.nnm-step + .nnm-step{position:relative}
+.nnm-step + .nnm-step::before{content:"→";position:absolute;left:-19px;top:calc(50% - 40px);font-size:16px;color:var(--ink40)}
+.nnm-center{margin-top:48px!important;text-align:center}
+
+/* 버튼 */
+#nnm-story .nnm-btn{display:inline-flex;align-items:center;justify-content:center;height:52px;padding:0 28px;border-radius:8px;border:1px solid var(--ink);background:transparent;color:var(--ink);font-size:16px;font-weight:600;transition:background .2s,color .2s}
+#nnm-story .nnm-btn:hover{background:var(--ink);color:var(--bg)}
+#nnm-story .nnm-btn--dark{background:var(--ink);color:var(--bg)}
+#nnm-story .nnm-btn--dark:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* ⑦ 사용법 칩 간격 */
+.nnd-how .nnd-chip + .nnd-label{margin-top:60px}
+
+/* ⑪ 구매 */
+.nnm-buy{margin-top:var(--chapter);padding:0 var(--pad)}
+.nnm-buy__cards{margin-top:48px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.nnm-card{display:flex;flex-direction:column;padding:20px;border-radius:12px;background:rgba(255,255,255,.7)}
+.nnm-card__t{margin-top:20px!important;font-size:20px;line-height:28px;font-weight:700;color:var(--black)}
+.nnm-card__d{margin-top:6px!important;font-size:15px;line-height:22px;color:var(--ink70)}
+.nnm-card__p{margin:16px 0 20px!important;font-size:24px;line-height:30px;font-weight:800;color:var(--black)}
+.nnm-card__p small{font-size:14px;font-weight:500;color:var(--ink70)}
+.nnm-card .nnm-btn{margin-top:auto;width:100%}
+
+@media (max-width:768px){
+  .nnm-draftbar{font-size:12px;line-height:18px}
+  .nnm-ph{min-height:160px;font-size:14px;line-height:20px}
+  .nnm-hero{padding-top:56px}
+  .nnm-hero__title{margin-top:10px;font-size:26px;line-height:36px}
+  .nnm-hero__sub{margin-top:12px!important;font-size:15px;line-height:24px}
+  .nnm-hero__media{margin-top:32px}
+  .nnm-row__tag{margin-top:4px;font-size:12px;line-height:16px}
+  .nnm-regline{margin-top:16px!important;font-size:12px;line-height:18px}
+  .nnm-same{margin-top:20px}
+  .nnm-steps{margin-top:28px;gap:10px}
+  .nnm-step__t{margin-top:8px!important;font-size:14px;line-height:20px}
+  .nnm-step__d{font-size:12px;line-height:16px}
+  .nnm-step + .nnm-step::before{display:none}
+  .nnm-ph--sq .nnm-ph__tag{top:8px;left:8px;font-size:10px;padding:1px 6px}
+  .nnm-ph--sq{padding:8px;font-size:11px;line-height:15px}
+  .nnm-center{margin-top:28px!important}
+  .nnd-how .nnd-chip + .nnd-label{margin-top:28px}
+  .nnm-ph--band{margin-top:32px;min-height:140px}
+  .nnm-buy__cards{grid-template-columns:1fr;gap:12px;margin-top:24px}
+  .nnm-card__p{font-size:20px;line-height:26px}
+}
+</style>
+
+<div id="nnd-fbar" aria-hidden="true">
+  <span class="nnd-fbar__info"><span class="nnd-fbar__name">NIGHT NIGHT MIST</span><span class="nnd-fbar__spec">BODY &amp; PILLOW MIST</span></span>
+  <span class="nnd-fbar__gap"></span>
+  <span class="nnd-fbar__price"><del class="nnd-fbar__orig" data-nnd-orig hidden></del><span data-nnd-price>12,000</span>원</span>
+  <button type="button" class="nnd-fbar__btn" data-nnd-native="cart">장바구니</button>
+  <button type="button" class="nnd-fbar__btn nnd-fbar__btn--buy" data-nnd-native="buy">구매하기</button>
+</div>
+
+<div id="nnm-story">
+
+  <!-- 초안 안내 — 공개 전에 이 블록을 지운다 -->
+  <div class="nnm-draftbar">
+    <b>초안</b> · 새로 쓴 문구는 모두 작업 문구예요(보이스&amp;톤 검수 전). 점선 상자는 촬영·자료가 들어갈 자리, <span class="nnm-todo">확인 필요</span>는 받을 정보예요.
+  </div>
+
+  <!-- ① 히어로 — "몸에도"는 화장품·생활화학제품 두 신고 번호가 나온 뒤 공개 -->
+  <section class="nnm-hero">
+    <div class="nnm-hero__text">
+      <p class="nnd-label">NIGHT NIGHT MIST</p>
+      <div class="nnm-hero__title">나잇나잇 크림과 같은 향을,<br>몸에도 베개에도.</div>
+      <p class="nnm-hero__sub">얼굴에 바른 그 향이 손목과 베개로 이어지는 밤.</p>
+    </div>
+    <div class="nnm-hero__media">
+      <div class="nnm-ph nnm-ph--tall"><span class="nnm-ph__tag">몸</span>손목·목에 뿌리는 장면<br><small>같은 병, 같은 밤 조명</small></div>
+      <div class="nnm-ph nnm-ph--tall"><span class="nnm-ph__tag">베개</span>베개에 뿌리는 장면<br><small>같은 병, 같은 밤 조명</small></div>
+    </div>
+  </section>
+
+  <!-- ② 이런 분들은 — 크림 페이지와 같은 인물 -->
+  <section class="nnd-intro">
+    <div class="nnd-intro__title">이런 밤엔 나잇나잇 미스트를!</div>
+    <p class="nnd-intro__sub">크림 향이 좋았던 분, 베개에 뿌리는 향이 얼굴에 닿을까 신경 쓰였던 분,<br>잠들기 전 나만의 시간이 필요한 분이라면 모여보세요!</p>
+    <div class="nnd-personas">
+      <div class="nnd-persona">
+        <div class="nnd-pill"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/f650d22020985.png" alt=""><div><p class="nnd-pill__name">미아 (27세)</p><p class="nnd-pill__quote">크림 향이 좋아서, 베개에서도 났으면...</p></div></div>
+        <a class="nnd-persona__link" href="#nnm-ch2" data-nnd-jump="nnm-ch2">미아의 나잇나잇 &nbsp;→</a>
+      </div>
+      <div class="nnd-persona">
+        <div class="nnd-pill"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/d2b076fe4ae95.png" alt=""><div><p class="nnd-pill__name">노아 (32세)</p><p class="nnd-pill__quote">베개에 뿌린 미스트, 얼굴에 닿아도 괜찮을까?</p></div></div>
+        <a class="nnd-persona__link" href="#nnm-p-noah" data-nnd-jump="nnm-p-noah">노아의 나잇나잇 &nbsp;→</a>
+      </div>
+      <div class="nnd-persona">
+        <div class="nnd-pill"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/f1f00a8a7de23.png" alt=""><div><p class="nnd-pill__name">클로이 (29세)</p><p class="nnd-pill__quote">향은 좋은데, 진한 건 부담스러워...</p></div></div>
+        <a class="nnd-persona__link" href="#nnm-ch3" data-nnd-jump="nnm-ch3">클로이의 나잇나잇 &nbsp;→</a>
+      </div>
+      <div class="nnd-persona">
+        <div class="nnd-pill"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/be7faf7627161.png" alt=""><div><p class="nnd-pill__name">엠마 (33세)</p><p class="nnd-pill__quote">자기 전에 하루를 정리하는 시간이 필요해</p></div></div>
+        <a class="nnd-persona__link" href="#nnm-how" data-nnd-jump="nnm-how">엠마의 나잇나잇 &nbsp;→</a>
+      </div>
+      <div class="nnd-persona">
+        <div class="nnd-pill"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/3b26089569fab.png" alt=""><div><p class="nnd-pill__name">루시 (27세)</p><p class="nnd-pill__quote">옆에서 자는 사람 베개에도 뿌려 주고 싶어</p></div></div>
+        <a class="nnd-persona__link" href="#nnm-p-lucy" data-nnd-jump="nnm-p-lucy">루시의 나잇나잇 &nbsp;→</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ 굿나잇 시퀀스™ — 크림 시간표 앞에 미스트 칸 -->
+  <section class="nnd-seq">
+    <div class="nnd-seq__text">
+      <p class="nnd-seq__label">굿나잇 시퀀스™</p>
+      <div class="nnd-seq__title">굿나잇 시퀀스™<br>그 밤의 첫 단계</div>
+      <p class="nnd-seq__body">크림을 바르기 전, 몸과 베개에 먼저 향을 두세요.<br>잠들기 전 시간이 그 향과 함께 시작됩니다.</p>
+    </div>
+    <div class="nnd-seq__rows">
+      <a class="nnd-row nnm-row--here" href="#nnm-ch1" data-nnd-jump="nnm-ch1"><span class="nnd-row__time"><span class="nnd-row__ap nnd-row__ap--pm">PM</span><span class="nnd-row__hm">10:55</span></span><span class="nnd-row__q">“몸에 한 번, 베개에 한 번”<span class="nnm-row__tag">나잇나잇 미스트</span></span><span class="nnd-row__arrow">→</span></a>
+      <a class="nnd-row nnm-row--cream" href="/shop_view/?idx=63"><span class="nnd-row__time"><span class="nnd-row__ap nnd-row__ap--pm">PM</span><span class="nnd-row__hm">11:00</span></span><span class="nnd-row__q">“잘자요”<span class="nnm-row__tag nnm-row__tag--mute">나잇나잇 크림</span></span><span class="nnd-row__arrow">→</span></a>
+      <a class="nnd-row nnm-row--cream" href="/shop_view/?idx=63"><span class="nnd-row__time"><span class="nnd-row__ap">AM</span><span class="nnd-row__hm">03:00</span></span><span class="nnd-row__q">“당신이 잠든 사이”</span><span class="nnd-row__arrow">→</span></a>
+      <a class="nnd-row nnm-row--cream" href="/shop_view/?idx=63"><span class="nnd-row__time"><span class="nnd-row__ap">AM</span><span class="nnd-row__hm">07:00</span></span><span class="nnd-row__q">“아침 촉촉”</span><span class="nnd-row__arrow">→</span></a>
+    </div>
+  </section>
+
+  <!-- ④ 한 병, 두 자리 -->
+  <section class="nnd-chapter" id="nnm-ch1">
+    <div class="nnd-marker"><span class="nnd-marker__ap nnd-marker__ap--pm">PM</span> 10:55<span class="nnd-marker__sub">한 병, 두 자리</span></div>
+
+    <div class="nnd-block">
+      <div class="nnd-block__media"><div class="nnm-ph"><span class="nnm-ph__tag">몸</span>샤워 뒤 손목·목·잠옷 위에 뿌리는 장면<br><small>영상이면 크림 페이지처럼 배경영상(Vimeo)</small></div></div>
+      <div class="nnd-block__content" id="nnm-p-noah">
+        <div class="nnd-chip"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/d2b076fe4ae95.png" alt=""><div><p class="nnd-chip__name">노아</p><p class="nnd-chip__quote">베개에 뿌린 미스트, 얼굴에 닿아도 괜찮을까?</p></div></div>
+        <p class="nnd-label">몸에도</p>
+        <div class="nnd-title">손목과 목에,<br>가볍게 한 번.</div>
+        <p class="nnd-body">나잇나잇 미스트는 몸에 쓰는 미스트예요.<br>샤워 뒤 손목과 목, 잠옷 위에 가볍게 뿌려 보세요. 은은한 향이 내 곁에 머뭅니다.</p>
+        <p class="nnm-regline">화장품 <span class="nnm-todo">신고 확인 후 표기</span></p>
+      </div>
+    </div>
+
+    <div class="nnd-block">
+      <div class="nnd-block__media"><div class="nnm-ph"><span class="nnm-ph__tag">베개</span>베개 위 수건을 걷어 내고 베개·이불에 바로 뿌리는 장면</div></div>
+      <div class="nnd-block__content" id="nnm-p-lucy">
+        <div class="nnd-chip"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/3b26089569fab.png" alt=""><div><p class="nnd-chip__name">루시</p><p class="nnd-chip__quote">옆에서 자는 사람 베개에도 뿌려 주고 싶어</p></div></div>
+        <p class="nnd-label">베개에도</p>
+        <div class="nnd-title">베개와 이불에,<br>한 번 더.</div>
+        <p class="nnd-body">베개 위에 수건을 따로 깔지 않아도 돼요.<br>얼굴이 닿는 베개와 이불에도 같은 미스트를 뿌리세요. 옆 사람 베개에도 한 번.</p>
+        <p class="nnm-regline">생활화학제품(섬유용 방향제) 안전확인 <span class="nnm-todo">신고번호 확인 후 표기</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑤ 크림과 같은 향 -->
+  <section class="nnd-chapter" id="nnm-ch2">
+    <div class="nnd-marker"><span class="nnd-marker__ap nnd-marker__ap--pm">PM</span> 10:55<span class="nnd-marker__sub">크림과 같은 향</span></div>
+    <div class="nnm-same">
+      <div class="nnm-same__head">
+        <div class="nnd-chip"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/f650d22020985.png" alt=""><div><p class="nnd-chip__name">미아</p><p class="nnd-chip__quote">크림 향이 좋아서, 베개에서도 났으면...</p></div></div>
+        <p class="nnd-label">크림과 같은 향</p>
+        <div class="nnd-title">얼굴에서, 몸으로, 베개로.</div>
+        <p class="nnd-body">나잇나잇 크림과 같은 ‘슬립 인 더 포레스트’ 향이에요.<br>크림을 바른 얼굴에서 시작한 향이 손목과 베개까지 이어집니다.</p>
+      </div>
+      <div class="nnm-steps">
+        <div class="nnm-step"><div class="nnm-ph nnm-ph--sq"><span class="nnm-ph__tag">얼굴</span>크림 바르는 컷</div><p class="nnm-step__t">얼굴</p><p class="nnm-step__d">나잇나잇 크림</p></div>
+        <div class="nnm-step"><div class="nnm-ph nnm-ph--sq"><span class="nnm-ph__tag">손목</span>미스트 뿌리는 컷</div><p class="nnm-step__t">손목</p><p class="nnm-step__d">나잇나잇 미스트</p></div>
+        <div class="nnm-step"><div class="nnm-ph nnm-ph--sq"><span class="nnm-ph__tag">베개</span>미스트 뿌리는 컷</div><p class="nnm-step__t">베개</p><p class="nnm-step__d">나잇나잇 미스트</p></div>
+      </div>
+      <p class="nnm-center"><a class="nnm-btn" href="/shop_view/?idx=63">나잇나잇 크림 보러 가기 &nbsp;→</a></p>
+    </div>
+  </section>
+
+  <!-- ⑥ 향 — 크림 페이지의 「아로마 웰니스」 블록 그대로 + 은은한 이유 -->
+  <section class="nnd-chapter" id="nnm-ch3">
+    <div class="nnd-marker"><span class="nnd-marker__ap nnd-marker__ap--pm">PM</span> 10:55<span class="nnd-marker__sub">향</span></div>
+    <div class="nnd-block">
+      <div class="nnd-block__media">
+        <!-- 크림 페이지의 '향' 영상을 그대로 쓴다 -->
+        <div class="nnd-vid nnd-vid--89" style="background-image:url(https://i.vimeocdn.com/video/2188812509-1b550ed5b23b9a65d229fa72eb0b4adaac64159461702038affa7a37d6c1a866-d_1280?region=us)">
+          <iframe data-src="https://player.vimeo.com/video/1217189884?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;dnt=1" title="향" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+        </div>
+      </div>
+      <div class="nnd-block__content">
+        <div class="nnd-chip"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/f1f00a8a7de23.png" alt=""><div><p class="nnd-chip__name">클로이</p><p class="nnd-chip__quote">향은 좋은데, 진한 건 부담스러워...</p></div></div>
+        <p class="nnd-label nnd-label--cool">「아로마 웰니스」</p>
+        <div class="nnd-title">가까이 두는 향이라,<br>은은하게.</div>
+        <p class="nnd-body">잠들기 전 몸과 베개, 가장 가까운 곳에 두는 향이라 강하지 않게 맞췄어요.<br>처음엔 상쾌하게 시작해 은은하게 이어지고, 깊고 차분하게 남습니다.</p>
+        <p class="nnd-highlight">향과 감정의 연결을 연구하는 CPL Aromas의 「아로마 웰니스」 라인을 활용해 조향된 슬립 인 더포레스트 향.<br>비 갠 직후 숲속을 걷는 듯, 촉촉하면서도 포근한 향을 느껴보세요.</p>
+        <div class="nnd-notes">
+          <div class="nnd-note"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/94054a636a2b5.png" alt=""><div><p class="nnd-note__t">Herbal</p><p class="nnd-note__d">라벤더 줄기를 손 끝에 문지른듯<br>싱그러운 허브</p></div></div>
+          <div class="nnd-note"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/ad3f1682940d8.png" alt=""><div><p class="nnd-note__t">Earthy</p><p class="nnd-note__d">비에 젖은 흙에서 느껴지는<br>짙은 대지의 내음</p></div></div>
+          <div class="nnd-note"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/72c01a2ff3f9f.png" alt=""><div><p class="nnd-note__t">Woody</p><p class="nnd-note__d">이끼 낀 나무 껍질의<br>깊고 차분한 결</p></div></div>
+        </div>
+        <div class="nnd-accs">
+          <div class="nnd-acc">
+            <button type="button" class="nnd-acc__btn" aria-expanded="false"><span>조향 설계</span><span class="nnd-acc__icon" aria-hidden="true">+</span></button>
+            <div class="nnd-acc__panel" hidden>
+              <div class="nnd-flow"><p class="nnd-flow__t">상쾌하고 시원하게 시작합니다</p><p class="nnd-flow__n"><b>TOP</b> | 라벤더라빈 · 베르가못 · 오렌지 · 자몽 · 클라리 세이지</p></div>
+              <div class="nnd-flow"><p class="nnd-flow__t">은은하고 부드럽게 이어집니다</p><p class="nnd-flow__n"><b>MIDDLE</b> | 자스민 · 라벤더 · 로즈마리 · 네롤리 · 핑크 페퍼</p></div>
+              <div class="nnd-flow"><p class="nnd-flow__t">깊고 차분하게 남습니다</p><p class="nnd-flow__n"><b>BASE</b> | 머스크 · 엠버 · 시더우드 · 베티버 · 페출리아 · 톤카</p></div>
+            </div>
+          </div>
+          <div class="nnd-acc">
+            <button type="button" class="nnd-acc__btn" aria-expanded="false"><span>「아로마 웰니스」 인증서</span><span class="nnd-acc__icon" aria-hidden="true">+</span></button>
+            <div class="nnd-acc__panel" hidden>
+              <button type="button" class="nnd-cert" data-nnd-zoom="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" aria-label="인증서 크게 보기"><img data-src="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" alt="CPL Aromas AromaWellness 인증서"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑦ 사용법 -->
+  <section class="nnd-how nnd-block" id="nnm-how">
+    <div class="nnd-block__media"><div class="nnm-ph"><span class="nnm-ph__tag">사용법</span>몸 → 베개 순서로 뿌리는 짧은 영상</div></div>
+    <div class="nnd-block__content">
+      <div class="nnd-chip"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/be7faf7627161.png" alt=""><div><p class="nnd-chip__name">엠마</p><p class="nnd-chip__quote">자기 전에 하루를 정리하는 시간이 필요해</p></div></div>
+      <p class="nnd-label">How to use</p>
+      <div class="nnd-title">크림 바르기 전,<br>몸과 베개에 먼저</div>
+      <p class="nnd-body">불을 낮추고, 손목과 베개에 한 번씩. 크림을 바르고 누우면 하루가 정리됩니다.</p>
+      <dl class="nnd-spec">
+        <div class="nnd-spec__row"><dt>몸</dt><dd>손목·목에서 조금 떨어뜨려 1~2회 <span class="nnm-todo">거리·횟수 확인</span></dd></div>
+        <div class="nnd-spec__row"><dt>베개</dt><dd>베개·이불에서 떨어뜨려 1~2회, 마른 뒤 눕기 <span class="nnm-todo">거리·횟수 확인</span></dd></div>
+        <div class="nnd-spec__row"><dt>처음엔</dt><dd>팔 안쪽에 먼저 뿌려 보고, 원단은 안 보이는 곳에 먼저 테스트</dd></div>
+        <div class="nnd-spec__row"><dt>향</dt><dd>허벌 · 우디 · 플로럴 (크림과 같은 향)</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ⑧ Q&A -->
+  <section class="nnd-info">
+    <div class="nnd-info__head">
+      <p class="nnd-label">Q&amp;A</p>
+      <div class="nnd-title">물어보시기 전에</div>
+    </div>
+    <div class="nnd-accs">
+      <div class="nnd-acc">
+        <button type="button" class="nnd-acc__btn" aria-expanded="false"><span>몸에 뿌려도 돼요?</span><span class="nnd-acc__icon" aria-hidden="true">+</span></button>
+        <div class="nnd-acc__panel" hidden><p>네. 나잇나잇 미스트는 몸에 쓰는 미스트예요. 손목, 목, 잠옷 위에 뿌려 주세요. 눈 주위와 상처가 있는 곳은 피하고, 처음 쓰실 땐 팔 안쪽에 먼저 뿌려 보세요.</p></div>
+      </div>
+      <div class="nnd-acc">
+        <button type="button" class="nnd-acc__btn" aria-expanded="false"><span>크림이랑 같은 향이에요?</span><span class="nnd-acc__icon" aria-hidden="true">+</span></button>
+        <div class="nnd-acc__panel" hidden><p>네. 나잇나잇 크림과 같은 「아로마 웰니스」 ‘슬립 인 더 포레스트’ 향이에요.</p></div>
+      </div>
+      <div class="nnd-acc">
+        <button type="button" class="nnd-acc__btn" aria-expanded="false"><span>베개에 얼룩이 남지 않나요?</span><span class="nnd-acc__icon" aria-hidden="true">+</span></button>
+        <div class="nnd-acc__panel" hidden><p>원단마다 다를 수 있어요. 처음엔 베갯잇 안쪽처럼 안 보이는 곳에 먼저 뿌려 보고, 마른 뒤에 써 주세요. <span class="nnm-todo">원단 테스트 결과 있으면 추가</span></p></div>
+      </div>
+      <div class="nnd-acc">
+        <button type="button" class="nnd-acc__btn" aria-expanded="false"><span>향은 얼마나 가요?</span><span class="nnd-acc__icon" aria-hidden="true">+</span></button>
+        <div class="nnd-acc__panel" hidden><p>잠들기 전 가까이 두는 향이라 은은하게 맞췄어요. <span class="nnm-todo">확인된 지속 시간</span></p></div>
+      </div>
+      <div class="nnd-acc">
+        <button type="button" class="nnd-acc__btn" aria-expanded="false"><span>천연 향이에요?</span><span class="nnd-acc__icon" aria-hidden="true">+</span></button>
+        <div class="nnd-acc__panel" hidden><p>식물에서 얻은 향만으로 만든 제품은 아니에요. 「아로마 웰니스」 라인으로 조향했고, 라벤더 아로마 오일이 들어 있어요.</p></div>
+      </div>
+      <div class="nnd-acc">
+        <button type="button" class="nnd-acc__btn" aria-expanded="false"><span>알레르기가 있어도 써도 돼요?</span><span class="nnd-acc__icon" aria-hidden="true">+</span></button>
+        <div class="nnd-acc__panel" hidden><p>향료에 알레르기 유발 성분이 들어 있어요. 아래 제품 정보의 성분을 먼저 확인해 주시고, 처음엔 팔 안쪽에 조금 뿌려 이상이 없는지 본 뒤 써 주세요. 이상이 있으면 사용을 멈추고 전문의와 상담해 주세요.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑨ 후기 — 출시 후 미스트 후기로 채움 -->
+  <section class="nnd-closing">
+    <div class="nnd-closing__title">GOOD NIGHT = GOOD SKIN<br>오늘 밤, 몸에 한 번 베개에 한 번</div>
+    <div class="nnm-ph nnm-ph--band">후기 자리 — 출시 후 미스트 후기로 채움<br><small>후기를 받을 때 "몸에 뿌렸는지 / 베개에 뿌렸는지"를 물어 보면 좋아요</small></div>
+  </section>
+
+  <!-- ⑩ 제품 정보 — 화장품 표시 + 생활화학제품 표시 둘 다 -->
+  <section class="nnd-info">
+    <div class="nnd-info__head">
+      <p class="nnd-label">Product Information</p>
+      <div class="nnd-title">구매 전 확인해 주세요</div>
+    </div>
+    <div class="nnd-accs">
+      <div class="nnd-acc">
+        <button type="button" class="nnd-acc__btn" aria-expanded="false"><span>상품정보 제공고시 (화장품)</span><span class="nnd-acc__icon" aria-hidden="true">+</span></button>
+        <div class="nnd-acc__panel" hidden><dl class="nnd-kv"><dt>내용물의 용량</dt><dd><span class="nnm-todo">확인 필요</span></dd><dt>제품 주요 사양</dt><dd><span class="nnm-todo">확인 필요</span></dd><dt>사용기한 또는 개봉 후 사용기간</dt><dd>별도 표기</dd><dt>사용방법</dt><dd><span class="nnm-todo">확인 필요</span></dd><dt>화장품제조업자</dt><dd><span class="nnm-todo">확인 필요</span></dd><dt>화장품책임판매업자</dt><dd><span class="nnm-todo">확인 필요</span></dd><dt>제조국</dt><dd>대한민국 <span class="nnm-todo">확인</span></dd><dt>기능성 화장품 심사·보고</dt><dd>해당사항 없음</dd><dt>품질보증기준</dt><dd>소비자분쟁해결기준에 의거 보상</dd><dt>소비자상담</dt><dd>홈페이지 채팅 상담</dd></dl></div>
+      </div>
+      <div class="nnd-acc">
+        <button type="button" class="nnd-acc__btn" aria-expanded="false"><span>생활화학제품 표시 (섬유용 방향제)</span><span class="nnd-acc__icon" aria-hidden="true">+</span></button>
+        <div class="nnd-acc__panel" hidden><dl class="nnd-kv"><dt>안전확인대상 생활화학제품 신고번호</dt><dd><span class="nnm-todo">확인 필요</span></dd><dt>품목·용도</dt><dd>방향제 (섬유용) <span class="nnm-todo">확인</span></dd><dt>제형</dt><dd>분무기형</dd><dt>주요물질</dt><dd><span class="nnm-todo">확인 필요</span></dd><dt>알레르기물질</dt><dd><span class="nnm-todo">확인 필요</span></dd></dl></div>
+      </div>
+      <div class="nnd-acc">
+        <button type="button" class="nnd-acc__btn" aria-expanded="false"><span>전성분</span><span class="nnd-acc__icon" aria-hidden="true">+</span></button>
+        <div class="nnd-acc__panel" hidden><p><span class="nnm-todo">전성분 받으면 입력</span></p></div>
+      </div>
+      <div class="nnd-acc">
+        <button type="button" class="nnd-acc__btn" aria-expanded="false"><span>사용상 주의사항</span><span class="nnd-acc__icon" aria-hidden="true">+</span></button>
+        <div class="nnd-acc__panel" hidden><ol class="nnd-list"><li>이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것</li><li>상처가 있는 부위, 눈 주위에는 사용하지 말 것</li><li>화기 근처에서 사용하지 말 것</li><li>어린이의 손이 닿지 않는 곳 및 직사광선을 피해서 보관할 것</li><li>원단에 따라 얼룩이 생길 수 있으니 눈에 띄지 않는 곳에 먼저 시험해 볼 것</li></ol><p><span class="nnm-todo">제조사 주의사항 문구로 교체</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑪ 구매 -->
+  <section class="nnm-buy">
+    <div class="nnm-buy__head">
+      <p class="nnd-label">Shop</p>
+      <div class="nnd-title">나잇나잇 미스트 담기</div>
+    </div>
+    <div class="nnm-buy__cards">
+      <div class="nnm-card">
+        <div class="nnm-ph nnm-ph--card">미스트 제품 컷</div>
+        <p class="nnm-card__t">나잇나잇 미스트</p>
+        <p class="nnm-card__d">몸과 베개에, 크림과 같은 향</p>
+        <p class="nnm-card__p">12,000원</p>
+        <button type="button" class="nnm-btn nnm-btn--dark" data-nnd-native="buy">구매하기</button>
+      </div>
+      <div class="nnm-card">
+        <div class="nnm-ph nnm-ph--card">크림 + 미스트 컷</div>
+        <p class="nnm-card__t">크림과 함께</p>
+        <p class="nnm-card__d">크림 주문에 미스트를 더해 같은 향으로</p>
+        <p class="nnm-card__p"><span class="nnm-todo">구성·가격 정하면 입력</span></p>
+        <a class="nnm-btn" href="/shop_view/?idx=63">나잇나잇 크림 보기</a>
+      </div>
+      <div class="nnm-card">
+        <div class="nnm-ph nnm-ph--card">정기배송 컷</div>
+        <p class="nnm-card__t">6개월 정기배송</p>
+        <p class="nnm-card__d">매달 크림 한 개, 첫 배송에 이 미스트가 함께 가요</p>
+        <p class="nnm-card__p">99,000원 <small>(한 달 16,500원)</small></p>
+        <a class="nnm-btn" href="#" data-todo="정기배송 페이지 주소">정기배송 보기 <span class="nnm-todo">주소</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="nnd-lightbox" aria-hidden="true"><img alt=""></div>
+</div>
+<script>
+(function () {
+  var root = document.getElementById('nnm-story');
+  if (!root || root.getAttribute('data-nnm-init')) return;
+  root.setAttribute('data-nnm-init', '1');
+
+  /* ---------- 1. 상세정보 탭 본문으로 옮기기 ---------- */
+  var homeSection = root.closest('.section_wrap, [id^="s20"]');   /* 위젯이 원래 있던 아임웹 섹션 */
+  function visibleBody() {
+    var list = document.querySelectorAll('#prod_detail_body');
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].offsetParent !== null || list[i].getClientRects().length) return list[i];
+    }
+    return null;
+  }
+  function place() {
+    var t = visibleBody();
+    if (!t) return false;
+    if (root.parentNode !== t || t.firstChild !== root) t.insertBefore(root, t.firstChild);
+    /* 원래 섹션이 비었으면 접는다(상품 위젯이 들어 있는 섹션은 절대 건드리지 않음) */
+    if (homeSection && !homeSection.querySelector('#prod_detail') && !homeSection.contains(root)) {
+      homeSection.style.display = 'none';
+    }
+    return true;
+  }
+  place();
+  var tries = 0, timer = setInterval(function () { if (place() || ++tries > 40) clearInterval(timer); }, 250);
+  /* 아임웹은 상세정보 탭을 열 때(changeContentPCTab) 본문을 jQuery .empty()로 비우고 ajax로 다시 채운다.
+     그때 함께 빠진 스토리를 다시 맨 앞에 꽂는다. requestAnimationFrame은 화면이 안 그려지는 탭에서
+     멈춰서(실측) 타이머로 묶는다. */
+  var pending = false;
+  new MutationObserver(function () {
+    if (pending) return; pending = true;
+    setTimeout(function () {
+      pending = false;
+      var t = visibleBody();
+      if (t && (!t.contains(root) || t.firstElementChild !== root)) place();
+    }, 0);
+  }).observe(document.body, { childList: true, subtree: true });
+  var lastMobile = null;
+  window.addEventListener('resize', function () {
+    var m = window.innerWidth <= 991;
+    if (m !== lastMobile) { lastMobile = m; setTimeout(place, 300); }
+  });
+
+  /* ---------- 2. 따라다니는 소분류 — 고정 헤더·탭 높이를 재서 top으로 ---------- */
+  function fixedTop() {
+    var bottom = 0;
+    var cand = document.querySelectorAll('#doz_header_wrap, [id^="s20"].fixed_transform, ._prod_detail_tab_fixed, ._prod_detail_tab_fixed *, .site_prod_nav');
+    for (var i = 0; i < cand.length; i++) {
+      var el = cand[i];
+      if (root.contains(el)) continue;
+      var cs = getComputedStyle(el);
+      if (cs.position !== 'fixed' && cs.position !== 'sticky') continue;
+      if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+      var r = el.getBoundingClientRect();
+      if (r.height < 1 || r.top > 2 || r.bottom <= 0 || r.bottom > window.innerHeight / 2) continue;
+      if (r.bottom > bottom) bottom = r.bottom;
+    }
+    return Math.round(bottom);
+  }
+  var lastTop = -1, ticking = false;
+  function syncTop() {
+    ticking = false;
+    var t = fixedTop();
+    if (t !== lastTop) { lastTop = t; root.style.setProperty('--sticky-top', t + 'px'); }
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; setTimeout(syncTop, 30); } }, { passive: true });
+  window.addEventListener('resize', syncTop);
+  syncTop();
+
+  /* ---------- 3. 페르소나 링크·타임라인 → 해당 위치로 ---------- */
+  root.addEventListener('click', function (e) {
+    var a = e.target.closest('[data-nnd-jump]');
+    if (!a) return;
+    var el = document.getElementById(a.getAttribute('data-nnd-jump'));
+    if (!el) return;
+    e.preventDefault();
+    var y = el.getBoundingClientRect().top + window.pageYOffset - fixedTop() - (window.innerWidth <= 768 ? 72 : 96);
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  });
+
+  /* ---------- 4. 아코디언 ---------- */
+  root.querySelectorAll('.nnd-acc__btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      btn.nextElementSibling.hidden = open;
+      /* 펼칠 때 처음 이미지 로드(인증서 원본이 커서 페이지 진입 시 받지 않는다) */
+      if (!open) btn.nextElementSibling.querySelectorAll('img[data-src]').forEach(function (im) {
+        im.src = im.getAttribute('data-src'); im.removeAttribute('data-src');
+      });
+    });
+  });
+
+  /* ---------- 5. 인증서 확대 보기 ---------- */
+  var lb = root.querySelector('.nnd-lightbox');
+  document.body.appendChild(lb);   /* sticky/transform 영향 없이 화면 전체를 덮도록 body로 */
+  root.addEventListener('click', function (e) {
+    var z = e.target.closest('[data-nnd-zoom]');
+    if (!z) return;
+    lb.querySelector('img').src = z.getAttribute('data-nnd-zoom');
+    lb.classList.add('is-open'); lb.setAttribute('aria-hidden', 'false');
+  });
+  function closeLb() { lb.classList.remove('is-open'); lb.setAttribute('aria-hidden', 'true'); }
+  lb.addEventListener('click', closeLb);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLb(); });
+
+  /* ---------- 6. Vimeo 배경영상 지연 로딩 ---------- */
+  var vids = [].slice.call(root.querySelectorAll('.nnd-vid'));
+  function loadVid(box) {
+    var f = box.querySelector('iframe[data-src]');
+    if (!f) return;
+    f.addEventListener('load', function () { box.classList.add('is-ready'); });
+    f.src = f.getAttribute('data-src'); f.removeAttribute('data-src');
+  }
+  if (!('IntersectionObserver' in window)) vids.forEach(loadVid);
+  else {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); loadVid(e.target); } });
+    }, { rootMargin: '100% 0px' });
+    vids.forEach(function (v) { io.observe(v); });
+  }
+
+  /* ---------- 7. 가격 — 판매가 + 1개 구매 할인(수량별 할인 배너) ----------
+     상품 위젯 판매가에서 아임웹 수량별 할인 배너의 '1개' 할인액을 빼서, 상품 위젯 가격과
+     플로팅 바를 '28,900원(취소선) 19,900원'으로 바꾼다. 1개 할인이 없으면 판매가 그대로.
+     할인액은 배너에서 읽으므로 관리자에서 할인을 바꾸면 따라 바뀐다.
+     모바일은 아임웹이 할인 배너를 구매 시트 안에만 넣어서, 복제해 가격 아래에도 붙인다.
+     마크업의 28,900은 상품 위젯을 못 읽을 때만 보이는 기본값. */
+  function won(s) { return parseInt(String(s).replace(/[^0-9]/g, ''), 10) || 0; }
+  function fmt(n) { return n.toLocaleString('ko-KR'); }
+  function oneQtyOff(banner) {
+    var qty = [], amt = [];
+    banner.querySelectorAll('span').forEach(function (s) {
+      var t = s.textContent.trim();
+      if (/^\d+개$/.test(t)) qty.push(won(t));
+      else if (/^[\d,]+원$/.test(t)) amt.push(won(t));
+    });
+    var i = qty.indexOf(1);
+    return i < 0 ? 0 : (amt[i] || 0);
+  }
+  function syncPrice() {
+    var real = document.querySelector('#prod_detail .pay_number .real_price') || document.querySelector('#prod_detail .real_price');
+    var orig = real ? won(real.textContent) : 0;
+    if (!orig) return false;
+    var banner = document.querySelector('#prod_detail ._quantity_discount_banner');
+    var off = banner ? oneQtyOff(banner) : 0;
+    var sale = off > 0 && off < orig ? orig - off : orig;
+
+    document.querySelectorAll('[data-nnd-price]').forEach(function (el) { el.textContent = fmt(sale); });
+    document.querySelectorAll('[data-nnd-orig]').forEach(function (el) {
+      el.textContent = fmt(orig) + '원'; el.hidden = sale === orig;
+    });
+
+    if (sale !== orig && !document.querySelector('.nnd-price-sale')) {
+      var del = document.createElement('span');
+      del.className = 'nnd-price-orig'; del.textContent = fmt(orig) + '원';
+      var now = document.createElement('span');
+      now.className = 'nnd-price-sale'; now.textContent = fmt(sale) + '원';
+      real.style.display = 'none';   /* 원래 요소는 아임웹 스크립트가 쓸 수 있어 지우지 않고 숨긴다 */
+      real.parentNode.insertBefore(del, real);
+      real.parentNode.insertBefore(now, real);
+    }
+
+    var pay = real.closest('.pay_detail');
+    if (banner && pay && !document.querySelector('.nnd-qd-inline')) {
+      var box = document.createElement('div');
+      box.className = 'nnd-qd-inline';
+      box.appendChild(banner.cloneNode(true));
+      box.addEventListener('click', function () {
+        if (window.SITE_SHOP_DETAIL && SITE_SHOP_DETAIL.showMobileOptions) SITE_SHOP_DETAIL.showMobileOptions('buy');
+      });
+      pay.parentNode.insertBefore(box, pay.nextSibling);
+    }
+    return !!banner;   /* 배너가 아직 없으면 load·1.5초 뒤 한 번 더 */
+  }
+  if (!syncPrice()) { window.addEventListener('load', syncPrice); setTimeout(syncPrice, 1500); }
+
+  /* ---------- 8. PC 플로팅 구매 바 ---------- */
+  var bar = document.getElementById('nnd-fbar');
+  document.body.appendChild(bar);   /* 섹션의 transform·overflow 영향을 받지 않게 body 직속으로 */
+  function nativeBtn(kind) {
+    var sel = kind === 'buy' ? 'a._btn_buy, a.btn.buy' : 'a._btn_cart, a.btn.cart';
+    var list = document.querySelectorAll('#prod_detail ' + sel);
+    for (var i = 0; i < list.length; i++) if (list[i].offsetParent !== null) return list[i];
+    return null;
+  }
+  bar.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-nnd-native]');
+    if (!b) return;
+    var n = nativeBtn(b.getAttribute('data-nnd-native'));
+    if (n) n.click();
+  });
+  /* 본문 안 구매 버튼(⑪ 구매 카드)도 아임웹 원래 버튼을 누른다 */
+  root.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-nnd-native]');
+    if (!b) return;
+    var n = nativeBtn(b.getAttribute('data-nnd-native'));
+    if (n) { e.preventDefault(); n.click(); }
+  });
+  var on = false, barTick = false;
+  function check() {
+    barTick = false;
+    var buy = nativeBtn('buy');
+    var show = false;
+    if (buy && window.innerWidth > 991) show = buy.getBoundingClientRect().bottom < 0;
+    if (show !== on) {
+      on = show; bar.classList.toggle('is-on', on); bar.setAttribute('aria-hidden', on ? 'false' : 'true');
+    }
+  }
+  window.addEventListener('scroll', function () { if (!barTick) { barTick = true; setTimeout(check, 50); } }, { passive: true });
+  window.addEventListener('resize', check);
+  check();
+})();
+</script>
