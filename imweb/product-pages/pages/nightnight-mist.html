@@ -496,6 +496,25 @@
   .nnm-ritual__t{margin-top:12px!important;font-size:17px;line-height:22px}
   .nnm-ritual__d{font-size:14px;line-height:22px}
 }
+
+/* 향 묘사 보강 (2026-11-17) */
+.nnm-face__more{margin:16px auto 0!important;max-width:320px;font-size:15px;line-height:24px;color:var(--ink70)}
+.nnm-face__tags{margin-top:14px!important;display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.nnm-face__tags span{padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.7);font-size:13px;line-height:18px;color:var(--ink)}
+.nnm-profile{margin:72px auto 0;width:420px;max-width:100%;padding:28px 32px;border-radius:12px;background:rgba(255,255,255,.6)}
+.nnm-profile__t{font-size:18px;line-height:24px;font-weight:700;color:var(--black)}
+.nnm-profile .nnd-rates{margin-top:20px;gap:14px}
+.nnm-profile .nnd-rate span{width:72px}
+.nnm-profile__note{margin-top:20px!important;font-size:15px;line-height:24px;color:var(--ink70)}
+.nnm-jrow__d{font-size:15px;line-height:22px;color:var(--ink)}
+@media (max-width:768px){
+  .nnm-face__more{font-size:13px;line-height:21px}
+  .nnm-face__tags span{font-size:12px}
+  .nnm-profile{margin-top:40px;padding:22px 24px}
+  .nnm-profile__t{font-size:15px}
+  .nnm-profile__note{font-size:13px;line-height:20px}
+  .nnm-jrow__d{font-size:13px;line-height:20px}
+}
 </style>
 
 <div id="nnd-fbar" aria-hidden="true">
@@ -551,6 +570,7 @@
         <p class="nnd-label nnd-label--cool">비가 그친 뒤</p>
         <div class="nnd-title">비가 막 그친 숲을<br>걸어 본 적 있나요?</div>
         <p class="nnd-body">젖은 흙 냄새, 풀잎에 맺힌 물기, 이끼 낀 나무 껍질.<br>나잇나잇 미스트는 그 숲의 공기를 닮은 향이에요.</p>
+        <p class="nnd-body">시원한 풀 향으로 열리고, 촉촉한 흙 향을 지나, 따뜻한 나무 향으로 천천히 가라앉아요.</p>
       </div>
     </div>
   </section>
@@ -562,9 +582,21 @@
       <div class="nnd-title">풀, 흙, 나무.</div>
     </div>
     <div class="nnm-faces__grid">
-      <div class="nnm-face"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/94054a636a2b5.png" alt="" loading="lazy"><p class="nnm-face__t">Herbal</p><p class="nnm-face__d">라벤더 줄기를 손 끝에 문지른듯<br>싱그러운 허브</p></div>
-      <div class="nnm-face"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/ad3f1682940d8.png" alt="" loading="lazy"><p class="nnm-face__t">Earthy</p><p class="nnm-face__d">비에 젖은 흙에서 느껴지는<br>짙은 대지의 내음</p></div>
-      <div class="nnm-face"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/72c01a2ff3f9f.png" alt="" loading="lazy"><p class="nnm-face__t">Woody</p><p class="nnm-face__d">이끼 낀 나무 껍질의<br>깊고 차분한 결</p></div>
+      <div class="nnm-face"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/94054a636a2b5.png" alt="" loading="lazy"><p class="nnm-face__t">Herbal · 풀</p><p class="nnm-face__d">라벤더 줄기를 손 끝에 문지른듯<br>싱그러운 허브</p><p class="nnm-face__more">뿌리자마자 가장 먼저 닿는 향이에요. 라벤더와 클라리 세이지의 풀잎 같은 초록 향에, 베르가못과 자몽이 상쾌하게 길을 엽니다.</p><p class="nnm-face__tags"><span>라벤더</span><span>클라리 세이지</span><span>로즈마리</span><span>베르가못</span><span>자몽</span></p></div>
+      <div class="nnm-face"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/ad3f1682940d8.png" alt="" loading="lazy"><p class="nnm-face__t">Earthy · 흙</p><p class="nnm-face__d">비에 젖은 흙에서 느껴지는<br>짙은 대지의 내음</p><p class="nnm-face__more">풀 향이 잦아들면 드러나는 촉촉한 바탕이에요. 뿌리에서 얻는 향인 베티버와 페출리아가 비 온 뒤 땅처럼 묵직하고 차분하게 깔립니다.</p><p class="nnm-face__tags"><span>베티버</span><span>페출리아</span></p></div>
+      <div class="nnm-face"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/72c01a2ff3f9f.png" alt="" loading="lazy"><p class="nnm-face__t">Woody · 나무</p><p class="nnm-face__d">이끼 낀 나무 껍질의<br>깊고 차분한 결</p><p class="nnm-face__more">가장 오래 남는 향이에요. 시더우드의 마른 나무 결에 엠버와 톤카의 따뜻하고 달큰한 기운, 머스크의 포근함이 더해져 살결 가까이 머뭅니다.</p><p class="nnm-face__tags"><span>시더우드</span><span>엠버</span><span>톤카</span><span>머스크</span></p></div>
+    </div>
+    <!-- 향 느낌표 — 점수는 향 노트를 보고 추정한 작업값. 대표 확인 후 확정 -->
+    <div class="nnm-profile">
+      <p class="nnm-profile__t">향 느낌표 <span class="nnm-todo">점수 확인</span></p>
+      <div class="nnd-rates">
+        <div class="nnd-rate"><span>상쾌함</span><i></i><i></i><i></i><i class="o"></i><i class="o"></i></div>
+        <div class="nnd-rate"><span>꽃향</span><i></i><i></i><i class="o"></i><i class="o"></i><i class="o"></i></div>
+        <div class="nnd-rate"><span>달콤함</span><i></i><i class="o"></i><i class="o"></i><i class="o"></i><i class="o"></i></div>
+        <div class="nnd-rate"><span>흙·나무</span><i></i><i></i><i></i><i></i><i class="o"></i></div>
+        <div class="nnd-rate"><span>강도</span><i></i><i></i><i class="o"></i><i class="o"></i><i class="o"></i></div>
+      </div>
+      <p class="nnm-profile__note">진하게 퍼지기보다 가까이에서 은은하게 느껴지는 향이에요.</p>
     </div>
   </section>
 
@@ -576,9 +608,9 @@
       <p class="nnd-seq__body">상쾌하게 시작해 은은하게 이어지고,<br>잠들 무렵엔 깊고 차분하게 남도록 설계했어요.</p>
     </div>
     <div class="nnd-seq__rows">
-      <div class="nnd-row nnm-jrow"><span class="nnm-jrow__when">뿌린 순간</span><span class="nnm-jrow__body"><span class="nnm-jrow__t">상쾌하고 시원하게</span><span class="nnm-jrow__n"><b>TOP</b> 라벤더라빈 · 베르가못 · 오렌지 · 자몽 · 클라리 세이지</span></span></div>
-      <div class="nnd-row nnm-jrow"><span class="nnm-jrow__when">잠시 후</span><span class="nnm-jrow__body"><span class="nnm-jrow__t">은은하고 부드럽게</span><span class="nnm-jrow__n"><b>MIDDLE</b> 자스민 · 라벤더 · 로즈마리 · 네롤리 · 핑크 페퍼</span></span></div>
-      <div class="nnd-row nnm-jrow"><span class="nnm-jrow__when">잠들 무렵</span><span class="nnm-jrow__body"><span class="nnm-jrow__t">깊고 차분하게</span><span class="nnm-jrow__n"><b>BASE</b> 머스크 · 엠버 · 시더우드 · 베티버 · 페출리아 · 톤카</span></span></div>
+      <div class="nnd-row nnm-jrow"><span class="nnm-jrow__when">뿌린 순간</span><span class="nnm-jrow__body"><span class="nnm-jrow__t">상쾌하고 시원하게</span><span class="nnm-jrow__d">베르가못과 자몽이 먼저 열고, 라벤더라빈과 클라리 세이지가 풀잎처럼 시원하게 퍼져요.</span><span class="nnm-jrow__n"><b>TOP</b> 라벤더라빈 · 베르가못 · 오렌지 · 자몽 · 클라리 세이지</span></span></div>
+      <div class="nnd-row nnm-jrow"><span class="nnm-jrow__when">잠시 후</span><span class="nnm-jrow__body"><span class="nnm-jrow__t">은은하고 부드럽게</span><span class="nnm-jrow__d">자스민과 네롤리가 꽃잎처럼 부드럽게 감싸고, 핑크 페퍼가 살짝 따뜻한 생기를 더해요.</span><span class="nnm-jrow__n"><b>MIDDLE</b> 자스민 · 라벤더 · 로즈마리 · 네롤리 · 핑크 페퍼</span></span></div>
+      <div class="nnd-row nnm-jrow"><span class="nnm-jrow__when">잠들 무렵</span><span class="nnm-jrow__body"><span class="nnm-jrow__t">깊고 차분하게</span><span class="nnm-jrow__d">시더우드와 베티버, 엠버와 톤카가 남아 비 갠 숲의 흙과 나무처럼 포근하게 머물러요.</span><span class="nnm-jrow__n"><b>BASE</b> 머스크 · 엠버 · 시더우드 · 베티버 · 페출리아 · 톤카</span></span></div>
     </div>
   </section>
 
