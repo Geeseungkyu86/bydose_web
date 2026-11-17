@@ -6,6 +6,7 @@
      - 구성 근거: nightnight-mist/상세페이지-구성.md, USP.md
      - 초안 표시: 맨 위 검은 안내 줄(.nnm-draftbar), 점선 상자(.nnm-ph) = 사진·영상 자리,
        주황 점선 태그(.nnm-todo) = 받을 정보. 공개 전에 모두 없앤다.
+     - 흐름: 호기심 → 감성 → 근거(향료) → 사용 (대표 방향 2026-11-17). 문제·해결형 고민 인물 카드는 쓰지 않는다.
      - 단독 제품으로 만든다(대표 결정 2026-11-16): 나잇나잇 크림과 연결(같은 향·굿나잇 시퀀스™·크림과 함께)은 뺐다.
      - "몸에도"(히어로·④·Q&A 1번)는 화장품·생활화학제품 두 신고 번호가 나온 뒤 공개한다.
      - 새로 쓴 문구는 작업 문구(보이스&톤 검수 전). 크림 페이지에서 가져온 향 블록 문구는 그대로.
@@ -429,6 +430,72 @@
   .nnm-buy__cards{grid-template-columns:1fr;gap:12px;margin-top:24px}
   .nnm-card__p{font-size:20px;line-height:26px}
 }
+
+/* ---------- 2026-11-17 흐름 바꿈: 호기심 → 감성 → 근거 → 사용 ---------- */
+.nnm-hero__media--one{display:block}
+.nnm-ph--wide{aspect-ratio:16/9;height:auto;min-height:0}
+/* ② 잠뿌 사전 카드 */
+.nnm-dict{margin-top:var(--chapter);padding:0 var(--pad);display:flex;justify-content:center}
+.nnm-dict__card{width:560px;max-width:100%;padding:40px 44px;border-radius:12px;background:#fff;box-shadow:0 1px 0 rgba(42,42,41,.08)}
+.nnm-dict__word{font-size:40px;line-height:48px;font-weight:800;color:var(--black)}
+.nnm-dict__pron{margin-left:8px;font-size:18px;font-weight:400;color:var(--ink40)}
+.nnm-dict__pos{margin-top:12px!important;display:inline-block;padding:2px 10px;border:1px solid var(--line);border-radius:999px;font-size:13px;line-height:20px;color:var(--ink70)}
+.nnm-dict__def{margin-top:16px!important;font-size:22px;line-height:32px;font-weight:600;color:var(--ink)}
+.nnm-dict__ex{margin-top:20px!important;padding-top:20px;border-top:1px solid var(--line);font-size:16px;line-height:26px;color:var(--ink70)}
+/* ③ 비가 그친 숲 */
+.nnm-scene__media{position:relative;aspect-ratio:16/9;overflow:hidden;background:#dedbd2}
+.nnm-scene__text{margin-top:60px;padding:0 var(--pad);max-width:760px}
+/* ④ 향의 세 얼굴 */
+.nnm-faces{padding:0 var(--pad)}
+.nnm-faces__grid{margin-top:60px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.nnm-face{text-align:center}
+.nnm-face img{width:100%;max-width:280px;aspect-ratio:1/1;margin:0 auto;border-radius:50%;object-fit:cover}
+.nnm-face__t{margin-top:24px!important;font-size:22px;line-height:28px;font-weight:700;color:var(--black)}
+.nnm-face__d{margin-top:8px!important;font-size:17px;line-height:26px;color:var(--ink)}
+/* ⑤ 잠드는 여정 = 향의 여정 */
+.nnm-journey{margin-top:var(--chapter)}
+.nnm-jrow{height:auto!important;min-height:136px;gap:32px;padding:24px 40px!important}
+.nnm-jrow__when{width:150px;flex:none;font-size:28px;line-height:34px;font-weight:800;color:var(--black)}
+.nnm-jrow__body{display:flex;flex-direction:column;gap:6px}
+.nnm-jrow__t{font-size:20px;line-height:28px;font-weight:600;color:var(--black)}
+.nnm-jrow__n{font-size:15px;line-height:22px;color:var(--ink70)}
+.nnm-jrow__n b{color:var(--accent);margin-right:6px}
+/* ⑥ 근거 */
+.nnm-proof{display:grid;grid-template-columns:1fr 1fr;align-items:start;gap:0}
+.nnm-proof__cert{padding:0 var(--pad)}
+.nnm-proof__cert .nnd-cert img{aspect-ratio:1920/2782}
+.nnm-proof__cert .nnd-cert{background:#fff;padding:16px;border-radius:8px;box-shadow:0 10px 40px rgba(42,42,41,.08)}
+.nnm-proof__zoom{margin-top:12px!important;text-align:center;font-size:14px;color:var(--ink40)}
+.nnm-proof__text{padding:0 var(--pad)}
+.nnm-proof__facts{padding-top:40px}
+/* ⑦ 몸에 한 번, 베개에 한 번 */
+.nnm-ritual__head{padding:0 var(--pad);max-width:760px}
+.nnm-ritual{margin-top:60px;padding:0 var(--pad);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.nnm-ritual__t{margin-top:20px!important;font-size:22px;line-height:28px;font-weight:700;color:var(--black)}
+.nnm-ritual__d{margin-top:8px!important;font-size:17px;line-height:26px}
+@media (max-width:768px){
+  .nnm-dict__card{padding:28px 24px}
+  .nnm-dict__word{font-size:30px;line-height:36px}
+  .nnm-dict__pron{font-size:15px}
+  .nnm-dict__def{font-size:18px;line-height:26px}
+  .nnm-dict__ex{font-size:14px;line-height:22px}
+  .nnm-scene__media{aspect-ratio:4/5}
+  .nnm-scene__text{margin-top:28px}
+  .nnm-faces__grid{margin-top:28px;grid-template-columns:1fr;gap:28px}
+  .nnm-face img{max-width:180px}
+  .nnm-face__t{margin-top:14px!important;font-size:17px;line-height:22px}
+  .nnm-face__d{font-size:14px;line-height:22px}
+  .nnm-jrow{gap:16px;padding:18px 20px!important;min-height:0}
+  .nnm-jrow__when{width:72px;font-size:16px;line-height:22px}
+  .nnm-jrow__t{font-size:15px;line-height:22px}
+  .nnm-jrow__n{font-size:12px;line-height:18px}
+  .nnm-proof{display:block}
+  .nnm-proof__text{margin-top:32px}
+  .nnm-proof__facts{padding-top:24px}
+  .nnm-ritual{margin-top:28px;grid-template-columns:1fr;gap:28px}
+  .nnm-ritual__t{margin-top:12px!important;font-size:17px;line-height:22px}
+  .nnm-ritual__d{font-size:14px;line-height:22px}
+}
 </style>
 
 <div id="nnd-fbar" aria-hidden="true">
@@ -446,140 +513,127 @@
     <b>초안</b> · 새로 쓴 문구는 모두 작업 문구예요(보이스&amp;톤 검수 전). 점선 상자는 촬영·자료가 들어갈 자리, <span class="nnm-todo">확인 필요</span>는 받을 정보예요.
   </div>
 
-  <!-- ① 히어로 — 감성: 편안한 마음·수면 환경·잠드는 여정(대표 방향 2026-11-16). 마음 효과는 제품이 아니라 장면을 주어로. 다른 후보: "잠드는 자리를, 숲처럼 포근하게." / "비 갠 숲에 누운 듯, 마음이 놓이는 밤." / 「오늘 밤은 편히 잠들 것 같아」. "몸에도"는 화장품·생활화학제품 두 신고 번호가 나온 뒤 공개 -->
+  <!-- 흐름 (대표 방향 2026-11-17): 문제·해결이 아니라 호기심 → 감성 → 근거(향료) → 사용. 고민 인물 카드는 쓰지 않는다. -->
+
+  <!-- ① 히어로 — 대표 문구 (2026-11-16). "자장가"는 비유 — 페이지 전체에서 "잠이 와요·숙면" 같은 효과 표현은 쓰지 않는다.
+       "풀과 흙"은 향 노트(Herbal·Earthy) 묘사이지 원료가 식물 유래라는 뜻이 아니다.
+       서브는 크림 상세의 승인 문구("잠들기 전 심리 상태를 고려한 향")를 따른다. -->
   <section class="nnm-hero">
     <div class="nnm-hero__text">
-      <!-- 대표 문구 (2026-11-16). "자장가"는 비유 — 수면 효과로 읽히지 않게, 바로 아래와 페이지 전체에서
-           "잠이 와요·숙면" 같은 효과 표현은 쓰지 않는다. "풀과 흙"은 향 노트(Herbal·Earthy) 묘사 — 원료가 식물 유래라는 뜻이 아니므로 서브는 크림 상세의 승인 문구("잠들기 전 심리 상태를 고려한 향")를 따라 "고려한"으로 쓴다(효과가 아니라 설계 의도). "잠뿌" = 잠들기 전 뿌리는 미스트(대표 표현 2026-11-16). 이전 서브: "몸에도 베개에도 뿌리는, 비 갠 숲을 닮은 향."
-           이전 후보: "향기의 자장가." / "불을 끄고 잠에 닿기까지, 그 길을 숲의 향으로." -->
       <div class="nnm-hero__title">풀과 흙이 들려주는<br>향기의 자장가.</div>
       <p class="nnm-hero__name">나잇나잇 미스트.</p>
       <p class="nnm-hero__sub">잠들기 전 심리 상태를 고려한 향으로,<br>잠드는 여정을 함께하는 잠뿌.</p>
     </div>
-    <div class="nnm-hero__media">
-      <div class="nnm-ph nnm-ph--tall"><span class="nnm-ph__tag">몸</span>손목·목에 뿌리는 장면<br><small>같은 병, 같은 밤 조명</small></div>
-      <div class="nnm-ph nnm-ph--tall"><span class="nnm-ph__tag">베개</span>베개에 뿌리는 장면<br><small>같은 병, 같은 밤 조명</small></div>
+    <div class="nnm-hero__media nnm-hero__media--one">
+      <div class="nnm-ph nnm-ph--wide"><span class="nnm-ph__tag">히어로</span>밤 조명 아래 미스트 한 병, 뒤로 흐릿한 침실<br><small>또는 비 갠 숲 → 침실로 이어지는 짧은 영상</small></div>
     </div>
   </section>
 
-  <!-- ② 이런 분들은 — 크림 페이지와 같은 인물 -->
-  <section class="nnd-intro">
-    <div class="nnd-intro__title">이런 밤엔 나잇나잇 미스트를!</div>
-    <p class="nnd-intro__sub">잠자리에 좋은 향이 있었으면 하는 분, 베개에 뿌리는 향이 얼굴에 닿을까 신경 쓰였던 분,<br>잠들기 전 나만의 시간이 필요한 분이라면 모여보세요!</p>
-    <div class="nnd-personas">
-      <div class="nnd-persona">
-        <div class="nnd-pill"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/f650d22020985.png" alt=""><div><p class="nnd-pill__name">미아 (27세)</p><p class="nnd-pill__quote">베개에서 좋은 향이 났으면 좋겠어...</p></div></div>
-        <a class="nnd-persona__link" href="#nnm-ch3" data-nnd-jump="nnm-ch3">미아의 나잇나잇 &nbsp;→</a>
+  <!-- ② 호기심 — 잠뿌 사전 카드 (요즘 향수 커뮤니티 검색어) -->
+  <section class="nnm-dict">
+    <div class="nnm-dict__card">
+      <p class="nnm-dict__word">잠뿌 <span class="nnm-dict__pron">[잠ː뿌]</span></p>
+      <p class="nnm-dict__pos">명사</p>
+      <p class="nnm-dict__def">잠들기 전에 뿌리는 향.</p>
+      <p class="nnm-dict__ex">요즘 잠들기 전 향을 고르는 사람들이 부르는 말이에요.<br>나잇나잇 미스트는 몸에도, 베개에도 뿌리는 잠뿌예요.</p>
+    </div>
+  </section>
+
+  <!-- ③ 호기심 + 감성 — 비가 그친 숲 (크림 페이지의 '향' 영상을 가져옴) -->
+  <section class="nnd-chapter" id="nnm-ch1">
+    <div class="nnm-scene">
+      <div class="nnm-scene__media">
+        <div class="nnd-vid nnd-vid--169" style="background-image:url(https://i.vimeocdn.com/video/2188812509-1b550ed5b23b9a65d229fa72eb0b4adaac64159461702038affa7a37d6c1a866-d_1280?region=us)">
+          <iframe data-src="https://player.vimeo.com/video/1217189884?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;dnt=1" title="비가 그친 숲" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+        </div>
       </div>
-      <div class="nnd-persona">
-        <div class="nnd-pill"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/d2b076fe4ae95.png" alt=""><div><p class="nnd-pill__name">노아 (32세)</p><p class="nnd-pill__quote">베개에 뿌린 미스트, 얼굴에 닿아도 괜찮을까?</p></div></div>
-        <a class="nnd-persona__link" href="#nnm-p-noah" data-nnd-jump="nnm-p-noah">노아의 나잇나잇 &nbsp;→</a>
-      </div>
-      <div class="nnd-persona">
-        <div class="nnd-pill"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/f1f00a8a7de23.png" alt=""><div><p class="nnd-pill__name">클로이 (29세)</p><p class="nnd-pill__quote">향은 좋은데, 진한 건 부담스러워...</p></div></div>
-        <a class="nnd-persona__link" href="#nnm-ch3" data-nnd-jump="nnm-ch3">클로이의 나잇나잇 &nbsp;→</a>
-      </div>
-      <div class="nnd-persona">
-        <div class="nnd-pill"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/be7faf7627161.png" alt=""><div><p class="nnd-pill__name">엠마 (33세)</p><p class="nnd-pill__quote">자기 전에 하루를 정리하는 시간이 필요해</p></div></div>
-        <a class="nnd-persona__link" href="#nnm-how" data-nnd-jump="nnm-how">엠마의 나잇나잇 &nbsp;→</a>
-      </div>
-      <div class="nnd-persona">
-        <div class="nnd-pill"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/3b26089569fab.png" alt=""><div><p class="nnd-pill__name">루시 (27세)</p><p class="nnd-pill__quote">옆에서 자는 사람 베개에도 뿌려 주고 싶어</p></div></div>
-        <a class="nnd-persona__link" href="#nnm-p-lucy" data-nnd-jump="nnm-p-lucy">루시의 나잇나잇 &nbsp;→</a>
+      <div class="nnm-scene__text">
+        <p class="nnd-label nnd-label--cool">비가 그친 뒤</p>
+        <div class="nnd-title">비가 막 그친 숲을<br>걸어 본 적 있나요?</div>
+        <p class="nnd-body">젖은 흙 냄새, 풀잎에 맺힌 물기, 이끼 낀 나무 껍질.<br>나잇나잇 미스트는 그 숲의 공기를 닮은 향이에요.</p>
       </div>
     </div>
   </section>
 
-  <!-- ③ 잠드는 여정 — 미스트만의 시간표 (크림 시퀀스와 연결하지 않음) -->
-  <section class="nnd-seq">
+  <!-- ④ 감성 — 향의 세 얼굴 -->
+  <section class="nnd-chapter nnm-faces" id="nnm-ch2">
+    <div class="nnm-faces__head">
+      <p class="nnd-label">향의 세 얼굴</p>
+      <div class="nnd-title">풀, 흙, 나무.</div>
+    </div>
+    <div class="nnm-faces__grid">
+      <div class="nnm-face"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/94054a636a2b5.png" alt="" loading="lazy"><p class="nnm-face__t">Herbal</p><p class="nnm-face__d">라벤더 줄기를 손 끝에 문지른듯<br>싱그러운 허브</p></div>
+      <div class="nnm-face"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/ad3f1682940d8.png" alt="" loading="lazy"><p class="nnm-face__t">Earthy</p><p class="nnm-face__d">비에 젖은 흙에서 느껴지는<br>짙은 대지의 내음</p></div>
+      <div class="nnm-face"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/72c01a2ff3f9f.png" alt="" loading="lazy"><p class="nnm-face__t">Woody</p><p class="nnm-face__d">이끼 낀 나무 껍질의<br>깊고 차분한 결</p></div>
+    </div>
+  </section>
+
+  <!-- ⑤ 감성 + 근거 — 잠드는 여정 = 향의 여정 (조향 설계 TOP → MIDDLE → BASE, 크림 상세와 같은 노트) -->
+  <section class="nnd-seq nnm-journey" id="nnm-ch3">
     <div class="nnd-seq__text">
       <p class="nnd-seq__label">잠드는 여정</p>
-      <div class="nnd-seq__title">샤워부터 불 끄기까지,<br>10분의 여정.</div>
-      <p class="nnd-seq__body">몸에 한 번, 베개에 한 번.<br>잠드는 자리가 숲의 향으로 채워집니다.</p>
+      <div class="nnd-seq__title">뿌린 순간부터 잠들 무렵까지,<br>향도 천천히 바뀝니다.</div>
+      <p class="nnd-seq__body">상쾌하게 시작해 은은하게 이어지고,<br>잠들 무렵엔 깊고 차분하게 남도록 설계했어요.</p>
     </div>
     <div class="nnd-seq__rows">
-      <a class="nnd-row" href="#nnm-p-noah" data-nnd-jump="nnm-p-noah"><span class="nnd-row__time"><span class="nnd-row__ap nnd-row__ap--pm">PM</span><span class="nnd-row__hm">10:50</span></span><span class="nnd-row__q">“샤워하고, 몸에 한 번”</span><span class="nnd-row__arrow">→</span></a>
-      <a class="nnd-row" href="#nnm-p-lucy" data-nnd-jump="nnm-p-lucy"><span class="nnd-row__time"><span class="nnd-row__ap nnd-row__ap--pm">PM</span><span class="nnd-row__hm">10:55</span></span><span class="nnd-row__q">“베개와 이불에 한 번”</span><span class="nnd-row__arrow">→</span></a>
-      <a class="nnd-row" href="#nnm-ch3" data-nnd-jump="nnm-ch3"><span class="nnd-row__time"><span class="nnd-row__ap nnd-row__ap--pm">PM</span><span class="nnd-row__hm">11:00</span></span><span class="nnd-row__q">“불 끄고, 숲의 향 속으로”</span><span class="nnd-row__arrow">→</span></a>
+      <div class="nnd-row nnm-jrow"><span class="nnm-jrow__when">뿌린 순간</span><span class="nnm-jrow__body"><span class="nnm-jrow__t">상쾌하고 시원하게</span><span class="nnm-jrow__n"><b>TOP</b> 라벤더라빈 · 베르가못 · 오렌지 · 자몽 · 클라리 세이지</span></span></div>
+      <div class="nnd-row nnm-jrow"><span class="nnm-jrow__when">잠시 후</span><span class="nnm-jrow__body"><span class="nnm-jrow__t">은은하고 부드럽게</span><span class="nnm-jrow__n"><b>MIDDLE</b> 자스민 · 라벤더 · 로즈마리 · 네롤리 · 핑크 페퍼</span></span></div>
+      <div class="nnd-row nnm-jrow"><span class="nnm-jrow__when">잠들 무렵</span><span class="nnm-jrow__body"><span class="nnm-jrow__t">깊고 차분하게</span><span class="nnm-jrow__n"><b>BASE</b> 머스크 · 엠버 · 시더우드 · 베티버 · 페출리아 · 톤카</span></span></div>
     </div>
   </section>
 
-  <!-- ④ 한 병, 두 자리 -->
-  <section class="nnd-chapter" id="nnm-ch1">
-    <div class="nnd-marker"><span class="nnd-marker__ap nnd-marker__ap--pm">PM</span> 10:50<span class="nnd-marker__sub">한 병, 두 자리</span></div>
-
-    <div class="nnd-block">
-      <div class="nnd-block__media"><div class="nnm-ph"><span class="nnm-ph__tag">몸</span>샤워 뒤 손목·목·잠옷 위에 뿌리는 장면<br><small>영상이면 크림 페이지처럼 배경영상(Vimeo)</small></div></div>
-      <div class="nnd-block__content" id="nnm-p-noah">
-        <div class="nnd-chip"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/d2b076fe4ae95.png" alt=""><div><p class="nnd-chip__name">노아</p><p class="nnd-chip__quote">베개에 뿌린 미스트, 얼굴에 닿아도 괜찮을까?</p></div></div>
-        <p class="nnd-label">몸에도</p>
-        <div class="nnd-title">손목과 목에,<br>가볍게 한 번.</div>
-        <p class="nnd-body">나잇나잇 미스트는 몸에 쓰는 미스트예요.<br>샤워 뒤 손목과 목, 잠옷 위에 가볍게 뿌려 보세요. 은은한 향이 내 곁에 머뭅니다.</p>
-        <p class="nnm-regline">화장품 <span class="nnm-todo">신고 확인 후 표기</span></p>
+  <!-- ⑥ 근거 — 「아로마 웰니스」 (인증서를 접지 않고 보여 준다) -->
+  <section class="nnd-chapter" id="nnm-ch4">
+    <div class="nnm-proof">
+      <div class="nnm-proof__cert">
+        <button type="button" class="nnd-cert" data-nnd-zoom="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" aria-label="인증서 크게 보기"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" alt="CPL Aromas AromaWellness 인증서" width="1920" height="2782" loading="lazy"></button>
+        <p class="nnm-proof__zoom">눌러서 크게 보기</p>
+      </div>
+      <div class="nnm-proof__text">
+        <p class="nnd-label nnd-label--cool">「아로마 웰니스」</p>
+        <div class="nnd-title">좋은 향을 넘어,<br>잠들기 전 마음을 고려한 향.</div>
+        <p class="nnd-highlight">향과 감정의 연결을 연구하는 CPL Aromas의 「아로마 웰니스」 라인을 활용해 조향된 슬립 인 더포레스트 향.</p>
+        <dl class="nnd-spec nnm-proof__facts">
+          <div class="nnd-spec__row"><dt>조향</dt><dd>CPL Aromas 「아로마 웰니스」 라인</dd></div>
+          <div class="nnd-spec__row"><dt>향 이름</dt><dd>슬립 인 더 포레스트</dd></div>
+          <!-- 인증서 원문: "Certificate of Technology Compliance - AromaWellness Relaxation Fragrance", 15/12/2025, 대상 향료 GW ONE RELAX SC.
+               테스트 방식만 사실대로 쓰고 "효과 입증·릴랙스 효과" 같은 결과 표현은 쓰지 않는다. 향료 코드가 미스트 향과 같은지 확인 필요. -->
+          <div class="nnd-spec__row"><dt>인증</dt><dd>「아로마 웰니스」 인증 (CPL Aromas, 2025-12-15)</dd></div>
+          <div class="nnd-spec__row"><dt>테스트 방식</dt><dd>향을 맡은 사람들의 의식·무의식 반응을 피부전기반응(GSR)과 설문으로 살피는 「아로마 웰니스」 테스트를 거친 향</dd></div>
+        </dl>
       </div>
     </div>
+  </section>
 
-    <div class="nnd-block">
-      <div class="nnd-block__media"><div class="nnm-ph"><span class="nnm-ph__tag">베개</span>베개 위 수건을 걷어 내고 베개·이불에 바로 뿌리는 장면</div></div>
-      <div class="nnd-block__content" id="nnm-p-lucy">
-        <div class="nnd-chip"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/3b26089569fab.png" alt=""><div><p class="nnd-chip__name">루시</p><p class="nnd-chip__quote">옆에서 자는 사람 베개에도 뿌려 주고 싶어</p></div></div>
-        <p class="nnd-label">베개에도</p>
-        <div class="nnd-title">베개와 이불에,<br>한 번 더.</div>
-        <p class="nnd-body">베개 위에 수건을 따로 깔지 않아도 돼요.<br>얼굴이 닿는 베개와 이불에도 같은 미스트를 뿌리세요. 옆 사람 베개에도 한 번.</p>
+  <!-- ⑦ 사용 — 몸에 한 번, 베개에 한 번 (장면으로만. "몸에도"는 화장품·생활화학제품 두 신고 번호가 나온 뒤 공개) -->
+  <section class="nnd-chapter" id="nnm-ch5">
+    <div class="nnm-ritual__head">
+      <p class="nnd-label">몸에 한 번, 베개에 한 번</p>
+      <div class="nnd-title">샤워를 마친 손목에,<br>불 끄기 전 베개에.</div>
+      <p class="nnd-body">같은 향 하나로 잠드는 자리를 채워요.</p>
+    </div>
+    <div class="nnm-ritual">
+      <div class="nnm-ritual__item">
+        <div class="nnm-ph nnm-ph--tall"><span class="nnm-ph__tag">몸</span>샤워 뒤 손목·목·잠옷 위에 뿌리는 장면</div>
+        <p class="nnm-ritual__t">몸에</p>
+        <p class="nnm-ritual__d">손목과 목, 잠옷 위에 가볍게. 은은한 향이 내 곁에 머뭅니다.</p>
+        <p class="nnm-regline">화장품 <span class="nnm-todo">신고 확인 후 표기</span></p>
+      </div>
+      <div class="nnm-ritual__item">
+        <div class="nnm-ph nnm-ph--tall"><span class="nnm-ph__tag">베개</span>불을 낮추고 베개·이불에 뿌리는 장면</div>
+        <p class="nnm-ritual__t">베개에</p>
+        <p class="nnm-ritual__d">베개와 이불에 한 번. 잠드는 자리에 향이 내려앉습니다.</p>
         <p class="nnm-regline">생활화학제품(섬유용 방향제) 안전확인 <span class="nnm-todo">신고번호 확인 후 표기</span></p>
       </div>
     </div>
   </section>
 
-  <!-- ⑤ 향 — 「아로마 웰니스」 비 갠 숲의 향 (크림 페이지의 향 블록·영상을 가져옴) -->
-  <section class="nnd-chapter" id="nnm-ch3">
-    <div class="nnd-marker"><span class="nnd-marker__ap nnd-marker__ap--pm">PM</span> 11:00<span class="nnd-marker__sub">비 갠 숲의 향</span></div>
-    <div class="nnd-block">
-      <div class="nnd-block__media">
-        <!-- 크림 페이지의 '향' 영상을 그대로 쓴다 -->
-        <div class="nnd-vid nnd-vid--89" style="background-image:url(https://i.vimeocdn.com/video/2188812509-1b550ed5b23b9a65d229fa72eb0b4adaac64159461702038affa7a37d6c1a866-d_1280?region=us)">
-          <iframe data-src="https://player.vimeo.com/video/1217189884?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;dnt=1" title="향" allow="autoplay; fullscreen; picture-in-picture"></iframe>
-        </div>
-      </div>
-      <div class="nnd-block__content">
-        <div class="nnd-chip"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/f650d22020985.png" alt=""><div><p class="nnd-chip__name">미아</p><p class="nnd-chip__quote">베개에서 좋은 향이 났으면 좋겠어...</p></div></div>
-        <div class="nnd-chip nnm-chip2"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/f1f00a8a7de23.png" alt=""><div><p class="nnd-chip__name">클로이</p><p class="nnd-chip__quote">향은 좋은데, 진한 건 부담스러워...</p></div></div>
-        <p class="nnd-label nnd-label--cool">「아로마 웰니스」</p>
-        <div class="nnd-title">비 갠 숲의 향을,<br>가까이 두는 만큼 은은하게.</div>
-        <p class="nnd-body">잠들기 전 몸과 베개, 가장 가까운 곳에 두는 향이라 강하지 않게 맞췄어요.<br>처음엔 상쾌하게 시작해 은은하게 이어지고, 깊고 차분하게 남습니다.</p>
-        <p class="nnd-highlight">향과 감정의 연결을 연구하는 CPL Aromas의 「아로마 웰니스」 라인을 활용해 조향된 슬립 인 더포레스트 향.<br>비 갠 직후 숲속을 걷는 듯, 촉촉하면서도 포근한 향을 느껴보세요.</p>
-        <div class="nnd-notes">
-          <div class="nnd-note"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/94054a636a2b5.png" alt=""><div><p class="nnd-note__t">Herbal</p><p class="nnd-note__d">라벤더 줄기를 손 끝에 문지른듯<br>싱그러운 허브</p></div></div>
-          <div class="nnd-note"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/ad3f1682940d8.png" alt=""><div><p class="nnd-note__t">Earthy</p><p class="nnd-note__d">비에 젖은 흙에서 느껴지는<br>짙은 대지의 내음</p></div></div>
-          <div class="nnd-note"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/72c01a2ff3f9f.png" alt=""><div><p class="nnd-note__t">Woody</p><p class="nnd-note__d">이끼 낀 나무 껍질의<br>깊고 차분한 결</p></div></div>
-        </div>
-        <div class="nnd-accs">
-          <div class="nnd-acc">
-            <button type="button" class="nnd-acc__btn" aria-expanded="false"><span>조향 설계</span><span class="nnd-acc__icon" aria-hidden="true">+</span></button>
-            <div class="nnd-acc__panel" hidden>
-              <div class="nnd-flow"><p class="nnd-flow__t">상쾌하고 시원하게 시작합니다</p><p class="nnd-flow__n"><b>TOP</b> | 라벤더라빈 · 베르가못 · 오렌지 · 자몽 · 클라리 세이지</p></div>
-              <div class="nnd-flow"><p class="nnd-flow__t">은은하고 부드럽게 이어집니다</p><p class="nnd-flow__n"><b>MIDDLE</b> | 자스민 · 라벤더 · 로즈마리 · 네롤리 · 핑크 페퍼</p></div>
-              <div class="nnd-flow"><p class="nnd-flow__t">깊고 차분하게 남습니다</p><p class="nnd-flow__n"><b>BASE</b> | 머스크 · 엠버 · 시더우드 · 베티버 · 페출리아 · 톤카</p></div>
-            </div>
-          </div>
-          <div class="nnd-acc">
-            <button type="button" class="nnd-acc__btn" aria-expanded="false"><span>「아로마 웰니스」 인증서</span><span class="nnd-acc__icon" aria-hidden="true">+</span></button>
-            <div class="nnd-acc__panel" hidden>
-              <button type="button" class="nnd-cert" data-nnd-zoom="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" aria-label="인증서 크게 보기"><img data-src="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" alt="CPL Aromas AromaWellness 인증서"></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ⑥ 사용법 -->
+  <!-- ⑧ 사용법 -->
   <section class="nnd-how nnd-block" id="nnm-how">
     <div class="nnd-block__media"><div class="nnm-ph"><span class="nnm-ph__tag">사용법</span>몸 → 베개 순서로 뿌리는 짧은 영상</div></div>
     <div class="nnd-block__content">
-      <div class="nnd-chip"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/be7faf7627161.png" alt=""><div><p class="nnd-chip__name">엠마</p><p class="nnd-chip__quote">자기 전에 하루를 정리하는 시간이 필요해</p></div></div>
       <p class="nnd-label">How to use</p>
-      <div class="nnd-title">불 끄기 전,<br>몸과 베개에 한 번씩</div>
+      <div class="nnd-title">이렇게 뿌려요</div>
       <p class="nnd-body">샤워를 마치고 손목과 목에 한 번, 불을 낮추고 베개와 이불에 한 번.</p>
       <dl class="nnd-spec">
         <div class="nnd-spec__row"><dt>몸</dt><dd>손목·목에서 조금 떨어뜨려 1~2회 <span class="nnm-todo">거리·횟수 확인</span></dd></div>
@@ -590,7 +644,7 @@
     </div>
   </section>
 
-  <!-- ⑦ Q&A -->
+  <!-- ⑨ Q&A -->
   <section class="nnd-info">
     <div class="nnd-info__head">
       <p class="nnd-label">Q&amp;A</p>
@@ -620,13 +674,13 @@
     </div>
   </section>
 
-  <!-- ⑧ 후기 — 출시 후 미스트 후기로 채움 -->
+  <!-- ⑩ 후기 — 출시 후 미스트 후기로 채움 -->
   <section class="nnd-closing">
     <div class="nnd-closing__title">오늘 밤, 몸에 한 번 베개에 한 번</div>
     <div class="nnm-ph nnm-ph--band">후기 자리 — 출시 후 미스트 후기로 채움<br><small>후기를 받을 때 "몸에 뿌렸는지 / 베개에 뿌렸는지"를 물어 보면 좋아요</small></div>
   </section>
 
-  <!-- ⑨ 제품 정보 — 화장품 표시 + 생활화학제품 표시 둘 다 -->
+  <!-- ⑪ 제품 정보 — 화장품 표시 + 생활화학제품 표시 둘 다 -->
   <section class="nnd-info">
     <div class="nnd-info__head">
       <p class="nnd-label">Product Information</p>
@@ -652,7 +706,7 @@
     </div>
   </section>
 
-  <!-- ⑩ 구매 — 단품만 (크림·정기배송 연결은 뺌) -->
+  <!-- ⑫ 구매 — 단품만 (크림·정기배송 연결은 뺌) -->
   <section class="nnm-buy">
     <div class="nnm-buy__head">
       <p class="nnd-label">Shop</p>
@@ -662,7 +716,7 @@
       <div class="nnm-card">
         <div class="nnm-ph nnm-ph--card">미스트 제품 컷</div>
         <p class="nnm-card__t">나잇나잇 미스트</p>
-        <p class="nnm-card__d">몸에도 베개에도, 비 갠 숲의 향</p>
+        <p class="nnm-card__d">풀과 흙이 들려주는 향기의 자장가</p>
         <p class="nnm-card__p">12,000원</p>
         <button type="button" class="nnm-btn nnm-btn--dark" data-nnd-native="buy">구매하기</button>
       </div>
