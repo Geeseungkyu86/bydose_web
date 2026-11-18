@@ -521,10 +521,12 @@
 .nnm-tone{margin-top:var(--chapter);padding:140px 0}
 .nnm-tone + .nnm-tone{margin-top:0}
 .nnm-tone--cool{background:linear-gradient(180deg,var(--bg) 0%,#E3E9EA 18%,#DCE4E6 100%)}
-.nnm-tone--warm{background:linear-gradient(180deg,#DCE4E6 0%,#EEE3D3 22%,#E9D9C3 100%)}
-.nnm-tone--night{background:linear-gradient(180deg,#E9D9C3 0%,#3A3A44 22%,#1F222B 60%,#1A1C24 100%);color:#E9E6DD}
+.nnm-tone--warm{background:linear-gradient(180deg,#DCE4E6 0%,#E1E3DF 6%,#E7E3D9 12%,#ECE3D5 20%,#EEE3D3 28%,#E9D9C3 100%)}
+/* 노을 → 보랏빛 황혼 → 밤. 중간색을 여러 개 두어 탁해지거나 띠가 생기지 않게, 글자가 나오기 전에 천천히 어두워진다 */
+.nnm-tone--night{padding-top:320px;background:linear-gradient(180deg,#E9D9C3 0%,#E4D0BD 4%,#DCC3B5 8%,#CFB3AC 12%,#BCA2A6 16%,#A592A0 20%,#8A8197 25%,#6E6D88 30%,#555875 36%,#41455F 42%,#32364C 49%,#262A3A 56%,#1F222B 64%,#1A1C24 100%);color:#E9E6DD}
 .nnm-tone--tail{background:#1A1C24;padding-top:40px}
-.nnm-tone--tail + .nnm-more{margin-top:0;padding-top:var(--chapter);background:linear-gradient(180deg,#1A1C24 0%,var(--bg) 22%)}
+/* 밤 → 새벽 → 아침. 남색에서 푸른 새벽빛을 지나 크림색으로 */
+.nnm-tone--tail + .nnm-more{margin-top:0;padding-top:320px;background:linear-gradient(180deg,#1A1C24 0%,#22283A 4%,#2E3850 8%,#46536B 12%,#687689 16%,#919CA8 20%,#B8BFC2 24%,#D6D9D3 28%,#E8E8DE 32%,var(--bg) 38%)}
 .nnm-arc{display:grid;grid-template-columns:1fr 1fr;align-items:center}
 .nnm-arc--rev .nnm-arc__media{order:2}
 .nnm-arc__media{position:relative;aspect-ratio:4/5;overflow:hidden;background:#cfd6d8}
@@ -539,7 +541,7 @@
 .nnm-tone--cool .nnm-arc__title,.nnm-tone--warm .nnm-arc__title{color:var(--black)}
 .nnm-arc__body{margin-top:32px!important;font-size:18px;line-height:30px}
 .nnm-arc__notes{margin-top:28px!important;font-size:13px;line-height:22px;letter-spacing:.02em;opacity:.55}
-.nnm-night{padding:120px var(--pad) 120px;text-align:center}
+.nnm-night{position:relative;z-index:1;padding:120px var(--pad) 120px;text-align:center}
 .nnm-night__title{margin-top:28px;font-size:44px;line-height:60px;font-weight:600;color:#F3F1EA}
 .nnm-night__body{margin-top:40px!important;font-size:18px;line-height:32px;color:rgba(233,230,221,.7)}
 .nnm-night__media{padding:0 var(--pad)}
@@ -564,6 +566,8 @@
 @media (prefers-reduced-motion:reduce){#nnm-story.nnm-anim .nnm-fade{opacity:1;transform:none;transition:none}}
 @media (max-width:768px){
   .nnm-tone{padding:72px 0}
+  .nnm-tone--night{padding-top:200px}
+  .nnm-tone--tail + .nnm-more{padding-top:200px}
   .nnm-arc{display:block}
   .nnm-arc__text{padding:32px var(--pad) 0}
   .nnm-arc__step{font-size:13px}
@@ -615,6 +619,40 @@
   .nnm-pcard__t{font-size:16px;line-height:23px}
   .nnm-pcard__d{font-size:13px;line-height:21px}
   .nnm-pcard__fn{font-size:12px;line-height:19px}
+}
+
+/* ---------- 램프 무대 — 불을 켜고 끄는 인터랙션 ---------- */
+.nnm-lamp-stage{position:relative;width:100%;height:600px;margin:0 auto}
+/* 불빛·어둠 모두 가장자리에서 0으로 사라지게 (네모로 잘리지 않게) */
+.nnm-lamp-stage__glow{position:absolute;inset:-120px 0;background:radial-gradient(circle 380px at 56% 48%,rgba(255,214,150,.7) 0%,rgba(255,200,135,.32) 35%,rgba(255,190,120,.08) 70%,rgba(255,190,120,0) 100%);transition:opacity 1.6s ease;pointer-events:none}
+.nnm-lamp-stage__dark{position:absolute;inset:-160px 0 0 0;background:radial-gradient(ellipse 70% 62% at 50% 50%,rgba(16,18,27,.82) 0%,rgba(16,18,27,.6) 45%,rgba(16,18,27,.25) 75%,rgba(16,18,27,0) 100%);opacity:0;transition:opacity 1.6s ease;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 60%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 60%,transparent 100%)}
+.nnm-lamp-stage__scene{position:absolute;left:0;right:0;bottom:64px;display:flex;align-items:flex-end;justify-content:center;gap:56px}
+.nnm-lamp-stage__product{width:150px;height:300px;border-radius:18px;border:2px dashed rgba(42,42,41,.35);background:rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;text-align:center;font-size:14px;line-height:20px;color:rgba(42,42,41,.7);transition:filter 1.6s ease,opacity 1.6s ease}
+.nnm-lamp{display:block;width:160px;height:260px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.nnm-lamp svg{width:100%;height:100%;overflow:visible}
+.nnm-lamp__shade{fill:#F6DDAA;transition:fill 1.2s ease}
+.nnm-lamp__bulb{fill:#FFF3D6;filter:drop-shadow(0 0 14px rgba(255,220,150,.95));transition:fill 1.2s ease,filter 1.2s ease}
+.nnm-lamp__stem,.nnm-lamp__base{fill:#3A3530}
+.nnm-lamp:focus-visible{outline:2px solid #F3F1EA;outline-offset:6px;border-radius:8px}
+.nnm-lamp-stage__hint{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-size:15px;line-height:20px;color:rgba(255,236,205,.9);text-shadow:0 1px 8px rgba(0,0,0,.25);transition:color 1.6s ease}
+/* 불 끔 */
+.nnm-lamp-stage[data-lamp="off"] .nnm-lamp-stage__glow{opacity:0}
+.nnm-lamp-stage[data-lamp="off"] .nnm-lamp-stage__dark{opacity:1}
+.nnm-lamp-stage[data-lamp="off"] .nnm-lamp__shade{fill:#4A4D5C}
+.nnm-lamp-stage[data-lamp="off"] .nnm-lamp__bulb{fill:#5A5D6C;filter:none}
+.nnm-lamp-stage[data-lamp="off"] .nnm-lamp-stage__product{filter:brightness(.35)}
+.nnm-lamp-stage[data-lamp="off"] .nnm-lamp-stage__hint{color:rgba(233,230,221,.55)}
+/* 스크립트가 있을 때만: 불을 끄기 전엔 밤 문장을 흐리게, 끄면 또렷하게 */
+#nnm-story.nnm-lampjs .nnm-night{opacity:.25;transition:opacity 1.8s ease .3s}
+#nnm-story.nnm-lampjs .nnm-night.is-lit-off{opacity:1}
+@media (prefers-reduced-motion:reduce){.nnm-lamp-stage *,#nnm-story.nnm-lampjs .nnm-night{transition:none!important}}
+@media (max-width:768px){
+  .nnm-lamp-stage{height:420px}
+  .nnm-lamp-stage__glow{background:radial-gradient(circle 240px at 58% 48%,rgba(255,214,150,.7) 0%,rgba(255,200,135,.32) 35%,rgba(255,190,120,.08) 70%,rgba(255,190,120,0) 100%)}
+  .nnm-lamp-stage__scene{bottom:52px;gap:28px}
+  .nnm-lamp-stage__product{width:96px;height:200px;font-size:11px;line-height:16px}
+  .nnm-lamp{width:110px;height:180px}
+  .nnm-lamp-stage__hint{bottom:16px;font-size:12px}
 }
 </style>
 
@@ -703,12 +741,31 @@
 
   <!-- ⑤ 그리고, 잠 — 짙은 밤색. 문장은 가장 짧게, 여백은 가장 넓게 -->
   <section class="nnm-tone nnm-tone--night" id="nnm-ch3">
-    <div class="nnm-night nnm-fade">
+    <!-- 램프 무대 (대표 아이디어 2026-11-18): 노을 구간에 제품 누끼와 램프를 세우고, 손님이 램프를 눌러 불을 끄면
+         화면이 밤으로 가라앉으며 "불을 끄면, 숲의 향만 남아요."가 또렷해진다. 램프·제품은 PNG로 교체할 자리. -->
+    <div class="nnm-lamp-stage" data-lamp="on">
+      <div class="nnm-lamp-stage__glow" aria-hidden="true"></div>
+      <div class="nnm-lamp-stage__dark" aria-hidden="true"></div>
+      <div class="nnm-lamp-stage__scene">
+        <div class="nnm-lamp-stage__product"><span>나잇나잇 미스트<br>누끼 PNG</span></div>
+        <button type="button" class="nnm-lamp" aria-pressed="true" aria-label="램프 끄기">
+          <!-- 임시 램프 그림 — 램프 PNG(켜짐·꺼짐 두 장)로 바꾼다 -->
+          <svg viewBox="0 0 160 260" aria-hidden="true">
+            <path class="nnm-lamp__shade" d="M38 20 H122 L146 104 H14 Z"/>
+            <ellipse class="nnm-lamp__bulb" cx="80" cy="110" rx="18" ry="10"/>
+            <rect class="nnm-lamp__stem" x="76" y="104" width="8" height="120" rx="3"/>
+            <ellipse class="nnm-lamp__base" cx="80" cy="232" rx="48" ry="12"/>
+          </svg>
+        </button>
+      </div>
+      <p class="nnm-lamp-stage__hint" aria-live="polite">램프를 눌러 불을 꺼 보세요</p>
+    </div>
+
+    <div class="nnm-night">
       <p class="nnm-arc__step">그리고, 잠</p>
       <div class="nnm-night__title">불을 끄면,<br>숲의 향만 남아요.</div>
       <p class="nnm-night__body">베개에 한 번.<br>오늘 밤은 여기까지.</p>
     </div>
-    <div class="nnm-night__media"><div class="nnm-ph nnm-ph--wide nnm-ph--dark"><span class="nnm-ph__tag">밤</span>불 꺼진 침실, 창빛만 희미하게 비치는 베개<br><small>거의 검은 화면, 아주 느린 영상이면 더 좋음</small></div></div>
     <p class="nnm-night__quote nnm-fade">「 실제 후기 한 줄 자리 」 <span class="nnm-todo">출시 후 후기에서 고르기</span></p>
   </section>
 
@@ -1004,6 +1061,23 @@
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); fio.unobserve(e.target); } });
     }, { rootMargin: '0px 0px -15% 0px' });
     root.querySelectorAll('.nnm-fade').forEach(function (el) { fio.observe(el); });
+  }
+
+  /* ---------- 5-2. 램프 켜고 끄기 (미스트 페이지) ---------- */
+  var stage = root.querySelector('.nnm-lamp-stage');
+  if (stage) {
+    var lamp = stage.querySelector('.nnm-lamp');
+    var hint = stage.querySelector('.nnm-lamp-stage__hint');
+    var nightText = root.querySelector('.nnm-night');
+    root.classList.add('nnm-lampjs');
+    lamp.addEventListener('click', function () {
+      var off = stage.getAttribute('data-lamp') !== 'off';
+      stage.setAttribute('data-lamp', off ? 'off' : 'on');
+      lamp.setAttribute('aria-pressed', String(!off));
+      lamp.setAttribute('aria-label', off ? '램프 켜기' : '램프 끄기');
+      hint.textContent = off ? '다시 켜려면 램프를 눌러 주세요' : '램프를 눌러 불을 꺼 보세요';
+      if (nightText) nightText.classList.toggle('is-lit-off', off);
+    });
   }
 
   /* ---------- 6. Vimeo 배경영상 지연 로딩 ---------- */
