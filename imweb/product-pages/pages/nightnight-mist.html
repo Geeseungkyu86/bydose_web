@@ -662,9 +662,12 @@
 .nnm-stamps--on span{background:#fff}
 .nnm-dict__card{position:relative;background:#BCBFAD!important}
 .nnm-clip{position:absolute;top:-34px;right:56px;width:34px;height:86px;transform:rotate(-24deg)}
-.nnm-aw{margin-top:var(--chapter);padding:0 var(--pad);display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:40px}
-.nnm-aw__title{margin-top:20px;font-size:40px;line-height:54px;font-weight:600;color:var(--black)}
-.nnm-aw__body{margin-top:28px!important;font-size:18px;line-height:30px;color:var(--ink)}
+.nnm-aw{margin-top:var(--chapter);padding:0 var(--pad);display:grid;grid-template-columns:1.1fr .9fr;align-items:start;column-gap:40px}
+.nnm-aw__text{margin-top:40px}
+#nnm-story .nnm-aw__cert{margin-top:-90px}
+.nnm-aw__head{grid-column:1/-1}
+.nnm-aw__title{margin-top:24px;font-size:68px;line-height:84px;font-weight:800;letter-spacing:-.03em;color:var(--black)}
+.nnm-aw__body{font-size:18px;line-height:30px;color:var(--ink)}
 .nnm-aw__meta{margin-top:20px!important;font-size:14px;line-height:22px;color:var(--ink70)}
 .nnm-aw__meta a{margin-left:8px;color:var(--accent)!important;font-weight:600}
 .nnm-aw__cert{justify-self:center;width:300px;padding:12px!important;background:#fff!important;border-radius:6px;box-shadow:0 18px 50px rgba(42,42,41,.16);transform:rotate(4deg);transition:transform .4s ease;cursor:zoom-in}
@@ -677,7 +680,8 @@
   .nnm-stamps--on{bottom:14px}
   .nnm-clip{top:-26px;right:28px;width:26px;height:66px}
   .nnm-aw{display:block}
-  .nnm-aw__title{margin-top:12px;font-size:24px;line-height:34px}
+  .nnm-aw__title{margin-top:12px;font-size:36px;line-height:46px;letter-spacing:-.03em}
+  .nnm-aw__text{margin-top:24px}
   .nnm-aw__body{margin-top:16px!important;font-size:15px;line-height:25px}
   .nnm-aw__body br{display:none}
   .nnm-aw__meta{font-size:12px}
@@ -741,9 +745,12 @@
   <!-- ②-1 「아로마 웰니스」 (대표 결정 2026-11-18: 가장 유니크한 차별점이라 향 이야기 앞에 짧고 강하게).
        효과(잠이 온다)가 아니라 만든 방식·출처로 말한다. 자세한 기록은 ⑦ 근거 섹션에서. -->
   <section class="nnm-aw nnm-fade" id="nnm-aw">
-    <div class="nnm-aw__text">
+    <div class="nnm-aw__head">
       <p class="nnd-label nnd-label--cool">「아로마 웰니스」</p>
-      <div class="nnm-aw__title">좋은 향을 넘어,<br>잠들기 전 마음을 고려한 향.</div>
+      <!-- 대표 문구 2026-11-18. "고려한"은 설계 의도 — "챙기는·돌보는"처럼 효과로 바꾸지 않는다 -->
+      <div class="nnm-aw__title">좋은 향기를 넘어,<br>잠들기 전 마음까지 고려한 향.</div>
+    </div>
+    <div class="nnm-aw__text">
       <p class="nnm-aw__body">향 전문 회사 CPL Aromas가 향을 맡은 사람들의 반응을 살펴 인증한 <br>「아로마 웰니스」 향료로 조향했어요.</p>
       <p class="nnm-aw__meta">피부전기반응(GSR) · 설문 테스트 · 2025-12-15 인증 <a href="#nnm-ch4" data-nnd-jump="nnm-ch4">기록 보기 →</a></p>
     </div>
