@@ -654,6 +654,36 @@
   .nnm-lamp{width:110px;height:180px}
   .nnm-lamp-stage__hint{bottom:16px;font-size:12px}
 }
+
+/* ---------- 2026-11-18 대표 피그마 반영 + 「아로마 웰니스」 앞으로 ---------- */
+.nnm-moodimg{position:relative;width:688px;max-width:100%;margin:56px auto 0}
+.nnm-ph--mood{aspect-ratio:688/775;height:auto;min-height:0}
+.nnm-stamps--on{position:absolute;left:0;right:0;bottom:28px;margin:0!important}
+.nnm-stamps--on span{background:#fff}
+.nnm-dict__card{position:relative;background:#BCBFAD!important}
+.nnm-clip{position:absolute;top:-34px;right:56px;width:34px;height:86px;transform:rotate(-24deg)}
+.nnm-aw{margin-top:var(--chapter);padding:0 var(--pad);display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:40px}
+.nnm-aw__title{margin-top:20px;font-size:40px;line-height:54px;font-weight:600;color:var(--black)}
+.nnm-aw__body{margin-top:28px!important;font-size:18px;line-height:30px;color:var(--ink)}
+.nnm-aw__meta{margin-top:20px!important;font-size:14px;line-height:22px;color:var(--ink70)}
+.nnm-aw__meta a{margin-left:8px;color:var(--accent)!important;font-weight:600}
+.nnm-aw__cert{justify-self:center;width:300px;padding:12px!important;background:#fff!important;border-radius:6px;box-shadow:0 18px 50px rgba(42,42,41,.16);transform:rotate(4deg);transition:transform .4s ease;cursor:zoom-in}
+.nnm-aw__cert:hover{transform:rotate(0deg) scale(1.02)}
+.nnm-aw__cert img{width:100%;height:auto;aspect-ratio:1920/2782}
+.nnm-aw__next{grid-column:1/-1;margin-top:80px!important;text-align:center;font-size:18px;line-height:26px;color:var(--ink70)}
+.nnm-aw__next::after{content:"↓";display:block;margin-top:8px}
+@media (max-width:768px){
+  .nnm-moodimg{margin-top:32px}
+  .nnm-stamps--on{bottom:14px}
+  .nnm-clip{top:-26px;right:28px;width:26px;height:66px}
+  .nnm-aw{display:block}
+  .nnm-aw__title{margin-top:12px;font-size:24px;line-height:34px}
+  .nnm-aw__body{margin-top:16px!important;font-size:15px;line-height:25px}
+  .nnm-aw__body br{display:none}
+  .nnm-aw__meta{font-size:12px}
+  #nnm-story .nnm-aw__cert{display:block;width:200px;margin:56px auto 0}
+  .nnm-aw__next{margin-top:48px!important;font-size:15px}
+}
 </style>
 
 <div id="nnd-fbar" aria-hidden="true">
@@ -687,21 +717,40 @@
     </div>
   </section>
 
-  <!-- ②-0 향 키워드 + 스펙 도장 (레퍼런스: 무드워터의 키워드 칩·스펙 도장. 글은 짧게) -->
+  <!-- ②-0 향 키워드 → 무드 이미지 (대표 피그마 배치 2026-11-18). 도장은 이미지 아래쪽에 겹친다 -->
   <section class="nnm-mood nnm-fade">
     <p class="nnm-mood__lead">비가 막 그친 숲의 첫 숨,<br>이불 속으로 스며드는 온기.</p>
-    <p class="nnm-mood__chips"><span>젖은 풀</span><span>비 갠 흙</span><span>이끼</span><span>나무 껍질</span><span>라벤더</span><span>시원함</span><span>이불 속 온기</span><span>고요함</span></p>
-    <p class="nnm-stamps"><span>BODY &amp; PILLOW</span><span>AROMA WELLNESS</span><span>SLEEP IN THE FOREST</span></p>
+    <p class="nnm-mood__chips"><span>젖은 풀</span><span>이끼</span><span>나무 껍질</span><span>라벤더</span><span>비 갠 숲</span><span>시원함</span><span>이불 속 온기</span><span>고요함</span><span>편안함</span><span>잠뿌</span></p>
+    <div class="nnm-moodimg">
+      <div class="nnm-ph nnm-ph--mood"><span class="nnm-ph__tag">무드</span>투명 비닐 속 숲 재료(풀·이끼·나무 껍질·돌)와 나잇나잇 미스트<br><small>대표 피그마의 참고 사진은 다른 브랜드 제품 — 우리 제품으로 새로 촬영</small></div>
+      <p class="nnm-stamps nnm-stamps--on"><span>BODY &amp; PILLOW</span><span>AROMA WELLNESS</span><span>SLEEP IN THE FOREST</span></p>
+    </div>
   </section>
 
   <!-- ② 호기심 — 잠뿌 사전 카드 (요즘 향수 커뮤니티 검색어) -->
   <section class="nnm-dict">
     <div class="nnm-dict__card">
+      <svg class="nnm-clip" viewBox="0 0 40 100" aria-hidden="true"><path d="M14 20 V72 a8 8 0 0 0 16 0 V14 a12 12 0 0 0 -24 0 V64" fill="none" stroke="#3A3A3A" stroke-width="3" stroke-linecap="round"/></svg>
       <p class="nnm-dict__word">잠뿌 <span class="nnm-dict__pron">[잠ː뿌]</span></p>
       <p class="nnm-dict__pos">명사</p>
       <p class="nnm-dict__def">잠들기 전에 뿌리는 향.</p>
       <p class="nnm-dict__ex">요즘 잠들기 전 향을 고르는 사람들이 부르는 말이에요.<br>나잇나잇 미스트는 몸에도, 베개에도 뿌리는 잠뿌예요.</p>
     </div>
+  </section>
+
+  <!-- ②-1 「아로마 웰니스」 (대표 결정 2026-11-18: 가장 유니크한 차별점이라 향 이야기 앞에 짧고 강하게).
+       효과(잠이 온다)가 아니라 만든 방식·출처로 말한다. 자세한 기록은 ⑦ 근거 섹션에서. -->
+  <section class="nnm-aw nnm-fade" id="nnm-aw">
+    <div class="nnm-aw__text">
+      <p class="nnd-label nnd-label--cool">「아로마 웰니스」</p>
+      <div class="nnm-aw__title">좋은 향을 넘어,<br>잠들기 전 마음을 고려한 향.</div>
+      <p class="nnm-aw__body">향 전문 회사 CPL Aromas가 향을 맡은 사람들의 반응을 살펴 인증한 <br>「아로마 웰니스」 향료로 조향했어요.</p>
+      <p class="nnm-aw__meta">피부전기반응(GSR) · 설문 테스트 · 2025-12-15 인증 <a href="#nnm-ch4" data-nnd-jump="nnm-ch4">기록 보기 →</a></p>
+    </div>
+    <button type="button" class="nnm-aw__cert" data-nnd-zoom="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" aria-label="인증서 크게 보기">
+      <img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" alt="CPL Aromas AromaWellness 인증서" width="1920" height="2782" loading="lazy">
+    </button>
+    <p class="nnm-aw__next">그 향은, 이렇게 흘러가요.</p>
   </section>
 
   <!-- 감정의 흐름 (대표 방향 2026-11-18): 손님이 '시원함 → 포근함 → 잠이 올 것만 같음'을 느껴야 한다.
@@ -720,7 +769,7 @@
       <div class="nnm-arc__text nnm-fade">
         <p class="nnm-arc__step">처음엔, 시원하게</p>
         <div class="nnm-arc__title">비가 막 그친<br>숲의 공기처럼.</div>
-        <p class="nnm-arc__body">뿌리는 순간, 베르가못과 자몽이 먼저 열고<br>라벤더와 클라리 세이지가 풀잎처럼 번져요.</p>
+        <p class="nnm-arc__body">뿌리는 순간, 베르가못과 자몽이 먼저 열고 <br>라벤더와 클라리 세이지가 풀잎처럼 번져요.</p>
         <p class="nnm-arc__notes">TOP · 라벤더라빈 · 베르가못 · 오렌지 · 자몽 · 클라리 세이지</p>
       </div>
     </div>
@@ -733,7 +782,7 @@
       <div class="nnm-arc__text nnm-fade">
         <p class="nnm-arc__step">이어서, 포근하게</p>
         <div class="nnm-arc__title">젖은 흙과 나무,<br>그리고 이불 속 온기.</div>
-        <p class="nnm-arc__body">시원함이 가라앉으면 베티버와 시더우드가 촉촉한 땅처럼 깔리고,<br>엠버와 톤카, 머스크가 살결 가까이 따뜻하게 머물러요.</p>
+        <p class="nnm-arc__body">시원함이 가라앉으면 베티버와 시더우드가 촉촉한 땅처럼 깔리고, <br>엠버와 톤카, 머스크가 살결 가까이 따뜻하게 머물러요.</p>
         <p class="nnm-arc__notes">MIDDLE · 자스민 · 라벤더 · 로즈마리 · 네롤리 · 핑크 페퍼<br>BASE · 머스크 · 엠버 · 시더우드 · 베티버 · 페출리아 · 톤카</p>
       </div>
     </div>
@@ -789,7 +838,7 @@
     <div class="nnm-more__head">
       <p class="nnd-label nnd-label--cool">「아로마 웰니스」</p>
       <div class="nnd-title">이 향을 더 알고 싶다면</div>
-      <p class="nnd-body">향과 감정의 연결을 연구하는 CPL Aromas의 「아로마 웰니스」 라인을 활용해 조향된 슬립 인 더포레스트 향.<br>잠들기 전 심리 상태를 고려해 설계했어요.</p>
+      <p class="nnd-body">향 노트와 「아로마 웰니스」 인증 기록을 모았어요.</p>
     </div>
     <div class="nnm-faces__grid">
       <div class="nnm-face"><img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/94054a636a2b5.png" alt="" loading="lazy"><p class="nnm-face__t">Herbal · 풀</p><p class="nnm-face__d">라벤더 줄기를 손 끝에 문지른듯<br>싱그러운 허브</p><p class="nnm-face__more">뿌리자마자 가장 먼저 닿는 향이에요. 라벤더와 클라리 세이지의 풀잎 같은 초록 향에, 베르가못과 자몽이 상쾌하게 길을 엽니다.</p><p class="nnm-face__tags"><span>라벤더</span><span>클라리 세이지</span><span>로즈마리</span><span>베르가못</span><span>자몽</span></p></div>
