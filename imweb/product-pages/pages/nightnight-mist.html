@@ -578,6 +578,44 @@
   .nnm-more .nnm-faces__grid{margin-top:28px}
   .nnm-more__proof .nnm-proof__text{padding:32px 0 0}
 }
+
+/* ---------- 2026-11-18 레퍼런스(무드워터)에서 빌린 구조 — 글은 짧게, 각주는 읽히는 크기로 ---------- */
+.nnm-mood{margin-top:96px;padding:0 var(--pad);text-align:center}
+.nnm-mood__lead{font-size:22px;line-height:34px;font-weight:600;color:var(--black)}
+.nnm-mood__chips{margin:24px auto 0!important;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:620px}
+.nnm-mood__chips span{padding:6px 14px;border-radius:999px;border:1px solid var(--line);font-size:15px;line-height:20px;color:var(--ink)}
+.nnm-stamps{margin-top:28px!important;display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.nnm-stamps span{padding:6px 12px;border:1.5px solid var(--ink);border-radius:4px;font-family:"Roboto Mono",ui-monospace,monospace;font-size:12px;line-height:16px;letter-spacing:.08em;color:var(--ink)}
+.nnm-uses{margin-top:60px;padding:0 var(--pad);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.nnm-use{padding:28px 20px;border-radius:12px;border:1px solid rgba(233,230,221,.2);text-align:center}
+.nnm-use__icon{width:96px;height:96px;margin:0 auto;border-radius:50%;border:1.5px dashed rgba(233,230,221,.4);display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(233,230,221,.6)}
+.nnm-use__t{margin-top:18px!important;font-size:20px;line-height:26px;font-weight:700;color:#F3F1EA}
+.nnm-use__d{margin-top:8px!important;font-size:15px;line-height:23px;color:rgba(233,230,221,.75)}
+.nnm-uses__note{margin-top:20px!important;padding:0 var(--pad);font-size:13px;color:rgba(233,230,221,.5)}
+.nnm-honest{margin:36px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.nnm-honest li{padding:16px 18px;border-radius:10px;background:rgba(255,255,255,.6);font-size:15px;line-height:24px;color:var(--ink)}
+.nnm-honest b{display:block;margin-bottom:2px;font-weight:700;color:var(--black)}
+.nnm-proofs{margin-top:36px;display:flex;flex-direction:column;gap:12px}
+.nnm-pcard{padding:20px 22px;border-radius:12px;background:#fff}
+.nnm-pcard--todo{background:transparent;border:1.5px dashed var(--line)}
+.nnm-pcard__t{font-size:18px;line-height:26px;font-weight:700;color:var(--black)}
+.nnm-pcard__d{margin-top:4px!important;font-size:15px;line-height:24px;color:var(--ink)}
+.nnm-pcard__fn{margin-top:10px!important;padding-top:10px;border-top:1px solid var(--line);font-size:14px;line-height:22px;color:var(--ink70)}
+@media (max-width:768px){
+  .nnm-mood{margin-top:56px}
+  .nnm-mood__lead{font-size:17px;line-height:27px}
+  .nnm-mood__chips span{font-size:13px;padding:5px 11px}
+  .nnm-stamps span{font-size:10px;padding:5px 8px}
+  .nnm-uses{margin-top:28px;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .nnm-use{padding:20px 12px}
+  .nnm-use__icon{width:64px;height:64px;font-size:11px}
+  .nnm-use__t{margin-top:12px!important;font-size:16px}
+  .nnm-use__d{font-size:13px;line-height:20px}
+  .nnm-honest li{font-size:13px;line-height:21px;padding:14px 16px}
+  .nnm-pcard__t{font-size:16px;line-height:23px}
+  .nnm-pcard__d{font-size:13px;line-height:21px}
+  .nnm-pcard__fn{font-size:12px;line-height:19px}
+}
 </style>
 
 <div id="nnd-fbar" aria-hidden="true">
@@ -609,6 +647,13 @@
     <div class="nnm-hero__media nnm-hero__media--one">
       <div class="nnm-ph nnm-ph--wide"><span class="nnm-ph__tag">히어로</span>밤 조명 아래 미스트 한 병, 뒤로 흐릿한 침실<br><small>또는 비 갠 숲 → 침실로 이어지는 짧은 영상</small></div>
     </div>
+  </section>
+
+  <!-- ②-0 향 키워드 + 스펙 도장 (레퍼런스: 무드워터의 키워드 칩·스펙 도장. 글은 짧게) -->
+  <section class="nnm-mood nnm-fade">
+    <p class="nnm-mood__lead">비가 막 그친 숲의 첫 숨,<br>이불 속으로 스며드는 온기.</p>
+    <p class="nnm-mood__chips"><span>젖은 풀</span><span>비 갠 흙</span><span>이끼</span><span>나무 껍질</span><span>라벤더</span><span>시원함</span><span>이불 속 온기</span><span>고요함</span></p>
+    <p class="nnm-stamps"><span>BODY &amp; PILLOW</span><span>AROMA WELLNESS</span><span>SLEEP IN THE FOREST</span></p>
   </section>
 
   <!-- ② 호기심 — 잠뿌 사전 카드 (요즘 향수 커뮤니티 검색어) -->
@@ -673,20 +718,13 @@
       <p class="nnm-arc__step">잠뿌, 이렇게</p>
       <div class="nnm-arc__title">샤워를 마친 손목에,<br>불 끄기 전 베개에.</div>
     </div>
-    <div class="nnm-ritual">
-      <div class="nnm-ritual__item">
-        <div class="nnm-ph nnm-ph--tall nnm-ph--dark"><span class="nnm-ph__tag">몸</span>샤워 뒤 손목·목·잠옷 위에 뿌리는 장면</div>
-        <p class="nnm-ritual__t">몸에</p>
-        <p class="nnm-ritual__d">손목과 목, 잠옷 위에 가볍게. 은은한 향이 내 곁에 머뭅니다.</p>
-        <p class="nnm-regline">화장품 <span class="nnm-todo">신고 확인 후 표기</span></p>
-      </div>
-      <div class="nnm-ritual__item">
-        <div class="nnm-ph nnm-ph--tall nnm-ph--dark"><span class="nnm-ph__tag">베개</span>불을 낮추고 베개·이불에 뿌리는 장면</div>
-        <p class="nnm-ritual__t">베개에</p>
-        <p class="nnm-ritual__d">베개와 이불에 한 번. 잠드는 자리에 향이 내려앉습니다.</p>
-        <p class="nnm-regline">생활화학제품(섬유용 방향제) 안전확인 <span class="nnm-todo">신고번호 확인 후 표기</span></p>
-      </div>
+    <div class="nnm-uses">
+      <div class="nnm-use"><div class="nnm-use__icon">손목</div><p class="nnm-use__t">몸에</p><p class="nnm-use__d">샤워를 마치고,<br>손목과 목에</p></div>
+      <div class="nnm-use"><div class="nnm-use__icon">잠옷</div><p class="nnm-use__t">잠옷에</p><p class="nnm-use__d">갈아입은 뒤,<br>옷깃 위에</p></div>
+      <div class="nnm-use"><div class="nnm-use__icon">베개</div><p class="nnm-use__t">베개에</p><p class="nnm-use__d">불을 낮추고,<br>베개 위에</p></div>
+      <div class="nnm-use"><div class="nnm-use__icon">이불</div><p class="nnm-use__t">이불에</p><p class="nnm-use__d">눕기 직전,<br>이불 속에</p></div>
     </div>
+    <p class="nnm-uses__note">아이콘 자리 <span class="nnm-todo">선 그림 4개</span> · 몸·잠옷 칸은 화장품 신고 후 공개 <span class="nnm-todo">신고 확인</span></p>
   </section>
 
   <!-- ⑦ 이 향을 더 알고 싶다면 — 근거를 한곳에 (감정 흐름이 끝난 뒤) -->
@@ -720,14 +758,29 @@
         <p class="nnm-proof__zoom">눌러서 크게 보기</p>
       </div>
       <div class="nnm-proof__text">
-        <dl class="nnd-spec nnm-proof__facts">
-          <div class="nnd-spec__row"><dt>조향</dt><dd>CPL Aromas 「아로마 웰니스」 라인</dd></div>
-          <div class="nnd-spec__row"><dt>향 이름</dt><dd>슬립 인 더 포레스트</dd></div>
-          <!-- 인증서 원문: "Certificate of Technology Compliance - AromaWellness Relaxation Fragrance", 15/12/2025, 대상 향료 GW ONE RELAX SC.
-               테스트 방식만 사실대로 쓰고 "효과 입증·릴랙스 효과" 같은 결과 표현은 쓰지 않는다. GW ONE RELAX SC는 공급사 재고 코드이고 슬립 인 더 포레스트와 같은 향료(대표 확인 2026-11-17). -->
-          <div class="nnd-spec__row"><dt>인증</dt><dd>「아로마 웰니스」 인증 (CPL Aromas, 2025-12-15)</dd></div>
-          <div class="nnd-spec__row"><dt>테스트 방식</dt><dd>향을 맡은 사람들의 의식·무의식 반응을 피부전기반응(GSR)과 설문으로 살피는 「아로마 웰니스」 테스트를 거친 향</dd></div>
-        </dl>
+        <!-- 근거 카드 (레퍼런스 형식: 독자의 말로 된 제목 + 한 줄 + 읽히는 크기의 각주). 제목은 사실형, "걱정 없어요" 같은 단정 금지 -->
+        <div class="nnm-proofs">
+          <div class="nnm-pcard">
+            <p class="nnm-pcard__t">향을 맡은 사람들의 반응을 살핀 향이에요</p>
+            <p class="nnm-pcard__d">「아로마 웰니스」 테스트를 거친 향료로 조향했어요.</p>
+            <p class="nnm-pcard__fn">CPL Aromas(영국) · 2025-12-15 인증 · 향을 맡은 사람들의 의식·무의식 반응을 피부전기반응(GSR)과 설문으로 평가</p>
+          </div>
+          <div class="nnm-pcard">
+            <p class="nnm-pcard__t">베개와 이불에 쓰는 생활화학제품 기준을 확인했어요</p>
+            <p class="nnm-pcard__d">섬유용 방향제 안전확인 신고를 마쳤어요.</p>
+            <p class="nnm-pcard__fn">안전확인대상 생활화학제품 신고번호 <span class="nnm-todo">번호</span></p>
+          </div>
+          <div class="nnm-pcard">
+            <p class="nnm-pcard__t">몸에 쓰는 화장품으로 만들었어요</p>
+            <p class="nnm-pcard__d">손목과 목, 잠옷 위에 뿌릴 수 있어요.</p>
+            <p class="nnm-pcard__fn">화장품 <span class="nnm-todo">책임판매업자·표시 확인</span></p>
+          </div>
+          <div class="nnm-pcard nnm-pcard--todo">
+            <p class="nnm-pcard__t">피부 저자극 · 섬유 자국 테스트</p>
+            <p class="nnm-pcard__d">시험을 하게 되면 기관·기간·대상 수·결과를 여기에 적어요.</p>
+            <p class="nnm-pcard__fn"><span class="nnm-todo">시험 진행 여부 결정</span></p>
+          </div>
+        </div>
       </div>
     </div>
     </div>
@@ -746,6 +799,12 @@
         <div class="nnd-spec__row"><dt>처음엔</dt><dd>팔 안쪽에 먼저 뿌려 보고, 원단은 안 보이는 곳에 먼저 테스트</dd></div>
         <div class="nnd-spec__row"><dt>향</dt><dd>허벌 · 어시 · 우디 (「아로마 웰니스」 슬립 인 더 포레스트)</dd></div>
       </dl>
+      <!-- 레퍼런스: 단점을 먼저 말해 믿음을 산다 -->
+      <ul class="nnm-honest">
+        <li><b>처음엔 조금 진하게</b> 뿌린 직후엔 향이 진하게 느껴질 수 있어요. 잠시 뒤 은은해져요.</li>
+        <li><b>원단은 먼저 테스트</b> 원단에 따라 자국이 남을 수 있어요. 안 보이는 곳에 먼저 뿌려 주세요.</li>
+        <li><b>몸엔 팔 안쪽부터</b> 처음 쓰실 땐 팔 안쪽에 조금 뿌려 보고 이상이 없을 때 써 주세요.</li>
+      </ul>
     </div>
   </section>
 
