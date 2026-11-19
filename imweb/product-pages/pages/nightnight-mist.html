@@ -801,6 +801,55 @@
 #nnm-story .nnm-link:hover{text-decoration:underline;text-underline-offset:.2em}
 .nnm-link__last{white-space:nowrap}
 .nnm-link--down .nnm-link__last::after{content:"";display:inline-block;width:.7em;height:.7em;margin-left:.25em;vertical-align:-.04em;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M6 1.8v8.4M2.6 6.8 6 10.2l3.4-3.4' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M6 1.8v8.4M2.6 6.8 6 10.2l3.4-3.4' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+/* ---------- 2026-11-19 피그마 디자인 프레임에 맞춤 ---------- */
+.nnm-hero--over{position:relative;padding-top:0}
+.nnm-hero--over .nnm-hero__media{margin-top:0}
+.nnm-hero--over .nnm-hero__text{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+.nnm-hero--over .nnm-hero__name{margin-top:0!important}
+.nnm-hero--over .nnm-hero__title{margin-top:24px}
+.nnm-hero--over .nnm-hero__sub{margin-top:12px!important;font-size:16px;line-height:28px}
+.nnm-hero--over .nnm-ph{justify-content:flex-start;align-items:flex-start;padding:16px 16px 16px 80px;font-size:14px;line-height:22px;text-align:left}
+.nnm-vtags{position:absolute;right:3.75%;top:25.6%;margin:0!important;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.nnm-vtags span{writing-mode:vertical-rl;transform:rotate(180deg);padding:12px 6px;border:1px solid var(--ink);border-radius:4px;background:#fff;font-family:"Roboto Mono",ui-monospace,monospace;font-size:12px;line-height:16px;letter-spacing:.06em;color:var(--ink)}
+.nnm-moodimg__stamp{position:absolute;left:-15%;top:90.2%;width:30%;height:auto;pointer-events:none}
+.nnm-aw__sub{font-size:21px;line-height:32px;font-weight:500;color:var(--ink)}
+.nnm-aw__note{margin-top:84px!important;font-size:14px;line-height:22px;color:var(--ink70)}
+.nnm-aw__credit{font-size:17px;line-height:26px;color:var(--ink)}
+.nnm-ev{margin:180px calc(-1*var(--pad)) 0;padding:60px var(--pad) 200px;overflow-x:clip}
+.nnm-ev__card{position:relative;max-width:1024px;min-height:638px;margin:0 auto;padding:129px 0 72px 72px;border-radius:12px;background:#fff}
+.nnm-ev__text{max-width:340px}
+.nnm-ev__title{font-size:40px;line-height:52px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.nnm-grad2{background:linear-gradient(90deg,#989B87 0%,#8EB0DA 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nnm-ev__body{margin-top:24px!important;font-size:21px;line-height:32px;font-weight:500;color:var(--ink)}
+.nnm-paren{font-weight:300}
+.nnm-ev__link{margin-top:36px!important;font-size:17px;line-height:24px}
+.nnm-ev__link .nnm-link{font-weight:700}
+#nnm-story .nnm-ev__cert{position:absolute;left:45%;top:-49px;width:28.5%;padding:0;margin:0;border:0;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 18px 40px rgba(42,42,41,.14);cursor:zoom-in}
+.nnm-ev__cert img{display:block;width:100%;height:auto;aspect-ratio:1920/2782}
+.nnm-ev__sq{position:absolute;left:75.9%;top:72px;width:19.5%;aspect-ratio:1/1;height:auto;min-height:0;border-radius:12px;font-size:13px}
+.nnm-ev__tall{position:absolute;left:94%;top:395px;width:28.5%;aspect-ratio:292/420;height:auto;min-height:0;border-radius:12px;font-size:13px}
+@media (max-width:768px){
+  .nnm-hero--over .nnm-ph--wide{aspect-ratio:4/5}
+  .nnm-hero--over .nnm-hero__title{margin-top:12px}
+  .nnm-hero--over .nnm-hero__sub{font-size:14px;line-height:23px}
+  .nnm-hero--over .nnm-ph{padding:46px 12px 12px 14px;font-size:11px;line-height:17px}
+  .nnm-vtags{gap:8px;top:9%}
+  .nnm-moodimg__stamp{left:-6%;top:88%;width:28%}
+  .nnm-vtags span{font-size:9px;line-height:12px;padding:8px 4px}
+  .nnm-aw__sub{font-size:16px;line-height:26px}
+  .nnm-aw__note{margin-top:32px!important;font-size:11px;line-height:18px}
+  .nnm-aw__credit{font-size:13px;line-height:20px}
+  .nnm-ev{margin-top:96px;padding:0 var(--pad) 72px}
+  .nnm-ev__card{min-height:0;padding:40px 22px 28px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:12px}
+  .nnm-ev__text{grid-column:1 / -1;max-width:none;margin-bottom:24px}
+  .nnm-ev__title{font-size:26px;line-height:36px}
+  .nnm-ev__body{margin-top:16px!important;font-size:15px;line-height:24px}
+  .nnm-ev__link{margin-top:24px!important;font-size:15px}
+  #nnm-story .nnm-ev__cert{position:relative;left:auto;top:auto;width:auto;grid-column:1;grid-row:2 / span 2;align-self:start}
+  .nnm-ev__sq,.nnm-ev__tall{position:relative;left:auto;top:auto;width:auto;grid-column:2}
+  .nnm-ev__sq{grid-row:2}
+  .nnm-ev__tall{grid-row:3;aspect-ratio:1/1}
+}
 </style>
 
 <div id="nnd-fbar" aria-hidden="true">
@@ -823,10 +872,11 @@
   <!-- ① 히어로 — 대표 문구 (2026-11-16). "자장가"는 비유 — 페이지 전체에서 "잠이 와요·숙면" 같은 효과 표현은 쓰지 않는다.
        "풀과 흙"은 향 노트(Herbal·Earthy) 묘사이지 원료가 식물 유래라는 뜻이 아니다.
        서브는 크림 상세의 승인 문구("잠들기 전 심리 상태를 고려한 향")를 따른다. -->
-  <section class="nnm-hero">
+  <!-- 피그마 디자인(2026-11-19): 제품명이 제목 위, 글이 이미지 위 가운데 -->
+  <section class="nnm-hero nnm-hero--over">
     <div class="nnm-hero__text">
+      <p class="nnm-hero__name">나잇나잇 에어</p>
       <div class="nnm-hero__title">풀과 흙이 들려주는<br>향기의 자장가.</div>
-      <p class="nnm-hero__name">나잇나잇 에어.</p>
       <p class="nnm-hero__sub">잠들기 전 심리 상태를 고려한 향으로,<br>잠드는 여정을 함께하는 잠뿌.</p>
     </div>
     <div class="nnm-hero__media nnm-hero__media--one">
@@ -836,11 +886,52 @@
 
   <!-- ②-0 향 키워드 → 무드 이미지 (대표 피그마 배치 2026-11-18). 도장은 이미지 아래쪽에 겹친다 -->
   <section class="nnm-mood nnm-fade">
-    <p class="nnm-mood__lead">비가 막 그친 숲의 첫 숨,<br>이불 속으로 스며드는 온기.</p>
+    <p class="nnm-mood__lead">비가 막 그친 숲의 첫 공기,<br>이불 속으로 스며드는 온기.</p>
     <p class="nnm-mood__chips"><span>젖은 풀</span><span>이끼</span><span>나무 껍질</span><span>라벤더</span><span>비 갠 숲</span><span>시원함</span><span>이불 속 온기</span><span>고요함</span><span>편안함</span><span>잠뿌</span></p>
     <div class="nnm-moodimg">
       <div class="nnm-ph nnm-ph--mood"><span class="nnm-ph__tag">무드</span>투명 비닐 속 숲 재료(풀·이끼·나무 껍질·돌)와 나잇나잇 에어<br><small>대표 피그마의 참고 사진은 다른 브랜드 제품 — 우리 제품으로 새로 촬영</small></div>
-      <p class="nnm-stamps nnm-stamps--on"><span>BODY &amp; PILLOW</span><span>AROMA WELLNESS</span><span>SLEEP IN THE FOREST</span></p>
+      <p class="nnm-vtags"><span>SLEEP IN THE FOREST</span><span>RELAXATION</span><span>BODY &amp; PILLOW</span></p>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="nnm-moodimg__stamp" role="img" aria-label="CPL Aromas AromaWellness Relaxation Fragrance 인증 소인">
+  <defs>
+    <filter id="nnmMoodStamp" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="2" seed="7" result="coarse"/>
+      <feColorMatrix in="coarse" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -7 4.6" result="blot"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="3" result="fine"/>
+      <feColorMatrix in="fine" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -9 6.1" result="speck"/>
+      <feComposite in="blot" in2="speck" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" result="holes"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="1" seed="3" result="wobble"/>
+      <feDisplacementMap in="SourceGraphic" in2="wobble" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="shaky"/>
+      <feComposite in="shaky" in2="holes" operator="in"/>
+    </filter>
+    <filter id="nnmMoodStamp-t" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="2" seed="21" result="coarse"/>
+      <feColorMatrix in="coarse" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -8 7.0" result="blot"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="19" result="fine"/>
+      <feColorMatrix in="fine" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -9 7.4" result="speck"/>
+      <feComposite in="blot" in2="speck" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" result="holes"/>
+      <feComposite in="SourceGraphic" in2="holes" operator="in"/>
+    </filter>
+    <path id="nnmMoodStamp-top" d="M 64,200 A 136,136 0 0 1 336,200"/>
+    <path id="nnmMoodStamp-bottom" d="M 46,200 A 154,154 0 0 0 354,200"/>
+  </defs>
+  <g transform="rotate(-6 200 200)">
+  <g fill="none" stroke="#2A2A29" filter="url(#nnmMoodStamp)">
+    <circle cx="200" cy="200" r="182" stroke-width="7"/>
+    <circle cx="200" cy="200" r="98" stroke-width="5"/>
+  </g>
+    <g fill="#2A2A29" stroke="none" filter="url(#nnmMoodStamp-t)" font-family="'Courier Prime','Courier New',Courier,monospace" font-weight="700">
+      <text font-size="30" letter-spacing="4"><textPath href="#nnmMoodStamp-top" startOffset="50%" text-anchor="middle">AROMA WELLNESS</textPath></text>
+      <text font-size="21" letter-spacing="2" dominant-baseline="hanging"><textPath href="#nnmMoodStamp-bottom" startOffset="50%" text-anchor="middle">CPL AROMAS · UNITED KINGDOM</textPath></text>
+      <circle cx="38" cy="200" r="5"/>
+      <circle cx="362" cy="200" r="5"/>
+      <g transform="rotate(-10 200 200)" text-anchor="middle">
+        <text x="200" y="180" font-size="23" letter-spacing="1">RELAXATION</text>
+        <text x="200" y="208" font-size="23" letter-spacing="1">FRAGRANCE</text>
+        <text x="200" y="238" font-size="15" letter-spacing="2">15 DEC 2025</text>
+      </g>
+    </g>
+  </g>
+</svg>
     </div>
   </section>
 
@@ -851,7 +942,7 @@
       <p class="nnm-dict__word">잠뿌 <span class="nnm-dict__pron">[잠ː뿌]</span></p>
       <p class="nnm-dict__pos">명사</p>
       <p class="nnm-dict__def">잠들기 전에 뿌리는 향.</p>
-      <p class="nnm-dict__ex">요즘 잠들기 전 향을 고르는 사람들이 부르는 말이에요.<br>나잇나잇 에어는 몸에도, 베개에도 뿌리는 잠뿌예요.</p>
+      <p class="nnm-dict__ex">요즘 잠들기 전 향을 고르는 사람들이 부르는 말이에요.<br>나잇나잇 에어는 몸에도, 베개에도 뿌리는 잠뿌입니다.</p>
     </div>
   </section>
 
@@ -869,7 +960,7 @@
 
     <!-- ② 훅 -->
     <div class="nnm-aw__intro nnm-fade">
-      <div class="nnm-aw__hook">(좋은 향)과<br><span class="nnm-grad">몸이 받아들이는 향</span>은<br>다를 수 있어요.</div>
+      <div class="nnm-aw__hook">좋은 향과<br><span class="nnm-grad">몸이 받아들이는 향</span>은<br>다를 수 있어요.</div>
     </div>
 
     <!-- ③ 답: 사진 왼쪽 끝 + 짧은 제목과 본문. 대표 문구 그대로 -->
@@ -877,70 +968,26 @@
       <div class="nnm-aw__photo"><div class="nnm-ph nnm-ph--sq"><span class="nnm-ph__tag">몸</span>몸 가까이 놓인 나잇나잇 에어 한 병 — 목선·잠옷·이불의 결<br><small>대표 참고 사진은 구도만 참고. 우리 제품으로 새로 촬영</small></div></div>
       <div class="nnm-aw__stmt nnm-fade">
         <div class="nnm-aw__h">몸의 반응을 연구해<br>엄선한 향.</div>
-        <p class="nnm-aw__sub">나잇나잇 에어는 향에 대한 몸의 반응을 연구해서 조향한, <br class="nnm-pc-br">「아로마 웰니스」<sup class="nnm-aw__star">*</sup> 향료를 사용해 만들어졌습니다.</p>
-        <!-- 출처·범위 각주 (2026-11-19): 디자인상 작은 글씨 아래 한 덩어리. 둘째 줄(향료 한정)은 빼지 않는다 -->
-        <p class="nnm-aw__note">* CPL Aromas(영국) 「아로마 웰니스」 Relaxation Fragrance 함유 향료 사용 · 2025.12.15 인증<br>* 향료에 대한 시험 결과이며, 제품의 효능·효과를 뜻하지 않습니다.</p>
+        <p class="nnm-aw__sub">나잇나잇 에어는 향에 대한 몸의 반응을 연구해서 조향한, <br class="nnm-pc-br">「아로마 웰니스」 향료를 사용해 만들어졌습니다.</p>
+        <!-- 출처 크레딧(영문) + 범위 고지(한국어). 둘째 줄(향료 한정)은 빼지 않는다 (대표 확인 2026-11-19) -->
+        <p class="nnm-aw__note"><span class="nnm-aw__credit">AromaWellness™ by CPL Aromas Ltd., United Kingdom. <br class="nnm-pc-br">Certified 15 DEC 2025.</span><br>향료에 대한 시험 결과이며, 제품의 효능·효과를 뜻하지 않습니다.</p>
       </div>
     </div>
 
-    <!-- ④ 엄선의 기준: ③과 좌우를 뒤집어 글 왼쪽, 인증서 오른쪽. 한 화면을 넘기지 않는다(더 쓸 말은 ⑦ 인증 상세로) -->
-    <div class="nnm-aw__beat nnm-aw3 nnm-aw--light nnm-fade">
-      <div class="nnm-aw__text">
-        <p class="nnm-aw__kicker">엄선의 기준</p>
-        <div class="nnm-aw__claim">몸의 반응을 재는<br>「릴랙세이션」 테스트.</div>
-        <p class="nnm-aw__body">영국 CPL Aromas는 향을 맡은 사람의 피부전기반응(GSR)과 설문으로 반응을 재고, 테스트를 통과한 향만 「아로마 웰니스」로 인증합니다. 나잇나잇 에어는 그 향을 바탕으로 만들었습니다.</p>
-        <dl class="nnm-aw__facts">
-          <div><dt>누가</dt><dd>CPL Aromas · 영국</dd></div>
-          <div><dt>어떻게</dt><dd>피부전기반응(GSR) · 설문</dd></div>
-          <div><dt>인증</dt><dd>2025.12.15</dd></div>
-        </dl>
-        <p class="nnm-aw__meta"><a class="nnm-link nnm-link--down" href="#nnm-ch4" data-nnd-jump="nnm-ch4">인증 기록 자세히 <span class="nnm-link__last">보기</span></a></p>
-      </div>
-      <div class="nnm-aw__visual">
-        <button type="button" class="nnm-aw__cert" data-nnd-zoom="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" aria-label="인증서 크게 보기">
+    <!-- ④ 근거 카드 (피그마 디자인 2026-11-19): 흰 카드 + 카드 밖으로 삐져나오는 사진 3장. 맨 위 = 인증서(대표 확인).
+         나머지 두 칸은 내용 미정. 링크는 브랜드 레드(대표 결정). 「Relaxation」 표기는 책임판매업자 확인 전 -->
+    <div class="nnm-ev nnm-fade">
+      <div class="nnm-ev__card">
+        <div class="nnm-ev__text">
+          <div class="nnm-ev__title">몸의 반응을 측정하는<br><span class="nnm-grad2">Relaxation</span> 테스트</div>
+          <p class="nnm-ev__body">영국 CPL Aromas는 향을 맡은 사람의 피부전기반응(GSR)과 설문으로 반응을 재고, 테스트를 통과한 향만 「아로마 웰니스」로 인증합니다. <span class="nnm-paren">(</span>나잇나잇 에어<span class="nnm-paren">)</span>는 그 향을 바탕으로 만든 제품입니다.</p>
+          <p class="nnm-ev__link"><a class="nnm-link nnm-link--down" href="#nnm-ch4" data-nnd-jump="nnm-ch4">자세히 알아<span class="nnm-link__last">보기</span></a></p>
+        </div>
+        <button type="button" class="nnm-ev__cert" data-nnd-zoom="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" aria-label="인증서 크게 보기">
           <img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" alt="CPL Aromas AromaWellness 인증서" width="1920" height="2782" loading="lazy">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="nnm-aw__stamp" role="img" aria-label="CPL Aromas AromaWellness Relaxation Fragrance 인증 소인">
-  <defs>
-    <filter id="nnmAwStamp" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="2" seed="7" result="coarse"/>
-      <feColorMatrix in="coarse" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -7 4.6" result="blot"/>
-      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="3" result="fine"/>
-      <feColorMatrix in="fine" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -9 6.1" result="speck"/>
-      <feComposite in="blot" in2="speck" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" result="holes"/>
-      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="1" seed="3" result="wobble"/>
-      <feDisplacementMap in="SourceGraphic" in2="wobble" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="shaky"/>
-      <feComposite in="shaky" in2="holes" operator="in"/>
-    </filter>
-    <filter id="nnmAwStamp-t" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="2" seed="21" result="coarse"/>
-      <feColorMatrix in="coarse" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -8 7.0" result="blot"/>
-      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="19" result="fine"/>
-      <feColorMatrix in="fine" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -9 7.4" result="speck"/>
-      <feComposite in="blot" in2="speck" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" result="holes"/>
-      <feComposite in="SourceGraphic" in2="holes" operator="in"/>
-    </filter>
-    <path id="nnmAwStamp-top" d="M 64,200 A 136,136 0 0 1 336,200"/>
-    <path id="nnmAwStamp-bottom" d="M 46,200 A 154,154 0 0 0 354,200"/>
-  </defs>
-  <g transform="rotate(-6 200 200)">
-  <g fill="none" stroke="#D35B40" filter="url(#nnmAwStamp)">
-    <circle cx="200" cy="200" r="182" stroke-width="7"/>
-    <circle cx="200" cy="200" r="98" stroke-width="5"/>
-  </g>
-    <g fill="#D35B40" stroke="none" filter="url(#nnmAwStamp-t)" font-family="'Courier Prime','Courier New',Courier,monospace" font-weight="700">
-      <text font-size="30" letter-spacing="4"><textPath href="#nnmAwStamp-top" startOffset="50%" text-anchor="middle">AROMA WELLNESS</textPath></text>
-      <text font-size="21" letter-spacing="2" dominant-baseline="hanging"><textPath href="#nnmAwStamp-bottom" startOffset="50%" text-anchor="middle">CPL AROMAS · UNITED KINGDOM</textPath></text>
-      <circle cx="38" cy="200" r="5"/>
-      <circle cx="362" cy="200" r="5"/>
-      <g transform="rotate(-10 200 200)" text-anchor="middle">
-        <text x="200" y="180" font-size="23" letter-spacing="1">RELAXATION</text>
-        <text x="200" y="208" font-size="23" letter-spacing="1">FRAGRANCE</text>
-        <text x="200" y="238" font-size="15" letter-spacing="2">15 DEC 2025</text>
-      </g>
-    </g>
-  </g>
-</svg>
         </button>
+        <div class="nnm-ph nnm-ev__sq"><span class="nnm-ph__tag">사진 2</span>내용 정해지면</div>
+        <div class="nnm-ph nnm-ev__tall"><span class="nnm-ph__tag">사진 3</span>내용 정해지면</div>
       </div>
     </div>
 
