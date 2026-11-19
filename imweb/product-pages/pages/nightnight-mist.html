@@ -850,6 +850,10 @@
   .nnm-ev__sq{grid-row:2}
   .nnm-ev__tall{grid-row:3;aspect-ratio:1/1}
 }
+.nnm-journey{margin-top:40px;text-align:center}
+.nnm-journey__t{font-size:40px;line-height:56px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.nnm-grad3{background:linear-gradient(90deg,#9DAABA 0%,#6E4A38 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+@media (max-width:768px){.nnm-journey{margin-top:96px}.nnm-journey__t{font-size:26px;line-height:38px}}
 </style>
 
 <div id="nnd-fbar" aria-hidden="true">
@@ -991,7 +995,11 @@
       </div>
     </div>
 
-    <p class="nnm-aw__next">그 향은, 이렇게 흘러가요.</p>
+    <!-- 향의 흐름 섹션 제목 (대표 결정 2026-11-19): 시간의 흐름은 뒤 배경(낮 → 밤)이 말하고, 제목은 여정 한 줄만.
+         히어로 부제 "잠드는 여정을 함께하는 잠뿌"를 다시 부르는 문장. 효과(잠이 와요)는 쓰지 않는다 -->
+    <div class="nnm-journey nnm-fade">
+      <div class="nnm-journey__t"><span class="nnm-grad3">잠드는 여정</span>까지<br>함께하는 향.</div>
+    </div>
   </section>
 
   <!-- 감정의 흐름 (대표 방향 2026-11-18): 손님이 '시원함 → 포근함 → 잠이 올 것만 같음'을 느껴야 한다.
