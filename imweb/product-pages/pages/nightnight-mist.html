@@ -854,6 +854,42 @@
 .nnm-journey__t{font-size:40px;line-height:56px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
 .nnm-grad3{background:linear-gradient(90deg,#9DAABA 0%,#6E4A38 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 @media (max-width:768px){.nnm-journey{margin-top:96px}.nnm-journey__t{font-size:26px;line-height:38px}}
+/* ---------- 향기 프로필 + 조향 설계 (피그마 2026-11-19) ---------- */
+.nnm-prof{width:640px;max-width:100%;margin:96px auto 0}
+.nnm-prof__card{padding:48px 48px 40px;border-radius:12px;background:#989B87}
+.nnm-prof__t{font-size:18px;line-height:26px;font-weight:700;color:#000}
+.nnm-wheel{display:block;width:428px;max-width:100%;height:auto;margin:20px auto 0;overflow:visible}
+.nnm-wheel__ko{font-size:16px;fill:#000}
+.nnm-wheel__en{font-family:"Roboto Mono",ui-monospace,monospace;font-size:9px;letter-spacing:.06em;fill:rgba(42,42,41,.5)}
+.nnm-prof__fam{margin-top:32px!important;display:flex;align-items:baseline;gap:24px}
+.nnm-prof__fam span{font-size:18px;font-weight:700;color:#000}
+.nnm-prof__fam b{font-size:24px;line-height:28px;font-weight:800;color:#000}
+.nnm-prof__box{margin-top:12px;padding:48px;border-radius:12px;background:#fff}
+.nnm-flows{margin-top:16px;display:flex;flex-direction:column;gap:14px}
+.nnm-flow__t{font-size:15px;line-height:22px;font-weight:700;color:var(--ink)}
+.nnm-flow__n{margin-top:2px!important;font-size:14px;line-height:20px;color:var(--ink)}
+.nnm-flow__n b{font-weight:700}
+.nnm-sls{margin-top:32px;display:flex;flex-direction:column;gap:20px}
+.nnm-sl{display:grid;grid-template-columns:92px 60px minmax(0,1fr) 60px;align-items:center;column-gap:12px}
+.nnm-sl__k{font-size:14px;line-height:20px;font-weight:700;color:var(--ink)}
+.nnm-sl__l,.nnm-sl__r{font-size:12px;line-height:18px;color:rgba(42,42,41,.6)}
+.nnm-sl__l{text-align:right}
+.nnm-sl__tr{position:relative;height:2px;background:rgba(42,42,41,.3)}
+.nnm-sl__tr::before{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--v);background:linear-gradient(90deg,#D35B40,#989B87)}
+.nnm-sl__tr i{position:absolute;left:var(--v);top:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:linear-gradient(135deg,#989B87,#D35B40)}
+@media (max-width:768px){
+  .nnm-prof{margin-top:56px}
+  .nnm-prof__card{padding:28px 20px 24px}
+  .nnm-prof__t{font-size:16px}
+  .nnm-prof__fam{gap:16px}
+  .nnm-prof__fam span{font-size:15px}
+  .nnm-prof__fam b{font-size:19px}
+  .nnm-prof__box{padding:28px 20px}
+  .nnm-flow__n{font-size:13px}
+  .nnm-sl{grid-template-columns:72px 48px minmax(0,1fr) 48px;column-gap:8px}
+  .nnm-sl__k{font-size:13px}
+  .nnm-sl__l,.nnm-sl__r{font-size:11px}
+}
 </style>
 
 <div id="nnd-fbar" aria-hidden="true">
@@ -999,6 +1035,86 @@
          히어로 부제 "잠드는 여정을 함께하는 잠뿌"를 다시 부르는 문장. 효과(잠이 와요)는 쓰지 않는다 -->
     <div class="nnm-journey nnm-fade">
       <div class="nnm-journey__t"><span class="nnm-grad3">잠드는 여정</span>까지<br>함께하는 향.</div>
+    </div>
+    <!-- 향기 프로필 + 조향 설계 (대표 피그마 2026-11-19). 그래프 모양·슬라이더 위치는 대표가 그린 값 그대로(팀 평가 전 추정).
+         노트는 아로마뱅크 사양서 GW ONE RELAX-251209W -->
+    <div class="nnm-prof nnm-fade">
+      <div class="nnm-prof__card">
+        <p class="nnm-prof__t">향기 프로필</p>
+        <svg class="nnm-wheel" viewBox="0 0 428 480" role="img" aria-label="향기 프로필: 허브가 가장 강하고, 상큼함·나무·흙이 뒤를 잇는 향">
+        <g fill="none" stroke="#2A2A29" stroke-opacity=".35" stroke-width="1">
+        <circle cx="214" cy="240" r="135"/>
+        <circle cx="214" cy="240" r="105"/>
+        <circle cx="214" cy="240" r="75"/>
+        <line x1="214" y1="240" x2="214.0" y2="60.0"/>
+        <line x1="214" y1="240" x2="319.8" y2="94.4"/>
+        <line x1="214" y1="240" x2="385.2" y2="184.4"/>
+        <line x1="214" y1="240" x2="385.2" y2="295.6"/>
+        <line x1="214" y1="240" x2="319.8" y2="385.6"/>
+        <line x1="214" y1="240" x2="214.0" y2="420.0"/>
+        <line x1="214" y1="240" x2="108.2" y2="385.6"/>
+        <line x1="214" y1="240" x2="42.8" y2="295.6"/>
+        <line x1="214" y1="240" x2="42.8" y2="184.4"/>
+        <line x1="214" y1="240" x2="108.2" y2="94.4"/>
+        </g>
+        <path d="M214.0 148.0 L293.1 131.1 L284.9 216.9 L293.1 265.7 L275.0 324.0 L214.0 296.0 L170.7 299.5 L143.1 263.1 L198.0 234.8 L201.4 222.7 Z" fill="#2A2A29" fill-opacity=".1" stroke="#2A2A29" stroke-width="1.2" stroke-linejoin="round"/>
+        <circle cx="214.0" cy="148.0" r="2" fill="#2A2A29"/>
+        <circle cx="293.1" cy="131.1" r="2" fill="#2A2A29"/>
+        <circle cx="284.9" cy="216.9" r="2" fill="#2A2A29"/>
+        <circle cx="293.1" cy="265.7" r="2" fill="#2A2A29"/>
+        <circle cx="275.0" cy="324.0" r="2" fill="#2A2A29"/>
+        <circle cx="214.0" cy="296.0" r="2" fill="#2A2A29"/>
+        <circle cx="170.7" cy="299.5" r="2" fill="#2A2A29"/>
+        <circle cx="143.1" cy="263.1" r="2" fill="#2A2A29"/>
+        <circle cx="198.0" cy="234.8" r="2" fill="#2A2A29"/>
+        <circle cx="201.4" cy="222.7" r="2" fill="#2A2A29"/>
+        <g transform="translate(206.0 0.0)" fill="#2A2A29"><path d="M1 4.5H15A7 7 0 0 1 1 4.5Z"/></g>
+        <text x="214.0" y="35.0" text-anchor="middle" class="nnm-wheel__ko">상큼함</text>
+        <text x="214.0" y="53.0" text-anchor="middle" class="nnm-wheel__en">CITRUS</text>
+        <g transform="translate(334.5 35.1)" fill="#2A2A29"><path d="M2 14C2 7.4 7.4 2 14 2C14 8.6 8.6 14 2 14Z"/></g>
+        <text x="342.5" y="70.1" text-anchor="middle" class="nnm-wheel__ko">허브</text>
+        <text x="342.5" y="88.1" text-anchor="middle" class="nnm-wheel__en">HERBAL</text>
+        <g transform="translate(405.0 147.3)" fill="#2A2A29"><path d="M2 14L4 4.5L6 14Z M6.5 14L8 2L9.5 14Z M10 14L12 5.5L14 14Z"/></g>
+        <text x="413.0" y="182.3" text-anchor="middle" class="nnm-wheel__ko">풀잎</text>
+        <text x="413.0" y="200.3" text-anchor="middle" class="nnm-wheel__en">GREEN</text>
+        <g transform="translate(405.0 276.7)" fill="#2A2A29"><path d="M1 11H15V14H1Z M3 7H13V10H3Z M5 3H11V6H5Z"/></g>
+        <text x="413.0" y="311.7" text-anchor="middle" class="nnm-wheel__ko">흙</text>
+        <text x="413.0" y="329.7" text-anchor="middle" class="nnm-wheel__en">EARTHY</text>
+        <g transform="translate(334.5 388.9)" fill="#2A2A29"><path fill-rule="evenodd" d="M8 1A7 7 0 1 1 8 15A7 7 0 1 1 8 1Z M8 5A3 3 0 1 0 8 11A3 3 0 1 0 8 5Z"/></g>
+        <text x="342.5" y="423.9" text-anchor="middle" class="nnm-wheel__ko">나무</text>
+        <text x="342.5" y="441.9" text-anchor="middle" class="nnm-wheel__en">WOODY</text>
+        <g transform="translate(206.0 424.0)" fill="#2A2A29"><path d="M8 1.5L13.6 4.75V11.25L8 14.5L2.4 11.25V4.75Z"/></g>
+        <text x="214.0" y="459.0" text-anchor="middle" class="nnm-wheel__ko">따뜻함</text>
+        <text x="214.0" y="477.0" text-anchor="middle" class="nnm-wheel__en">AMBER</text>
+        <g transform="translate(77.5 388.9)" fill="#2A2A29"><path d="M5 3H11A2 2 0 0 1 13 5V11A2 2 0 0 1 11 13H5A2 2 0 0 1 3 11V5A2 2 0 0 1 5 3Z"/></g>
+        <text x="85.5" y="423.9" text-anchor="middle" class="nnm-wheel__ko">달콤함</text>
+        <text x="85.5" y="441.9" text-anchor="middle" class="nnm-wheel__en">GOURMAND</text>
+        <g transform="translate(7.0 276.7)" fill="#2A2A29"><g stroke="#2A2A29" stroke-width="2" stroke-linecap="round"><path d="M8 1.5V14.5M1.5 8H14.5M3.4 3.4L12.6 12.6M12.6 3.4L3.4 12.6"/></g></g>
+        <text x="15.0" y="311.7" text-anchor="middle" class="nnm-wheel__ko">포근함</text>
+        <text x="15.0" y="329.7" text-anchor="middle" class="nnm-wheel__en">MUSK</text>
+        <g transform="translate(7.0 147.3)" fill="#2A2A29"><circle cx="8" cy="4.4" r="3.4"/><circle cx="11.6" cy="8" r="3.4"/><circle cx="8" cy="11.6" r="3.4"/><circle cx="4.4" cy="8" r="3.4"/></g>
+        <text x="15.0" y="182.3" text-anchor="middle" class="nnm-wheel__ko">꽃</text>
+        <text x="15.0" y="200.3" text-anchor="middle" class="nnm-wheel__en">FLORAL</text>
+        <g transform="translate(77.5 35.1)" fill="#2A2A29"><path d="M8 2.5L14 13.5H2Z"/></g>
+        <text x="85.5" y="70.1" text-anchor="middle" class="nnm-wheel__ko">알싸함</text>
+        <text x="85.5" y="88.1" text-anchor="middle" class="nnm-wheel__en">SPICY</text>
+        </svg>
+        <p class="nnm-prof__fam"><span>향조</span><b>상쾌한 허브 &amp; 나무</b></p>
+      </div>
+      <div class="nnm-prof__box">
+        <p class="nnm-prof__t">조향 설계</p>
+        <div class="nnm-flows">
+          <div class="nnm-flow"><p class="nnm-flow__t">상쾌하고 시원하게 시작합니다</p><p class="nnm-flow__n"><b>TOP</b> | 라벤더 · 라반딘 · 베르가못 · 오렌지 · 자몽 · 클라리 세이지</p></div>
+          <div class="nnm-flow"><p class="nnm-flow__t">맑은 허브가 부드럽게 이어집니다</p><p class="nnm-flow__n"><b>MIDDLE</b> | 자스민 · 라벤더 · 로즈마리 · 네롤리 · 핑크 페퍼 · 유칼립투스 · 바질</p></div>
+          <div class="nnm-flow"><p class="nnm-flow__t">깊고 포근하게 남습니다</p><p class="nnm-flow__n"><b>BASE</b> | 머스크 · 앰버 · 시더우드 · 베티버 · 파출리 · 톤카</p></div>
+        </div>
+        <div class="nnm-sls">
+          <div class="nnm-sl"><span class="nnm-sl__k">향의 세기</span><span class="nnm-sl__l">은은하다</span><span class="nnm-sl__tr" style="--v:35%"><i></i></span><span class="nnm-sl__r">강렬하다</span></div>
+          <div class="nnm-sl"><span class="nnm-sl__k">퍼지는 정도</span><span class="nnm-sl__l">내 곁에만</span><span class="nnm-sl__tr" style="--v:30%"><i></i></span><span class="nnm-sl__r">방 안 가득</span></div>
+          <div class="nnm-sl"><span class="nnm-sl__k">온도</span><span class="nnm-sl__l">시원하다</span><span class="nnm-sl__tr" style="--v:24%"><i></i></span><span class="nnm-sl__r">포근하다</span></div>
+          <div class="nnm-sl"><span class="nnm-sl__k">지속력</span><span class="nnm-sl__l">짧다</span><span class="nnm-sl__tr" style="--v:57%"><i></i></span><span class="nnm-sl__r">길다</span></div>
+        </div>
+      </div>
     </div>
   </section>
 
