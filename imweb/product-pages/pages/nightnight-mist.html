@@ -720,7 +720,6 @@
 .nnm-aw__side{display:flex;flex-direction:column;gap:16px}
 .nnm-aw__tag{align-self:flex-start;padding:4px 12px;border:1.5px solid #A9B8A4;border-radius:999px;font-size:14px;line-height:18px;font-weight:700;color:#A9B8A4}
 .nnm-aw__bubble{position:relative;align-self:flex-start;padding:22px 28px;border-radius:24px 24px 24px 6px;background:#EDEAE0;color:#26302A;font-size:26px;line-height:34px;font-weight:600}
-.nnm-wave{width:100%;height:120px;display:block}
 .nnm-aw__cap{font-size:18px;line-height:26px;color:rgba(237,234,224,.8)}
 .nnm-aw__fine{font-size:12px;line-height:18px;color:rgba(237,234,224,.45)}
 .nnm-aw__say{margin-top:88px;font-size:40px;line-height:56px;font-weight:600;letter-spacing:-.02em;color:#F6F3EA}
@@ -738,18 +737,13 @@
 .nnm-aw__stamp{position:absolute;left:-34px;bottom:-26px;width:180px;height:180px;pointer-events:none}
 #nnm-story.nnm-anim .nnm-aw__stamp{transition:opacity .15s ease .9s,transform .45s cubic-bezier(.2,1.7,.4,1) .9s}
 #nnm-story.nnm-anim .nnm-aw3:not(.is-in) .nnm-aw__stamp{opacity:0;transform:scale(2.6) rotate(-24deg)}
-#nnm-story.nnm-anim .nnm-wave path{stroke-dasharray:1000;transition:stroke-dashoffset 2.6s ease .4s}
-#nnm-story.nnm-anim .nnm-aw2:not(.is-in) .nnm-wave path{stroke-dashoffset:1000}
-.nnm-aw4{align-items:center;text-align:center}
-.nnm-aw4 .nnm-aw__title{max-width:none;margin-top:0;font-size:56px;line-height:76px}
-@media (prefers-reduced-motion:reduce){#nnm-story.nnm-anim .nnm-aw3:not(.is-in) .nnm-aw__stamp{opacity:1;transform:none}#nnm-story.nnm-anim .nnm-aw2:not(.is-in) .nnm-wave path{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){#nnm-story.nnm-anim .nnm-aw3:not(.is-in) .nnm-aw__stamp{opacity:1;transform:none}}
 @media (max-width:768px){
   .nnm-aw__card{padding:0 22px}
   .nnm-aw__beat{min-height:0;padding:72px 0}
   .nnm-aw__q{margin-top:16px;font-size:30px;line-height:42px}
   .nnm-aw__duo{grid-template-columns:1fr;gap:40px}
   .nnm-aw__bubble{font-size:19px;line-height:26px;padding:16px 20px}
-  .nnm-wave{height:84px}
   .nnm-aw__cap{font-size:15px;line-height:22px}
   .nnm-aw__say{margin-top:56px;font-size:24px;line-height:34px}
   .nnm-aw3{flex-direction:column;align-items:stretch;gap:64px}
@@ -758,7 +752,31 @@
   .nnm-aw__big{font-size:56px;line-height:54px}
   .nnm-aw__lead{margin-top:24px!important;font-size:16px;line-height:26px}
   .nnm-aw__facts{margin-top:28px;flex-direction:column;font-size:12px}
-  .nnm-aw4 .nnm-aw__title{font-size:28px;line-height:40px}
+}
+.nnm-aw1 .nnm-aw__say{margin-top:40px}
+.nnm-aw1 .nnm-aw__duo{margin-top:72px;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.nnm-aw__shot{aspect-ratio:16/10;min-height:0;height:auto;font-size:15px;line-height:22px}
+.nnm-aw__kicker{font-family:"Roboto Mono",ui-monospace,monospace;font-size:14px;line-height:18px;letter-spacing:.12em;color:#A9B8A4}
+.nnm-aw__claim{margin-top:24px;font-size:48px;line-height:66px;font-weight:700;letter-spacing:-.025em;color:#F6F3EA}
+.nnm-aw__claim em{font-style:normal;color:#E9C9A0}
+.nnm-aw__end{margin-top:48px!important;font-size:20px;line-height:30px;color:rgba(237,234,224,.85)}
+.nnm-aw__visual{position:relative;flex:0 0 340px;width:340px}
+#nnm-story .nnm-aw3 .nnm-aw__visual .nnm-aw__cert{width:280px;flex:none}
+.nnm-aw__prod{position:absolute;right:-28px;bottom:-56px;width:120px;height:240px;border-radius:16px;border:2px dashed rgba(237,234,224,.35);background:rgba(38,48,42,.85);display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;line-height:18px;color:rgba(237,234,224,.75);transform:rotate(-8deg);z-index:3}
+@media (max-width:768px){
+  .nnm-aw1 .nnm-aw__say{margin-top:24px}
+  .nnm-aw1 .nnm-aw__duo{margin-top:40px;grid-template-columns:1fr}
+  .nnm-aw__claim{margin-top:16px;font-size:28px;line-height:40px}
+  .nnm-aw__kicker{font-size:11px}
+  .nnm-aw__end{margin-top:32px!important;font-size:16px;line-height:24px}
+  .nnm-aw__visual{flex:none;width:260px;margin:0 auto}
+  #nnm-story .nnm-aw3 .nnm-aw__visual .nnm-aw__cert{width:200px;left:0;margin:0}
+  .nnm-aw__prod{right:-6px;bottom:-40px;width:84px;height:168px;font-size:11px;line-height:15px}
+  .nnm-aw3{gap:0}
+  .nnm-aw3 .nnm-aw__text{display:contents}
+  .nnm-aw3 .nnm-aw__visual{order:2;margin-top:56px;margin-bottom:40px}
+  .nnm-aw3 .nnm-aw__end{order:3}
+  .nnm-aw3 .nnm-aw__meta{order:4}
 }
 </style>
 
@@ -814,50 +832,50 @@
     </div>
   </section>
 
-  <!-- ②-1 「아로마 웰니스」 — 4막 프레젠테이션 (대표 방향 2026-11-19: "정리 말고 프리젠테이션", "너무 소극적이야").
+  <!-- ②-1 「아로마 웰니스」 — 2장 프레젠테이션 (2026-11-19 4막 → 2장으로 줄임) (대표 방향 2026-11-19: "정리 말고 프리젠테이션", "너무 소극적이야").
        근거: nightnight-mist/아로마웰니스-근거.md. 우리 향의 베이스 = AromaWellness Relaxation 향(대표 확인 2026-11-19).
        주어는 늘 '테스트·향'. 제품이 몸·마음을 바꾼다고 쓰지 않는다. 숫자는 Relaxation 보고서를 받기 전엔 쓰지 않는다. -->
   <section class="nnm-aw" id="nnm-aw">
     <div class="nnm-aw__card">
 
-      <!-- 1막: 질문 -->
+      <!-- 1장: 질문과 답을 한 화면에. "몸이 받아들이는"이 저자극으로 읽히지 않게 바로 '몸으로 쟀다'로 받는다.
+           진정 전후 그림(물결)은 효과 암시라 뺐다 (대표 결정 2026-11-19). -->
       <div class="nnm-aw__beat nnm-aw1 nnm-fade">
         <p class="nnm-aw__label">「아로마 웰니스」</p>
         <div class="nnm-aw__q">좋은 향과<br>몸이 받아들이는 향은<br>다를 수 있어요.</div>
-      </div>
-
-      <!-- 2막: 말 vs 몸. 물결은 예시 그림(측정값 아님) -->
-      <div class="nnm-aw__beat nnm-aw2 nnm-fade">
+        <div class="nnm-aw__say">그래서 <em>말로 묻고, 몸으로 쟀어요.</em></div>
         <div class="nnm-aw__duo">
           <div class="nnm-aw__side">
             <span class="nnm-aw__tag">말</span>
-            <p class="nnm-aw__bubble">“음, 좋은 향이네요.”</p>
-            <p class="nnm-aw__cap">향이 좋다고 말해도</p>
+            <p class="nnm-aw__bubble">“이 향을 맡으니<br>어떤 느낌이 드세요?”</p>
+            <p class="nnm-aw__cap">향을 맡은 사람에게 설문으로 묻고</p>
           </div>
           <div class="nnm-aw__side">
             <span class="nnm-aw__tag">몸</span>
-            <svg class="nnm-wave" viewBox="0 0 480 120" aria-hidden="true"><path d="M0 60 L20 60 L30 22 L40 96 L52 14 L64 100 L76 30 L88 88 L100 40 L112 78 L126 48 L142 70 C170 58 190 64 215 60 S265 56 290 61 S345 63 370 60 S430 58 480 60" fill="none" stroke="#A9B8A4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1000"/></svg>
-            <p class="nnm-aw__cap">몸은 따로 반응할 수 있어요</p>
-            <p class="nnm-aw__fine">이해를 돕기 위한 예시 그림이에요. 실제 측정값이 아니에요.</p>
+            <div class="nnm-ph nnm-ph--dark nnm-aw__shot"><span class="nnm-ph__tag">측정</span>손끝 센서로 피부전기반응을 재는 장면<br><small>CPL 사진 사용 허락 확인 또는 자체 촬영. 그래프·전후 비교는 넣지 않기</small></div>
+            <p class="nnm-aw__cap">손끝 센서로 피부전기반응(GSR)을 재요</p>
           </div>
         </div>
-        <div class="nnm-aw__say">그래서 이 향은,<br>말로 묻고 <em>몸으로 잰</em> 향에서 시작했어요.</div>
       </div>
 
-      <!-- 3막: AROMA WELLNESS + 인증서에 소인 쾅 -->
+      <!-- 2장: 한국어 주장을 가장 크게, AROMA WELLNESS는 라벨·소인으로. "스트레스"는 의약품 오인 위험이라 뺐다.
+           우리 향 = AromaWellness Relaxation 향을 바탕으로 한 향(Contains, 대표 확인 2026-11-19) → "통과한 향"이 아니라 "바탕". -->
       <div class="nnm-aw__beat nnm-aw3 nnm-fade">
         <div class="nnm-aw__text">
-          <div class="nnm-aw__big">AROMA<br>WELLNESS.</div>
-          <p class="nnm-aw__lead">스트레스 속 몸의 긴장 반응을 재는<br>「릴랙세이션」 테스트.<br><b>그 테스트를 통과한 향을 바탕으로<br>이 향을 만들었어요.</b></p>
+          <p class="nnm-aw__kicker">AROMA WELLNESS · RELAXATION</p>
+          <div class="nnm-aw__claim">몸의 반응을 재는 테스트를<br>통과한 향.<br><em>그 향이 이 향의 바탕이에요.</em></div>
           <dl class="nnm-aw__facts">
             <div><dt>누가</dt><dd>CPL Aromas · 영국</dd></div>
             <div><dt>어떻게</dt><dd>피부전기반응(GSR) · 설문</dd></div>
             <div><dt>인증</dt><dd>2025.12.15</dd></div>
           </dl>
+          <p class="nnm-aw__end">좋은 향기를 넘어, 잠들기 전 마음까지 고려한 향.</p>
+          <p class="nnm-aw__meta"><a href="#nnm-ch4" data-nnd-jump="nnm-ch4">인증 기록 자세히 보기 →</a></p>
         </div>
-        <button type="button" class="nnm-aw__cert" data-nnd-zoom="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" aria-label="인증서 크게 보기">
-          <img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" alt="CPL Aromas AromaWellness 인증서" width="1920" height="2782" loading="lazy">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="nnm-aw__stamp" role="img" aria-label="CPL Aromas AromaWellness Relaxation Fragrance 인증 소인">
+        <div class="nnm-aw__visual">
+          <button type="button" class="nnm-aw__cert" data-nnd-zoom="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" aria-label="인증서 크게 보기">
+            <img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" alt="CPL Aromas AromaWellness 인증서" width="1920" height="2782" loading="lazy">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="nnm-aw__stamp" role="img" aria-label="CPL Aromas AromaWellness Relaxation Fragrance 인증 소인">
   <defs>
     <filter id="nnmAwStamp" x="-5%" y="-5%" width="110%" height="110%">
       <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="2" seed="7" result="coarse"/>
@@ -898,14 +916,9 @@
     </g>
   </g>
 </svg>
-        </button>
-      </div>
-
-      <!-- 4막: 하이라이트 문장 -->
-      <div class="nnm-aw__beat nnm-aw4 nnm-fade">
-        <!-- 대표 문구 2026-11-18. "고려한"은 설계 의도 — "챙기는·돌보는"처럼 효과로 바꾸지 않는다 -->
-        <div class="nnm-aw__title">좋은 향기를 넘어,<br>잠들기 전 마음까지 <br class="nnm-mo-br">고려한 향.</div>
-        <p class="nnm-aw__meta"><a href="#nnm-ch4" data-nnd-jump="nnm-ch4">인증 기록 자세히 보기 →</a></p>
+          </button>
+          <div class="nnm-aw__prod"><span>나잇나잇 미스트<br>누끼 PNG</span></div>
+        </div>
       </div>
 
     </div>
