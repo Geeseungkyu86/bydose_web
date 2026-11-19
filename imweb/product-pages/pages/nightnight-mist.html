@@ -767,6 +767,32 @@
   .nnm-aw__stmt{padding:0 var(--pad);font-size:22px;line-height:34px}
   .nnm-aw__split + .nnm-aw__card{margin-top:120px}
 }
+/* ---------- 2026-11-19 대표 피그마 순서: 오프너 → 훅 → 엄선한 향 → 엄선의 기준 ---------- */
+.nnm-aw__open{position:relative;margin:0 calc(-1*var(--pad))}
+.nnm-aw__openph{aspect-ratio:16/9;height:auto;min-height:0;justify-content:flex-end;padding-bottom:36px;background:#2E2925;border-color:rgba(233,230,221,.2)}
+.nnm-aw__opentxt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;font-size:36px;line-height:54px;font-weight:600;letter-spacing:-.02em;color:#E6DFD2;pointer-events:none}
+.nnm-aw__open + .nnm-aw__intro{margin-top:200px}
+.nnm-aw__h{font-size:40px;line-height:56px;font-weight:700;letter-spacing:-.025em;color:var(--ink)}
+.nnm-aw__sub{margin-top:28px!important;font-size:16px;line-height:27px;font-weight:400;letter-spacing:0;color:var(--ink70)}
+.nnm-aw--light{margin-top:120px}
+.nnm-aw--light .nnm-aw__kicker{color:var(--ink70)}
+.nnm-aw--light .nnm-aw__claim{color:var(--ink)}
+.nnm-aw__body{margin-top:28px!important;max-width:520px;font-size:16px;line-height:27px;color:var(--ink70)}
+.nnm-aw--light .nnm-aw__facts dt{color:var(--ink40)}
+.nnm-aw--light .nnm-aw__facts dd{color:var(--ink)}
+.nnm-aw--light .nnm-aw__meta a{color:var(--accent)!important}
+.nnm-aw--light .nnm-aw__visual{flex:0 0 300px;width:300px}
+@media (max-width:768px){
+  .nnm-aw__openph{aspect-ratio:4/5;padding-bottom:24px;font-size:13px;line-height:20px}
+  .nnm-aw__opentxt{font-size:22px;line-height:34px}
+  .nnm-aw__open + .nnm-aw__intro{margin-top:96px}
+  .nnm-pc-br{display:none}
+  .nnm-aw__h{font-size:26px;line-height:38px}
+  .nnm-aw__sub{margin-top:16px!important;font-size:14px;line-height:23px}
+  .nnm-aw--light{margin-top:24px}
+  .nnm-aw__body{margin-top:16px!important;font-size:14px;line-height:23px}
+  .nnm-aw--light .nnm-aw__visual{flex:none;width:220px}
+}
 </style>
 
 <div id="nnd-fbar" aria-hidden="true">
@@ -821,39 +847,49 @@
     </div>
   </section>
 
-  <!-- ②-1 「아로마 웰니스」 — 2장 프레젠테이션 (2026-11-19 4막 → 2장으로 줄임) (대표 방향 2026-11-19: "정리 말고 프리젠테이션", "너무 소극적이야").
-       근거: nightnight-mist/아로마웰니스-근거.md. 우리 향의 베이스 = AromaWellness Relaxation 향(대표 확인 2026-11-19).
-       주어는 늘 '테스트·향'. 제품이 몸·마음을 바꾼다고 쓰지 않는다. 숫자는 Relaxation 보고서를 받기 전엔 쓰지 않는다. -->
+  <!-- ②-1 「아로마 웰니스」 (대표 피그마 순서 2026-11-19): ① 감성 오프너 사진 → ② 훅 → ③ 연구해 엄선한 향(사진 왼쪽) → ④ 엄선의 기준(근거, 사진 오른쪽) → 향의 흐름.
+       근거: nightnight-mist/아로마웰니스-근거.md. 우리 향의 베이스 = AromaWellness Relaxation 향(Contains, 대표 확인 2026-11-19) → "통과한 향"이 아니라 "바탕".
+       주어는 늘 '테스트·향'. 제품이 몸·마음을 바꾼다고 쓰지 않는다. 숫자는 Relaxation 보고서를 받기 전엔 쓰지 않는다.
+       「릴랙세이션」을 한국어 본문에 쓰는 것은 책임판매업자 확인 필요(확인 전). "스트레스"는 의약품 오인 위험이라 쓰지 않는다. -->
   <section class="nnm-aw" id="nnm-aw">
-    <!-- 1장: 대표 레이아웃 (2026-11-19). 밝은 바탕, 가운데 훅 → 왼쪽 끝에 붙은 사진 + 오른쪽 문장. 문구는 대표 원문 그대로. -->
+
+    <!-- ① 오프너: 어두운 사진 위 가운데 문장. 대표 문구 그대로 -->
+    <div class="nnm-aw__open">
+      <div class="nnm-ph nnm-ph--dark nnm-aw__openph"><span class="nnm-ph__tag">오프너</span>어두운 침실, 이불 위로 나잇나잇 에어를 뿌리는 손 — 공기 중 미세한 입자가 보이게<br><small>대표 피그마 참고 구도. 우리 제품으로 촬영</small></div>
+      <div class="nnm-aw__opentxt nnm-fade">좋은 향을 넘어,<br>잠들기 전<br>(마음을) 고려한 향.</div>
+    </div>
+
+    <!-- ② 훅 -->
     <div class="nnm-aw__intro nnm-fade">
       <div class="nnm-aw__hook">(좋은 향)과<br><span class="nnm-grad">몸이 받아들이는 향</span>은<br>다를 수 있어요.</div>
     </div>
+
+    <!-- ③ 답: 사진 왼쪽 끝 + 짧은 제목과 본문. 대표 문구 그대로 -->
     <div class="nnm-aw__split">
-      <div class="nnm-aw__photo"><div class="nnm-ph nnm-ph--sq"><span class="nnm-ph__tag">몸</span>몸 가까이 놓인 나잇나잇 에어 한 병 — 목선·잠옷·이불의 결<br><small>대표 참고 사진은 다른 브랜드 제품. 우리 제품으로 새로 촬영</small></div></div>
-      <div class="nnm-aw__stmt nnm-fade">나잇나잇 에어는<br>향에 대한 몸의 반응을<br>연구해서 조향한,<br>「아로마 웰니스」 향료를 사용해<br>만들어졌습니다.</div>
+      <div class="nnm-aw__photo"><div class="nnm-ph nnm-ph--sq"><span class="nnm-ph__tag">몸</span>몸 가까이 놓인 나잇나잇 에어 한 병 — 목선·잠옷·이불의 결<br><small>대표 참고 사진은 구도만 참고. 우리 제품으로 새로 촬영</small></div></div>
+      <div class="nnm-aw__stmt nnm-fade">
+        <div class="nnm-aw__h">몸의 반응을 연구해<br>엄선한 향.</div>
+        <p class="nnm-aw__sub">나잇나잇 에어는 향에 대한 몸의 반응을 연구해서 조향한, <br class="nnm-pc-br">「아로마 웰니스」 향료를 사용해 만들어졌습니다.</p>
+      </div>
     </div>
 
-    <div class="nnm-aw__card">
-
-      <!-- 2장: 근거. 우리 향 = AromaWellness Relaxation 향을 바탕으로 한 향(Contains, 대표 확인 2026-11-19) → "통과한 향"이 아니라 "바탕".
-           "스트레스"는 의약품 오인 위험이라 뺐다. 「릴랙세이션」을 한국어 본문에 쓰는 것은 책임판매업자 확인 필요(확인 전). -->
-      <div class="nnm-aw__beat nnm-aw3 nnm-fade">
-        <div class="nnm-aw__text">
-          <p class="nnm-aw__kicker">그 근거</p>
-          <div class="nnm-aw__claim">이 향의 바탕은,<br>몸의 반응을 재는<br>「릴랙세이션」 테스트를<br><em>통과한 향</em>이에요.</div>
-          <dl class="nnm-aw__facts">
-            <div><dt>누가</dt><dd>CPL Aromas · 영국</dd></div>
-            <div><dt>어떻게</dt><dd>피부전기반응(GSR) · 설문</dd></div>
-            <div><dt>인증</dt><dd>2025.12.15</dd></div>
-          </dl>
-          <p class="nnm-aw__end">좋은 향기를 넘어, 잠들기 전 마음까지 고려한 향.</p>
-          <p class="nnm-aw__meta"><a href="#nnm-ch4" data-nnd-jump="nnm-ch4">인증 기록 자세히 보기 →</a></p>
-        </div>
-        <div class="nnm-aw__visual">
-          <button type="button" class="nnm-aw__cert" data-nnd-zoom="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" aria-label="인증서 크게 보기">
-            <img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" alt="CPL Aromas AromaWellness 인증서" width="1920" height="2782" loading="lazy">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="nnm-aw__stamp" role="img" aria-label="CPL Aromas AromaWellness Relaxation Fragrance 인증 소인">
+    <!-- ④ 엄선의 기준: ③과 좌우를 뒤집어 글 왼쪽, 인증서 오른쪽. 한 화면을 넘기지 않는다(더 쓸 말은 ⑦ 인증 상세로) -->
+    <div class="nnm-aw__beat nnm-aw3 nnm-aw--light nnm-fade">
+      <div class="nnm-aw__text">
+        <p class="nnm-aw__kicker">엄선의 기준</p>
+        <div class="nnm-aw__claim">몸의 반응을 재는<br>「릴랙세이션」 테스트.</div>
+        <p class="nnm-aw__body">영국 CPL Aromas는 향을 맡은 사람의 피부전기반응(GSR)과 설문으로 반응을 재고, 테스트를 통과한 향만 「아로마 웰니스」로 인증합니다. 나잇나잇 에어는 그 향을 바탕으로 만들었습니다.</p>
+        <dl class="nnm-aw__facts">
+          <div><dt>누가</dt><dd>CPL Aromas · 영국</dd></div>
+          <div><dt>어떻게</dt><dd>피부전기반응(GSR) · 설문</dd></div>
+          <div><dt>인증</dt><dd>2025.12.15</dd></div>
+        </dl>
+        <p class="nnm-aw__meta"><a href="#nnm-ch4" data-nnd-jump="nnm-ch4">인증 기록 자세히 보기 →</a></p>
+      </div>
+      <div class="nnm-aw__visual">
+        <button type="button" class="nnm-aw__cert" data-nnd-zoom="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" aria-label="인증서 크게 보기">
+          <img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" alt="CPL Aromas AromaWellness 인증서" width="1920" height="2782" loading="lazy">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="nnm-aw__stamp" role="img" aria-label="CPL Aromas AromaWellness Relaxation Fragrance 인증 소인">
   <defs>
     <filter id="nnmAwStamp" x="-5%" y="-5%" width="110%" height="110%">
       <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="2" seed="7" result="coarse"/>
@@ -894,12 +930,10 @@
     </g>
   </g>
 </svg>
-          </button>
-          <div class="nnm-aw__prod"><span>나잇나잇 에어<br>누끼 PNG</span></div>
-        </div>
+        </button>
       </div>
-
     </div>
+
     <p class="nnm-aw__next">그 향은, 이렇게 흘러가요.</p>
   </section>
 
