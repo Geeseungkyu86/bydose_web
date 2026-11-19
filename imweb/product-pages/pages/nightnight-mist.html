@@ -715,7 +715,6 @@
 .nnm-aw__card{padding:0 88px}
 .nnm-aw__beat{min-height:560px;padding:120px 0;display:flex;flex-direction:column;justify-content:center}
 .nnm-aw__beat + .nnm-aw__beat{border-top:1px solid rgba(237,234,224,.12)}
-.nnm-aw__q{margin-top:28px;font-size:56px;line-height:76px;font-weight:600;letter-spacing:-.025em;color:#F6F3EA}
 .nnm-aw3{flex-direction:row;align-items:center;gap:72px}
 .nnm-aw__text{flex:1 1 auto;min-width:0}
 .nnm-aw__facts{margin:44px 0 0;display:flex;flex-wrap:wrap;gap:12px 32px;font-family:"Roboto Mono",ui-monospace,monospace;font-size:13px;line-height:18px;letter-spacing:.04em}
@@ -730,15 +729,11 @@
 @media (max-width:768px){
   .nnm-aw__card{padding:0 22px}
   .nnm-aw__beat{min-height:0;padding:72px 0}
-  .nnm-aw__q{margin-top:16px;font-size:30px;line-height:42px}
   .nnm-aw3{flex-direction:column;align-items:stretch;gap:64px}
   #nnm-story .nnm-aw3 .nnm-aw__cert{flex:none;width:210px;margin:0 auto 0 auto;left:12px}
   .nnm-aw__stamp{left:-44px;bottom:-24px;width:124px;height:124px}
   .nnm-aw__facts{margin-top:28px;flex-direction:column;font-size:12px}
 }
-.nnm-aw__q em,.nnm-aw__def em{font-style:normal;color:#E9C9A0}
-.nnm-aw__def{margin-top:96px;font-size:36px;line-height:54px;font-weight:600;letter-spacing:-.02em;color:#F6F3EA}
-.nnm-aw__defsub{margin-top:24px!important;font-size:17px;line-height:26px;color:rgba(237,234,224,.6)}
 .nnm-aw__kicker{font-size:16px;line-height:20px;font-weight:700;letter-spacing:.04em;color:#A9B8A4}
 .nnm-aw__claim{margin-top:24px;font-size:40px;line-height:58px;font-weight:700;letter-spacing:-.025em;color:#F6F3EA}
 .nnm-aw__claim em{font-style:normal;color:#E9C9A0}
@@ -747,8 +742,6 @@
 #nnm-story .nnm-aw3 .nnm-aw__visual .nnm-aw__cert{width:280px;flex:none}
 .nnm-aw__prod{position:absolute;right:-28px;bottom:-56px;width:120px;height:240px;border-radius:16px;border:2px dashed rgba(237,234,224,.35);background:rgba(38,48,42,.85);display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;line-height:18px;color:rgba(237,234,224,.75);transform:rotate(-8deg);z-index:3}
 @media (max-width:768px){
-  .nnm-aw__def{margin-top:56px;font-size:22px;line-height:34px}
-  .nnm-aw__defsub{margin-top:16px!important;font-size:14px;line-height:22px}
   .nnm-aw__claim{margin-top:16px;font-size:24px;line-height:36px}
   .nnm-aw__kicker{font-size:13px}
   .nnm-aw__end{margin-top:32px!important;font-size:16px;line-height:24px}
@@ -760,6 +753,19 @@
   .nnm-aw3 .nnm-aw__visual{order:2;margin-top:56px;margin-bottom:40px}
   .nnm-aw3 .nnm-aw__end{order:3}
   .nnm-aw3 .nnm-aw__meta{order:4}
+}
+.nnm-aw__intro{text-align:center}
+.nnm-aw__hook{font-size:36px;line-height:56px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.nnm-grad{background:linear-gradient(90deg,#D35B40 0%,#989B87 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nnm-aw__split{margin:140px 0 0 calc(-1*var(--pad));display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:88px}
+.nnm-aw__photo .nnm-ph{min-height:0}
+.nnm-aw__stmt{font-size:36px;line-height:56px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.nnm-aw__split + .nnm-aw__card{margin-top:200px}
+@media (max-width:768px){
+  .nnm-aw__hook{font-size:24px;line-height:36px}
+  .nnm-aw__split{margin:72px calc(-1*var(--pad)) 0;grid-template-columns:1fr;gap:40px}
+  .nnm-aw__stmt{padding:0 var(--pad);font-size:22px;line-height:34px}
+  .nnm-aw__split + .nnm-aw__card{margin-top:120px}
 }
 </style>
 
@@ -819,16 +825,16 @@
        근거: nightnight-mist/아로마웰니스-근거.md. 우리 향의 베이스 = AromaWellness Relaxation 향(대표 확인 2026-11-19).
        주어는 늘 '테스트·향'. 제품이 몸·마음을 바꾼다고 쓰지 않는다. 숫자는 Relaxation 보고서를 받기 전엔 쓰지 않는다. -->
   <section class="nnm-aw" id="nnm-aw">
-    <div class="nnm-aw__card">
+    <!-- 1장: 대표 레이아웃 (2026-11-19). 밝은 바탕, 가운데 훅 → 왼쪽 끝에 붙은 사진 + 오른쪽 문장. 문구는 대표 원문 그대로. -->
+    <div class="nnm-aw__intro nnm-fade">
+      <div class="nnm-aw__hook">(좋은 향)과<br><span class="nnm-grad">몸이 받아들이는 향</span>은<br>다를 수 있어요.</div>
+    </div>
+    <div class="nnm-aw__split">
+      <div class="nnm-aw__photo"><div class="nnm-ph nnm-ph--sq"><span class="nnm-ph__tag">몸</span>몸 가까이 놓인 나잇나잇 에어 한 병 — 목선·잠옷·이불의 결<br><small>대표 참고 사진은 다른 브랜드 제품. 우리 제품으로 새로 촬영</small></div></div>
+      <div class="nnm-aw__stmt nnm-fade">나잇나잇 에어는<br>향에 대한 몸의 반응을<br>연구해서 조향한,<br>「아로마 웰니스」 향료를 사용해<br>만들어졌습니다.</div>
+    </div>
 
-      <!-- 1장: 훅 → 정의 (대표 방향 2026-11-19: "좋은 향과 몸이 받아들이는 향은 다를 수 있어요 → 아로마 웰니스는 ~다 → 근거는 ~다").
-           정의는 회사 소개가 아니라 훅의 '몸이 받아들이는'에 답하는 말로. 효과(편안해진다)가 아니라 고르는 방식만 말한다. -->
-      <div class="nnm-aw__beat nnm-aw1 nnm-fade">
-        <p class="nnm-aw__label">「아로마 웰니스」</p>
-        <div class="nnm-aw__q">“좋은 향”과<br><em>몸이 받아들이는 향</em>은<br>다를 수 있어요.</div>
-        <div class="nnm-aw__def">아로마 웰니스는,<br>향을 맡았을 때 <em>몸이 어떻게 반응하는지</em> 재서<br>골라낸 향이에요.</div>
-        <p class="nnm-aw__defsub">영국 향료 회사 CPL Aromas가 향과 사람의 반응을 연구해 향을 고르는 방식이에요.</p>
-      </div>
+    <div class="nnm-aw__card">
 
       <!-- 2장: 근거. 우리 향 = AromaWellness Relaxation 향을 바탕으로 한 향(Contains, 대표 확인 2026-11-19) → "통과한 향"이 아니라 "바탕".
            "스트레스"는 의약품 오인 위험이라 뺐다. 「릴랙세이션」을 한국어 본문에 쓰는 것은 책임판매업자 확인 필요(확인 전). -->
