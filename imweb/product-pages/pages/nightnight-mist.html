@@ -15,7 +15,7 @@
        (미스트 상품 번호 확인 후).
      - 로컬: python3 -m http.server 후 /imweb/product-pages/_mock_shop_view.html?idx=63&bd_page=nightnight-mist
      ============================================================ -->
-<link href="https://fonts.googleapis.com/css2?family=Asta+Sans:wght@300..800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Asta+Sans:wght@300..800&family=Roboto+Mono:wght@400;500&family=Courier+Prime:wght@700&display=swap" rel="stylesheet">
 <style>
 #nnm-story{
   --bg:#F3F3E9; --ink:#2A2A29; --black:#000; --accent:#D35B40; --cool:#9DAABA;
@@ -711,6 +711,55 @@
   .nnm-aw__steps span:not(.nnm-aw__n){font-size:13px}
   .nnm-aw__next{margin-top:48px!important;font-size:15px}
 }
+/* ---------- 2026-11-19 「아로마 웰니스」 4막 프레젠테이션 ---------- */
+.nnm-aw__card{padding:0 88px}
+.nnm-aw__beat{min-height:560px;padding:120px 0;display:flex;flex-direction:column;justify-content:center}
+.nnm-aw__beat + .nnm-aw__beat{border-top:1px solid rgba(237,234,224,.12)}
+.nnm-aw__q{margin-top:28px;font-size:56px;line-height:76px;font-weight:600;letter-spacing:-.025em;color:#F6F3EA}
+.nnm-aw__duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:48px;align-items:start}
+.nnm-aw__side{display:flex;flex-direction:column;gap:16px}
+.nnm-aw__tag{align-self:flex-start;padding:4px 12px;border:1.5px solid #A9B8A4;border-radius:999px;font-size:14px;line-height:18px;font-weight:700;color:#A9B8A4}
+.nnm-aw__bubble{position:relative;align-self:flex-start;padding:22px 28px;border-radius:24px 24px 24px 6px;background:#EDEAE0;color:#26302A;font-size:26px;line-height:34px;font-weight:600}
+.nnm-wave{width:100%;height:120px;display:block}
+.nnm-aw__cap{font-size:18px;line-height:26px;color:rgba(237,234,224,.8)}
+.nnm-aw__fine{font-size:12px;line-height:18px;color:rgba(237,234,224,.45)}
+.nnm-aw__say{margin-top:88px;font-size:40px;line-height:56px;font-weight:600;letter-spacing:-.02em;color:#F6F3EA}
+.nnm-aw__say em{font-style:normal;color:#E9C9A0}
+.nnm-aw3{flex-direction:row;align-items:center;gap:72px}
+.nnm-aw__text{flex:1 1 auto;min-width:0}
+.nnm-aw__big{font-size:104px;line-height:96px;font-weight:800;letter-spacing:-.035em;color:#F6F3EA}
+.nnm-aw__lead{margin-top:36px!important;font-size:22px;line-height:34px;color:rgba(237,234,224,.8)}
+.nnm-aw__lead b{font-weight:700;color:#F6F3EA}
+.nnm-aw__facts{margin:44px 0 0;display:flex;flex-wrap:wrap;gap:12px 32px;font-family:"Roboto Mono",ui-monospace,monospace;font-size:13px;line-height:18px;letter-spacing:.04em}
+.nnm-aw__facts div{display:flex;gap:8px}
+.nnm-aw__facts dt{color:#A9B8A4}
+.nnm-aw__facts dd{margin:0;color:#EDEAE0}
+#nnm-story .nnm-aw3 .nnm-aw__cert{position:relative;top:auto;right:auto;left:auto;flex:0 0 320px;width:320px;margin:0}
+.nnm-aw__stamp{position:absolute;left:-34px;bottom:-26px;width:180px;height:180px;pointer-events:none}
+#nnm-story.nnm-anim .nnm-aw__stamp{transition:opacity .15s ease .9s,transform .45s cubic-bezier(.2,1.7,.4,1) .9s}
+#nnm-story.nnm-anim .nnm-aw3:not(.is-in) .nnm-aw__stamp{opacity:0;transform:scale(2.6) rotate(-24deg)}
+#nnm-story.nnm-anim .nnm-wave path{stroke-dasharray:1000;transition:stroke-dashoffset 2.6s ease .4s}
+#nnm-story.nnm-anim .nnm-aw2:not(.is-in) .nnm-wave path{stroke-dashoffset:1000}
+.nnm-aw4{align-items:center;text-align:center}
+.nnm-aw4 .nnm-aw__title{max-width:none;margin-top:0;font-size:56px;line-height:76px}
+@media (prefers-reduced-motion:reduce){#nnm-story.nnm-anim .nnm-aw3:not(.is-in) .nnm-aw__stamp{opacity:1;transform:none}#nnm-story.nnm-anim .nnm-aw2:not(.is-in) .nnm-wave path{stroke-dashoffset:0}}
+@media (max-width:768px){
+  .nnm-aw__card{padding:0 22px}
+  .nnm-aw__beat{min-height:0;padding:72px 0}
+  .nnm-aw__q{margin-top:16px;font-size:30px;line-height:42px}
+  .nnm-aw__duo{grid-template-columns:1fr;gap:40px}
+  .nnm-aw__bubble{font-size:19px;line-height:26px;padding:16px 20px}
+  .nnm-wave{height:84px}
+  .nnm-aw__cap{font-size:15px;line-height:22px}
+  .nnm-aw__say{margin-top:56px;font-size:24px;line-height:34px}
+  .nnm-aw3{flex-direction:column;align-items:stretch;gap:64px}
+  #nnm-story .nnm-aw3 .nnm-aw__cert{flex:none;width:210px;margin:0 auto 0 auto;left:12px}
+  .nnm-aw__stamp{left:-44px;bottom:-24px;width:124px;height:124px}
+  .nnm-aw__big{font-size:56px;line-height:54px}
+  .nnm-aw__lead{margin-top:24px!important;font-size:16px;line-height:26px}
+  .nnm-aw__facts{margin-top:28px;flex-direction:column;font-size:12px}
+  .nnm-aw4 .nnm-aw__title{font-size:28px;line-height:40px}
+}
 </style>
 
 <div id="nnd-fbar" aria-hidden="true">
@@ -765,32 +814,100 @@
     </div>
   </section>
 
-  <!-- ②-1 「아로마 웰니스」 (대표 결정 2026-11-18: 가장 유니크한 차별점이라 향 이야기 앞에 짧고 강하게).
-       효과(잠이 온다)가 아니라 만든 방식·출처로 말한다. 자세한 기록은 ⑦ 근거 섹션에서. -->
+  <!-- ②-1 「아로마 웰니스」 — 4막 프레젠테이션 (대표 방향 2026-11-19: "정리 말고 프리젠테이션", "너무 소극적이야").
+       근거: nightnight-mist/아로마웰니스-근거.md. 우리 향의 베이스 = AromaWellness Relaxation 향(대표 확인 2026-11-19).
+       주어는 늘 '테스트·향'. 제품이 몸·마음을 바꾼다고 쓰지 않는다. 숫자는 Relaxation 보고서를 받기 전엔 쓰지 않는다. -->
   <section class="nnm-aw" id="nnm-aw">
-    <!-- 하이라이트(대표 방향 2026-11-18: "짧더라도 뚱뚱하게" = 글은 짧게, 섹션의 무게는 가장 크게).
-         페이지에서 하나뿐인 짙은 숲색 카드. 결과("통과·입증·릴랙스")가 아니라 누가·어떻게·언제 인증했는지만 말한다. -->
     <div class="nnm-aw__card">
-      <button type="button" class="nnm-aw__cert" data-nnd-zoom="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" aria-label="인증서 크게 보기">
-        <img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" alt="CPL Aromas AromaWellness 인증서" width="1920" height="2782" loading="lazy">
-        <span class="nnm-aw__seal">CERTIFIED<br>AROMA<br>WELLNESS</span>
-      </button>
-      <div class="nnm-aw__head nnm-fade">
+
+      <!-- 1막: 질문 -->
+      <div class="nnm-aw__beat nnm-aw1 nnm-fade">
         <p class="nnm-aw__label">「아로마 웰니스」</p>
+        <div class="nnm-aw__q">좋은 향과<br>몸이 받아들이는 향은<br>다를 수 있어요.</div>
+      </div>
+
+      <!-- 2막: 말 vs 몸. 물결은 예시 그림(측정값 아님) -->
+      <div class="nnm-aw__beat nnm-aw2 nnm-fade">
+        <div class="nnm-aw__duo">
+          <div class="nnm-aw__side">
+            <span class="nnm-aw__tag">말</span>
+            <p class="nnm-aw__bubble">“음, 좋은 향이네요.”</p>
+            <p class="nnm-aw__cap">향이 좋다고 말해도</p>
+          </div>
+          <div class="nnm-aw__side">
+            <span class="nnm-aw__tag">몸</span>
+            <svg class="nnm-wave" viewBox="0 0 480 120" aria-hidden="true"><path d="M0 60 L20 60 L30 22 L40 96 L52 14 L64 100 L76 30 L88 88 L100 40 L112 78 L126 48 L142 70 C170 58 190 64 215 60 S265 56 290 61 S345 63 370 60 S430 58 480 60" fill="none" stroke="#A9B8A4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1000"/></svg>
+            <p class="nnm-aw__cap">몸은 따로 반응할 수 있어요</p>
+            <p class="nnm-aw__fine">이해를 돕기 위한 예시 그림이에요. 실제 측정값이 아니에요.</p>
+          </div>
+        </div>
+        <div class="nnm-aw__say">그래서 이 향은,<br>말이 아니라 <em>몸의 반응</em>에서 시작했어요.</div>
+      </div>
+
+      <!-- 3막: AROMA WELLNESS + 인증서에 소인 쾅 -->
+      <div class="nnm-aw__beat nnm-aw3 nnm-fade">
+        <div class="nnm-aw__text">
+          <div class="nnm-aw__big">AROMA<br>WELLNESS.</div>
+          <p class="nnm-aw__lead">스트레스 속 몸의 긴장 반응을 재는<br>「릴랙세이션」 테스트.<br><b>그 테스트를 통과한 향을 바탕으로<br>이 향을 만들었어요.</b></p>
+          <dl class="nnm-aw__facts">
+            <div><dt>누가</dt><dd>CPL Aromas · 영국</dd></div>
+            <div><dt>어떻게</dt><dd>피부전기반응(GSR) · 설문</dd></div>
+            <div><dt>인증</dt><dd>2025.12.15</dd></div>
+          </dl>
+        </div>
+        <button type="button" class="nnm-aw__cert" data-nnd-zoom="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" aria-label="인증서 크게 보기">
+          <img src="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" alt="CPL Aromas AromaWellness 인증서" width="1920" height="2782" loading="lazy">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="nnm-aw__stamp" role="img" aria-label="CPL Aromas AromaWellness Relaxation Fragrance 인증 소인">
+  <defs>
+    <filter id="nnmAwStamp" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="2" seed="7" result="coarse"/>
+      <feColorMatrix in="coarse" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -7 4.6" result="blot"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="3" result="fine"/>
+      <feColorMatrix in="fine" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -9 6.1" result="speck"/>
+      <feComposite in="blot" in2="speck" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" result="holes"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="1" seed="3" result="wobble"/>
+      <feDisplacementMap in="SourceGraphic" in2="wobble" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="shaky"/>
+      <feComposite in="shaky" in2="holes" operator="in"/>
+    </filter>
+    <filter id="nnmAwStamp-t" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="2" seed="21" result="coarse"/>
+      <feColorMatrix in="coarse" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -8 7.0" result="blot"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="19" result="fine"/>
+      <feColorMatrix in="fine" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -9 7.4" result="speck"/>
+      <feComposite in="blot" in2="speck" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" result="holes"/>
+      <feComposite in="SourceGraphic" in2="holes" operator="in"/>
+    </filter>
+    <path id="nnmAwStamp-top" d="M 64,200 A 136,136 0 0 1 336,200"/>
+    <path id="nnmAwStamp-bottom" d="M 46,200 A 154,154 0 0 0 354,200"/>
+  </defs>
+  <g transform="rotate(-6 200 200)">
+  <g fill="none" stroke="#D35B40" filter="url(#nnmAwStamp)">
+    <circle cx="200" cy="200" r="182" stroke-width="7"/>
+    <circle cx="200" cy="200" r="98" stroke-width="5"/>
+  </g>
+    <g fill="#D35B40" stroke="none" filter="url(#nnmAwStamp-t)" font-family="'Courier Prime','Courier New',Courier,monospace" font-weight="700">
+      <text font-size="30" letter-spacing="4"><textPath href="#nnmAwStamp-top" startOffset="50%" text-anchor="middle">AROMA WELLNESS</textPath></text>
+      <text font-size="21" letter-spacing="2" dominant-baseline="hanging"><textPath href="#nnmAwStamp-bottom" startOffset="50%" text-anchor="middle">CPL AROMAS · UNITED KINGDOM</textPath></text>
+      <circle cx="38" cy="200" r="5"/>
+      <circle cx="362" cy="200" r="5"/>
+      <g transform="rotate(-10 200 200)" text-anchor="middle">
+        <text x="200" y="180" font-size="23" letter-spacing="1">RELAXATION</text>
+        <text x="200" y="208" font-size="23" letter-spacing="1">FRAGRANCE</text>
+        <text x="200" y="238" font-size="15" letter-spacing="2">15 DEC 2025</text>
+      </g>
+    </g>
+  </g>
+</svg>
+        </button>
+      </div>
+
+      <!-- 4막: 하이라이트 문장 -->
+      <div class="nnm-aw__beat nnm-aw4 nnm-fade">
         <!-- 대표 문구 2026-11-18. "고려한"은 설계 의도 — "챙기는·돌보는"처럼 효과로 바꾸지 않는다 -->
         <div class="nnm-aw__title">좋은 향기를 넘어,<br>잠들기 전 마음까지 <br class="nnm-mo-br">고려한 향.</div>
+        <p class="nnm-aw__meta"><a href="#nnm-ch4" data-nnd-jump="nnm-ch4">인증 기록 자세히 보기 →</a></p>
       </div>
-      <div class="nnm-aw__pillars nnm-fade">
-        <div class="nnm-aw__pillar"><span class="nnm-aw__k">누가</span><span class="nnm-aw__v">CPL Aromas</span><span class="nnm-aw__d">영국의 향 전문 회사</span></div>
-        <div class="nnm-aw__pillar"><span class="nnm-aw__k">어떻게</span><span class="nnm-aw__v">몸 + 마음</span><span class="nnm-aw__d">피부전기반응(GSR)과 설문으로<br>향을 맡은 사람들의 반응을 함께</span></div>
-        <div class="nnm-aw__pillar"><span class="nnm-aw__k">인증</span><span class="nnm-aw__v">2025.12.15</span><span class="nnm-aw__d">「AromaWellness」 인증 향료</span></div>
-      </div>
-      <ol class="nnm-aw__steps nnm-fade">
-        <li><span class="nnm-aw__n">1</span><b>향을 맡는다</b><span>처음 맡는 사람들에게 향을 건넵니다</span></li>
-        <li><span class="nnm-aw__n">2</span><b>반응을 함께 살핀다</b><span>몸의 반응과 스스로 느낀 마음을 함께 봐요</span></li>
-        <li><span class="nnm-aw__n">3</span><b>인증한 향료로 조향</b><span>그 절차를 거친 향료만 「아로마 웰니스」로</span></li>
-      </ol>
-      <p class="nnm-aw__meta"><a href="#nnm-ch4" data-nnd-jump="nnm-ch4">인증 기록 자세히 보기 →</a></p>
+
     </div>
     <p class="nnm-aw__next">그 향은, 이렇게 흘러가요.</p>
   </section>
@@ -911,7 +1028,7 @@
           <div class="nnm-pcard">
             <p class="nnm-pcard__t">향을 맡은 사람들의 반응을 살핀 향이에요</p>
             <p class="nnm-pcard__d">「아로마 웰니스」 테스트를 거친 향료로 조향했어요.</p>
-            <p class="nnm-pcard__fn">CPL Aromas(영국) · 2025-12-15 인증 · 향을 맡은 사람들의 의식·무의식 반응을 피부전기반응(GSR)과 설문으로 평가</p>
+            <p class="nnm-pcard__fn">CPL Aromas(영국) · 2025-12-15 인증 · 베이스: AromaWellness Relaxation 향 · 향을 맡은 사람들의 의식·무의식 반응을 피부전기반응(GSR)과 설문으로 평가</p>
           </div>
           <div class="nnm-pcard">
             <p class="nnm-pcard__t">베개와 이불에 쓰는 생활화학제품 기준을 확인했어요</p>
