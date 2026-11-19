@@ -796,6 +796,11 @@
 .nnm-aw__star{font-size:.7em;vertical-align:super;line-height:0}
 .nnm-aw__note{margin-top:72px!important;font-size:12px;line-height:20px;color:var(--ink40)}
 @media (max-width:768px){.nnm-aw__note{margin-top:32px!important;font-size:11px;line-height:18px}}
+/* 텍스트 링크 + 화살표 (애플식, 2026-11-19). 화살표는 SVG 마스크라 글자색을 따라간다. ↓ = 같은 페이지 아래로, ↗ = 다른 페이지로 */
+#nnm-story .nnm-link{color:var(--accent)!important;text-decoration:none;font-weight:500}
+#nnm-story .nnm-link:hover{text-decoration:underline;text-underline-offset:.2em}
+.nnm-link__last{white-space:nowrap}
+.nnm-link--down .nnm-link__last::after{content:"";display:inline-block;width:.7em;height:.7em;margin-left:.25em;vertical-align:-.04em;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M6 1.8v8.4M2.6 6.8 6 10.2l3.4-3.4' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M6 1.8v8.4M2.6 6.8 6 10.2l3.4-3.4' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
 </style>
 
 <div id="nnd-fbar" aria-hidden="true">
@@ -889,7 +894,7 @@
           <div><dt>어떻게</dt><dd>피부전기반응(GSR) · 설문</dd></div>
           <div><dt>인증</dt><dd>2025.12.15</dd></div>
         </dl>
-        <p class="nnm-aw__meta"><a href="#nnm-ch4" data-nnd-jump="nnm-ch4">인증 기록 자세히 보기 →</a></p>
+        <p class="nnm-aw__meta"><a class="nnm-link nnm-link--down" href="#nnm-ch4" data-nnd-jump="nnm-ch4">인증 기록 자세히 <span class="nnm-link__last">보기</span></a></p>
       </div>
       <div class="nnm-aw__visual">
         <button type="button" class="nnm-aw__cert" data-nnd-zoom="https://cdn.imweb.me/upload/S2024082705e460c86991c/5e1e93ed0466b.png" aria-label="인증서 크게 보기">
