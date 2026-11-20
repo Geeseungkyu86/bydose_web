@@ -960,6 +960,10 @@
   .nnm-jy__lamp{left:auto;right:var(--pad);bottom:40px;width:110px;height:180px}
   .nnm-jy__end{position:absolute;left:72px;top:40px;padding:0}
 }
+.nnm-jy__shot.has-img{border:0;background:none;border-radius:0}
+.nnm-jy__shot[data-light="dusk"].is-temp img{filter:sepia(.55) saturate(1.6) hue-rotate(-12deg) brightness(.95)}
+.nnm-jy__shot[data-light="night"].is-temp img{filter:brightness(.62) saturate(.7) hue-rotate(190deg) sepia(.15)}
+.nnm-jy__shot[data-light="off"].is-temp img{filter:brightness(.28) saturate(.4)}
 </style>
 
 <div id="nnd-fbar" aria-hidden="true">
@@ -1203,10 +1207,11 @@
     <div class="nnm-jy__track" aria-hidden="true">
       <div class="nnm-jy__pin">
         <div class="nnm-jy__bottle">
-          <div class="nnm-jy__shot" data-light="day"><span>병 · 낮 조명 PNG</span></div>
-          <div class="nnm-jy__shot" data-light="dusk"><span>병 · 노을 조명 PNG</span></div>
-          <div class="nnm-jy__shot" data-light="night"><span>병 · 밤 조명 PNG</span></div>
-          <div class="nnm-jy__shot" data-light="off"><span>병 · 불 꺼짐 PNG</span></div>
+          <!-- 대표 제공 병 PNG(2026-11-20, 낮 조명). 노을·밤·꺼짐은 대표가 만들 PNG가 오기 전까지 같은 그림에 임시 필터(.is-temp) -->
+          <div class="nnm-jy__shot has-img" data-light="day"><img src="/imweb/product-pages/assets/air/bottle-day.png" alt="나잇나잇 에어" width="392" height="1049"></div>
+          <div class="nnm-jy__shot has-img is-temp" data-light="dusk"><img src="/imweb/product-pages/assets/air/bottle-day.png" alt="" width="392" height="1049"></div>
+          <div class="nnm-jy__shot has-img is-temp" data-light="night"><img src="/imweb/product-pages/assets/air/bottle-day.png" alt="" width="392" height="1049"></div>
+          <div class="nnm-jy__shot has-img is-temp" data-light="off"><img src="/imweb/product-pages/assets/air/bottle-day.png" alt="" width="392" height="1049"></div>
         </div>
       </div>
     </div>
