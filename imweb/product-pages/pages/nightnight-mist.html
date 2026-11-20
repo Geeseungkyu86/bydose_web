@@ -942,11 +942,13 @@
 .nnm-jy__text--light .nnm-jy__t{color:#F3F1EA}
 .nnm-jy__text--light .nnm-jy__b{color:rgba(243,241,234,.85)}
 .nnm-jy__land{position:relative;display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:640px;margin-top:200px}
-.nnm-jy__lampglow{position:absolute;left:calc(25% + 170px);top:46%;width:760px;height:760px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,214,150,.55) 0%,rgba(255,200,135,.22) 35%,rgba(255,190,120,0) 70%);transition:opacity 1.6s ease;pointer-events:none}
+.nnm-jy__lampglow{position:absolute;left:calc(25% + 212px);top:55%;width:760px;height:760px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,214,150,.55) 0%,rgba(255,200,135,.22) 35%,rgba(255,190,120,0) 70%);transition:opacity 1.6s ease;pointer-events:none}
 .nnm-jy__dark{position:absolute;inset:-200px 0 0;background:linear-gradient(180deg,rgba(16,18,27,0) 0%,rgba(16,18,27,.85) 30%,#10121B 100%);opacity:0;transition:opacity 1.8s ease;pointer-events:none}
-.nnm-jy__lamp{position:absolute;left:calc(25% + 130px);bottom:52px;z-index:4;pointer-events:auto}
-.nnm-jy[data-lamp="off"] .nnm-lamp__shade{fill:#4A4D5C}
-.nnm-jy[data-lamp="off"] .nnm-lamp__bulb{fill:#5A5D6C;filter:none}
+.nnm-jy__lamp{position:absolute;left:calc(25% + 130px);bottom:52px;z-index:4;pointer-events:auto;width:216px;height:300px;padding:0;border:0;background:none}
+/* 대표 제공 램프 이미지(2026-11-20): 켜짐 위에 꺼짐이 아니라, 꺼짐 위에 켜짐을 두고 켜짐만 흐리게 한다 */
+.nnm-jy__lampimg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.nnm-jy__lampimg--on{transition:opacity 1.6s ease}
+.nnm-jy[data-lamp="off"] .nnm-jy__lampimg--on{opacity:0}
 .nnm-jy[data-lamp="off"] .nnm-jy__lampglow{opacity:0}
 .nnm-jy[data-lamp="off"] .nnm-jy__dark{opacity:1}
 .nnm-jy__end{grid-column:2;opacity:.2;transition:opacity 1.8s ease .4s}
@@ -956,8 +958,8 @@
 @media (max-width:768px){
   .nnm-jy__shot{border-radius:14px;font-size:0}
   .nnm-jy__land{display:block;min-height:440px;margin-top:96px}
-  .nnm-jy__lampglow{left:50%;width:420px;height:420px}
-  .nnm-jy__lamp{left:auto;right:var(--pad);bottom:40px;width:110px;height:180px}
+  .nnm-jy__lampglow{left:calc(100% - var(--pad) - 89px);top:55%;width:420px;height:420px}
+  .nnm-jy__lamp{left:auto;right:var(--pad);bottom:40px;width:144px;height:200px}
   .nnm-jy__end{position:absolute;left:88px;top:40px;padding:0}
 }
 .nnm-jy__shot.has-img{border:0;background:none;border-radius:0}
@@ -1244,12 +1246,8 @@
         <div class="nnm-jy__lampglow" aria-hidden="true"></div>
         <div class="nnm-jy__dark" aria-hidden="true"></div>
         <button type="button" class="nnm-lamp nnm-jy__lamp" aria-pressed="true" aria-label="램프 끄기">
-          <svg viewBox="0 0 160 260" aria-hidden="true">
-            <path class="nnm-lamp__shade" d="M38 20 H122 L146 104 H14 Z"/>
-            <ellipse class="nnm-lamp__bulb" cx="80" cy="110" rx="18" ry="10"/>
-            <rect class="nnm-lamp__stem" x="76" y="104" width="8" height="120" rx="3"/>
-            <ellipse class="nnm-lamp__base" cx="80" cy="232" rx="48" ry="12"/>
-          </svg>
+          <img class="nnm-jy__lampimg nnm-jy__lampimg--off" src="/imweb/product-pages/assets/air/lamp-off.webp" alt="" width="433" height="600">
+          <img class="nnm-jy__lampimg nnm-jy__lampimg--on" src="/imweb/product-pages/assets/air/lamp-on.webp" alt="" width="433" height="600">
         </button>
         <div class="nnm-jy__text nnm-jy__text--light nnm-jy__end">
           <div class="nnm-jy__t">오늘 밤은<br>여기까지.</div>
