@@ -894,7 +894,7 @@
 .nnm-night__end{margin-top:40px!important;font-size:15px;line-height:24px;letter-spacing:.02em;color:rgba(233,230,221,.6)}
 @media (max-width:768px){.nnm-once{margin-top:72px!important;font-size:19px;line-height:30px}.nnm-night__end{margin-top:28px!important;font-size:13px}}
 /* ---------- 잠드는 여정 — 피그마 디자인 그대로 (2026-11-20) ---------- */
-.nnm-jy{position:relative;margin-top:120px;display:grid;overflow-x:clip;background:linear-gradient(180deg,var(--bg) 0%,#F1E9D8 14%,#EDD7B5 30%,#E3B48E 44%,#C98E7E 56%,#9A7790 67%,#62627F 78%,#33374C 89%,#1A1C24 100%)}
+.nnm-jy{position:relative;z-index:1;margin-top:120px;display:grid;overflow-x:clip;background:linear-gradient(180deg,var(--bg) 0%,#F1E9D8 14%,#EDD7B5 30%,#E3B48E 44%,#C98E7E 56%,#9A7790 67%,#62627F 78%,#33374C 89%,#10121B 100%)}
 .nnm-jy__track,.nnm-jy__flow{grid-area:1/1;min-width:0}
 .nnm-jy__track{position:relative;z-index:3;pointer-events:none}
 .nnm-jy__pin{position:sticky;top:calc(50vh - 267.5px);width:50%;height:535px;margin-top:52.5px;margin-bottom:52.5px;display:flex;align-items:center;justify-content:center}
@@ -942,24 +942,28 @@
 .nnm-jy__text--light .nnm-jy__t{color:#F3F1EA}
 .nnm-jy__text--light .nnm-jy__b{color:rgba(243,241,234,.85)}
 .nnm-jy__land{position:relative;display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:640px;margin-top:200px}
-.nnm-jy__lampglow{position:absolute;left:calc(25% + 212px);top:55%;width:760px;height:760px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,214,150,.55) 0%,rgba(255,200,135,.22) 35%,rgba(255,190,120,0) 70%);transition:opacity 1.6s ease;pointer-events:none}
+.nnm-jy__endcol{grid-column:2;justify-self:center;width:400px;position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:45px}
+.nnm-jy__lampglow{position:absolute;left:82px;top:63px;width:760px;height:760px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,214,150,.55) 0%,rgba(255,200,135,.22) 35%,rgba(255,190,120,0) 70%);transition:opacity 1.6s ease;pointer-events:none}
 .nnm-jy__dark{position:absolute;inset:-200px 0 0;background:linear-gradient(180deg,rgba(16,18,27,0) 0%,rgba(16,18,27,.85) 30%,#10121B 100%);opacity:0;transition:opacity 1.8s ease;pointer-events:none}
-.nnm-jy__lamp{position:absolute;left:calc(25% + 130px);bottom:52px;z-index:4;pointer-events:auto;width:216px;height:300px;padding:0;border:0;background:none}
+.nnm-jy__lamp{position:relative;z-index:4;pointer-events:auto;width:216px;height:300px;padding:0;border:0;background:none;flex:none}
 /* 대표 제공 램프 이미지(2026-11-20): 켜짐 위에 꺼짐이 아니라, 꺼짐 위에 켜짐을 두고 켜짐만 흐리게 한다 */
 .nnm-jy__lampimg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 .nnm-jy__lampimg--on{transition:opacity 1.6s ease}
 .nnm-jy[data-lamp="off"] .nnm-jy__lampimg--on{opacity:0}
 .nnm-jy[data-lamp="off"] .nnm-jy__lampglow{opacity:0}
 .nnm-jy[data-lamp="off"] .nnm-jy__dark{opacity:1}
-.nnm-jy__end{grid-column:2;opacity:.2;transition:opacity 1.8s ease .4s}
+.nnm-jy__end{position:relative;display:flex;flex-direction:column;gap:52px;opacity:.2;transition:opacity 1.8s ease .4s}
+.nnm-jy__end .nnm-jy__t{color:#F3F1EA}
 .nnm-jy[data-lamp="off"] .nnm-jy__end{opacity:1}
 @media (prefers-reduced-motion:reduce){.nnm-jy *{transition:none!important}}
 @media (max-width:768px){
   .nnm-jy__shot{border-radius:14px;font-size:0}
   .nnm-jy__land{display:block;min-height:440px;margin-top:96px}
-  .nnm-jy__lampglow{left:calc(100% - var(--pad) - 89px);top:55%;width:420px;height:420px}
-  .nnm-jy__lamp{left:auto;right:var(--pad);bottom:40px;width:144px;height:200px}
-  .nnm-jy__end{position:absolute;left:88px;top:40px;padding:0}
+  .nnm-jy__land{display:flex;align-items:center}
+  .nnm-jy__endcol{width:auto;margin-left:88px;padding-right:var(--pad);gap:24px}
+  .nnm-jy__lampglow{left:55px;top:42px;width:420px;height:420px}
+  .nnm-jy__lamp{width:144px;height:200px}
+  .nnm-jy__end{gap:36px}
 }
 .nnm-jy__shot.has-img{border:0;background:none;border-radius:0}
 /* ---------- 후기 띠 (피그마 2026-11-20) ---------- */
@@ -1272,14 +1276,18 @@
     </div>
       <!-- 도착: 병이 이 줄 왼쪽 가운데에 내려앉으면 불이 꺼진다(자동). 램프를 눌러 다시 켜고 끌 수도 있다 -->
       <div class="nnm-jy__land" id="nnm-ch3">
-        <div class="nnm-jy__lampglow" aria-hidden="true"></div>
         <div class="nnm-jy__dark" aria-hidden="true"></div>
-        <button type="button" class="nnm-lamp nnm-jy__lamp" aria-pressed="true" aria-label="램프 끄기">
-          <img class="nnm-jy__lampimg nnm-jy__lampimg--off" src="/imweb/product-pages/assets/air/lamp-off.webp" alt="" width="433" height="600">
-          <img class="nnm-jy__lampimg nnm-jy__lampimg--on" src="/imweb/product-pages/assets/air/lamp-on.webp" alt="" width="433" height="600">
-        </button>
-        <div class="nnm-jy__text nnm-jy__text--light nnm-jy__end">
-          <div class="nnm-jy__t">오늘 밤은<br>여기까지.</div>
+        <!-- 피그마(2026-11-20): 오른쪽 칸에 램프를 위에, 문구를 아래에 쌓는다. 병은 왼쪽 칸 가운데에 내려앉는다 -->
+        <div class="nnm-jy__endcol">
+          <div class="nnm-jy__lampglow" aria-hidden="true"></div>
+          <button type="button" class="nnm-lamp nnm-jy__lamp" aria-pressed="true" aria-label="램프 끄기">
+            <img class="nnm-jy__lampimg nnm-jy__lampimg--off" src="/imweb/product-pages/assets/air/lamp-off.webp" alt="" width="433" height="600">
+            <img class="nnm-jy__lampimg nnm-jy__lampimg--on" src="/imweb/product-pages/assets/air/lamp-on.webp" alt="" width="433" height="600">
+          </button>
+          <div class="nnm-jy__end">
+            <div class="nnm-jy__t">오늘은 여기까지.</div>
+            <div class="nnm-jy__t">불을 끄면,<br>숲의 향만 남아요.</div>
+          </div>
         </div>
       </div>
     </div>
