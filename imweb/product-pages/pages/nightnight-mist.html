@@ -526,7 +526,7 @@
 .nnm-tone--night{padding-top:320px;background:linear-gradient(180deg,#E9D9C3 0%,#E4D0BD 4%,#DCC3B5 8%,#CFB3AC 12%,#BCA2A6 16%,#A592A0 20%,#8A8197 25%,#6E6D88 30%,#555875 36%,#41455F 42%,#32364C 49%,#262A3A 56%,#1F222B 64%,#1A1C24 100%);color:#E9E6DD}
 .nnm-tone--tail{background:#1A1C24;padding-top:40px}
 /* 밤 → 새벽 → 아침. 남색에서 푸른 새벽빛을 지나 크림색으로 */
-.nnm-tone--tail + .nnm-more{margin-top:0;padding-top:320px;background:linear-gradient(180deg,#1A1C24 0%,#22283A 4%,#2E3850 8%,#46536B 12%,#687689 16%,#919CA8 20%,#B8BFC2 24%,#D6D9D3 28%,#E8E8DE 32%,var(--bg) 38%)}
+.nnm-tone--tail + .nnm-more{margin-top:0;padding-top:320px;background:linear-gradient(180deg,#10121B 0%,#22283A 4%,#2E3850 8%,#46536B 12%,#687689 16%,#919CA8 20%,#B8BFC2 24%,#D6D9D3 28%,#E8E8DE 32%,var(--bg) 38%)}
 .nnm-arc{display:grid;grid-template-columns:1fr 1fr;align-items:center}
 .nnm-arc--rev .nnm-arc__media{order:2}
 .nnm-arc__media{position:relative;aspect-ratio:4/5;overflow:hidden;background:#cfd6d8}
@@ -963,7 +963,9 @@
 }
 .nnm-jy__shot.has-img{border:0;background:none;border-radius:0}
 /* ---------- 후기 띠 (피그마 2026-11-20) ---------- */
-.nnm-rv{position:relative;box-sizing:border-box;min-height:2060px;padding:308px 0 80px;background:linear-gradient(180deg,#10121B 0%,#F3F3E9 100%)}
+.nnm-rv{position:relative;padding:308px 0 0;background:#10121B}
+.nnm-rv + .nnm-tone--tail{margin-top:0;padding-top:200px;background:#10121B}
+.nnm-rv + .nnm-tone--tail .nnm-ritual__head{padding-top:0}
 .nnm-rv__note{position:absolute;top:240px;left:40px;margin:0}
 .nnm-rv__band{overflow:hidden}
 .nnm-rv__track{display:flex;width:max-content;animation:nnm-rv 56s linear infinite}
@@ -979,7 +981,8 @@
 @keyframes nnm-rv{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.nnm-rv__track{animation:none}.nnm-rv__band{overflow-x:auto}}
 @media (max-width:768px){
-  .nnm-rv{min-height:1200px;padding:200px 0 60px}
+  .nnm-rv{padding:200px 0 0}
+  .nnm-rv + .nnm-tone--tail{padding-top:120px}
   .nnm-rv__note{top:150px;left:var(--pad)}
   .nnm-rv__track{animation-duration:44s}
   .nnm-rv__set{gap:12px;padding-right:12px}
