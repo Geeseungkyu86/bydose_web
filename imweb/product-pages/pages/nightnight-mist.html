@@ -893,45 +893,41 @@
 .nnm-once{margin:120px auto 0!important;padding:0 var(--pad);text-align:center;font-size:24px;line-height:36px;font-weight:600;color:var(--ink)}
 .nnm-night__end{margin-top:40px!important;font-size:15px;line-height:24px;letter-spacing:.02em;color:rgba(233,230,221,.6)}
 @media (max-width:768px){.nnm-once{margin-top:72px!important;font-size:19px;line-height:30px}.nnm-night__end{margin-top:28px!important;font-size:13px}}
-/* ---------- 잠드는 여정: 2단 + 따라오는 병 (2026-11-20) ---------- */
-.nnm-once + .nnm-jr{margin-top:80px}
-.nnm-jr{position:relative;background:linear-gradient(180deg,var(--bg) 0%,var(--bg) 16%,#DCE4E6 30%,#E3E3DC 45%,#E9D9C3 60%,#BCA2A6 72%,#6E6D88 82%,#32364C 91%,#1A1C24 100%)}
-.nnm-jr__pin{position:sticky;top:0;z-index:3;width:50%;height:100vh;margin-bottom:-100vh;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.nnm-jr__bottle{width:180px;aspect-ratio:200/535;border-radius:22px;border:2px dashed rgba(42,42,41,.35);background:rgba(243,243,233,.55);display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;line-height:19px;color:rgba(42,42,41,.7);box-shadow:0 30px 60px rgba(0,0,0,.18)}
-.nnm-jr__scene{position:relative;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center}
-.nnm-jr__media{position:absolute;left:40px;right:40px;top:50%;transform:translateY(-50%);aspect-ratio:16/9;border-radius:12px;overflow:hidden}
-.nnm-jr__media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.5) 100%);pointer-events:none}
-.nnm-jr__ph{position:absolute;inset:0;min-height:0;height:auto;border:0;justify-content:flex-start;align-items:flex-start;padding:16px 16px 16px 80px;font-size:13px;color:rgba(255,255,255,.75)}
-.nnm-jr__text{grid-column:2;position:relative;z-index:2;justify-self:center;max-width:360px;color:#F6F3EA}
-.nnm-jr__step{font-size:15px;line-height:22px;color:rgba(246,243,234,.75)}
-.nnm-jr__title{margin-top:12px;font-size:44px;line-height:58px;font-weight:700;letter-spacing:-.02em}
-.nnm-jr__body{margin-top:20px!important;font-size:18px;line-height:30px;color:rgba(246,243,234,.9)}
-.nnm-tone--after-jr{margin-top:0!important;padding-top:120px!important;background:#1A1C24!important}
-@media (max-width:768px){
-  .nnm-once + .nnm-jr{margin-top:48px}
-  .nnm-jr__pin{width:auto;justify-content:flex-start}
-  .nnm-jr__bottle{width:96px;transform:translateX(-50%);border-radius:14px;font-size:0}
-  .nnm-jr__scene{display:block;min-height:0;padding:48px 0}
-  .nnm-jr__media{position:relative;left:auto;right:auto;top:auto;transform:none;margin:0 var(--pad);aspect-ratio:1/1}
-  .nnm-jr__media::after{display:none}
-  .nnm-jr__text{max-width:none;margin-top:24px;padding:0 var(--pad) 0 72px;color:var(--ink)}
-  .nnm-jr__step{font-size:13px;color:rgba(42,42,41,.65)}
-  .nnm-jr__title{margin-top:8px;font-size:28px;line-height:38px}
-  .nnm-jr__body{margin-top:12px!important;font-size:15px;line-height:25px;color:var(--ink)}
-  .nnm-jr__scene--3 .nnm-jr__text,.nnm-jr__scene--3 .nnm-jr__body{color:#F6F3EA}
-  .nnm-jr__scene--3 .nnm-jr__step{color:rgba(246,243,234,.7)}
-  .nnm-tone--after-jr{padding-top:72px!important}
+/* ---------- 잠드는 여정 — 피그마 디자인 그대로 (2026-11-20) ---------- */
+.nnm-jy{position:relative;margin-top:120px;padding-bottom:40px}
+.nnm-jy__pin{position:sticky;top:0;z-index:3;width:50%;height:100vh;margin-bottom:-100vh;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.nnm-jy__bottle{width:200px;height:535px;max-height:86vh;aspect-ratio:200/535;border-radius:24px;border:2px dashed rgba(42,42,41,.35);background:rgba(243,243,233,.6);display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;line-height:19px;color:rgba(42,42,41,.7)}
+.nnm-jy__intro{position:relative;display:grid;grid-template-columns:1fr 1fr;min-height:640px;align-items:center}
+.nnm-jy__glow{position:absolute;left:25%;top:50%;width:470px;height:470px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#989B87 0%,rgba(152,155,135,0) 70.7%);pointer-events:none}
+.nnm-jy__text{grid-column:2;justify-self:center;width:400px;max-width:100%;display:flex;flex-direction:column;gap:24px;position:relative;z-index:2}
+.nnm-jy__text--half{margin-left:50%;width:50%;padding:60px 120px;box-sizing:border-box;min-height:344px;justify-content:center}
+.nnm-jy__t{font-size:40px;line-height:52px;font-weight:700;color:var(--ink)}
+.nnm-jy__b{font-size:24px;line-height:32px;font-weight:500;color:#000}
+.nnm-jy__media{position:relative;margin:0 40px;aspect-ratio:1200/675;border-radius:24px;overflow:hidden;background:#E6E3D7}
+.nnm-jy__media--1{margin-top:108px}
+.nnm-jy__media--2,.nnm-jy__media--3{margin-top:280px}
+.nnm-jy__ph{position:absolute;inset:0;min-height:0;height:auto;border:0;border-radius:0;justify-content:flex-start;align-items:flex-start;padding:16px 16px 16px 80px;font-size:13px}
+.nnm-jy__media--1 .nnm-jy__ph{background:#C27A3A;color:rgba(255,255,255,.8)}
+.nnm-jy__media--2 .nnm-jy__ph{background:#5C6A45;color:rgba(255,255,255,.8)}
+.nnm-jy .nnm-todo{align-self:flex-start}
+@media (max-width:991px){
+  .nnm-jy__text--half{padding:48px 40px}
+  .nnm-jy__t{font-size:32px;line-height:42px}
+  .nnm-jy__b{font-size:20px;line-height:28px}
 }
-.nnm-jr__glow{position:absolute;left:25%;top:50%;width:470px;height:470px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(152,155,135,.75) 0%,rgba(152,155,135,.35) 45%,rgba(152,155,135,0) 70%);pointer-events:none}
-.nnm-jr__scene--0 .nnm-jr__text{color:var(--ink)}
-.nnm-jr__scene--0 .nnm-jr__title{margin-top:0;font-size:32px;line-height:46px}
-.nnm-jr__scene--0 .nnm-jr__body{font-size:17px;line-height:28px;color:var(--ink)}
 @media (max-width:768px){
-  .nnm-jr__scene--0{padding:120px 0}
-  .nnm-jr__glow{left:0;width:300px;height:300px}
-  .nnm-jr__scene--0 .nnm-jr__text{margin-top:0}
-  .nnm-jr__scene--0 .nnm-jr__title{font-size:24px;line-height:34px}
-  .nnm-jr__scene--0 .nnm-jr__body{font-size:15px;line-height:25px}
+  .nnm-jy{margin-top:72px}
+  .nnm-jy__pin{width:auto;justify-content:flex-start}
+  .nnm-jy__bottle{width:96px;height:257px;transform:translateX(-50%);border-radius:14px;font-size:0}
+  .nnm-jy__intro{display:block;min-height:0;padding:96px 0}
+  .nnm-jy__glow{left:0;width:300px;height:300px}
+  .nnm-jy__text,.nnm-jy__text--half{width:auto;margin-left:0;min-height:0;padding:0 var(--pad) 0 72px;gap:12px}
+  .nnm-jy__text--half{padding-top:28px}
+  .nnm-jy__t{font-size:26px;line-height:36px}
+  .nnm-jy__b{font-size:16px;line-height:25px}
+  .nnm-jy__media{margin:0 var(--pad);aspect-ratio:1/1;border-radius:16px}
+  .nnm-jy__media--1{margin-top:24px}
+  .nnm-jy__media--2,.nnm-jy__media--3{margin-top:96px}
 }
 </style>
 
@@ -1166,57 +1162,38 @@
        향의 흐름(TOP 시원 → BASE 포근 → 잠드는 순간)을 그대로 따라, 화면도 낮에서 밤으로 어두워진다.
        "잠이 와요·숙면" 같은 효과 표현은 쓰지 않는다. 페이지의 속도·색·장면으로 느끼게 한다. -->
 
-  <!-- 잠드는 여정 (대표 결정 2026-11-20): 한 번 뿌리면, 손님이 잠드는 순간마다 향이 바뀌어 곁에 있는 구조.
-       라벨 = 손님의 순간, 큰 문장 = 그 순간 향의 상태. 노트 이름은 위 조향 설계에만 두고 여기선 쓰지 않는다.
-       여러 번 뿌리는 것처럼 읽히는 문장("베개에 한 번" 등)은 쓰지 않는다. 효과(잠이 와요) 표현 금지 -->
-  <p class="nnm-once nnm-fade">잠들기 전, 한 번이면 돼요.</p>
-  <!-- 잠드는 여정 묘사 (대표 방향 2026-11-20): PC는 2단 — 왼쪽 가운데 제품 누끼가 스크롤을 따라오고(sticky), 오른쪽 가운데 향 묘사.
-       영상은 무드 배경이라 병이 가려도 괜찮다. 배경색은 낮 → 밤으로 계속 어두워진다.
-       모바일: 영상 정사각, 병은 왼쪽 끝에 반만 보이게 고정, 글은 병에 안 잘리게 왼쪽 여백을 둔다. -->
-  <section class="nnm-jr" aria-label="잠드는 여정">
-    <div class="nnm-jr__pin" aria-hidden="true">
-      <div class="nnm-jr__bottle"><span>나잇나잇 에어<br>누끼 PNG</span></div>
-    </div>
-    <!-- 제품 소개 (대표 피그마 2026-11-20): 병이 처음 등장하는 장면. 여기서부터 병이 스크롤을 따라온다. 문구는 대표 원문 그대로 -->
-    <div class="nnm-jr__scene nnm-jr__scene--0">
-      <div class="nnm-jr__glow" aria-hidden="true"></div>
-      <div class="nnm-jr__text nnm-fade">
-        <div class="nnm-jr__title">새로운 굿나잇 리추얼<br>나잇나잇 에어</div>
-        <p class="nnm-jr__body">굿나잇은 좋은 피부를 만들어요.<br>당신을 위한 새로운 굿나잇 리추얼 ‘잠뿌’의 <br>향을 소개합니다.</p>
+  <!-- 잠드는 여정 묘사 — 대표 피그마 디자인 그대로 (2026-11-20).
+       1280 기준: 제품 소개 640×640(왼쪽 병 200×535 + 세이지 빛 470, 오른쪽 글) → 영상 1200×675(r24, 간격 108) → 오른쪽 반 글 640×344
+       → 영상(간격 280) → 영상(간격 280) → 오른쪽 반 글. 병은 왼쪽 칸 가운데에서 스크롤을 따라온다(영상 위를 지나가도 됨).
+       모바일: 영상 정사각, 병은 왼쪽 끝에 반만, 글은 병에 안 잘리게 들여 쓴다. 피그마 글 중 자리 표시용 문구는 [작성 예정]으로 둔다. -->
+  <section class="nnm-jy" aria-label="잠드는 여정">
+    <div class="nnm-jy__pin" aria-hidden="true"><div class="nnm-jy__bottle"><span>나잇나잇 에어<br>누끼 PNG</span></div></div>
+    <div class="nnm-jy__intro">
+      <div class="nnm-jy__glow" aria-hidden="true"></div>
+      <div class="nnm-jy__text">
+        <div class="nnm-jy__t">새로운 굿나잇 리추얼<br>나잇나잇 에어</div>
+        <p class="nnm-jy__b">굿나잇은 좋은 피부를 만들어요.<br>당신을 위한 새로운 굿나잇 리추얼 ‘잠뿌'의 향을 소개합니다.</p>
       </div>
     </div>
-    <div class="nnm-jr__scene nnm-jr__scene--1" id="nnm-ch1">
-      <div class="nnm-jr__media"><div class="nnm-ph nnm-jr__ph" style="background:#B8672A"><span class="nnm-ph__tag">영상</span>오렌지 껍질 매크로 (피그마 배경/영상)</div></div>
-      <div class="nnm-jr__text nnm-fade">
-        <p class="nnm-jr__step">하루를 내려놓을 때</p>
-        <div class="nnm-jr__title">처음엔,<br>시원하게.</div>
-        <p class="nnm-jr__body">비가 막 그친 숲의 공기처럼 <br>맑게 열려요.</p>
-      </div>
+    <div class="nnm-jy__media nnm-jy__media--1" id="nnm-ch1"><div class="nnm-ph nnm-jy__ph"><span class="nnm-ph__tag">영상</span>오렌지 껍질 (피그마 배경/영상)</div></div>
+    <div class="nnm-jy__text nnm-jy__text--half">
+      <div class="nnm-jy__t">상쾌하고 달콤한<br>시트러스와 라벤더</div>
+      <p class="nnm-jy__b nnm-todo">향 묘사 [작성 예정]</p>
     </div>
-    <div class="nnm-jr__scene nnm-jr__scene--2" id="nnm-ch2">
-      <div class="nnm-jr__media"><div class="nnm-ph nnm-jr__ph" style="background:#5F6B50"><span class="nnm-ph__tag">영상</span>젖은 허브 잎 (유칼립투스·바질·로즈마리)</div></div>
-      <div class="nnm-jr__text nnm-fade">
-        <p class="nnm-jr__step">휴대폰을 내려놓을 때</p>
-        <div class="nnm-jr__title">이어서,<br>맑고 부드럽게.</div>
-        <p class="nnm-jr__body">젖은 풀잎을 스친 듯한 허브 향 사이로 <br>하얀 꽃이 은은하게 번져요.</p>
-      </div>
-    </div>
-    <div class="nnm-jr__scene nnm-jr__scene--3">
-      <div class="nnm-jr__media">
-        <div class="nnd-vid nnd-vid--169" style="background-image:url(https://i.vimeocdn.com/video/2188812509-1b550ed5b23b9a65d229fa72eb0b4adaac64159461702038affa7a37d6c1a866-d_1280?region=us)">
+    <div class="nnm-jy__media nnm-jy__media--2" id="nnm-ch2"><div class="nnm-ph nnm-jy__ph"><span class="nnm-ph__tag">영상</span>이끼 (피그마 배경/영상)</div></div>
+    <div class="nnm-jy__media nnm-jy__media--3">
+      <div class="nnd-vid nnd-vid--169" style="background-image:url(https://i.vimeocdn.com/video/2188812509-1b550ed5b23b9a65d229fa72eb0b4adaac64159461702038affa7a37d6c1a866-d_1280?region=us)">
           <iframe data-src="https://player.vimeo.com/video/1217189884?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;dnt=1" title="비가 그친 숲" allow="autoplay; fullscreen; picture-in-picture"></iframe>
         </div>
-      </div>
-      <div class="nnm-jr__text nnm-fade">
-        <p class="nnm-jr__step">불을 끄고 눈을 감을 때</p>
-        <div class="nnm-jr__title">마지막엔,<br>포근하게.</div>
-        <p class="nnm-jr__body">젖은 흙과 나무, <br>그리고 이불 속 온기만 남아요.</p>
-      </div>
+    </div>
+    <div class="nnm-jy__text nnm-jy__text--half">
+      <div class="nnm-jy__t nnm-todo">제목 [작성 예정]</div>
+      <p class="nnm-jy__b nnm-todo">향 묘사 [작성 예정]</p>
     </div>
   </section>
 
   <!-- ⑤ 마지막엔, 포근하게 — 짙은 밤색. 램프를 끄면 문장이 또렷해진다 -->
-  <section class="nnm-tone nnm-tone--night nnm-tone--after-jr" id="nnm-ch3">
+  <section class="nnm-tone nnm-tone--night" id="nnm-ch3">
     <!-- 램프 무대 (대표 아이디어 2026-11-18): 노을 구간에 제품 누끼와 램프를 세우고, 손님이 램프를 눌러 불을 끄면
          화면이 밤으로 가라앉으며 "불을 끄면, 숲의 향만 남아요."가 또렷해진다. 램프·제품은 PNG로 교체할 자리. -->
     <div class="nnm-lamp-stage" data-lamp="on">
