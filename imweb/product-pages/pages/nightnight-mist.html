@@ -902,12 +902,12 @@
 .nnm-jy__intro{position:relative;display:grid;grid-template-columns:1fr 1fr;min-height:640px;align-items:center}
 .nnm-jy__glow{position:absolute;left:25%;top:50%;width:470px;height:470px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#989B87 0%,rgba(152,155,135,0) 70.7%);pointer-events:none}
 .nnm-jy__text{grid-column:2;justify-self:center;width:400px;max-width:100%;display:flex;flex-direction:column;gap:24px;position:relative;z-index:2}
-.nnm-jy__text--half{margin-left:50%;width:50%;padding:60px 120px;box-sizing:border-box;min-height:344px;justify-content:center}
+.nnm-jy__text--half{margin-left:50%;width:50%;padding:60px 120px;box-sizing:border-box;justify-content:center}
 .nnm-jy__t{font-size:40px;line-height:52px;font-weight:700;color:var(--ink)}
 .nnm-jy__b{font-size:24px;line-height:32px;font-weight:500;color:#000}
 .nnm-jy__media{position:relative;margin:0 40px;aspect-ratio:1200/675;border-radius:24px;overflow:hidden;background:#E6E3D7}
 .nnm-jy__media--1{margin-top:108px}
-.nnm-jy__media--2,.nnm-jy__media--3{margin-top:280px}
+.nnm-jy__media--2,.nnm-jy__media--3{margin-top:140px}
 .nnm-jy__ph{position:absolute;inset:0;min-height:0;height:auto;border:0;border-radius:0;justify-content:flex-start;align-items:flex-start;padding:16px 16px 16px 80px;font-size:13px}
 .nnm-jy__media--1 .nnm-jy__ph{background:#C27A3A;color:rgba(255,255,255,.8)}
 .nnm-jy__media--2 .nnm-jy__ph{background:#5C6A45;color:rgba(255,255,255,.8)}
@@ -919,18 +919,18 @@
 }
 @media (max-width:768px){
   .nnm-jy{margin-top:72px}
-  .nnm-jy__pin{width:auto;justify-content:flex-start;top:calc(50vh - 128.5px);height:257px;margin-top:var(--jy-m,120px);margin-bottom:51.5px}
-  .nnm-jy__bottle{width:96px;height:257px;transform:translateX(-50%)}
-  .nnm-jy__intro{display:flex;align-items:center;min-height:360px;padding:0}
-  .nnm-jy{--jy-m:51.5px}
+  .nnm-jy__pin{width:auto;justify-content:flex-start;top:calc(50vh - 192.5px);height:385px;margin-top:var(--jy-m,120px);margin-bottom:27.5px}
+  .nnm-jy__bottle{width:144px;height:385px;transform:translateX(-50%)}
+  .nnm-jy__intro{display:flex;align-items:center;min-height:440px;padding:0}
+  .nnm-jy{--jy-m:27.5px}
   .nnm-jy__glow{left:0;width:300px;height:300px}
-  .nnm-jy__text,.nnm-jy__text--half{width:auto;margin-left:0;min-height:0;padding:0 var(--pad) 0 72px;gap:12px}
+  .nnm-jy__text,.nnm-jy__text--half{width:auto;margin-left:0;min-height:0;padding:0 var(--pad) 0 88px;gap:12px}
   .nnm-jy__text--half{padding-top:28px}
   .nnm-jy__t{font-size:26px;line-height:36px}
   .nnm-jy__b{font-size:16px;line-height:25px}
   .nnm-jy__media{margin:0 var(--pad);aspect-ratio:1/1;border-radius:16px}
   .nnm-jy__media--1{margin-top:24px}
-  .nnm-jy__media--2,.nnm-jy__media--3{margin-top:96px}
+  .nnm-jy__media--2,.nnm-jy__media--3{margin-top:56px}
 }
 /* ---------- 노을 배경 · 병 조명 · 램프 도착 (2026-11-20) ---------- */
 .nnm-jy__shot{position:absolute;inset:0;border-radius:24px;border:2px dashed rgba(42,42,41,.35);display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;line-height:18px;opacity:0;transition:opacity .25s linear}
@@ -955,10 +955,10 @@
 @media (prefers-reduced-motion:reduce){.nnm-jy *{transition:none!important}}
 @media (max-width:768px){
   .nnm-jy__shot{border-radius:14px;font-size:0}
-  .nnm-jy__land{display:block;min-height:360px;margin-top:96px}
+  .nnm-jy__land{display:block;min-height:440px;margin-top:96px}
   .nnm-jy__lampglow{left:50%;width:420px;height:420px}
   .nnm-jy__lamp{left:auto;right:var(--pad);bottom:40px;width:110px;height:180px}
-  .nnm-jy__end{position:absolute;left:72px;top:40px;padding:0}
+  .nnm-jy__end{position:absolute;left:88px;top:40px;padding:0}
 }
 .nnm-jy__shot.has-img{border:0;background:none;border-radius:0}
 .nnm-jy__shot[data-light="dusk"].is-temp img{filter:sepia(.55) saturate(1.6) hue-rotate(-12deg) brightness(.95)}
@@ -1225,18 +1225,22 @@
     </div>
     <div class="nnm-jy__media nnm-jy__media--1" id="nnm-ch1"><div class="nnm-ph nnm-jy__ph"><span class="nnm-ph__tag">영상</span>오렌지 껍질 (피그마 배경/영상)</div></div>
     <div class="nnm-jy__text nnm-jy__text--half">
-      <div class="nnm-jy__t">상쾌하고 달콤한<br>시트러스와 라벤더</div>
-      <p class="nnm-jy__b nnm-todo">향 묘사 [작성 예정]</p>
+      <div class="nnm-jy__t">갓 벗긴 시트러스,<br>차가운 라벤더.</div>
+      <p class="nnm-jy__b">뿌리는 순간 오렌지와 자몽 껍질이 톡 터지고, 서늘한 라벤더가 맑게 따라와요.</p>
     </div>
     <div class="nnm-jy__media nnm-jy__media--2" id="nnm-ch2"><div class="nnm-ph nnm-jy__ph"><span class="nnm-ph__tag">영상</span>이끼 (피그마 배경/영상)</div></div>
+    <div class="nnm-jy__text nnm-jy__text--half">
+      <div class="nnm-jy__t">비에 젖은<br>허브 정원.</div>
+      <p class="nnm-jy__b">유칼립투스와 바질, 로즈마리가 숲 공기처럼 번지고 하얀 꽃이 살짝 스쳐요.</p>
+    </div>
     <div class="nnm-jy__media nnm-jy__media--3">
       <div class="nnd-vid nnd-vid--169" style="background-image:url(https://i.vimeocdn.com/video/2188812509-1b550ed5b23b9a65d229fa72eb0b4adaac64159461702038affa7a37d6c1a866-d_1280?region=us)">
           <iframe data-src="https://player.vimeo.com/video/1217189884?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;dnt=1" title="비가 그친 숲" allow="autoplay; fullscreen; picture-in-picture"></iframe>
         </div>
     </div>
     <div class="nnm-jy__text nnm-jy__text--half nnm-jy__text--light">
-      <div class="nnm-jy__t nnm-todo">제목 [작성 예정]</div>
-      <p class="nnm-jy__b nnm-todo">향 묘사 [작성 예정]</p>
+      <div class="nnm-jy__t">젖은 흙과 나무,<br>이불 속 온기.</div>
+      <p class="nnm-jy__b">시더우드와 베티버가 비 온 뒤 숲 바닥처럼 깔리고, 머스크가 살결 가까이 포근하게 남아요.</p>
     </div>
       <!-- 도착: 병이 이 줄 왼쪽 가운데에 내려앉으면 불이 꺼진다(자동). 램프를 눌러 다시 켜고 끌 수도 있다 -->
       <div class="nnm-jy__land" id="nnm-ch3">
@@ -1581,6 +1585,7 @@
     var shots = {};
     [].forEach.call(jy.querySelectorAll('.nnm-jy__shot'), function (el) { shots[el.getAttribute('data-light')] = el; });
     var land = jy.querySelector('.nnm-jy__land');
+    var intro = jy.querySelector('.nnm-jy__intro');
     var jlamp = jy.querySelector('.nnm-jy__lamp');
     var manual = null;  // 손님이 램프를 눌렀으면 그 상태를 존중
     var landed = false;
@@ -1591,9 +1596,9 @@
       if (shots.off) shots.off.style.opacity = off ? '1' : '0';
     };
     var tick = function () {
-      var r = jy.getBoundingClientRect(), lr = land.getBoundingClientRect();
+      var ir = intro.getBoundingClientRect(), lr = land.getBoundingClientRect();
       var mid = window.innerHeight / 2;
-      var start = r.top + 320, end = lr.top + lr.height / 2;          // 소개 장면 가운데 → 램프 줄 가운데
+      var start = ir.top + ir.height / 2, end = lr.top + lr.height / 2;          // 소개 장면 가운데 → 램프 줄 가운데
       var t = Math.max(0, Math.min(1, (mid - start) / Math.max(1, end - start)));
       var w = function (c, half) { return Math.max(0, 1 - Math.abs(t - c) / half); };
       if (shots.day) shots.day.style.opacity = t <= 0 ? 1 : w(0, .45);
