@@ -953,7 +953,6 @@
 .nnm-jy[data-lamp="off"] .nnm-jy__dark{opacity:1}
 .nnm-jy__end{grid-column:2;opacity:.2;transition:opacity 1.8s ease .4s}
 .nnm-jy[data-lamp="off"] .nnm-jy__end{opacity:1}
-.nnm-tone--after-jy{margin-top:0!important;padding-top:80px!important;background:#10121B!important}
 @media (prefers-reduced-motion:reduce){.nnm-jy *{transition:none!important}}
 @media (max-width:768px){
   .nnm-jy__shot{border-radius:14px;font-size:0}
@@ -963,6 +962,33 @@
   .nnm-jy__end{position:absolute;left:88px;top:40px;padding:0}
 }
 .nnm-jy__shot.has-img{border:0;background:none;border-radius:0}
+/* ---------- 후기 띠 (피그마 2026-11-20) ---------- */
+.nnm-rv{position:relative;box-sizing:border-box;min-height:2060px;padding:308px 0 80px;background:linear-gradient(180deg,#10121B 0%,#F3F3E9 100%)}
+.nnm-rv__note{position:absolute;top:240px;left:40px;margin:0}
+.nnm-rv__band{overflow:hidden}
+.nnm-rv__track{display:flex;width:max-content;animation:nnm-rv 56s linear infinite}
+.nnm-rv__band:hover .nnm-rv__track{animation-play-state:paused}
+.nnm-rv__set{display:flex;align-items:flex-start;gap:20px;margin:0;padding:0 20px 0 0;list-style:none}
+.nnm-rv__card{flex:0 0 419px;box-sizing:border-box;padding:36px;border-radius:12px;background:#F3F3E9;display:flex;flex-direction:column;gap:60px}
+.nnm-rv__who{display:flex;align-items:center;gap:12px}
+.nnm-rv__av{width:60px;height:60px;border-radius:50%;flex:none}
+.nnm-rv__who>span{display:flex;flex-direction:column;gap:12px}
+.nnm-rv__name{font-size:18px;line-height:18px;font-weight:700;color:#2A2A29}
+.nnm-rv__meta{font-size:18px;line-height:18px;font-weight:400;color:#6A6A6A}
+.nnm-rv__txt{margin:0;font-size:21px;line-height:32px;font-weight:500;color:#2A2A29}
+@keyframes nnm-rv{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.nnm-rv__track{animation:none}.nnm-rv__band{overflow-x:auto}}
+@media (max-width:768px){
+  .nnm-rv{min-height:1200px;padding:200px 0 60px}
+  .nnm-rv__note{top:150px;left:var(--pad)}
+  .nnm-rv__track{animation-duration:44s}
+  .nnm-rv__set{gap:12px;padding-right:12px}
+  .nnm-rv__card{flex-basis:300px;padding:24px;gap:32px}
+  .nnm-rv__av{width:48px;height:48px}
+  .nnm-rv__who>span{gap:8px}
+  .nnm-rv__name,.nnm-rv__meta{font-size:15px;line-height:15px}
+  .nnm-rv__txt{font-size:16px;line-height:25px}
+}
 </style>
 
 <div id="nnd-fbar" aria-hidden="true">
@@ -1257,10 +1283,58 @@
   </section>
 
   <!-- ⑤ 마지막엔, 포근하게 — 짙은 밤색. 램프를 끄면 문장이 또렷해진다 -->
-  <section class="nnm-tone nnm-tone--night nnm-tone--after-jy">
-    <!-- 램프 무대 (대표 아이디어 2026-11-18): 노을 구간에 제품 누끼와 램프를 세우고, 손님이 램프를 눌러 불을 끄면
-         화면이 밤으로 가라앉으며 "불을 끄면, 숲의 향만 남아요."가 또렷해진다. 램프·제품은 PNG로 교체할 자리. -->
-    <p class="nnm-night__quote nnm-fade">「 실제 후기 한 줄 자리 」 <span class="nnm-todo">출시 후 후기에서 고르기</span></p>
+  <!-- 후기 띠 (피그마 2026-11-20): 카드가 오른쪽에서 왼쪽으로 계속 흐른다. 같은 묶음을 두 번 넣어(두 번째는 스크린리더에서 숨김) 끊김 없이 돈다.
+       ※ 지금 5개는 더미. 출시 전에 지인 실제 후기로 바꾸고, 제품을 받고 쓴 후기면 그 사실을 표시한다(추천·보증 심사지침). -->
+  <section class="nnm-rv" aria-label="후기">
+    <p class="nnm-rv__note"><span class="nnm-todo">더미 후기 5개 · 출시 전 실제 후기로 교체, 제품 제공 후기면 표시</span></p>
+    <div class="nnm-rv__band">
+      <div class="nnm-rv__track">
+      <ul class="nnm-rv__set">
+        <li class="nnm-rv__card">
+          <div class="nnm-rv__who"><img class="nnm-rv__av" src="/imweb/product-pages/assets/air/review-1.png" alt="" width="60" height="60"><span><b class="nnm-rv__name">김아름</b><span class="nnm-rv__meta">40대 ・ 은행</span></span></div>
+          <p class="nnm-rv__txt">아침에 일어나도 이불에서 나무 향이 살짝 남아 있어요. 진하지 않아서 매일 써도 질리지 않아요.</p>
+        </li>
+        <li class="nnm-rv__card">
+          <div class="nnm-rv__who"><img class="nnm-rv__av" src="/imweb/product-pages/assets/air/review-2.png" alt="" width="60" height="60"><span><b class="nnm-rv__name">박하연</b><span class="nnm-rv__meta">30대 ・ 자영업</span></span></div>
+          <p class="nnm-rv__txt">자기 전에 베개에 슉슉 뿌리고 누우면 숲속에 누운 것처럼 은은하게 좋아요!</p>
+        </li>
+        <li class="nnm-rv__card">
+          <div class="nnm-rv__who"><img class="nnm-rv__av" src="/imweb/product-pages/assets/air/review-3.png" alt="" width="60" height="60"><span><b class="nnm-rv__name">이진</b><span class="nnm-rv__meta">30대 ・ 디자이너</span></span></div>
+          <p class="nnm-rv__txt">처음 뿌렸을 때 오렌지 껍질 같은 상큼함이 확 와서 놀랐어요. 조금 지나면 허브향으로 차분해져요.</p>
+        </li>
+        <li class="nnm-rv__card">
+          <div class="nnm-rv__who"><img class="nnm-rv__av" src="/imweb/product-pages/assets/air/review-4.png" alt="" width="60" height="60"><span><b class="nnm-rv__name">정성희</b><span class="nnm-rv__meta">30대 ・ 주부</span></span></div>
+          <p class="nnm-rv__txt">향 예민한 남편도 이건 괜찮대요. 이제 제가 안 뿌리면 먼저 찾아요 ㅎㅎ</p>
+        </li>
+        <li class="nnm-rv__card">
+          <div class="nnm-rv__who"><img class="nnm-rv__av" src="/imweb/product-pages/assets/air/review-5.png" alt="" width="60" height="60"><span><b class="nnm-rv__name">최인호</b><span class="nnm-rv__meta">30대 ・ 회사원</span></span></div>
+          <p class="nnm-rv__txt">향 나는 제품 잘 못 쓰는데 이건 괜찮아요. 처음엔 시원하게 올라오고, 불 끌 때쯤엔 나무 향이 차분하게 남아요. 세지 않아서 매일 베개에 뿌리게 돼요.</p>
+        </li>
+      </ul>
+      <ul class="nnm-rv__set" aria-hidden="true">
+        <li class="nnm-rv__card">
+          <div class="nnm-rv__who"><img class="nnm-rv__av" src="/imweb/product-pages/assets/air/review-1.png" alt="" width="60" height="60"><span><b class="nnm-rv__name">김아름</b><span class="nnm-rv__meta">40대 ・ 은행</span></span></div>
+          <p class="nnm-rv__txt">아침에 일어나도 이불에서 나무 향이 살짝 남아 있어요. 진하지 않아서 매일 써도 질리지 않아요.</p>
+        </li>
+        <li class="nnm-rv__card">
+          <div class="nnm-rv__who"><img class="nnm-rv__av" src="/imweb/product-pages/assets/air/review-2.png" alt="" width="60" height="60"><span><b class="nnm-rv__name">박하연</b><span class="nnm-rv__meta">30대 ・ 자영업</span></span></div>
+          <p class="nnm-rv__txt">자기 전에 베개에 슉슉 뿌리고 누우면 숲속에 누운 것처럼 은은하게 좋아요!</p>
+        </li>
+        <li class="nnm-rv__card">
+          <div class="nnm-rv__who"><img class="nnm-rv__av" src="/imweb/product-pages/assets/air/review-3.png" alt="" width="60" height="60"><span><b class="nnm-rv__name">이진</b><span class="nnm-rv__meta">30대 ・ 디자이너</span></span></div>
+          <p class="nnm-rv__txt">처음 뿌렸을 때 오렌지 껍질 같은 상큼함이 확 와서 놀랐어요. 조금 지나면 허브향으로 차분해져요.</p>
+        </li>
+        <li class="nnm-rv__card">
+          <div class="nnm-rv__who"><img class="nnm-rv__av" src="/imweb/product-pages/assets/air/review-4.png" alt="" width="60" height="60"><span><b class="nnm-rv__name">정성희</b><span class="nnm-rv__meta">30대 ・ 주부</span></span></div>
+          <p class="nnm-rv__txt">향 예민한 남편도 이건 괜찮대요. 이제 제가 안 뿌리면 먼저 찾아요 ㅎㅎ</p>
+        </li>
+        <li class="nnm-rv__card">
+          <div class="nnm-rv__who"><img class="nnm-rv__av" src="/imweb/product-pages/assets/air/review-5.png" alt="" width="60" height="60"><span><b class="nnm-rv__name">최인호</b><span class="nnm-rv__meta">30대 ・ 회사원</span></span></div>
+          <p class="nnm-rv__txt">향 나는 제품 잘 못 쓰는데 이건 괜찮아요. 처음엔 시원하게 올라오고, 불 끌 때쯤엔 나무 향이 차분하게 남아요. 세지 않아서 매일 베개에 뿌리게 돼요.</p>
+        </li>
+      </ul>
+      </div>
+    </div>
   </section>
 
   <!-- ⑥ 몸에 한 번, 베개에 한 번 — 밤 화면 그대로. "몸에도"는 두 신고 번호가 나온 뒤 공개 -->
