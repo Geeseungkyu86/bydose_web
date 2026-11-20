@@ -893,6 +893,35 @@
 .nnm-once{margin:120px auto 0!important;padding:0 var(--pad);text-align:center;font-size:24px;line-height:36px;font-weight:600;color:var(--ink)}
 .nnm-night__end{margin-top:40px!important;font-size:15px;line-height:24px;letter-spacing:.02em;color:rgba(233,230,221,.6)}
 @media (max-width:768px){.nnm-once{margin-top:72px!important;font-size:19px;line-height:30px}.nnm-night__end{margin-top:28px!important;font-size:13px}}
+/* ---------- 잠드는 여정: 2단 + 따라오는 병 (2026-11-20) ---------- */
+.nnm-once + .nnm-jr{margin-top:80px}
+.nnm-jr{position:relative;background:linear-gradient(180deg,var(--bg) 0%,#DCE4E6 14%,#E3E3DC 34%,#E9D9C3 52%,#BCA2A6 68%,#6E6D88 78%,#32364C 88%,#1A1C24 100%)}
+.nnm-jr__pin{position:sticky;top:0;z-index:3;width:50%;height:100vh;margin-bottom:-100vh;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.nnm-jr__bottle{width:180px;aspect-ratio:200/535;border-radius:22px;border:2px dashed rgba(42,42,41,.35);background:rgba(243,243,233,.55);display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;line-height:19px;color:rgba(42,42,41,.7);box-shadow:0 30px 60px rgba(0,0,0,.18)}
+.nnm-jr__scene{position:relative;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center}
+.nnm-jr__media{position:absolute;left:40px;right:40px;top:50%;transform:translateY(-50%);aspect-ratio:16/9;border-radius:12px;overflow:hidden}
+.nnm-jr__media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.5) 100%);pointer-events:none}
+.nnm-jr__ph{position:absolute;inset:0;min-height:0;height:auto;border:0;justify-content:flex-start;align-items:flex-start;padding:16px 16px 16px 80px;font-size:13px;color:rgba(255,255,255,.75)}
+.nnm-jr__text{grid-column:2;position:relative;z-index:2;justify-self:center;max-width:360px;color:#F6F3EA}
+.nnm-jr__step{font-size:15px;line-height:22px;color:rgba(246,243,234,.75)}
+.nnm-jr__title{margin-top:12px;font-size:44px;line-height:58px;font-weight:700;letter-spacing:-.02em}
+.nnm-jr__body{margin-top:20px!important;font-size:18px;line-height:30px;color:rgba(246,243,234,.9)}
+.nnm-tone--after-jr{margin-top:0!important;padding-top:120px!important;background:#1A1C24!important}
+@media (max-width:768px){
+  .nnm-once + .nnm-jr{margin-top:48px}
+  .nnm-jr__pin{width:auto;justify-content:flex-start}
+  .nnm-jr__bottle{width:96px;transform:translateX(-50%);border-radius:14px;font-size:0}
+  .nnm-jr__scene{display:block;min-height:0;padding:48px 0}
+  .nnm-jr__media{position:relative;left:auto;right:auto;top:auto;transform:none;margin:0 var(--pad);aspect-ratio:1/1}
+  .nnm-jr__media::after{display:none}
+  .nnm-jr__text{max-width:none;margin-top:24px;padding:0 var(--pad) 0 72px;color:var(--ink)}
+  .nnm-jr__step{font-size:13px;color:rgba(42,42,41,.65)}
+  .nnm-jr__title{margin-top:8px;font-size:28px;line-height:38px}
+  .nnm-jr__body{margin-top:12px!important;font-size:15px;line-height:25px;color:var(--ink)}
+  .nnm-jr__scene--3 .nnm-jr__text,.nnm-jr__scene--3 .nnm-jr__body{color:#F6F3EA}
+  .nnm-jr__scene--3 .nnm-jr__step{color:rgba(246,243,234,.7)}
+  .nnm-tone--after-jr{padding-top:72px!important}
+}
 </style>
 
 <div id="nnd-fbar" aria-hidden="true">
@@ -1130,37 +1159,45 @@
        라벨 = 손님의 순간, 큰 문장 = 그 순간 향의 상태. 노트 이름은 위 조향 설계에만 두고 여기선 쓰지 않는다.
        여러 번 뿌리는 것처럼 읽히는 문장("베개에 한 번" 등)은 쓰지 않는다. 효과(잠이 와요) 표현 금지 -->
   <p class="nnm-once nnm-fade">잠들기 전, 한 번이면 돼요.</p>
-  <!-- ③ 처음엔, 시원하게 — 차가운 회청색 -->
-  <section class="nnm-tone nnm-tone--cool" id="nnm-ch1">
-    <div class="nnm-arc">
-      <div class="nnm-arc__media">
+  <!-- 잠드는 여정 묘사 (대표 방향 2026-11-20): PC는 2단 — 왼쪽 가운데 제품 누끼가 스크롤을 따라오고(sticky), 오른쪽 가운데 향 묘사.
+       영상은 무드 배경이라 병이 가려도 괜찮다. 배경색은 낮 → 밤으로 계속 어두워진다.
+       모바일: 영상 정사각, 병은 왼쪽 끝에 반만 보이게 고정, 글은 병에 안 잘리게 왼쪽 여백을 둔다. -->
+  <section class="nnm-jr" aria-label="잠드는 여정">
+    <div class="nnm-jr__pin" aria-hidden="true">
+      <div class="nnm-jr__bottle"><span>나잇나잇 에어<br>누끼 PNG</span></div>
+    </div>
+    <div class="nnm-jr__scene nnm-jr__scene--1" id="nnm-ch1">
+      <div class="nnm-jr__media"><div class="nnm-ph nnm-jr__ph" style="background:#B8672A"><span class="nnm-ph__tag">영상</span>오렌지 껍질 매크로 (피그마 배경/영상)</div></div>
+      <div class="nnm-jr__text nnm-fade">
+        <p class="nnm-jr__step">하루를 내려놓을 때</p>
+        <div class="nnm-jr__title">처음엔,<br>시원하게.</div>
+        <p class="nnm-jr__body">비가 막 그친 숲의 공기처럼 <br>맑게 열려요.</p>
+      </div>
+    </div>
+    <div class="nnm-jr__scene nnm-jr__scene--2" id="nnm-ch2">
+      <div class="nnm-jr__media"><div class="nnm-ph nnm-jr__ph" style="background:#5F6B50"><span class="nnm-ph__tag">영상</span>젖은 허브 잎 (유칼립투스·바질·로즈마리)</div></div>
+      <div class="nnm-jr__text nnm-fade">
+        <p class="nnm-jr__step">휴대폰을 내려놓을 때</p>
+        <div class="nnm-jr__title">이어서,<br>맑고 부드럽게.</div>
+        <p class="nnm-jr__body">젖은 풀잎을 스친 듯한 허브 향 사이로 <br>하얀 꽃이 은은하게 번져요.</p>
+      </div>
+    </div>
+    <div class="nnm-jr__scene nnm-jr__scene--3">
+      <div class="nnm-jr__media">
         <div class="nnd-vid nnd-vid--169" style="background-image:url(https://i.vimeocdn.com/video/2188812509-1b550ed5b23b9a65d229fa72eb0b4adaac64159461702038affa7a37d6c1a866-d_1280?region=us)">
           <iframe data-src="https://player.vimeo.com/video/1217189884?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;dnt=1" title="비가 그친 숲" allow="autoplay; fullscreen; picture-in-picture"></iframe>
         </div>
-        <span class="nnm-arc__swap">교체 후보: 빗방울 맺힌 풀잎, 차가운 아침빛 (지금은 크림 영상)</span>
       </div>
-      <div class="nnm-arc__text nnm-fade">
-        <p class="nnm-arc__step">하루를 내려놓을 때</p>
-        <div class="nnm-arc__title">처음엔,<br>시원하게.</div>
-        <p class="nnm-arc__body">비가 막 그친 숲의 공기처럼 <br>맑게 열려요.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ④ 이어서, 맑고 부드럽게 — 따뜻한 살구빛 -->
-  <section class="nnm-tone nnm-tone--warm" id="nnm-ch2">
-    <div class="nnm-arc nnm-arc--rev">
-      <div class="nnm-arc__media"><div class="nnm-ph nnm-ph--tall"><span class="nnm-ph__tag">이어서</span>이불 위에 휴대폰을 내려놓는 손, 낮은 스탠드 불빛<br><small>따뜻한 노란빛, 천의 결이 보이게</small></div></div>
-      <div class="nnm-arc__text nnm-fade">
-        <p class="nnm-arc__step">휴대폰을 내려놓을 때</p>
-        <div class="nnm-arc__title">이어서,<br>맑고 부드럽게.</div>
-        <p class="nnm-arc__body">젖은 풀잎을 스친 듯한 허브 향 사이로 <br>하얀 꽃이 은은하게 번져요.</p>
+      <div class="nnm-jr__text nnm-fade">
+        <p class="nnm-jr__step">불을 끄고 눈을 감을 때</p>
+        <div class="nnm-jr__title">마지막엔,<br>포근하게.</div>
+        <p class="nnm-jr__body">젖은 흙과 나무, <br>그리고 이불 속 온기만 남아요.</p>
       </div>
     </div>
   </section>
 
   <!-- ⑤ 마지막엔, 포근하게 — 짙은 밤색. 램프를 끄면 문장이 또렷해진다 -->
-  <section class="nnm-tone nnm-tone--night" id="nnm-ch3">
+  <section class="nnm-tone nnm-tone--night nnm-tone--after-jr" id="nnm-ch3">
     <!-- 램프 무대 (대표 아이디어 2026-11-18): 노을 구간에 제품 누끼와 램프를 세우고, 손님이 램프를 눌러 불을 끄면
          화면이 밤으로 가라앉으며 "불을 끄면, 숲의 향만 남아요."가 또렷해진다. 램프·제품은 PNG로 교체할 자리. -->
     <div class="nnm-lamp-stage" data-lamp="on">
@@ -1182,10 +1219,7 @@
     </div>
 
     <div class="nnm-night">
-      <p class="nnm-arc__step">불을 끄고 눈을 감을 때</p>
-      <div class="nnm-night__title">마지막엔,<br>포근하게.</div>
-      <p class="nnm-night__body">젖은 흙과 나무, <br>그리고 이불 속 온기만 남아요.</p>
-      <p class="nnm-night__end">오늘 밤은 여기까지.</p>
+      <div class="nnm-night__title">오늘 밤은 여기까지.</div>
     </div>
     <p class="nnm-night__quote nnm-fade">「 실제 후기 한 줄 자리 」 <span class="nnm-todo">출시 후 후기에서 고르기</span></p>
   </section>
