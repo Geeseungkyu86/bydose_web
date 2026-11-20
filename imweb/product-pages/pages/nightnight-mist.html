@@ -961,9 +961,6 @@
   .nnm-jy__end{position:absolute;left:88px;top:40px;padding:0}
 }
 .nnm-jy__shot.has-img{border:0;background:none;border-radius:0}
-.nnm-jy__shot[data-light="dusk"].is-temp img{filter:sepia(.55) saturate(1.6) hue-rotate(-12deg) brightness(.95)}
-.nnm-jy__shot[data-light="night"].is-temp img{filter:brightness(.62) saturate(.7) hue-rotate(190deg) sepia(.15)}
-.nnm-jy__shot[data-light="off"].is-temp img{filter:brightness(.28) saturate(.4)}
 </style>
 
 <div id="nnd-fbar" aria-hidden="true">
@@ -1207,11 +1204,11 @@
     <div class="nnm-jy__track" aria-hidden="true">
       <div class="nnm-jy__pin">
         <div class="nnm-jy__bottle">
-          <!-- 대표 제공 병 PNG(2026-11-20, 낮 조명). 노을·밤·꺼짐은 대표가 만들 PNG가 오기 전까지 같은 그림에 임시 필터(.is-temp) -->
-          <div class="nnm-jy__shot has-img" data-light="day"><img src="/imweb/product-pages/assets/air/bottle-day.png" alt="나잇나잇 에어" width="392" height="1049"></div>
-          <div class="nnm-jy__shot has-img is-temp" data-light="dusk"><img src="/imweb/product-pages/assets/air/bottle-day.png" alt="" width="392" height="1049"></div>
-          <div class="nnm-jy__shot has-img is-temp" data-light="night"><img src="/imweb/product-pages/assets/air/bottle-day.png" alt="" width="392" height="1049"></div>
-          <div class="nnm-jy__shot has-img is-temp" data-light="off"><img src="/imweb/product-pages/assets/air/bottle-day.png" alt="" width="392" height="1049"></div>
+          <!-- 대표 제공 병 렌더 4장(2026-11-20): 낮·노을·밤(램프)·꺼짐. 같은 자리에 겹쳐 스크롤에 따라 섞는다 -->
+          <div class="nnm-jy__shot has-img" data-light="day"><img src="/imweb/product-pages/assets/air/bottle-day.png" alt="나잇나잇 에어" width="400" height="1070"></div>
+          <div class="nnm-jy__shot has-img" data-light="dusk"><img src="/imweb/product-pages/assets/air/bottle-dusk.png" alt="" width="400" height="1070"></div>
+          <div class="nnm-jy__shot has-img" data-light="night"><img src="/imweb/product-pages/assets/air/bottle-night.png" alt="" width="400" height="1070"></div>
+          <div class="nnm-jy__shot has-img" data-light="off"><img src="/imweb/product-pages/assets/air/bottle-off.png" alt="" width="400" height="1070"></div>
         </div>
       </div>
     </div>
@@ -1600,10 +1597,11 @@
       var mid = window.innerHeight / 2;
       var start = ir.top + ir.height / 2, end = lr.top + lr.height / 2;          // 소개 장면 가운데 → 램프 줄 가운데
       var t = Math.max(0, Math.min(1, (mid - start) / Math.max(1, end - start)));
-      var w = function (c, half) { return Math.max(0, 1 - Math.abs(t - c) / half); };
-      if (shots.day) shots.day.style.opacity = t <= 0 ? 1 : w(0, .45);
-      if (shots.dusk) shots.dusk.style.opacity = w(.5, .45);
-      if (shots.night) shots.night.style.opacity = t >= 1 ? 1 : w(1, .45);
+      // 아래 장은 늘 불투명하게 두고 다음 장을 그 위에 덮는다(두 장이 반씩 투명해져 배경이 비치는 것 방지)
+      var ramp = function (a, z) { return Math.max(0, Math.min(1, (t - a) / (z - a))); };
+      if (shots.day) shots.day.style.opacity = 1;
+      if (shots.dusk) shots.dusk.style.opacity = ramp(.05, .5);
+      if (shots.night) shots.night.style.opacity = ramp(.55, 1);
       var nowLanded = end <= mid + 2;
       if (nowLanded !== landed) { landed = nowLanded; manual = null; setLamp(landed); }
     };
